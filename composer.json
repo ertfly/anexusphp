@@ -1,0 +1,11 @@
+{
+    "name": "anexusdevteam/anexusphp",
+    "description": "Conjunto de classes e funções pertencentes ao Core das aplições Anexus",
+    "autoload": {
+        "psr-4": {
+            "AnexusPHP\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
