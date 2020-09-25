@@ -67,11 +67,11 @@ class LocalPaisEntidade extends DatabaseEntity
         );
     }
 
-    /**
-     * @return PessoaCampoEntidade
-     */
-    public function getPessoaCamppo()
-    {
-        return PessoaCampoRepositorio::porId($this->pessoa_campo_id);
-    }
+    // /**
+    //  * @return PessoaCampoEntidade
+    //  */
+    // public function getPessoaCamppo()
+    // {
+    //     return PessoaCampoRepositorio::porId($this->pessoa_campo_id);
+    // }
 }

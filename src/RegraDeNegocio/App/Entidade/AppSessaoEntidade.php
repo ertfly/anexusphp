@@ -127,77 +127,77 @@ class AppSessaoEntidade extends DatabaseEntity
         return $this->app;
     }
 
-    /**
-     * @var PessoaEntidade
-     */
-    private $pessoa;
+    // /**
+    //  * @var PessoaEntidade
+    //  */
+    // private $pessoa;
 
-    /**
-     * @return  PessoaEntidade
-     */
-    public function getPessoa($admin = false)
-    {
-        if ($admin) {
-            if (!is_null(request()->sid->getPessoaId()) && request()->sid->getPessoaId() == '0' && request()->sid->getAppId() == 2) {
-                $this->pessoa = (new PessoaEntidade)
-                    ->setId(0)
-                    ->setNome('Anexus')
-                    ->setSobrenome('Network')
-                    ->setFoto('anexus.png');
-            }
-        }
-        if (!$this->pessoa) {
-            $this->pessoa = PessoaRepositorio::porId($this->pessoa_id);
-        }
-        return $this->pessoa;
-    }
+    // /**
+    //  * @return  PessoaEntidade
+    //  */
+    // public function getPessoa($admin = false)
+    // {
+    //     if ($admin) {
+    //         if (!is_null(request()->sid->getPessoaId()) && request()->sid->getPessoaId() == '0' && request()->sid->getAppId() == 2) {
+    //             $this->pessoa = (new PessoaEntidade)
+    //                 ->setId(0)
+    //                 ->setNome('Anexus')
+    //                 ->setSobrenome('Network')
+    //                 ->setFoto('anexus.png');
+    //         }
+    //     }
+    //     if (!$this->pessoa) {
+    //         $this->pessoa = PessoaRepositorio::porId($this->pessoa_id);
+    //     }
+    //     return $this->pessoa;
+    // }
 
-    /**
-     * @var EmpresaEntidade
-     */
-    private $empresa;
+    // /**
+    //  * @var EmpresaEntidade
+    //  */
+    // private $empresa;
 
-    /**
-     * @return  EmpresaEntidade
-     */
-    public function getEmpresa()
-    {
-        if (!$this->empresa && Session::item('empresa_id')) {
-            $this->empresa = PessoaRepositorio::porId(Session::item('empresa_id'));
-        }
-        return $this->empresa;
-    }
+    // /**
+    //  * @return  EmpresaEntidade
+    //  */
+    // public function getEmpresa()
+    // {
+    //     if (!$this->empresa && Session::item('empresa_id')) {
+    //         $this->empresa = PessoaRepositorio::porId(Session::item('empresa_id'));
+    //     }
+    //     return $this->empresa;
+    // }
 
-    public function getPessoaOuEmpresa()
-    {
-        if (Session::item('empresa_id')) {
-            return $this->getEmpresa();
-        }
-        return $this->getPessoa();
-    }
+    // public function getPessoaOuEmpresa()
+    // {
+    //     if (Session::item('empresa_id')) {
+    //         return $this->getEmpresa();
+    //     }
+    //     return $this->getPessoa();
+    // }
 
-    /**
-     * @return boolean
-     */
-    public function isLogged($admin = false)
-    {
-        $pessoa = $this->getPessoa($admin);
-        if (is_null($pessoa->getId()) || $pessoa->getLixo()) {
-            return false;
-        }
+    // /**
+    //  * @return boolean
+    //  */
+    // public function isLogged($admin = false)
+    // {
+    //     $pessoa = $this->getPessoa($admin);
+    //     if (is_null($pessoa->getId()) || $pessoa->getLixo()) {
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    /**
-     * @return boolean
-     */
-    public function isEmpresa()
-    {
-        if (Session::item('empresa_id')) {
-            return true;
-        }
-        return false;
-    }
+    // /**
+    //  * @return boolean
+    //  */
+    // public function isEmpresa()
+    // {
+    //     if (Session::item('empresa_id')) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }
 
