@@ -13,8 +13,6 @@ class Database
     private static $instance;
 
     /**
-     * Retorna bosta
-     *
      * @return Medoo
      */
     public static function getInstance()

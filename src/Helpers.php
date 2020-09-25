@@ -1,13 +1,9 @@
 <?php
 
-use Authfast\App\Constante\AppTipoConstante;
-use Authfast\App\Entidade\AppEntidade;
-use Authfast\App\RegraDeNegocio\AppSessaoRegraDeNegocio;
-use Authfast\App\Repositorio\AppSessaoRepositorio;
-use Core\Form;
+use AnexusPHP\Tools\Form;
+use AnexusPHP\Tools\Session;
+use AnexusPHP\Tools\Strings;
 use Core\Libraries\FormValidation\FormValidation;
-use Core\Session;
-use Core\Strings;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -129,19 +125,6 @@ function redirect(string $url, ?int $code = null): void
     response()->redirect($url);
 }
 
-/**
- * @return string|null
- */
-function csrf_token(): ?string
-{
-    $baseVerifier = Router::router()->getCsrfVerifier();
-    if ($baseVerifier !== null) {
-        return $baseVerifier->getTokenProvider()->getToken();
-    }
-
-    return null;
-}
-
 //Retona a url do asset em questão
 function asset(string $path, $time = true)
 {
@@ -169,27 +152,27 @@ function upload(string $path, $time = false)
     return $fileUrl;
 }
 
-function  sid(AppEntidade $app)
-{
-    if (!$app->getId()) {
-        throw new Exception('App inválido');
-    }
+// function  sid(AppEntidade $app)
+// {
+//     if (!$app->getId()) {
+//         throw new Exception('App inválido');
+//     }
 
-    $token = Session::item('token');
+//     $token = Session::item('token');
 
-    $sid = AppSessaoRepositorio::porToken($token);
-    if (!$sid->getId()) {
-        $token = Strings::token();
-        $sid->setToken($token)
-            ->setAppId($app->getId())
-            ->setTipo(AppTipoConstante::NAVEGADOR)
-            ->setAcessoIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
-            ->setAcessoNavegador((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
-        AppSessaoRegraDeNegocio::inserir($sid);
-        Session::data('token', $token);
-    } else {
-        AppSessaoRegraDeNegocio::alterar($sid);
-    }
+//     $sid = AppSessaoRepositorio::porToken($token);
+//     if (!$sid->getId()) {
+//         $token = Strings::token();
+//         $sid->setToken($token)
+//             ->setAppId($app->getId())
+//             ->setTipo(AppTipoConstante::NAVEGADOR)
+//             ->setAcessoIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
+//             ->setAcessoNavegador((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
+//         AppSessaoRegraDeNegocio::inserir($sid);
+//         Session::data('token', $token);
+//     } else {
+//         AppSessaoRegraDeNegocio::alterar($sid);
+//     }
 
-    return $sid;
-}
+//     return $sid;
+// }

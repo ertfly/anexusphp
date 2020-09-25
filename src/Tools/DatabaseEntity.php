@@ -2,7 +2,6 @@
 
 namespace AnexusPHP\Tools;
 
-use Exception;
 use Medoo\Medoo;
 
 abstract class DatabaseEntity
