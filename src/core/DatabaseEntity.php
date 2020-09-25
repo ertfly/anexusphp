@@ -1,6 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace AnexusPHP\Core;
+
+use Medoo\Medoo;
 
 abstract class DatabaseEntity
 {

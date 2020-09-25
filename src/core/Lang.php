@@ -1,8 +1,10 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core;
 
+use AnexusPHP\Core\Tools\Session;
 use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\RegraDeNegocio\Idioma\Repositorio\IdiomaRepositorio;
 use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
 
 class Lang
@@ -63,3 +65,4 @@ class Lang
         return false;
     }
 }
+

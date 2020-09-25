@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\core;
 
 use AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
 use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;

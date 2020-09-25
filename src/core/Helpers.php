@@ -1,6 +1,12 @@
 <?php
 
 use AnexusPHP\Core\Tools\Form;
+use AnexusPHP\Core\Tools\Session;
+use AnexusPHP\RegraDeNegocio\App\Constante\AppTipoConstante;
+use AnexusPHP\RegraDeNegocio\App\Entidade\AppEntidade;
+use AnexusPHP\RegraDeNegocio\App\RegraDeNegocio\AppSessaoRegraDeNegocio;
+use AnexusPHP\RegraDeNegocio\App\Repositorio\AppSessaoRepositorio;
+use AnexusPHP\Tools\Strings;
 use Core\Libraries\FormValidation\FormValidation;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
@@ -150,27 +156,27 @@ function upload(string $path, $time = false)
     return $fileUrl;
 }
 
-// function  sid(AppEntidade $app)
-// {
-//     if (!$app->getId()) {
-//         throw new \Exception('App inválido');
-//     }
+function  sid(AppEntidade $app)
+{
+    if (!$app->getId()) {
+        throw new \Exception('App inválido');
+    }
 
-//     $token = Session::item('token');
+    $token = Session::item('token');
 
-//     $sid = AppSessaoRepositorio::porToken($token);
-//     if (!$sid->getId()) {
-//         $token = Strings::token();
-//         $sid->setToken($token)
-//             ->setAppId($app->getId())
-//             ->setTipo(AppTipoConstante::NAVEGADOR)
-//             ->setAcessoIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
-//             ->setAcessoNavegador((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
-//         AppSessaoRegraDeNegocio::inserir($sid);
-//         Session::data('token', $token);
-//     } else {
-//         AppSessaoRegraDeNegocio::alterar($sid);
-//     }
+    $sid = AppSessaoRepositorio::porToken($token);
+    if (!$sid->getId()) {
+        $token = Strings::token();
+        $sid->setToken($token)
+            ->setAppId($app->getId())
+            ->setTipo(AppTipoConstante::NAVEGADOR)
+            ->setAcessoIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
+            ->setAcessoNavegador((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
+        AppSessaoRegraDeNegocio::inserir($sid);
+        Session::data('token', $token);
+    } else {
+        AppSessaoRegraDeNegocio::alterar($sid);
+    }
 
-//     return $sid;
-// }
+    return $sid;
+}
