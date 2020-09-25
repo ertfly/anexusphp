@@ -1,30 +1,17 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
-namespace Core\Libraries\FormValidation\Validations;
+use AnexusPHP\Tools\Strings;
 
-use Core\Strings;
-use Exception;
-
-/**
- * Description of IntValidation
- *
- * @author Eric Teixeira
- */
 class CPFValidation extends AbstractValidation
 {
-
     private $message = 'O campo %s esta inválido';
 
     public function validate()
     {
         if (trim($this->value) != '' && !$this->cpf($this->value)) {
-            throw new Exception(sprintf($this->message, $this->description));
+            throw new \Exception(sprintf($this->message, $this->description));
         }
         return;
     }

@@ -1,14 +1,7 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core\Tools;
 
-use Exception;
-
-/**
- * Description of Message.
- *
- * @author Eric Teixeira
- */
 class Message
 {
     const MSG_ERROR = 'danger';
@@ -21,7 +14,7 @@ class Message
     public static function create($type, $msg)
     {
         if (!self::validateType($type)) {
-            throw new Exception('Tipo informado é inválido');
+            throw new \Exception('Tipo informado é inválido');
         }
         Session::data(self::$prefix.$type, $msg);
     }

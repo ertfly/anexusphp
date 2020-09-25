@@ -1,16 +1,7 @@
 <?php
 
-namespace Core\Libraries\DinamicField;
+namespace AnexusPHP\Core\Libraries\DinamicField;
 
-use Authfast\Cadastro\Constante\PessoaCampoTipoConstante;
-use Authfast\Cadastro\Constante\PessoaCampoValorConstante;
-use Authfast\Cadastro\Entidade\PessoaCampoEntidade;
-use Exception;
-
-/**
- * Undocumented class
- * @author Guilherme Tomé ~lindão <guilherme.tome@anexus.com.br>
- */
 class DinamicField
 {
     private $html = '';
@@ -95,7 +86,7 @@ class DinamicField
                 $this->html .= $this->selecao($field);
                 break;
             default:
-                throw new Exception("Constante {$field->getTipo()} não implementada.");
+                throw new \Exception("Constante {$field->getTipo()} não implementada.");
         }
         return $this;
     }
@@ -186,3 +177,4 @@ class DinamicField
         return $response;
     }
 }
+

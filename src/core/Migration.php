@@ -2,8 +2,8 @@
 
 namespace AnexusPHP\Tools;
 
-use Authfast\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
-use Authfast\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
+use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
 use PDO;
 
 class Migration

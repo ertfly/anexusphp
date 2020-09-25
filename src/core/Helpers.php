@@ -1,8 +1,6 @@
 <?php
 
-use AnexusPHP\Tools\Form;
-use AnexusPHP\Tools\Session;
-use AnexusPHP\Tools\Strings;
+use AnexusPHP\Core\Tools\Form;
 use Core\Libraries\FormValidation\FormValidation;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
@@ -17,7 +15,7 @@ $_JSON = @json_decode($_JSON, true);
  * @param string|array|null $parameters
  * @param array|null $getParams
  * @return \Pecee\Http\Url
- * @throws \InvalidArgumentException
+ * @throws \InvalidArgument\Exception
  */
 function url(?string $name = null, $parameters = null, ?array $getParams = null): Url
 {
@@ -155,7 +153,7 @@ function upload(string $path, $time = false)
 // function  sid(AppEntidade $app)
 // {
 //     if (!$app->getId()) {
-//         throw new Exception('App inválido');
+//         throw new \Exception('App inválido');
 //     }
 
 //     $token = Session::item('token');

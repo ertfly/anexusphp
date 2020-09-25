@@ -1,12 +1,9 @@
 <?php
 
-namespace AnexusPHP\Tools;
-
-use Exception;
+namespace AnexusPHP\Core\Tools;
 
 class Date
 {
-
     public static function formatToTime($format, $strTime)
     {
         $dateTime = \DateTime::createFromFormat($format, $strTime);
@@ -43,7 +40,7 @@ class Date
         );
 
         if (!isset($months[$month])) {
-            throw new Exception('Ocorreu um erro ao descrever o mês.');
+            throw new \Exception('Ocorreu um erro ao descrever o mês.');
         }
 
         return $months[$month];
@@ -67,7 +64,7 @@ class Date
         );
 
         if (!isset($months[$month])) {
-            throw new Exception('Ocorreu um erro ao descrever o mês.');
+            throw new \Exception('Ocorreu um erro ao descrever o mês.');
         }
 
         if ($lowercase) {
@@ -89,7 +86,7 @@ class Date
             6 => 'Sábado'
         );
         if (!isset($daysWeek[$day])) {
-            throw new Exception('Ocorreu um erro ao descrever o dia da semana pequeno.');
+            throw new \Exception('Ocorreu um erro ao descrever o dia da semana pequeno.');
         }
 
         return $daysWeek[$day];
@@ -107,7 +104,7 @@ class Date
             6 => 'Sáb'
         );
         if (!isset($daysWeek[$day])) {
-            throw new Exception('Ocorreu um erro ao descrever o dia da semana pequeno.');
+            throw new \Exception('Ocorreu um erro ao descrever o dia da semana pequeno.');
         }
 
         return $daysWeek[$day];
@@ -117,13 +114,13 @@ class Date
      * @param string $date
      * @param string $format
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
     public static function toUs($date, $format)
     {
         $time = self::formatToTime($format, $date);
         if (date($format, $time) != $date) {
-            throw new Exception('Data inválida');
+            throw new \Exception('Data inválida');
         }
         return date('Y-m-d', $time);
     }

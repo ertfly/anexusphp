@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core\Tools;
 
 class Resumable
 {

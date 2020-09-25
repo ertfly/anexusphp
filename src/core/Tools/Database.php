@@ -1,9 +1,8 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core\Tools;
 
 use PDO;
-use Medoo\Medoo;
 
 class Database
 {

@@ -1,25 +1,12 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace AnexusPHP\Core\Libraries\FormValidation;
 
-namespace Core\Libraries\FormValidation;
+use AnexusPHP\Core\Libraries\FormValidation\Validations\AbstractValidation;
+use AnexusPHP\Tools\Strings;
 
-use Core\Libraries\FormValidation\Validations\AbstractValidation;
-use Core\Strings;
-use Exception;
-
-/**
- * Description of FormValidation
- *
- * @author Eric Teixeira
- */
 class FormValidation
 {
-
     const REQUIRED = 'RequiredValidation';
     const EMAIL = 'EmailValidation';
     const DATE = 'DateValidation';
@@ -56,19 +43,19 @@ class FormValidation
     public function execute()
     {
         if (!isset($this->validations) || !is_array($this->validations)) {
-            throw new Exception('Os tipos de validação precisam ser definidos');
+            throw new \Exception('Os tipos de validação precisam ser definidos');
         }
         foreach ($this->validations as $validation) {
             if (!is_string($validation)) {
-                throw new Exception('Tipo de validação informada não existe, informe string usando constantes');
+                throw new \Exception('Tipo de validação informada não existe, informe string usando constantes');
             }
             $validationClass = Strings::classToClass(self::class) . '\\Validations\\' . $validation;
             if (!class_exists($validationClass)) {
-                throw new Exception('Tipo de validação informada não existe, informe string usando constantes');
+                throw new \Exception('Tipo de validação informada não existe, informe string usando constantes');
             }
             $newValidation = new $validationClass($this->value, $this->description, $this->options);
             if (!($newValidation instanceof AbstractValidation)) {
-                throw new Exception('Utilize a classe abstrata para criar um novo tipo de validação');
+                throw new \Exception('Utilize a classe abstrata para criar um novo tipo de validação');
             }
 
             $newValidation->validate();

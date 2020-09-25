@@ -1,14 +1,7 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core\Tools;
 
-use Exception;
-
-/**
- * Description of Session
- *
- * @author Eric Teixeira
- */
 class Session
 {
 
@@ -30,11 +23,11 @@ class Session
         setcookie(SESSION_NAME, self::$sessionId, time() + SESSION_LIFETIME, '/' . SESSION_NAME);
 
         if (!is_dir(PATH_CACHE)) {
-            throw new Exception('Diretório cache não existe');
+            throw new \Exception('Diretório cache não existe');
         }
 
         if (!is_readable(PATH_CACHE)) {
-            throw new Exception('Diretório cache não tem permissão de escrita');
+            throw new \Exception('Diretório cache não tem permissão de escrita');
         }
 
         if (!is_file(PATH_CACHE . self::$sessionId . '_session')) {

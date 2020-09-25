@@ -1,6 +1,10 @@
 <?php
 
-namespace AnexusPHP\Tools;
+namespace AnexusPHP\Core\Tools;
+
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
 
 class Email
 {
@@ -13,19 +17,19 @@ class Email
         $smtp_fromEmail = $fromEmail;
         $smtp_fromName = $fromName;
 
-        $transport = (new \Swift_SmtpTransport($smtp_url, (int) $smtp_port))
+        $transport = (new Swift_SmtpTransport($smtp_url, (int) $smtp_port))
             ->setUsername($smtp_user)
             ->setPassword($smtp_pwd);
 
         // Create the Mailer using your created Transport
-        $mailer = new \Swift_Mailer($transport);
+        $mailer = new Swift_Mailer($transport);
         $emails = array();
         foreach ($toEmails as $email => $name) {
             $emails[$email] = $name;
         }
 
         // Create a message
-        $message = (new \Swift_Message($subject))
+        $message = (new Swift_Message($subject))
             ->setFrom([$smtp_fromEmail => $smtp_fromName])
             ->setTo($emails)
             ->setBody($message, 'text/html');

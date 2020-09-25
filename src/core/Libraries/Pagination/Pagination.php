@@ -1,23 +1,9 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace AnexusPHP\Core\Libraries\Pagination;
 
-namespace Core\Libraries\Pagination;
-
-use League\Plates\Engine;
-
-/**
- * Description of Pagination
- *
- * @author Eric Teixeira
- */
 class Pagination
 {
-
     private $total;
     private $perPage;
     private $url;

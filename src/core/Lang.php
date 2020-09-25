@@ -2,9 +2,8 @@
 
 namespace AnexusPHP\Tools;
 
-use Authfast\Configuracao\Repositorio\ConfiguracaoRepositorio;
-use Authfast\Idioma\Repositorio\IdiomaRepositorio;
-use Authfast\Local\Entidade\LocalPaisEntidade;
+use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
 
 class Lang
 {
