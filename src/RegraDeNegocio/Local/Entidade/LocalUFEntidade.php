@@ -7,11 +7,11 @@ use AnexusPHP\Core\DatabaseEntity;
 class LocalUfEntidade extends DatabaseEntity
 {
     const TABELA = 'local_uf';
-    private $id;
-    private $pais_id;
-    private $nome;
-    private $codigo;
-    private $sigla;
+    protected $id;
+    protected $pais_id;
+    protected $nome;
+    protected $codigo;
+    protected $sigla;
     public function setId($id)
     {
         $this->id = $id;

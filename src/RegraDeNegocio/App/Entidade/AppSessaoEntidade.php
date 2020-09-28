@@ -7,15 +7,15 @@ use AnexusPHP\Core\DatabaseEntity;
 class AppSessaoEntidade extends DatabaseEntity
 {
     const TABELA = 'app_sessao';
-    private $id;
-    private $token;
-    private $app_id;
-    private $pessoa_id;
-    private $tipo;
-    private $acesso_ip;
-    private $acesso_navegador;
-    private $dta_inicio;
-    private $dta_atualizacao;
+    protected $id;
+    protected $token;
+    protected $app_id;
+    protected $pessoa_id;
+    protected $tipo;
+    protected $acesso_ip;
+    protected $acesso_navegador;
+    protected $dta_inicio;
+    protected $dta_atualizacao;
     public function setId($id)
     {
         $this->id = $id;

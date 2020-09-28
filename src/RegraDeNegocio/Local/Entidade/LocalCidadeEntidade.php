@@ -7,9 +7,9 @@ use AnexusPHP\Core\DatabaseEntity;
 class LocalCidadeEntidade extends DatabaseEntity
 {
     const TABELA = 'local_cidade';
-    private $id;
-    private $uf_id;
-    private $nome;
+    protected $id;
+    protected $uf_id;
+    protected $nome;
     public function setId($id)
     {
         $this->id = $id;

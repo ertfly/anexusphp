@@ -7,10 +7,10 @@ use AnexusPHP\Core\DatabaseEntity;
 class IdiomaEntidade extends DatabaseEntity
 {
     const TABELA = 'idioma';
-    private $id;
-    private $local_pais_id;
-    private $valor;
-    private $tela_id;
+    protected $id;
+    protected $local_pais_id;
+    protected $valor;
+    protected $tela_id;
     public function setId($id)
     {
         $this->id = $id;

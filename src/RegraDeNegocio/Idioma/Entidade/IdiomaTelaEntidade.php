@@ -7,8 +7,8 @@ use AnexusPHP\Core\DatabaseEntity;
 class IdiomaTelaEntidade extends DatabaseEntity
 {
     const TABELA = 'idioma_tela';
-    private $id;
-    private $descricao;
+    protected $id;
+    protected $descricao;
     public function setId($id)
     {
         $this->id = $id;

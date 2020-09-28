@@ -7,9 +7,9 @@ use AnexusPHP\Core\DatabaseEntity;
 class ConfiguracaoEntidade extends DatabaseEntity
 {
     const TABELA = 'configuracao';
-    private $id;
-    private $valor;
-    private $descricao;
+    protected $id;
+    protected $valor;
+    protected $descricao;
     public function setId($id)
     {
         $this->id = $id;
