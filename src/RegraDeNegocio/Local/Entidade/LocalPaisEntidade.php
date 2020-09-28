@@ -66,12 +66,4 @@ class LocalPaisEntidade extends DatabaseEntity
             'sigla' => $this->getSigla()
         );
     }
-
-    // /**
-    //  * @return PessoaCampoEntidade
-    //  */
-    // public function getPessoaCamppo()
-    // {
-    //     return PessoaCampoRepositorio::porId($this->pessoa_campo_id);
-    // }
 }
