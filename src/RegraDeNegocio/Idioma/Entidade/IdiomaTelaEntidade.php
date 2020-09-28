@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\RegraDeNegocio\Idioma\Entidade;
 
-use AnexusPHP\Core\Tools\DatabaseEntity;
+use AnexusPHP\Core\DatabaseEntity;
 
 class IdiomaTelaEntidade extends DatabaseEntity
 {

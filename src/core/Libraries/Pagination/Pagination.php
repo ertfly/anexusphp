@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Core\Libraries\Pagination;
 
+use League\Plates\Engine;
+
 class Pagination
 {
     private $total;

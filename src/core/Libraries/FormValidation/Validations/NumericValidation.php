@@ -1,7 +1,7 @@
 <?php
 
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
-
+namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 class NumericValidation extends AbstractValidation
 {
     private $message = 'O campo %s deve conter apenas número';

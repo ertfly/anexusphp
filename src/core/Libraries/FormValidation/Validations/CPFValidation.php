@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
-use AnexusPHP\Tools\Strings;
+use AnexusPHP\Core\Tools\Strings;
 
 class CPFValidation extends AbstractValidation
 {

@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\RegraDeNegocio\App\Entidade;
 
-use AnexusPHP\Core\Tools\DatabaseEntity;
+use AnexusPHP\Core\DatabaseEntity;
 
 class AppEntidade extends DatabaseEntity
 {

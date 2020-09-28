@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\RegraDeNegocio\Idioma\RegraDeNegocio;
 
-use AnexusPHP\Core\Tools\Database;
+use AnexusPHP\Core\Database;
 use AnexusPHP\RegraDeNegocio\Idioma\Entidade\IdiomaEntidade;
 
 class IdiomaRegraDeNegocio

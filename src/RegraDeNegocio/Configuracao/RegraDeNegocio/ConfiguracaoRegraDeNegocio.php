@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio;
 
-use AnexusPHP\Core\Tools\Database;
+use AnexusPHP\Core\Database;
 use AnexusPHP\RegraDeNegocio\Configuracao\Entidade\ConfiguracaoEntidade;
 
 class ConfiguracaoRegraDeNegocio

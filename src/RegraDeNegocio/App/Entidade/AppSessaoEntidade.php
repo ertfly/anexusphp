@@ -2,8 +2,7 @@
 
 namespace AnexusPHP\RegraDeNegocio\App\Entidade;
 
-use AnexusPHP\Core\Tools\DatabaseEntity;
-use AnexusPHP\Core\Tools\Session;
+use AnexusPHP\Core\DatabaseEntity;
 use AnexusPHP\RegraDeNegocio\App\Repositorio\AppRepositorio;
 
 class AppSessaoEntidade extends DatabaseEntity
