@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Core;
 
-use AnexusPHP\Core\Tools\Session;
+use AnexusPHP\Core\Session;
 use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
 use AnexusPHP\RegraDeNegocio\Idioma\Repositorio\IdiomaRepositorio;
 use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
