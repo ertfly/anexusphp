@@ -164,7 +164,7 @@ function  sid(AppEntidade $app, $className)
 
     $token = Session::item('token');
 
-    $sid = AppSessaoRepositorio::porToken($token,$className);
+    $sid = AppSessaoRepositorio::porToken($token, $className);
     if (!$sid->getId()) {
         $token = Strings::token();
         $sid->setToken($token)
