@@ -1,13 +1,13 @@
 <?php
 
+use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
+use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Form;
-use AnexusPHP\Core\Tools\Session;
+use AnexusPHP\Core\Tools\Strings;
 use AnexusPHP\RegraDeNegocio\App\Constante\AppTipoConstante;
 use AnexusPHP\RegraDeNegocio\App\Entidade\AppEntidade;
 use AnexusPHP\RegraDeNegocio\App\RegraDeNegocio\AppSessaoRegraDeNegocio;
 use AnexusPHP\RegraDeNegocio\App\Repositorio\AppSessaoRepositorio;
-use AnexusPHP\Tools\Strings;
-use Core\Libraries\FormValidation\FormValidation;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
