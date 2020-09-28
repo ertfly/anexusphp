@@ -11,12 +11,12 @@ class AppRepositorio
      * @param integer|null $id
      * @return AppEntidade
      */
-    public static function porId(?int $id): AppEntidade
+    public static function porId(?int $id, $className): AppEntidade
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppEntidade::TABELA . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppEntidade::class);
+        $reg = $db->query('select * from ' . AppEntidade::TABELA . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
         if ($reg === false) {
-            return new AppEntidade();
+            return new $className();
         }
 
         return $reg;

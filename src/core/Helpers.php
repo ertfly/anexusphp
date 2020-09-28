@@ -156,7 +156,7 @@ function upload(string $path, $time = false)
     return $fileUrl;
 }
 
-function  sid(AppEntidade $app)
+function  sid(AppEntidade $app, $className)
 {
     if (!$app->getId()) {
         throw new \Exception('App inválido');
@@ -164,7 +164,7 @@ function  sid(AppEntidade $app)
 
     $token = Session::item('token');
 
-    $sid = AppSessaoRepositorio::porToken($token);
+    $sid = AppSessaoRepositorio::porToken($token,$className);
     if (!$sid->getId()) {
         $token = Strings::token();
         $sid->setToken($token)
