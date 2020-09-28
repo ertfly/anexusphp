@@ -3,7 +3,7 @@
 namespace AnexusPHP\Core\Libraries\FormValidation;
 
 use AnexusPHP\Core\Libraries\FormValidation\Validations\AbstractValidation;
-use AnexusPHP\Tools\Strings;
+use AnexusPHP\Core\Tools\Strings;
 
 class FormValidation
 {
