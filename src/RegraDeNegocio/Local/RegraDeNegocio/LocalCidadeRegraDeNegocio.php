@@ -1,6 +1,6 @@
 <?php
 
-namespace Authfast\Local\RegraDeNegocio;
+namespace AnexusPHP\RegraDeNegocio\Local\RegraDeNegocio;
 
 use AnexusPHP\Core\Database;
 use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalCidadeEntidade;
