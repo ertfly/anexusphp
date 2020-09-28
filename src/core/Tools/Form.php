@@ -2,9 +2,10 @@
 
 namespace AnexusPHP\Core\Tools;
 
+use AnexusPHP\Core\Session;
+
 class Form
 {
-
     private static $post = null;
 
     public static function selected($name, $value, $defaultValue = null, $checkGet = false)
