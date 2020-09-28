@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Core\Tools;
 
+use AnexusPHP\Core\Session;
+
 class Resumable
 {
 
