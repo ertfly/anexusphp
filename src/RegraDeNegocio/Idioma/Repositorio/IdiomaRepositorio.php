@@ -46,4 +46,16 @@ class IdiomaRepositorio
 
         return $regs;
     }
+
+    /**
+     * @param integer $country
+     * @return IdiomaEntidade[]
+     */
+    public static function porPais(int $country)
+    {
+        $db = Database::getInstance();
+        $regs = $db->query('select a.* from ' . IdiomaEntidade::TABELA . ' a where local_pais_id = :local_pais_id order by id asc', ['local_pais_id' => (int)$country])->fetchAll(PDO::FETCH_CLASS, IdiomaEntidade::class);
+
+        return $regs;
+    }
 }
