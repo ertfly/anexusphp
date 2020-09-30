@@ -29,7 +29,7 @@ class LocalPaisRepositorio
     public static function todos($className)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' order by sigla asc')->fetchAll(PDO::FETCH_CLASS, $className);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $reg;
     }
