@@ -30,9 +30,9 @@ function url(?string $name = null, $parameters = null, ?array $getParams = null)
 
 function url_absolute(?string $name = null, $parameters = null, ?array $getParams = null)
 {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
-    $urlAbsolute = url($name, $parameters, $getParams)->getAbsoluteUrl();
-    return $protocol . $urlAbsolute;
+    $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
+    $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
+    return $protocol . $domainName . url($name, $parameters, $getParams);
 }
 
 /**
@@ -132,7 +132,7 @@ function redirect(string $url, ?int $code = null): void
 //Retona a url do asset em questão
 function asset(string $path, $time = true)
 {
-    $fileUrl = url('assets/' . $path);
+    $fileUrl = url_absolute('assets/' . $path);
     $fileUrl = rtrim($fileUrl, '/');
     $fileDir = PATH_PUBLIC . 'assets' . DS . $path;
 
@@ -145,7 +145,7 @@ function asset(string $path, $time = true)
 
 function upload(string $path, $time = false)
 {
-    $fileUrl = url('uploads/' . $path);
+    $fileUrl = url_absolute('uploads/' . $path);
     $fileUrl = rtrim($fileUrl, '/');
     $fileDir = PATH_PUBLIC . 'uploads' . DS . $path;
 
