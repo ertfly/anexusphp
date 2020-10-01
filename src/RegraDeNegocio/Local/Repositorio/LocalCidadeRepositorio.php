@@ -26,11 +26,10 @@ class LocalCidadeRepositorio
     }
 
     /**
-     * @param LocalUfEntidade $uf
      * @param array $opcoes
      * @return LocalCidadeEntidade[]
      */
-    public static function buscaPorUF(LocalUfEntidade $uf, array $opcoes = [])
+    public static function buscaPorUF($uf, array $opcoes = [])
     {
         $db = Database::getInstance();
 
