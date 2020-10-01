@@ -56,7 +56,7 @@ class LocalPaisRepositorio
     public static function principal($className): LocalPaisEntidade
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where sigla = :sigla limit 1')->fetchObject($className);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' limit 1')->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
