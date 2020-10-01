@@ -10,12 +10,13 @@ class Migration
 {
     public static function init()
     {
-        exit('teste');
         try {
             ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
         } catch (\Exception $e) {
+            exit('>>'.$e->getMessage());
             return self::install();
         }
+        exit('teste');
 
         $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
 
@@ -34,6 +35,7 @@ class Migration
 
     private static function install()
     {
+        exit('entro');
         set_time_limit(0);
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
