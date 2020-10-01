@@ -11,7 +11,7 @@ class Router extends SimpleRouter
         //Arquivo de Métodos Globais
         require_once 'Helpers.php';
 
-        Migration::init();
+        // Migration::init();
 
         $arrUrl = explode('/', trim(url()->getPath(), '/'));
         $app = isset($arrUrl[0]) && trim($arrUrl[0]) != '' ? $arrUrl[0] : 'app';
