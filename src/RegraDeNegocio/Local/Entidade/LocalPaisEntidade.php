@@ -67,6 +67,24 @@ class LocalPaisEntidade extends DatabaseEntity
     {
         return $this->empresa_campo_id;
     }
+    public function setBandeira($bandeira)
+    {
+        $this->bandeira = $bandeira;
+        return $this;
+    }
+    public function getBandeira()
+    {
+        return $this->bandeira;
+    }
+    public function setPrincipal($principal)
+    {
+        $this->principal = $principal;
+        return $this;
+    }
+    public function getPrincipal()
+    {
+        return $this->principal;
+    }
     public function toArray()
     {
         return array(
@@ -74,7 +92,9 @@ class LocalPaisEntidade extends DatabaseEntity
             'codigo' => $this->getCodigo(),
             'sigla' => $this->getSigla(),
             'pessoa_campo_id' => $this->getPessoaCampoId(),
-            'empresa_campo_id' => $this->getEmpresaCampoId()
+            'empresa_campo_id' => $this->getEmpresaCampoId(),
+            'bandeira' => $this->getBandeira(),
+            'principal' => $this->getPrincipal()
         );
     }
 }
