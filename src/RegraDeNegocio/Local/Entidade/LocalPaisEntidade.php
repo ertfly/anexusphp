@@ -13,6 +13,9 @@ class LocalPaisEntidade extends DatabaseEntity
     protected $sigla;
     protected $pessoa_campo_id;
     protected $empresa_campo_id;
+    protected $bandeira;
+    protected $principal;
+    protected $visivel;
     public function setId($id)
     {
         $this->id = $id;
@@ -67,6 +70,39 @@ class LocalPaisEntidade extends DatabaseEntity
     {
         return $this->empresa_campo_id;
     }
+    public function setBandeira($bandeira)
+    {
+        $this->bandeira = $bandeira;
+        return $this;
+    }
+    public function getBandeira(bool $comUrl = false)
+    {
+        if ($comUrl) {
+            if (trim($this->bandeira) == '' || !is_file(PATH_UPLOADS . 'flags' . DS . $this->bandeira)) {
+                return asset('app/img/sem-imagem.jpg');
+            }
+            return upload('flags/' . $this->bandeira);
+        }
+        return $this->bandeira;
+    }
+    public function setPrincipal($principal)
+    {
+        $this->principal = $principal;
+        return $this;
+    }
+    public function getPrincipal()
+    {
+        return $this->principal;
+    }
+    public function setVisivel($visivel)
+    {
+        $this->visivel = $visivel;
+        return $this;
+    }
+    public function getVisivel()
+    {
+        return $this->visivel;
+    }
     public function toArray()
     {
         return array(
@@ -74,7 +110,10 @@ class LocalPaisEntidade extends DatabaseEntity
             'codigo' => $this->getCodigo(),
             'sigla' => $this->getSigla(),
             'pessoa_campo_id' => $this->getPessoaCampoId(),
-            'empresa_campo_id' => $this->getEmpresaCampoId()
+            'empresa_campo_id' => $this->getEmpresaCampoId(),
+            'bandeira' => $this->getBandeira(),
+            'principal' => $this->getPrincipal(),
+            'visivel' => $this->getVisivel()
         );
     }
 }
