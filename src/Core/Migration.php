@@ -27,7 +27,7 @@ class Migration
                 self::executeUp(intval($arr[0]), $newUp);
             }
             if (intval($arr[1]) < $newDown) {
-                self::executeUp(intval($arr[1]), $newDown);
+                self::executeDown(intval($arr[1]), $newDown);
             }
             $version = (ConfiguracaoRepositorio::porId('MIGRATION_VERSION'))->setValor($newVersion);
             ConfiguracaoRegraDeNegocio::alterar($version);
