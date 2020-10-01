@@ -15,7 +15,6 @@ class Migration
         } catch (\Exception $e) {
             return self::install();
         }
-        exit('teste');
 
         $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
 
