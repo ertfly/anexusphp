@@ -12,12 +12,12 @@ class LocalPaisRepositorio
      * @param integer|null $id
      * @return LocalPaisEntidade
      */
-    public static function porId(?int $id): LocalPaisEntidade
+    public static function porId(?int $id, $className): LocalPaisEntidade
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(LocalPaisEntidade::class);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
         if ($reg === false) {
-            return new LocalPaisEntidade();
+            return new $className();
         }
 
         return $reg;
@@ -26,10 +26,10 @@ class LocalPaisRepositorio
     /**
      * @return LocalPaisEntidade[]
      */
-    public static function todos()
+    public static function todos($className)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' order by sigla asc')->fetchAll(PDO::FETCH_CLASS, LocalPaisEntidade::class);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $reg;
     }
@@ -38,12 +38,12 @@ class LocalPaisRepositorio
      * @param string $sigla
      * @return LocalPaisEntidade
      */
-    public static function porSigla(string $sigla): LocalPaisEntidade
+    public static function porSigla(string $sigla, $className): LocalPaisEntidade
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where sigla = :sigla limit 1', ['sigla' => $sigla])->fetchObject(LocalPaisEntidade::class);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where sigla = :sigla limit 1', ['sigla' => $sigla])->fetchObject($className);
         if ($reg === false) {
-            return new LocalPaisEntidade();
+            return new $className();
         }
 
         return $reg;

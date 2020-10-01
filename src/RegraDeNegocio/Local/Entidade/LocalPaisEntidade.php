@@ -8,10 +8,11 @@ class LocalPaisEntidade extends DatabaseEntity
 {
     const TABELA = 'local_pais';
     protected $id;
-    protected $pessoa_campo_id;
     protected $nome;
     protected $codigo;
     protected $sigla;
+    protected $pessoa_campo_id;
+    protected $empresa_campo_id;
     public function setId($id)
     {
         $this->id = $id;
@@ -20,15 +21,6 @@ class LocalPaisEntidade extends DatabaseEntity
     public function getId()
     {
         return $this->id;
-    }
-    public function setPessoaCampoId($pessoaCampoId)
-    {
-        $this->pessoa_campo_id = $pessoaCampoId;
-        return $this;
-    }
-    public function getPessoaCampoId()
-    {
-        return $this->pessoa_campo_id;
     }
     public function setNome($nome)
     {
@@ -57,13 +49,52 @@ class LocalPaisEntidade extends DatabaseEntity
     {
         return $this->sigla;
     }
+    public function setPessoaCampoId($pessoaCampoId)
+    {
+        $this->pessoa_campo_id = $pessoaCampoId;
+        return $this;
+    }
+    public function getPessoaCampoId()
+    {
+        return $this->pessoa_campo_id;
+    }
+    public function setEmpresaCampoId($empresaCampoId)
+    {
+        $this->empresa_campo_id = $empresaCampoId;
+        return $this;
+    }
+    public function getEmpresaCampoId()
+    {
+        return $this->empresa_campo_id;
+    }
+    public function setBandeira($bandeira)
+    {
+        $this->bandeira = $bandeira;
+        return $this;
+    }
+    public function getBandeira()
+    {
+        return $this->bandeira;
+    }
+    public function setPrincipal($principal)
+    {
+        $this->principal = $principal;
+        return $this;
+    }
+    public function getPrincipal()
+    {
+        return $this->principal;
+    }
     public function toArray()
     {
         return array(
-            'pessoa_campo_id' => $this->getPessoaCampoId(),
             'nome' => $this->getNome(),
             'codigo' => $this->getCodigo(),
-            'sigla' => $this->getSigla()
+            'sigla' => $this->getSigla(),
+            'pessoa_campo_id' => $this->getPessoaCampoId(),
+            'empresa_campo_id' => $this->getEmpresaCampoId(),
+            'bandeira' => $this->getBandeira(),
+            'principal' => $this->getPrincipal()
         );
     }
 }
