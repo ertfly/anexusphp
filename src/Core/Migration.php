@@ -10,6 +10,7 @@ class Migration
 {
     public static function init()
     {
+        exit('teste');
         try {
             ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
         } catch (\Exception $e) {
