@@ -13,7 +13,6 @@ class Migration
         try {
             ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
         } catch (\Exception $e) {
-            exit('>>'.$e->getMessage());
             return self::install();
         }
         exit('teste');
@@ -35,7 +34,6 @@ class Migration
 
     private static function install()
     {
-        exit('entro');
         set_time_limit(0);
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
@@ -46,6 +44,7 @@ class Migration
 
         self::populate();
 
+        exit('entro');
         return self::init();
     }
 
