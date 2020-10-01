@@ -75,8 +75,14 @@ class LocalPaisEntidade extends DatabaseEntity
         $this->bandeira = $bandeira;
         return $this;
     }
-    public function getBandeira()
+    public function getBandeira(bool $comUrl = false)
     {
+        if ($comUrl) {
+            if (trim($this->bandeira) == '' || !is_file(PATH_UPLOADS . 'flags' . DS . $this->bandeira)) {
+                return asset('app/img/bandeira-br.png');
+            }
+            return upload('flags/' . $this->bandeira);
+        }
         return $this->bandeira;
     }
     public function setPrincipal($principal)
