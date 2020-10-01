@@ -17,15 +17,18 @@ class Migration
         }
 
         $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
+        $newUp = self::getVersionUp();
+        $newDown = self::getVersionDown();
+        $newVersion = $newUp . '.' . $newDown;
 
-        $version = explode('.', $migrationVersion);
-
-        $down = self::executeDown($version[1]) ?: 0;
-        $up = self::executeUp($version[0]) ?: 0;
-
-        $newVersion = $up . '.' . $down;
-
-        if($migrationVersion != $newVersion){
+        if ($migrationVersion != $newVersion) {
+            $arr = explode('.', $migrationVersion);
+            if (intval($arr[0]) < $newUp) {
+                self::executeUp(intval($arr[0]), $newUp);
+            }
+            if (intval($arr[1]) < $newDown) {
+                self::executeUp(intval($arr[1]), $newDown);
+            }
             $version = (ConfiguracaoRepositorio::porId('MIGRATION_VERSION'))->setValor($newVersion);
             ConfiguracaoRegraDeNegocio::alterar($version);
         }
@@ -43,7 +46,6 @@ class Migration
 
         self::populate();
 
-        exit('entro');
         return self::init();
     }
 
@@ -51,75 +53,73 @@ class Migration
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-        
+
         $sql = file_get_contents(PATH_MIGRATIONS . 'dados.sql');
 
         $database->exec($sql);
     }
 
-    private static function executeDown($version)
+    private static function executeDown($oldVersion, $newVersion)
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
-        $downPath = PATH_MIGRATIONS . 'down';
-        $scanDir = scandir($downPath);
-        unset($scanDir[0]);
-        unset($scanDir[1]);
-        unset($scanDir[2]);
-
-        if(empty($scanDir)){
-            return;
-        }
-
-        foreach ($scanDir as $value) {
-            $pathInfo = pathinfo($downPath . DS . $value);
-
-            if ($pathInfo['extension'] != 'sql' && !is_numeric($pathInfo['filename'])) {
-                throw new \Exception('Existe arquivos inválidos');
+        for ($v = ($oldVersion + 1); $v <= $newVersion; $v++) {
+            if (!is_file(PATH_MIGRATIONS . 'down' . DS . $v . '.sql')) {
+                continue;
             }
-
-            if ($version != $value && $version < $value) {
-                $sql = file_get_contents($downPath . DS . $value);
-                if ($sql != '') {
-                    $database->exec($sql);
-                }
+            $sql = file_get_contents(PATH_MIGRATIONS . 'down' . DS . $v . '.sql');
+            if (trim($sql) == '') {
+                continue;
             }
+            $database->exec($sql);
         }
-
-        return str_replace('.sql', '', array_pop($scanDir));
     }
 
-    private static function executeUp($version)
+    private static function executeUp($oldVersion, $newVersion)
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
-        $upPath = PATH_MIGRATIONS . 'up';
-        $scanDir = scandir($upPath);
-        unset($scanDir[0]);
-        unset($scanDir[1]);
-        unset($scanDir[2]);
+        for ($v = ($oldVersion + 1); $v <= $newVersion; $v++) {
+            if (!is_file(PATH_MIGRATIONS . 'up' . DS . $v . '.sql')) {
+                continue;
+            }
+            $sql = file_get_contents(PATH_MIGRATIONS . 'down' . DS . $v . '.sql');
+            if (trim($sql) == '') {
+                continue;
+            }
+            $database->exec($sql);
+        }
+    }
 
-        if(empty($scanDir)){
-            return;
+    private static function getVersionUp()
+    {
+        $scan = scandir(PATH_MIGRATIONS . 'up');
+        unset($scan[0]);
+        unset($scan[1]);
+        unset($scan[2]);
+        $scan = array_values($scan);
+        $version = 0;
+        if (isset($scan[count($scan) - 1])) {
+            $version = intval(str_replace('.sql', '', $scan[count($scan) - 1]));
         }
 
-        foreach ($scanDir as $value) {
-            $pathInfo = pathinfo($upPath . DS . $value);
+        return $version;
+    }
 
-            if ($pathInfo['extension'] != 'sql' && is_numeric($pathInfo['filename'])) {
-                throw new \Exception('Existe arquivos inválidos');
-            }
-
-            if ($version != $value && $version < $value) {
-                $sql = file_get_contents($upPath . DS . $value);
-                if ($sql != '') {
-                    $database->exec($sql);
-                }
-            }
+    private static function getVersionDown()
+    {
+        $scan = scandir(PATH_MIGRATIONS . 'down');
+        unset($scan[0]);
+        unset($scan[1]);
+        unset($scan[2]);
+        $scan = array_values($scan);
+        $version = 0;
+        if (isset($scan[count($scan) - 1])) {
+            $version = intval(str_replace('.sql', '', $scan[count($scan) - 1]));
         }
 
-        return str_replace('.sql', '', array_pop($scanDir));
+        return $version;
     }
 }
