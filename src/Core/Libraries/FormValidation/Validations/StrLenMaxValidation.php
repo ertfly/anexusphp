@@ -8,6 +8,10 @@ class StrLenMaxValidation extends AbstractValidation
 
     public function validate()
     {
+        if(trim($this->value) == ''){
+            return;
+        }
+        
         if (!isset($this->options['size_max'])) {
             throw new \Exception('Informe a quantidade máxima dos caracteres');
         }
