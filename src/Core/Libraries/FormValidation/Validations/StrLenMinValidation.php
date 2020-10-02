@@ -8,8 +8,8 @@ class StrLenMinValidation extends AbstractValidation
 
     public function validate()
     {
-        if (!isset($this->options['dec'])) {
-            throw new \Exception('Informe as casas decimais');
+        if (!isset($this->options['size'])) {
+            throw new \Exception('Informe o tamanho mínimo dos caracteres');
         }
         $value = trim($this->value);
         if(mb_strlen($value)<$this->options['size']){
