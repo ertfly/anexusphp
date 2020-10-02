@@ -13,7 +13,7 @@ class Lang
      * @param integer $page
      * @param LocalPaisEntidade $country
      * @param boolean $fromCache
-     * @return IdiomaEntidade[]
+     * @return array
      */
     public static function loadPage(int $page, LocalPaisEntidade $country = null, bool $fromCache = true)
     {
@@ -21,7 +21,7 @@ class Lang
             return self::searchInCache($page, $country);
         }
 
-        return IdiomaRepositorio::porTela($page, $country->getId());
+        return self::toArray(IdiomaRepositorio::porTela($page, $country->getId()));
     }
 
     /**
@@ -38,7 +38,7 @@ class Lang
             return $translations[$country->getId()][$page];
         }
 
-        $translate = IdiomaRepositorio::porTela($page, $country->getId());
+        $translate = self::toArray(IdiomaRepositorio::porTela($page, $country->getId()));
         $translate['SCREEN_CACHE_VERSION'] = $version;
 
         $translations[$country->getId()][$page] = $translate;
@@ -64,5 +64,16 @@ class Lang
 
         return false;
     }
-}
 
+    /**
+     * @param IdiomaEntidade[] $translate
+     * @return array
+     */
+    private static function toArray(array $translate): array
+    {
+        foreach ($translate as $key => $value) {
+            $translate[$key] = $value->getvalor();
+        }
+        return $translate;
+    }
+}
