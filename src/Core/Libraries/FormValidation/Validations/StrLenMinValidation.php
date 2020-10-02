@@ -8,12 +8,12 @@ class StrLenMinValidation extends AbstractValidation
 
     public function validate()
     {
-        if (!isset($this->options['size'])) {
+        if (!isset($this->options['size_min'])) {
             throw new \Exception('Informe a quantidade mínima dos caracteres');
         }
         $value = trim($this->value);
-        if(mb_strlen($value)<$this->options['size']){
-            throw new \Exception(sprintf($this->message, $this->description, $this->options['size']));
+        if(mb_strlen($value)<$this->options['size_min']){
+            throw new \Exception(sprintf($this->message, $this->description, $this->options['size_min']));
         }
         return;
     }
