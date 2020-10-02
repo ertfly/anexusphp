@@ -14,6 +14,8 @@ class FormValidation
     const CPF = 'CPFValidation';
     const CNPJ = 'CNPJValidation';
     const DECIMAL = 'DecimalValidation';
+    const STR_LEN_MIN = 'StrLenMinValidation';
+    const STR_LEN_MAX = 'StrLenMaxValidation';
 
     private $validations;
     private $description;
