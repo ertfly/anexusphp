@@ -85,7 +85,7 @@ class Migration
             if (!is_file(PATH_MIGRATIONS . 'up' . DS . $v . '.sql')) {
                 continue;
             }
-            $sql = file_get_contents(PATH_MIGRATIONS . 'down' . DS . $v . '.sql');
+            $sql = file_get_contents(PATH_MIGRATIONS . 'up' . DS . $v . '.sql');
             if (trim($sql) == '') {
                 continue;
             }
