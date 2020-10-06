@@ -100,9 +100,12 @@ class Migration
         unset($scan[1]);
         unset($scan[2]);
         $scan = array_values($scan);
+        $scan = str_replace('.sql', '', $scan);
+        asort($scan);
+        $scan = array_values($scan);
         $version = 0;
         if (isset($scan[count($scan) - 1])) {
-            $version = intval(str_replace('.sql', '', $scan[count($scan) - 1]));
+            $version = intval($scan[count($scan) - 1]);
         }
 
         return $version;
@@ -115,9 +118,12 @@ class Migration
         unset($scan[1]);
         unset($scan[2]);
         $scan = array_values($scan);
+        $scan = str_replace('.sql', '', $scan);
+        asort($scan);
+        $scan = array_values($scan);
         $version = 0;
         if (isset($scan[count($scan) - 1])) {
-            $version = intval(str_replace('.sql', '', $scan[count($scan) - 1]));
+            $version = intval($scan[count($scan) - 1]);
         }
 
         return $version;
