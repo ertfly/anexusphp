@@ -25,6 +25,12 @@ abstract class DatabaseEntity
         $db->update($tabela, $this->toArray(), ['id' => $this->getId()]);
     }
 
+    public function saveWhere(Medoo $db, array $where = [])
+    {
+        $tabela = static::TABELA;
+        $db->update($tabela, $this->toArray(), $where);
+    }
+
     public function delete(Medoo $db)
     {
         $tabela = static::TABELA;
