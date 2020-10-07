@@ -22,6 +22,10 @@ class IdiomaRegraDeNegocio
         if (!$registro->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
-        $registro->save($db);
+        $registro->saveWhere($db, [
+            'id' => $registro->getId(),
+            'local_pais_id' => $registro->getLocalPaisId(),
+            'tela_id' => $registro->getTelaId()
+        ]);
     }
 }
