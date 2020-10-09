@@ -16,6 +16,10 @@ class LocalPaisEntidade extends DatabaseEntity
     protected $bandeira;
     protected $principal;
     protected $visivel;
+    protected $formato_dta;
+    protected $formato_dta_hra;
+    protected $locale;
+    protected $timezone;
     public function setId($id)
     {
         $this->id = $id;
@@ -103,6 +107,42 @@ class LocalPaisEntidade extends DatabaseEntity
     {
         return $this->visivel;
     }
+    public function setFormatoDta($formatoDta)
+    {
+        $this->formato_dta = $formatoDta;
+        return $this;
+    }
+    public function getFormatoDta()
+    {
+        return $this->formato_dta;
+    }
+    public function setFormatoDtaHra($formatoDtaHra)
+    {
+        $this->formato_dta_hra = $formatoDtaHra;
+        return $this;
+    }
+    public function getFormatoDtaHra()
+    {
+        return $this->formato_dta_hra;
+    }
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+    public function setTimezone($timezone)
+    {
+        $this->timezone = $timezone;
+        return $this;
+    }
+    public function getTimezone()
+    {
+        return $this->timezone;
+    }
     public function toArray()
     {
         return array(
@@ -113,7 +153,11 @@ class LocalPaisEntidade extends DatabaseEntity
             'empresa_campo_id' => $this->getEmpresaCampoId(),
             'bandeira' => $this->getBandeira(),
             'principal' => $this->getPrincipal(),
-            'visivel' => $this->getVisivel()
+            'visivel' => $this->getVisivel(),
+            'formato_dta' => $this->getFormatoDta(),
+            'formato_dta_hra' => $this->getFormatoDtaHra(),
+            'locale' => $this->getLocale(),
+            'timezone' => $this->getTimezone()
         );
     }
 }

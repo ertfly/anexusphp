@@ -2,6 +2,11 @@
 
 namespace AnexusPHP\Core\Tools;
 
+use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
+use DateTime;
+use DateTimeZone;
+use IntlDateFormatter;
+
 class Date
 {
     public static function formatToTime($format, $strTime)
@@ -20,6 +25,15 @@ class Date
         $date[1] = self::showMonth($date[1]);
         $date = "{$date[0]} de {$date[1]} de {$date[2]} - {$date[3]}";
         return $date;
+    }
+
+    public static function timeConverter(string $time, LocalPaisEntidade $country)
+    {
+        $localTime = DateTime::createFromFormat('Y-m-d H:i:s', $time, new DateTimeZone('America/Sao_Paulo'));
+        
+        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $country->getFormatoDta());
+
+        return $formatter->format($localTime);
     }
 
     public static function showMonth($month)
