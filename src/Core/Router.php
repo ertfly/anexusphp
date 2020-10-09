@@ -31,6 +31,8 @@ class Router extends SimpleRouter
             require_once PATH_ROUTES . $app . DS . $scanDir[$i];
         }
 
+        require_once PATH_ROUTES . 'ErrorRoutes.php';
+
         parent::start();
     }
 }
