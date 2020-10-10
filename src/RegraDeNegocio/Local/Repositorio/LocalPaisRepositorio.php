@@ -67,7 +67,7 @@ class LocalPaisRepositorio
     public static function principal($className): LocalPaisEntidade
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . 'z limit 1')->fetchObject($className);
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where principal is true limit 1')->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
