@@ -24,6 +24,21 @@ class LocalPaisRepositorio
     }
 
     /**
+     * @param string|null $id
+     * @return LocalPaisEntidade
+     */
+    public static function porLocale(?string $locale, $className): LocalPaisEntidade
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . LocalPaisEntidade::TABELA . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);
+        if ($reg === false) {
+            return new $className();
+        }
+
+        return $reg;
+    }
+
+    /**
      * @return LocalPaisEntidade[]
      */
     public static function todos($className)
