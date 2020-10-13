@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Tools;
+namespace AnexusPHP\Core\Tools;
 
 class Jwt
 {
@@ -8,7 +8,7 @@ class Jwt
 
     public function __construct($secret)
     {
-        $this->secret = $secret;    
+        $this->secret = $secret;
     }
 
     /*
@@ -52,7 +52,7 @@ class Jwt
                 $bsig = $this->base64UrlEncode($signature);
 
                 if ($bsig == $split[2]) {
-                    return json_decode($this->base64UrlDecode($split[1]));
+                    return json_decode($this->base64UrlDecode($split[1]), true);
                 }
             }
         }
