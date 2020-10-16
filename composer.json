@@ -1,5 +1,6 @@
 {
     "name": "anexusdevteam/anexusphp",
+    "type": "project",
     "description": "Conjunto de classes e funções pertencentes ao Core das aplições Anexus",
     "autoload": {
         "psr-4": {
@@ -8,7 +9,7 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-     "scripts": {
-         "anx-create-project": "php -v"
-     }
+    "scripts": {
+        "anx-create-project": "php -v"
+    }
 }
