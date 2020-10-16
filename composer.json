@@ -9,6 +9,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
      "scripts": {
-         "create-project": "php -v"
+         "anx-create-project": "php -v"
      }
 }
