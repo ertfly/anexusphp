@@ -6,7 +6,7 @@ use AnexusPHP\Core\DatabaseEntity;
 
 class LocalCityEntity extends DatabaseEntity
 {
-    const TABLE = 'local_country';
+    const TABLE = 'local_city';
     protected $id;
     protected $state_id;
     protected $name;
