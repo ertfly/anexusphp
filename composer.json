@@ -8,10 +8,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "anx-create-project": [
-            "php -v"
-        ]
-    }
+    "prefer-stable": true
 }
