@@ -1,13 +1,13 @@
 <?php
 
-namespace AnexusPHP\Business\Configuration\Rules;
+namespace AnexusPHP\Business\App\Rule;
 
-use AnexusPHP\Business\Configuration\Entity\ConfigurationEntity;
+use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Core\Database;
 
-class ConfigurationRules
+class AppRule
 {
-    public static function insert(ConfigurationEntity &$record)
+    public static function insert(AppEntity &$record)
     {
         $db = Database::getInstance();
         if ($record->getId()) {
@@ -15,7 +15,7 @@ class ConfigurationRules
         }
         $record->save($db);
     }
-    public static function update(ConfigurationEntity &$record)
+    public static function update(AppEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
@@ -23,7 +23,7 @@ class ConfigurationRules
         }
         $record->save($db);
     }
-    public static function delete(ConfigurationEntity &$record)
+    public static function delete(AppEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
@@ -31,7 +31,7 @@ class ConfigurationRules
         }
         $record->delete($db);
     }
-    public static function destroy(ConfigurationEntity &$record)
+    public static function destroy(AppEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
