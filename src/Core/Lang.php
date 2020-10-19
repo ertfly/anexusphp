@@ -3,42 +3,43 @@
 namespace AnexusPHP\Core;
 
 use AnexusPHP\Core\Session;
-use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
-use AnexusPHP\RegraDeNegocio\Idioma\Repositorio\IdiomaRepositorio;
-use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Language\Entity\LanguageEntity;
+use AnexusPHP\Business\Language\Repository\LanguageRepository;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 
 class Lang
 {
     /**
      * @param integer $page
-     * @param LocalPaisEntidade $country
+     * @param RegionCountryEntity $country
      * @param boolean $fromCache
      * @return array
      */
-    public static function loadPage(int $page, LocalPaisEntidade $country = null, bool $fromCache = true)
+    public static function loadPage(int $page, RegionCountryEntity $country = null, bool $fromCache = true)
     {
         if ($fromCache) {
             return self::searchInCache($page, $country);
         }
 
-        return self::toArray(IdiomaRepositorio::porTela($page, $country->getId()));
+        return self::toArray(LanguageRepository::byScreen($page, $country->getId()));
     }
 
     /**
      * @param integer $page
-     * @param LocalPaisEntidade $country
+     * @param RegionCountryEntity $country
      * @return array
      */
-    private static function searchInCache(int $page, LocalPaisEntidade $country)
+    private static function searchInCache(int $page, RegionCountryEntity $country)
     {
-        $version = (ConfiguracaoRepositorio::porId('TRANSLATION_VERSION'))->getValor();
+        $version = (ConfigurationRepository::byId('TRANSLATION_VERSION'))->getValue();
         $translations = Session::item('translations');
 
         if (self::isValidCache($version, $translations, $page, $country)) {
             return $translations[$country->getId()][$page];
         }
 
-        $translate = self::toArray(IdiomaRepositorio::porTela($page, $country->getId()));
+        $translate = self::toArray(LanguageRepository::byScreen($page, $country->getId()));
         $translate['SCREEN_CACHE_VERSION'] = $version;
 
         $translations[$country->getId()][$page] = $translate;
@@ -51,10 +52,10 @@ class Lang
      * @param integer $version
      * @param array|bool $translations
      * @param integer $page
-     * @param LocalPaisEntidade $country
+     * @param RegionCountryEntity $country
      * @return boolean
      */
-    private static function isValidCache(int $version, $translations, int $page, LocalPaisEntidade $country): bool
+    private static function isValidCache(int $version, $translations, int $page, RegionCountryEntity $country): bool
     {
         if ($translations && is_array($translations) && isset($translations[$country->getId()])) {
             if (isset($translations[$country->getId()][$page]) && $translations[$country->getId()][$page]['SCREEN_CACHE_VERSION'] == $version) {
@@ -66,13 +67,13 @@ class Lang
     }
 
     /**
-     * @param IdiomaEntidade[] $translate
+     * @param LanguageEntity[] $translate
      * @return array
      */
     private static function toArray(array $translate): array
     {
         foreach ($translate as $key => $value) {
-            $translate[$key] = $value->getvalor();
+            $translate[$key] = $value->getValue();
         }
         return $translate;
     }
