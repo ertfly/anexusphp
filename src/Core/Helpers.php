@@ -1,15 +1,15 @@
 <?php
 
+use AnexusPHP\Business\App\Constant\AppTypeConstant;
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Repository\AppSessionRepository;
+use AnexusPHP\Business\App\Rule\AppSessionRule;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
 use AnexusPHP\Core\Tools\Strings;
-use AnexusPHP\RegraDeNegocio\App\Constante\AppTipoConstante;
-use AnexusPHP\RegraDeNegocio\App\Entidade\AppEntidade;
-use AnexusPHP\RegraDeNegocio\App\RegraDeNegocio\AppSessaoRegraDeNegocio;
-use AnexusPHP\RegraDeNegocio\App\Repositorio\AppSessaoRepositorio;
-use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -158,7 +158,7 @@ function upload(string $path, $time = false)
     return $fileUrl;
 }
 
-function  sid(AppEntidade $app, $className)
+function  sid(AppEntity $app, $className)
 {
     if (!$app->getId()) {
         throw new \Exception('App inválido');
@@ -166,24 +166,24 @@ function  sid(AppEntidade $app, $className)
 
     $token = Session::item('token');
 
-    $sid = AppSessaoRepositorio::porToken($token, $className);
+    $sid = AppSessionRepository::perToken($token, $className);
     if (!$sid->getId()) {
         $token = Strings::token();
         $sid->setToken($token)
             ->setAppId($app->getId())
-            ->setTipo(AppTipoConstante::NAVEGADOR)
-            ->setAcessoIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
-            ->setAcessoNavegador((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
-        AppSessaoRegraDeNegocio::inserir($sid);
+            ->setType(AppTypeConstant::BROWSER)
+            ->setAccessIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
+            ->setAccessBrowser((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
+        AppSessionRule::insert($sid);
         Session::data('token', $token);
     } else {
-        AppSessaoRegraDeNegocio::alterar($sid);
+        AppSessionRule::update($sid);
     }
 
     return $sid;
 }
 
-function timeConverter(string $time, LocalPaisEntidade $country)
+function timeConverter(string $time, RegionCountryEntity $country)
 {
     return Date::timeConverter($time, $country);
 }
