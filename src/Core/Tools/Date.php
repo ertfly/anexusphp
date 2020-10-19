@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Core\Tools;
 
-use AnexusPHP\RegraDeNegocio\Local\Entidade\LocalPaisEntidade;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use DateTime;
 use DateTimeZone;
 use IntlDateFormatter;
@@ -27,11 +27,11 @@ class Date
         return $date;
     }
 
-    public static function timeConverter(string $time, LocalPaisEntidade $country)
+    public static function timeConverter(string $time, RegionCountryEntity $country)
     {
         $localTime = DateTime::createFromFormat('Y-m-d H:i:s', $time, new DateTimeZone('America/Sao_Paulo'));
         
-        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $country->getFormatoDta());
+        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $country->getDateFormat());
 
         return $formatter->format($localTime);
     }
