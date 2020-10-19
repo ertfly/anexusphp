@@ -12,7 +12,7 @@ class RegionCountryRepository
      * Retorna um registro pelo id
      *
      * @param integer|null $id
-     * @param mixe $className
+     * @param mixed $className
      * @return RegionCountryEntity
      */
     public static function byId(?int $id, $className): RegionCountryEntity
@@ -82,7 +82,7 @@ class RegionCountryRepository
     public static function byInitials(RegionCountryEntity $country, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where sigla = :sigla limit 1', ['sigla' => $country->getInitials()])->fetchObject($className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where initials = :initials limit 1', ['initials' => $country->getInitials()])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
