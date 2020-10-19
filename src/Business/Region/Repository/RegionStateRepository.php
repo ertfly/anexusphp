@@ -14,7 +14,7 @@ class RegionStateRepository
      * @param integer|null $id
      * @return RegionStateEntity
      */
-    public static function porId(?int $id)
+    public static function perId(?int $id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(RegionStateEntity::class);
@@ -30,10 +30,10 @@ class RegionStateRepository
      * 
      * @return RegionStateEntity[]
      */
-    public static function buscaTodos()
+    public static function searchAll()
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where lixo = 0')->fetchAll(PDO::FETCH_CLASS, RegionStateEntity::class);
+        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where trash = 0')->fetchAll(PDO::FETCH_CLASS, RegionStateEntity::class);
 
         return $reg;
     }

@@ -48,7 +48,7 @@ class LanguageScreenRepository
     public static function perScreen(int $page, int $country)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select a.id, a.* from ' . LanguageEntity::TABLE . ' a where region_pais_id = :region_pais_id and tela_id = :tela_id order by id asc', ['region_pais_id' => (int)$country, 'tela_id' => (int)$page])->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_UNIQUE, LanguageEntity::class);
+        $regs = $db->query('select a.id, a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id and screen_id = :screen_id order by id asc', ['region_country_id' => (int)$country, 'screen_id' => (int)$page])->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_UNIQUE, LanguageEntity::class);
 
         return $regs;
     }
@@ -62,7 +62,7 @@ class LanguageScreenRepository
     public static function perCountry(int $country)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select a.* from ' . LanguageEntity::TABLE . ' a where region_pais_id = :region_pais_id order by id asc', ['region_pais_id' => (int)$country])->fetchAll(PDO::FETCH_CLASS, LanguageEntity::class);
+        $regs = $db->query('select a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id order by id asc', ['region_country_id' => (int)$country])->fetchAll(PDO::FETCH_CLASS, LanguageEntity::class);
 
         return $regs;
     }

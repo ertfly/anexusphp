@@ -30,10 +30,10 @@ class ConfigurationRepository
      * @param string|null $id
      * @return string
      */
-    public static function getValor(?string $id)
+    public static function getValue(?string $id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select valor from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchColumn();
+        $reg = $db->query('select value from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchColumn();
 
         return $reg;
     }

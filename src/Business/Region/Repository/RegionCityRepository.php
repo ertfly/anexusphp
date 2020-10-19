@@ -29,32 +29,32 @@ class RegionCityRepository
     /**
      * Retorna registros da tabela pelo Estado
      *
-     * @param RegionStateEntity $uf
-     * @param array $opcoes
+     * @param RegionStateEntity $state
+     * @param array $options
      * @return RegionCityEntity[]
      */
-    public static function searchByState($uf, array $opcoes = [])
+    public static function searchByState($state, array $options = [])
     {
         $db = Database::getInstance();
 
-        if (!$uf->getId()) {
+        if (!$state->getId()) {
             throw new Exception('UF inválido');
         }
 
         $regs = $db->query('
             select 
                 a.id as id,
-                a.uf_id as uf_id,
-                a.nome as nome
+                a.state_id as state_id,
+                a.name as name
             from ' . RegionCityEntity::TABLE . ' a
-            where a.uf_id = :region_uf_id
-            order by a.nome asc
+            where a.state_id = :region_state_id
+            order by a.name asc
         ', [
-            'region_uf_id' => $uf->getId(),
+            'region_state_id' => $state->getId(),
         ])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
 
         foreach ($regs as $key => $reg) {
-            if (isset($opcoes['array']) && $opcoes['array']) {
+            if (isset($options['array']) && $options['array']) {
                 $regs[$key] = $regs[$key] = $reg->toArray();
             }
         }
@@ -70,6 +70,6 @@ class RegionCityRepository
     public static function searchAll()
     {
         $db = Database::getInstance();
-        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where lixo = 0')->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where trash = 0')->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
     }
 }
