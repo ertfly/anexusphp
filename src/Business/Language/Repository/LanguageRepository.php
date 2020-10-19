@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Language\Repository;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Business\Language\Entity\LanguageEntity;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use PDO;
 
 class LanguageRepository
@@ -35,25 +36,25 @@ class LanguageRepository
 
     /**
      * @param integer $page
-     * @param integer $country
+     * @param RegionCountryEntity $country
      * @return LanguageEntity[]
      */
-    public static function byScreen(int $page, int $country)
+    public static function byScreen(int $page, RegionCountryEntity $country)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select a.id, a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id and screen_id = :screen_id order by id asc', ['region_country_id' => (int)$country, 'screen_id' => (int)$page])->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_UNIQUE, LanguageEntity::class);
+        $regs = $db->query('select a.id, a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id and screen_id = :screen_id order by id asc', ['region_country_id' => (int)$country->getId(), 'screen_id' => (int)$page])->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_UNIQUE, LanguageEntity::class);
 
         return $regs;
     }
 
     /**
-     * @param integer $country
+     * @param RegionCountryEntity $country
      * @return LanguageEntity[]
      */
-    public static function byCountry(int $country)
+    public static function byCountry(RegionCountryEntity $country)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id order by id asc', ['region_country_id' => (int)$country])->fetchAll(PDO::FETCH_CLASS, LanguageEntity::class);
+        $regs = $db->query('select a.* from ' . LanguageEntity::TABLE . ' a where region_country_id = :region_country_id order by id asc', ['region_country_id' => (int)$country->getId()])->fetchAll(PDO::FETCH_CLASS, LanguageEntity::class);
 
         return $regs;
     }
