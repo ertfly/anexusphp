@@ -49,10 +49,10 @@ class LanguageEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'region_country_id' => $this->getRegionCountryId(),
             'value' => $this->getValue(),
             'screen_id' => $this->getScreenId()
-        );
+        ];
     }
 }

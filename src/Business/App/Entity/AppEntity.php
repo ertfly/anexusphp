@@ -39,9 +39,9 @@ class AppEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'key' => $this->getKey()
-        );
+        ];
     }
 }

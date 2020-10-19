@@ -29,8 +29,8 @@ class LanguageScreenEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'description' => $this->getDescription()
-        );
+        ];
     }
 }
