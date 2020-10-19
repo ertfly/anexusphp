@@ -45,6 +45,7 @@ class Init extends Anx
                 PATH_MIGRATIONS . 'base.sql' => '',
                 PATH_MIGRATIONS . 'dados.sql' => '',
                 PATH_CACHE . '.gitkeep' => '',
+                PATH_LOGS . '.gitkeep' => '',
                 PATH_ROUTES . 'ErrorRoutes.php' => "<?php\n\nuse Pecee\Http\Request;\nuse Pecee\SimpleRouter\Exceptions\NotFoundHttpException;\nuse Pecee\SimpleRouter\SimpleRouter;\n\nSimpleRouter::error(function (Request \$request, \Exception \$exception)\n{\n\tif (\$exception instanceof NotFoundHttpException) {\n\t\treturn response()->redirect(url('not-found'));\n\t}\n});\n",
                 PATH_PUBLIC . 'assets/index.html' => '',
                 PATH_PUBLIC . 'uploads/index.html' => '',
