@@ -14,7 +14,7 @@ class RegionStateRepository
      * @param integer|null $id
      * @return RegionStateEntity
      */
-    public static function perId(?int $id)
+    public static function byId(?int $id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(RegionStateEntity::class);

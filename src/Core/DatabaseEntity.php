@@ -13,7 +13,7 @@ abstract class DatabaseEntity
 
     abstract public function toArray();
 
-    public function save(Medoo $db)
+    public function save(Medoo $db, $where = [])
     {
         $tabela = static::TABELA;
         if (!$this->getId()) {
@@ -22,31 +22,35 @@ abstract class DatabaseEntity
             $this->setId($id);
             return;
         }
-        $db->update($tabela, $this->toArray(), ['id' => $this->getId()]);
-    }
 
-    public function saveWhere(Medoo $db, array $where = [])
-    {
-        $tabela = static::TABELA;
+        if(count($where)==0){
+            $where['id'] = $this->getId();
+        }
         $db->update($tabela, $this->toArray(), $where);
     }
 
-    public function delete(Medoo $db)
+    public function delete(Medoo $db, $where = [])
     {
+        if(count($where)==0){
+            $where['id'] = $this->getId();
+        }
         $tabela = static::TABELA;
         if (!$this->getId()) {
             return;
         }
-        $db->update($tabela, ['lixo' => true], ['id' => $this->getId()]);
+        $db->update($tabela, ['lixo' => true], $where);
     }
 
-    public function destroy(Medoo $db)
+    public function destroy(Medoo $db, $where = [])
     {
+        if(count($where)==0){
+            $where['id'] = $this->getId();
+        }
         $tabela = static::TABELA;
         if (!$this->getId()) {
             return;
         }
-        $db->delete($tabela, ['id' => $this->getId()]);
+        $db->delete($tabela, $where);
     }
 
     public function fromJson(array $json)

@@ -8,7 +8,7 @@ use Swift_SmtpTransport;
 
 class Email
 {
-    public static function enviarEmail($toEmails, $subject, $message, $fromEmail, $fromName)
+    public static function send($toEmails, $subject, $message, $fromEmail, $fromName)
     {
         $smtp_url = 'smtp.naoresponder.com.br';
         $smtp_port = 587;

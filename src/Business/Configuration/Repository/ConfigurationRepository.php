@@ -13,7 +13,7 @@ class ConfigurationRepository
      * @param string|null $id
      * @return ConfigurationEntity
      */
-    public static function perId(?string $id)
+    public static function byId(?string $id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(ConfigurationEntity::class);

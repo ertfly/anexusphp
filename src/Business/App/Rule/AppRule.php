@@ -31,12 +31,4 @@ class AppRule
         }
         $record->delete($db);
     }
-    public static function destroy(AppEntity &$record)
-    {
-        $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new \Exception('Esse método deve conter um ID');
-        }
-        $record->destroy($db);
-    }
 }

@@ -15,7 +15,7 @@ class RegionCountryRepository
      * @param mixe $className
      * @return RegionCountryEntity
      */
-    public static function perId(?int $id, $className): RegionCountryEntity
+    public static function byId(?int $id, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
@@ -33,7 +33,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function perLocale(?string $locale, $className): RegionCountryEntity
+    public static function byLocale(?string $locale, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);

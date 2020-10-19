@@ -14,7 +14,7 @@ class AppSessionRepository
      * @param mixed $className
      * @return AppSessionEntity
      */
-    public static function perId(?int $id, $className): AppSessionEntity
+    public static function byId(?int $id, $className): AppSessionEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
@@ -32,7 +32,7 @@ class AppSessionRepository
      * @param mixed $className
      * @return AppSessionEntity
      */
-    public static function perToken(string $token, $className): AppSessionEntity
+    public static function byToken(string $token, $className): AppSessionEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $token])->fetchObject($className);

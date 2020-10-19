@@ -11,8 +11,6 @@ class RegionCountryEntity extends DatabaseEntity
     protected $name;
     protected $code;
     protected $initials;
-    protected $person_field_id;
-    protected $company_field_id;
     protected $flag;
     protected $principal;
     protected $visible;
@@ -55,24 +53,6 @@ class RegionCountryEntity extends DatabaseEntity
     public function getInitials()
     {
         return $this->initials;
-    }
-    public function setPersonFieldId($personFieldId)
-    {
-        $this->person_field_id = $personFieldId;
-        return $this;
-    }
-    public function getPersonFieldId()
-    {
-        return $this->person_field_id;
-    }
-    public function setCompanyFieldId($companyFieldId)
-    {
-        $this->company_field_id = $companyFieldId;
-        return $this;
-    }
-    public function getCompanyFieldId()
-    {
-        return $this->company_field_id;
     }
     public function setFlag($flag)
     {
@@ -149,8 +129,6 @@ class RegionCountryEntity extends DatabaseEntity
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'initials' => $this->getInitials(),
-            'person_field_id' => $this->getPersonFieldId(),
-            'company_field_id' => $this->getCompanyFieldId(),
             'flag' => $this->getFlag(),
             'principal' => $this->getPrincipal(),
             'visible' => $this->getVisible(),

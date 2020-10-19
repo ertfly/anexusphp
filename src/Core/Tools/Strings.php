@@ -133,7 +133,7 @@ class Strings
         return true;
     }
 
-    public static function apenasNumero($str)
+    public static function onlyNumber($str)
     {
         return preg_replace("/[^0-9]/", "", $str);
     }

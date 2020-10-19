@@ -13,7 +13,7 @@ class AppRepository
      * @param integer|null $id
      * @return AppEntity
      */
-    public static function perId(?int $id)
+    public static function byId(?int $id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . AppEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppEntity::class);

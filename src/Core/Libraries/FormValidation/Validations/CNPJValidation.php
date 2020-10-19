@@ -18,7 +18,7 @@ class CNPJValidation extends AbstractValidation
 
     public static function cnpj($cnpj)
     {
-        $cnpj = Strings::apenasNumero($cnpj);
+        $cnpj = Strings::onlyNumber($cnpj);
         $j = 0;
         for ($i = 0; $i < (strlen($cnpj)); $i++) {
             if (is_numeric($cnpj[$i])) {

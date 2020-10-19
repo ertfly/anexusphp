@@ -14,7 +14,7 @@ CREATE TABLE public.app (
 
 -- public.app_session definition
 
---
+-- Drop table
 
 -- DROP TABLE public.app_session;
 
