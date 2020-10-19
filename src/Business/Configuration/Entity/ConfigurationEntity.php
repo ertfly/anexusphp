@@ -39,9 +39,9 @@ class ConfigurationEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'value' => $this->getValue(),
             'description' => $this->getDescription()
-        );
+        ];
     }
 }

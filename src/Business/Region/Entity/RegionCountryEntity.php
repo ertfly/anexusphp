@@ -145,7 +145,7 @@ class RegionCountryEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'initials' => $this->getInitials(),
@@ -158,6 +158,6 @@ class RegionCountryEntity extends DatabaseEntity
             'date_hour_format' => $this->getDateHourFormat(),
             'locale' => $this->getLocale(),
             'timezone' => $this->getTimezone()
-        );
+        ];
     }
 }

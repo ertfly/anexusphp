@@ -39,10 +39,10 @@ class RegionCityEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'id' => $this->getId(),
             'state_id' => $this->getStateId(),
             'name' => $this->getName()
-        );
+        ];
     }
 }

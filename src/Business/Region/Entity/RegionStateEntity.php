@@ -59,11 +59,11 @@ class RegionStateEntity extends DatabaseEntity
     }
     public function toArray()
     {
-        return array(
+        return [
             'country_id' => $this->getCountryId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'initials' => $this->getInitials()
-        );
+        ];
     }
 }
