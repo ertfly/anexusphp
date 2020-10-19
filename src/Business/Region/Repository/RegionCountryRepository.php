@@ -29,14 +29,14 @@ class RegionCountryRepository
     /**
      * Retorna um registro da tabela pelo pais
      *
-     * @param string|null $locale
+     * @param RegionCountryEntity|null $country
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byLocale(?string $locale, $className): RegionCountryEntity
+    public static function byLocale(?RegionCountryEntity $country, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $country->getLocale()])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
@@ -75,14 +75,14 @@ class RegionCountryRepository
     /**
      * Retorna um registro do banco pela sigla
      *
-     * @param string $initials
+     * @param RegionCountryEntity $country
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function perInitials(string $initials, $className): RegionCountryEntity
+    public static function byInitials(RegionCountryEntity $country, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where sigla = :sigla limit 1', ['sigla' => $initials])->fetchObject($className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where sigla = :sigla limit 1', ['sigla' => $country->getInitials()])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }

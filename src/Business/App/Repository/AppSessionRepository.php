@@ -28,14 +28,15 @@ class AppSessionRepository
     /**
      * Retorna um registro do banco pelo token
      *
-     * @param string $token
+     * @param AppSessionEntity $token
      * @param mixed $className
      * @return AppSessionEntity
      */
-    public static function byToken(string $token, $className): AppSessionEntity
+    public static function byToken(AppSessionEntity $appSession, $className): AppSessionEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $token])->fetchObject($className);
+
+        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $appSession->getToken()])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
