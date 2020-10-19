@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Business\App\Constant;
 
-class AppContant
+class AppConstant
 {
     const USER = 1;
     const MANAGER = 2;
