@@ -1,29 +1,34 @@
 <?php
 
-namespace AnexusPHP\Business\App\Rules;
+namespace AnexusPHP\Business\App\Rule;
 
-use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Entity\AppSessionEntity;
 use AnexusPHP\Core\Database;
 
-class AppRules
+class AppSessionRule
 {
-    public static function insert(AppEntity &$record)
+    public static function insert(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
+
+        $record->setCreateAt(date('Y-m-d H:i:s'));
+        $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->save($db);
     }
-    public static function update(AppEntity &$record)
+    public static function update(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
+
+        $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->save($db);
     }
-    public static function delete(AppEntity &$record)
+    public static function delete(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
@@ -31,7 +36,7 @@ class AppRules
         }
         $record->delete($db);
     }
-    public static function destroy(AppEntity &$record)
+    public static function destroy(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {

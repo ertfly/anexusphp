@@ -1,11 +1,11 @@
 <?php
 
-namespace AnexusPHP\Business\Language\Rules;
+namespace AnexusPHP\Business\Language\Rule;
 
 use AnexusPHP\Business\Language\Entity\LanguageScreenEntity;
 use AnexusPHP\Core\Database;
 
-class LanguageScreenRules
+class LanguageScreenRule
 {
     public static function insert(LanguageScreenEntity &$registro)
     {

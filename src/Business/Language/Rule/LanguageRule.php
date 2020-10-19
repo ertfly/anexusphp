@@ -1,11 +1,11 @@
 <?php
 
-namespace AnexusPHP\Business\Language\Rules;
+namespace AnexusPHP\Business\Language\Rule;
 
 use AnexusPHP\Business\Language\Entity\LanguageEntity;
 use AnexusPHP\Core\Database;
 
-class LanguageRules
+class LanguageRule
 {
     public static function insert(LanguageEntity &$record)
     {
