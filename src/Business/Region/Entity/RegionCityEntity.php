@@ -10,6 +10,7 @@ class RegionCityEntity extends DatabaseEntity
     protected $id;
     protected $state_id;
     protected $name;
+    protected $code;
     public function setId($id)
     {
         $this->id = $id;
@@ -37,12 +38,22 @@ class RegionCityEntity extends DatabaseEntity
     {
         return $this->name;
     }
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+    public function getCode()
+    {
+        return $this->code;
+    }
     public function toArray()
     {
         return [
             'id' => $this->getId(),
             'state_id' => $this->getStateId(),
-            'name' => $this->getName()
+            'name' => $this->getName(),
+            'code' => $this->getCode()
         ];
     }
 }

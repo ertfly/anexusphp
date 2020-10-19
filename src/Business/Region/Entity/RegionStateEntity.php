@@ -10,7 +10,6 @@ class RegionStateEntity extends DatabaseEntity
     protected $id;
     protected $country_id;
     protected $name;
-    protected $code;
     protected $initials;
     public function setId($id)
     {
@@ -39,15 +38,6 @@ class RegionStateEntity extends DatabaseEntity
     {
         return $this->name;
     }
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-    public function getCode()
-    {
-        return $this->code;
-    }
     public function setInitials($initials)
     {
         $this->initials = $initials;
@@ -62,7 +52,6 @@ class RegionStateEntity extends DatabaseEntity
         return [
             'country_id' => $this->getCountryId(),
             'name' => $this->getName(),
-            'code' => $this->getCode(),
             'initials' => $this->getInitials()
         ];
     }
