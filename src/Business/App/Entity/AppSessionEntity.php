@@ -2,7 +2,9 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
-class AppSessionEntity
+use AnexusPHP\Core\DatabaseEntity;
+
+class AppSessionEntity extends DatabaseEntity
 {
     const TABLE = 'app_session';
     protected $id;
@@ -70,42 +72,42 @@ class AppSessionEntity
     }
     public function setAccessBrowser($accessBrowser)
     {
-        $this->acesso_navegador = $accessBrowser;
+        $this->access_browser = $accessBrowser;
         return $this;
     }
     public function getAccessBrowser()
     {
-        return $this->acesso_navegador;
+        return $this->access_browser;
     }
-    public function setDtaInicio($dtaInicio)
+    public function setCreateAt($createAt)
     {
-        $this->dta_inicio = $dtaInicio;
+        $this->create_at = $createAt;
         return $this;
     }
-    public function getDtaInicio()
+    public function getCreateAt()
     {
-        return $this->dta_inicio;
+        return $this->create_at;
     }
-    public function setDtaAtualizacao($dtaAtualizacao)
+    public function setUpdatedAt($updateAt)
     {
-        $this->dta_atualizacao = $dtaAtualizacao;
+        $this->updated_at = $updateAt;
         return $this;
     }
-    public function getDtaAtualizacao()
+    public function getUpdatedAt()
     {
         return $this->dta_atualizacao;
     }
     public function toArray()
     {
-        return array(
+        return [
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
-            'person_id' => $this->getPessoaId(),
-            'tipo' => $this->getTipo(),
-            'acesso_ip' => $this->getAcessoIp(),
-            'acesso_navegador' => $this->getAcessoNavegador(),
-            'dta_inicio' => $this->getDtaInicio(),
-            'dta_atualizacao' => $this->getDtaAtualizacao(),
-        );
+            'person_id' => $this->getPersonId(),
+            'type' => $this->getType(),
+            'access_ip' => $this->getAccessIp(),
+            'access_browser' => $this->getAccessBrowser(),
+            'create_at' => $this->getCreateAt(),
+            'updated_at' => $this->getUpdatedAt(),
+        ];
     }
 }
