@@ -15,7 +15,7 @@ class RegionCountryRepository
      * @param mixe $className
      * @return RegionCountryEntity
      */
-    public static function porId(?int $id, $className): RegionCountryEntity
+    public static function perId(?int $id, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
@@ -64,10 +64,10 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function todosVisiveis($className)
+    public static function allVisible($className)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where visivel is true order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where visible is true order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $reg;
     }
@@ -75,14 +75,14 @@ class RegionCountryRepository
     /**
      * Retorna um registro do banco pela sigla
      *
-     * @param string $sigla
+     * @param string $initials
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function porSigla(string $sigla, $className): RegionCountryEntity
+    public static function perInitials(string $initials, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where sigla = :sigla limit 1', ['sigla' => $sigla])->fetchObject($className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where sigla = :sigla limit 1', ['sigla' => $initials])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
