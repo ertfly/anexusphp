@@ -84,8 +84,12 @@ class AppSessionEntity extends DatabaseEntity
         $this->create_at = $createAt;
         return $this;
     }
-    public function getCreateAt()
+    public function getCreateAt($format = false)
     {
+        if($format && $this->create_at){
+            return timeConverter($this->create_at, request()->country);
+        }
+
         return $this->create_at;
     }
     public function setUpdatedAt($updateAt)
@@ -93,9 +97,13 @@ class AppSessionEntity extends DatabaseEntity
         $this->updated_at = $updateAt;
         return $this;
     }
-    public function getUpdatedAt()
+    public function getUpdatedAt($format = false)
     {
-        return $this->dta_atualizacao;
+        if($format && $this->updated_at){
+            return timeConverter($this->updated_at, request()->country);
+        }
+
+        return $this->updated_at;
     }
     public function toArray()
     {
