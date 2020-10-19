@@ -8,10 +8,10 @@ use AnexusPHP\Core\Database;
 class AppRepository
 {
     /**
-     * Retorna um registro do banco
+     * Retorna um registro do banco pelo id
      *
      * @param integer|null $id
-     * @return void
+     * @return AppEntity
      */
     public static function perId(?int $id)
     {
