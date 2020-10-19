@@ -66,7 +66,9 @@ class Init extends Anx
         try {
             $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
             $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-            $database->exec($sql);
+            if(trim($sql) != '') {
+                $database->exec($sql);
+            }
         } catch (Exception $e) {
             exit(chr(10) . 'Base tables error' . chr(10));
         }
