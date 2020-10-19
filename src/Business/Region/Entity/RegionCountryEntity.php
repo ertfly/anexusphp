@@ -1,12 +1,12 @@
 <?php
 
-namespace AnexusPHP\Business\Local\Entity;
+namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Core\DatabaseEntity;
 
-class LocalCountryEntity extends DatabaseEntity
+class RegionCountryEntity extends DatabaseEntity
 {
-    const TABLE = 'local_country';
+    const TABLE = 'region_country';
     protected $id;
     protected $name;
     protected $code;

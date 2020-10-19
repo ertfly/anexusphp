@@ -8,7 +8,7 @@ class LanguageEntity extends DatabaseEntity
 {
     const TABLE = 'language';
     protected $id;
-    protected $local_country_id;
+    protected $region_country_id;
     protected $value;
     protected $screen_id;
     public function setId($id)
@@ -20,14 +20,14 @@ class LanguageEntity extends DatabaseEntity
     {
         return $this->id;
     }
-    public function setLocalCountryId($localCountryId)
+    public function setRegionCountryId($regionCountryId)
     {
-        $this->local_country_id = $localCountryId;
+        $this->region_country_id = $regionCountryId;
         return $this;
     }
-    public function getLocalCountryId()
+    public function getRegionCountryId()
     {
-        return $this->local_country_id;
+        return $this->region_country_id;
     }
     public function setValue($value)
     {
@@ -50,7 +50,7 @@ class LanguageEntity extends DatabaseEntity
     public function toArray()
     {
         return array(
-            'local_country_id' => $this->getLocalCountryId(),
+            'region_country_id' => $this->getRegionCountryId(),
             'value' => $this->getValue(),
             'screen_id' => $this->getScreenId()
         );

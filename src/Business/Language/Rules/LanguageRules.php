@@ -24,7 +24,7 @@ class LanguageRules
         }
         $record->saveWhere($db, [
             'id' => $record->getId(),
-            'local_country_id' => $record->getLocalCountryId(),
+            'region' => $record->getRegionCountryId(),
             'screen_id' => $record->getScreenId()
         ]);
     }
