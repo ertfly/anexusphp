@@ -1,0 +1,13 @@
+<?php
+
+use Pecee\SimpleRouter\SimpleRouter;
+
+$settings = [
+    'prefix' => '{{prefix}}',
+    'namespace' => '{{app}}\Modules\{{module}}\Controllers',
+    'middleware' => {{app}}\Modules\Middleware::class
+];
+
+SimpleRouter::group($settings, function () {
+    SimpleRouter::get('/', '{{module}}Controller@index')->setName('{{app}}');
+});

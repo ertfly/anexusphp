@@ -1,0 +1,11 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Models;
+
+class {{module}}Model
+{
+    public static function submit()
+    {
+        #
+    }
+}
