@@ -9,5 +9,5 @@ $settings = [
 ];
 
 SimpleRouter::group($settings, function () {
-    SimpleRouter::get('/', '{{module}}Controller@index')->setName('{{app}}');
+    SimpleRouter::get('/', '{{module}}Controller@index')->setName('{{app}}{{module}}');
 });

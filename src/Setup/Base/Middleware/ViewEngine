@@ -1,0 +1,16 @@
+<?php
+
+namespace {{app}}\Modules;
+
+use League\Plates\Engine;
+use Pecee\Http\Middleware\IMiddleware;
+use Pecee\Http\Request;
+
+class Middleware implements IMiddleware
+{
+    public function handle(Request $request): void
+    {
+        $request->view = new Engine(dirname(__DIR__, 1) . DS . 'Views', 'phtml');
+        $request->view->addData([]);
+    }
+}

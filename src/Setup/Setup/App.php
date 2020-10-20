@@ -34,9 +34,17 @@ class App extends Anx implements AnxInterface
                 throw new Exception("The '{$app}' already exists", 1);
             }
 
+            $middleware = $this->getTemplate('Middleware' . DS . 'ViewEngine', [
+                '{{app}}' => $app
+            ]);
+
+            $template = $this->getTemplate('Template' . DS . 'EmptyTemplate', [
+                '{{app}}' => $app
+            ]);
+
             $files = [
-                PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => "<?php\n\nnamespace $app\Modules;\n\nuse Pecee\Http\Middleware\IMiddleware;\nuse Pecee\Http\Request;\n\nclass Middleware implements IMiddleware\n{\n    public function handle(Request \$request): void\n    {\n        \n    }\n}\n",
-                PATH_ROOT . 'src' . DS . $app . DS . 'Template.php' => "<?php\n\nnamespace $app;\n\nclass Template\n{\n    \n}\n",
+                PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => $middleware,
+                PATH_ROOT . 'src' . DS . $app . DS . 'Template.php' => $template,
             ];
 
             foreach ($files as $key => $value) {

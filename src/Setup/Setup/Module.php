@@ -15,16 +15,16 @@ class Module extends Anx implements AnxInterface
 
     public function run(array $params = []): void
     {
-        // define('DS', DIRECTORY_SEPARATOR);
+        define('DS', DIRECTORY_SEPARATOR);
 
-        // // Carregando PATH
-        // define('PATH_ROOT', dirname(__FILE__) . DS);
-        // define('PATH_PUBLIC', PATH_ROOT . 'public' . DS);
-        // define('PATH_CACHE', PATH_ROOT . 'cache' . DS);
-        // define('PATH_LOGS', PATH_ROOT . 'logs' . DS);
-        // define('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);
-        // define('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);
-        // define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
+        // Carregando PATH
+        define('PATH_ROOT', dirname(__FILE__) . DS);
+        define('PATH_PUBLIC', PATH_ROOT . 'public' . DS);
+        define('PATH_CACHE', PATH_ROOT . 'cache' . DS);
+        define('PATH_LOGS', PATH_ROOT . 'logs' . DS);
+        define('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);
+        define('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);
+        define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
 
         try {
             if (!is_writable(PATH_ROOT)) {
@@ -45,6 +45,8 @@ class Module extends Anx implements AnxInterface
                 throw new Exception("The Module '{$app}' already exists", 1);
             }
 
+            $path = strtolower((isset($params[2]) && trim($params[2]) != '' ? $params[2]: "/app"));
+
             $controller = $this->getTemplate('Controller' . DS . 'BasicController', [
                 '{{app}}' => $app,
                 '{{module}}' => $module,
@@ -59,12 +61,13 @@ class Module extends Anx implements AnxInterface
             $route = $this->getTemplate('Route' . DS . 'IndexRoute', [
                 '{{app}}' => $app,
                 '{{module}}' => $module,
-                '{{prefix}}' => strtolower("/$app")
+                '{{prefix}}' => $path
             ]);
 
             $files = [
                 PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $controller,
                 PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Models' . DS . $module . 'Model.php' => $model,
+                PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'index.phtml' => $this->getTemplate('View' . DS . 'HelloWorld'),
                 PATH_ROUTES . $app . DS . $module . 'Routes.php' => $route
             ];
 
