@@ -17,12 +17,12 @@ class Init extends Anx implements AnxInterface
 
     public function run(array $params = []):void
     {
-        // verificar se db existe
-        try {
-            $database = Database::getInstance();
-        } catch (\PDOException $e) {
-            exit(chr(10) . 'Database not found' . chr(10));
-        }
+        // // verificar se db existe
+        // try {
+        //     $database = Database::getInstance();
+        // } catch (\PDOException $e) {
+        //     exit(chr(10) . 'Database not found' . chr(10));
+        // }
 
         // criar as pastas básicas
         try {
@@ -64,15 +64,15 @@ class Init extends Anx implements AnxInterface
             exit(chr(10) . 'Folder permissions error' . chr(10));
         }
 
-        // criar as tabelas base
-        try {
-            $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-            $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-            if(trim($sql) != '') {
-                $database->exec($sql);
-            }
-        } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
-        }
+        // // criar as tabelas base
+        // try {
+        //     $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
+        //     $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
+        //     if(trim($sql) != '') {
+        //         $database->exec($sql);
+        //     }
+        // } catch (Exception $e) {
+        //     exit(chr(10) . 'Base tables error' . chr(10));
+        // }
     }
 }

@@ -4,6 +4,8 @@ namespace AnexusPHP\Setup;
 
 class Anx
 {
+    const PATH_BASE = __DIR__ . DS . 'Base' . DS;
+
     public function start(string $function, $params = [])
     {
         // funções liberadas pra uso
@@ -11,7 +13,8 @@ class Anx
             'help' => '\AnexusPHP\Setup\Setup\Help',
             'init' => '\AnexusPHP\Setup\Setup\Init',
             'create-app' => '\AnexusPHP\Setup\Setup\App',
-            'create-module' => '\AnexusPHP\Setup\Setup\Module'
+            'create-module' => '\AnexusPHP\Setup\Setup\Module',
+            'create-panel' => '\AnexusPHP\Setup\Setup\Panel'
         ];
 
         // verificando se a chave pedida existe
