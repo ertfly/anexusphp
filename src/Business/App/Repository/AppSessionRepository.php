@@ -28,9 +28,9 @@ class AppSessionRepository
     /**
      * Retorna um registro do banco pelo token
      *
-     * @param AppSessionEntity $token
+     * @param string $token
      * @param mixed $className
-     * @return AppSessionEntity
+     * @return string
      */
     public static function byToken(AppSessionEntity $appSession, $className): AppSessionEntity
     {

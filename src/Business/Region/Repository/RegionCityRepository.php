@@ -38,7 +38,7 @@ class RegionCityRepository
         $db = Database::getInstance();
 
         if (!$state->getId()) {
-            throw new Exception('UF inválido');
+            throw new Exception('Estado inválido');
         }
 
         $regs = $db->query('
