@@ -10,12 +10,12 @@ use PDO;
 
 class Init extends Anx implements AnxInterface
 {
-    public function __construct()
+    public function __construct($params)
     {
-        $this->run();
+        $this->run($params);
     }
 
-    public function run()
+    public function run(array $params = []):void
     {
         // verificar se db existe
         try {
