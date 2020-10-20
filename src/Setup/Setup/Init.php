@@ -3,11 +3,12 @@
 namespace AnexusPHP\Setup\Setup;
 
 use AnexusPHP\Core\Database;
+use AnexusPHP\Interfaces\Anx\AnxInterface;
 use AnexusPHP\Setup\Anx;
 use Exception;
 use PDO;
 
-class Init extends Anx
+class Init extends Anx implements AnxInterface
 {
     public function __construct()
     {
