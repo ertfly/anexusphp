@@ -11,7 +11,10 @@ class Anx
             'help' => '\AnexusPHP\Setup\Setup\Help',
             'init' => '\AnexusPHP\Setup\Setup\Init',
             'create-app' => '\AnexusPHP\Setup\Setup\App',
-            'create-module' => '\AnexusPHP\Setup\Setup\Module'
+            'create-module' => '\AnexusPHP\Setup\Setup\Module',
+            'create-biz' => '\AnexusPHP\Setup\Setup\Biz',
+            'create-biz-module' => '\AnexusPHP\Setup\Setup\BizModule',
+            'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity'
         ];
 
         // verificando se a chave pedida existe
