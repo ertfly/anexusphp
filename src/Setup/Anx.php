@@ -8,18 +8,28 @@ class Anx
     {
         // funções liberadas pra uso
         $ableFunctions = [
+            'help' => '\AnexusPHP\Setup\Setup\Help',
             'init' => '\AnexusPHP\Setup\Setup\Init',
             'create-app' => '\AnexusPHP\Setup\Setup\App',
             'create-module' => '\AnexusPHP\Setup\Setup\Module'
         ];
 
         // verificando se a chave pedida existe
-        if (!array_key_exists($function, $ableFunctions)) {
-            exit(chr(10) . 'Pass a valid method' . chr(10));
+        if ($function == 'help') {
+            new $ableFunctions['help']($params);
+            exit;
+        } elseif (!array_key_exists($function, $ableFunctions)) {
+            exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands avaliable.' . chr(10) . chr(10)));
         }
         $function = $ableFunctions[$function];
 
+        // iniciando
+        echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
+
         new $function($params);
+
+        // encerrando
+        exit(chr(10) . "\033[0;32m" . 'Execution ended with success' . chr(10));
     }
 
     /**
@@ -42,3 +52,11 @@ class Anx
         }
     }
 }
+
+
+// echo "    ___    _   ___  __";
+// echo "   /   |  / | / / |/ /";
+// echo "  / /| | /  |/ /|   / ";
+// echo " / ___ |/ /|  //   |  ";
+// echo "/_/  |_/_/ |_//_/|_|  ";
+// echo "                      ";
