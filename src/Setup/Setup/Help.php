@@ -22,7 +22,13 @@ class Help extends Anx implements AnxInterface
         echo "                      " . chr(10);
 
         echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
-        echo "\tphp anx command [arguments] [arguments2]" . chr(10) . chr(10);
+        echo "\tphp anx command [arguments] [options]" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Avaliable Options:" . "\033[1;37m" . chr(10);
+
+        echo "\033[0;32m" . "  -a" . "\033[1;37m" . "\t\tPass a App name" . chr(10);
+        echo "\033[0;32m" . "  -m" . "\033[1;37m" . "\t\tPass a Module name" . chr(10);
+        echo "\033[0;32m" . "  -r" . "\033[1;37m" . "\t\tPass a optional route name" . chr(10) . chr(10);
 
         echo "\033[1;33m" . "Avaliable Commands:" . "\033[1;37m" . chr(10);
 

@@ -15,17 +15,6 @@ class Module extends Anx implements AnxInterface
 
     public function run(array $param = [], array $option = []): void
     {
-        define('DS', DIRECTORY_SEPARATOR);
-
-        // Carregando PATH
-        define('PATH_ROOT', dirname(__FILE__) . DS);
-        define('PATH_PUBLIC', PATH_ROOT . 'public' . DS);
-        define('PATH_CACHE', PATH_ROOT . 'cache' . DS);
-        define('PATH_LOGS', PATH_ROOT . 'logs' . DS);
-        define('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);
-        define('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);
-        define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
-
         try {
             if (!is_writable(PATH_ROOT)) {
                 throw new Exception("");
@@ -45,7 +34,7 @@ class Module extends Anx implements AnxInterface
                 throw new Exception("The Module '{$app}' already exists", 1);
             }
 
-            $path = strtolower((isset($param['-r']) && trim($param['-r'] && strpos($param['-r'], '/')) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+            $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' && strpos($param['-r'], '/') ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
 
             if (in_array('--crud-controller', $option)) {
                 $files = $this->crud($app, $module, $path);

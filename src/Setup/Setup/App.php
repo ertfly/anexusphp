@@ -24,11 +24,11 @@ class App extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
-            if (!isset($param['-n']) || trim($param['-n'] == '')) {
+            if (!isset($param['-a']) || trim($param['-a'] == '')) {
                 throw new Exception('The app must contain a name', 1);
             }
 
-            $app = ucwords($param['-n']);
+            $app = ucwords($param['-a']);
 
             if (is_dir(PATH_ROOT . 'src/' . $app)) {
                 throw new Exception("The '{$app}' already exists", 1);
