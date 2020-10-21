@@ -60,12 +60,13 @@ class Migration
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-
+        
         $sql = file_get_contents(PATH_MIGRATIONS . 'data.sql');
 
         if(trim($sql) != '') {
             $database->exec($sql);
         }
+        exit;
     }
 
     private static function executeDown($oldVersion, $newVersion)

@@ -15,7 +15,7 @@ class Init extends Anx implements AnxInterface
         $this->run($params);
     }
 
-    public function run(array $params = []):void
+    public function run(array $params = []): void
     {
         // verificar se db existe
         try {
@@ -67,8 +67,19 @@ class Init extends Anx implements AnxInterface
         // criar as tabelas base
         try {
             $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-            $sql = file_get_contents(Anx::PATH_ANX_MIGRATION. 'init.sql');
-            if(trim($sql) != '') {
+            $sql = file_get_contents(Anx::PATH_ANX_MIGRATION . 'init.sql');
+            if (trim($sql) != '') {
+                $database->exec($sql);
+            }
+        } catch (Exception $e) {
+            exit(chr(10) . 'Base tables error' . chr(10));
+        }
+
+        // criar as tabelas base
+        try {
+            $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
+            $sql = file_get_contents(Anx::PATH_ANX_MIGRATION . 'data.sql');
+            if (trim($sql) != '') {
                 $database->exec($sql);
             }
         } catch (Exception $e) {
