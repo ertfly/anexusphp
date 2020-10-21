@@ -4,6 +4,8 @@ namespace AnexusPHP\Setup;
 
 class Anx
 {
+    const PATH_BASE = __DIR__ . DS . 'Base' . DS;
+
     public function start(string $function, $params = [])
     {
         // funções liberadas pra uso
@@ -14,7 +16,8 @@ class Anx
             'create-module' => '\AnexusPHP\Setup\Setup\Module',
             'create-biz' => '\AnexusPHP\Setup\Setup\Biz',
             'create-biz-module' => '\AnexusPHP\Setup\Setup\BizModule',
-            'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity'
+            'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity',
+            'create-panel' => '\AnexusPHP\Setup\Setup\Panel'
         ];
 
         // verificando se a chave pedida existe
@@ -25,6 +28,10 @@ class Anx
             exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands avaliable.' . chr(10) . chr(10)));
         }
         $function = $ableFunctions[$function];
+
+        if(in_array('--help', $params)) {
+            // $function::help();
+        }
 
         // iniciando
         echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
@@ -53,5 +60,21 @@ class Anx
 
             file_put_contents($fullPath, $contents, $flags);
         }
+    }
+
+    /**
+     * @param string $name
+     * @param array $params
+     * @return string
+     */
+    public function getTemplate(string $name, array $params = []):string {
+        $name = dirname(__FILE__, 1) . DS . 'Base' . DS . $name;
+        $content = file_get_contents($name);
+
+        foreach ($params as $key => $value) {
+            $content = str_replace($key, $value, $content);
+        }
+
+        return $content;
     }
 }
