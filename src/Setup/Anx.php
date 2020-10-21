@@ -26,6 +26,10 @@ class Anx
         }
         $function = $ableFunctions[$function];
 
+        if(in_array('--help', $params)) {
+            // $function::help();
+        }
+
         // iniciando
         echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
 
@@ -53,5 +57,21 @@ class Anx
 
             file_put_contents($fullPath, $contents, $flags);
         }
+    }
+
+    /**
+     * @param string $name
+     * @param array $params
+     * @return string
+     */
+    public function getTemplate(string $name, array $params = []):string {
+        $name = dirname(__FILE__, 1) . DS . 'Base' . DS . $name;
+        $content = file_get_contents($name);
+
+        foreach ($params as $key => $value) {
+            $content = str_replace($key, $value, $content);
+        }
+
+        return $content;
     }
 }
