@@ -23,6 +23,10 @@ class Anx
         }
         $function = $ableFunctions[$function];
 
+        if(in_array('--help', $params)) {
+            // $function::help();
+        }
+
         // iniciando
         echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
 
