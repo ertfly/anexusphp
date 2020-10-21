@@ -10,12 +10,17 @@ class Migration
 {
     public static function init()
     {
+        if (!file_exists(PATH_LOGS . 'start_execution')) {
+            exit("Inicialize a aplicação atraves do anx");
+        }
+
         try {
-            ConfigurationRepository::getValue('MIGRATION_STARTED');
+            if(!ConfigurationRepository::getValue('MIGRATION_STARTED')){
+                throw new \Exception();
+            };
         } catch (\Exception $e) {
             return self::install();
         }
-
         $migrationVersion = ConfigurationRepository::getValue('MIGRATION_VERSION');
         $newUp = self::getVersionUp();
         $newDown = self::getVersionDown();
