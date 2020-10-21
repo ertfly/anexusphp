@@ -17,7 +17,7 @@ class Init extends Anx implements AnxInterface
 
     public function run(array $params = []):void
     {
-        // // verificar se db existe
+        // verificar se db existe
         try {
             $database = Database::getInstance();
         } catch (\PDOException $e) {
@@ -47,11 +47,11 @@ class Init extends Anx implements AnxInterface
                 PATH_MIGRATIONS . 'dados.sql' => '',
                 PATH_CACHE . '.gitkeep' => '',
                 PATH_LOGS . '.gitkeep' => '',
-                PATH_ROUTES . 'ErrorRoutes.php' => $this->getTemplate('Route' . DS . 'ErrorRoute'),
+                PATH_ROUTES . 'ErrorRoutes.php' => "<?php\n\nuse Pecee\Http\Request;\nuse Pecee\SimpleRouter\Exceptions\NotFoundHttpException;\nuse Pecee\SimpleRouter\SimpleRouter;\n\nSimpleRouter::error(function (Request \$request, \Exception \$exception)\n{\n\tif (\$exception instanceof NotFoundHttpException) {\n\t\treturn response()->redirect(url('not-found'));\n\t}\n});\n",
                 PATH_PUBLIC . 'assets/index.html' => '',
                 PATH_PUBLIC . 'uploads/index.html' => '',
-                PATH_PUBLIC . '.htaccess' => $this->getTemplate('Configuration' . DS . 'htaccess'),
-                PATH_PUBLIC . 'index.php' => $this->getTemplate('Configuration' . DS . 'index'),
+                PATH_PUBLIC . '.htaccess' => "RewriteEngine On\nRewriteBase /\nRewriteCond %{REQUEST_FILENAME} !-f\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteRule ^(.*)$ /index.php [L]\n",
+                PATH_PUBLIC . 'index.php' => "<?php\n\nuse AnexusPHP\Core\Router;\n\n//Define o timezone\ndate_default_timezone_set('America/Sao_Paulo');\n\n//Define o separador de diretorio\ndefine('DS', DIRECTORY_SEPARATOR);\n\ndefine('MODE', 'production');\ndefine('ASSETS_VERSION', '1.0');\ndefine('PATH_ROOT', dirname(__FILE__) . DS . '..' . DS);\ndefine('PATH_PUBLIC', PATH_ROOT . 'public' . DS);\ndefine('PATH_CACHE', PATH_ROOT . 'cache' . DS);\ndefine('PATH_LOGS', PATH_ROOT . 'logs' . DS);\ndefine('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);\ndefine('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);\ndefine('PATH_ROUTES', PATH_ROOT . 'routes' . DS);\n\ndefine('SESSION_LIFETIME', (60 * 30));\ndefine('SESSION_NAME', 'skeleton');\n\nrequire PATH_ROOT . 'vendor/autoload.php';\n\nRouter::start();\n//Arquivo apenas de início do sistema, nenhuma codificação deve vir aqui\n",
             ];
 
             foreach ($files as $key => $value) {
@@ -64,10 +64,10 @@ class Init extends Anx implements AnxInterface
             exit(chr(10) . 'Folder permissions error' . chr(10));
         }
 
-        // // criar as tabelas base
+        // criar as tabelas base
         try {
             $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-            $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
+            $sql = file_get_contents(Anx::PATH_ANX_MIGRATION. 'init.sql');
             if(trim($sql) != '') {
                 $database->exec($sql);
             }

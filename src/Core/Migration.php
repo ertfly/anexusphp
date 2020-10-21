@@ -42,7 +42,9 @@ class Migration
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
 
-        $database->exec($sql);
+        if(trim($sql) != '') {
+            $database->exec($sql);
+        }
 
         self::populate();
 
@@ -56,7 +58,9 @@ class Migration
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'dados.sql');
 
-        $database->exec($sql);
+        if(trim($sql) != '') {
+            $database->exec($sql);
+        }
     }
 
     private static function executeDown($oldVersion, $newVersion)
