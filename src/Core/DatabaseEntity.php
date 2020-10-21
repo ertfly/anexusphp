@@ -6,16 +6,13 @@ use Medoo\Medoo;
 
 abstract class DatabaseEntity
 {
-
     abstract public function setId($id);
-
     abstract public function getId();
-
     abstract public function toArray();
 
     public function save(Medoo $db, $where = [])
     {
-        $tabela = static::TABELA;
+        $tabela = static::TABLE;
         if (!$this->getId()) {
             $db->insert($tabela, $this->toArray());
             $id = $db->id();
@@ -34,11 +31,11 @@ abstract class DatabaseEntity
         if(count($where)==0){
             $where['id'] = $this->getId();
         }
-        $tabela = static::TABELA;
+        $tabela = static::TABLE;
         if (!$this->getId()) {
             return;
         }
-        $db->update($tabela, ['lixo' => true], $where);
+        $db->update($tabela, ['trash' => true], $where);
     }
 
     public function destroy(Medoo $db, $where = [])
@@ -46,7 +43,7 @@ abstract class DatabaseEntity
         if(count($where)==0){
             $where['id'] = $this->getId();
         }
-        $tabela = static::TABELA;
+        $tabela = static::TABLE;
         if (!$this->getId()) {
             return;
         }
