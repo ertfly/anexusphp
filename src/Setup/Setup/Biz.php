@@ -8,12 +8,12 @@ use Exception;
 
 class Biz extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []):void
+    public function run(array $params = [], array $option = []):void
     {
         try {
             if (!is_writable(PATH_ROOT)) {

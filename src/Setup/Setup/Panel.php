@@ -7,12 +7,12 @@ use AnexusPHP\Setup\Anx;
 
 class Panel extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []): void
+    public function run(array $params = [], array $option = []): void
     {
         if (!is_dir(PATH_PUBLIC . DS . 'assets' . DS) || !is_readable(PATH_PUBLIC . DS . 'assets' . DS) || !is_writable(PATH_PUBLIC . DS . 'assets' . DS)) {
             exit('Assets path is not a directory, not readable or not writable' . chr(10));

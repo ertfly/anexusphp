@@ -7,12 +7,12 @@ use AnexusPHP\Setup\Anx;
 
 class Help extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []):void
+    public function run(array $params = [], array $option = []):void
     {
         echo "    ___    _   ___  __" . chr(10);
         echo "   /   |  / | / / |/ /" . chr(10);

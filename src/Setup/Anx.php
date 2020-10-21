@@ -32,14 +32,21 @@ class Anx
         }
         $function = $ableFunctions[$function];
 
-        if(in_array('--help', $params)) {
-            // $function::help();
+        $param = [];
+        $option = [];
+        foreach ($params as $key => $value) {
+            if (preg_match('/^-{1}[a-zA-Z]{1}/', $value)) {
+                $param[$value] = $params[$key + 1];
+            }
+            if (preg_match('/-{2}[a-zA-Z]/', $value)) {
+                $option[] = $value;
+            }
         }
 
         // iniciando
         echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
 
-        new $function($params);
+        new $function($param, $option);
 
         // encerrando
         exit(chr(10) . "\033[0;32m" . 'Execution ended with success' . chr(10));
