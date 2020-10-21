@@ -61,14 +61,14 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->type;
     }
-    public function setAccessIp($acessoIp)
+    public function setAccessIp($accessIp)
     {
-        $this->acesso_ip = $acessoIp;
+        $this->access_ip = $accessIp;
         return $this;
     }
     public function getAccessIp()
     {
-        return $this->acesso_ip;
+        return $this->access_ip;
     }
     public function setAccessBrowser($accessBrowser)
     {
