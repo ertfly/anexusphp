@@ -56,7 +56,7 @@ class BizEntity extends Anx implements AnxInterface
             $files = [
                 PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
                 PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Repository' . DS . $biz_entity.'Repository.php' => $this->generateRepositoryFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Rule.php' => ''
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Rule.php' => $this->generateRuleFile($params)
             ];
 
             echo "\033[0;37m";
@@ -106,9 +106,9 @@ class BizEntity extends Anx implements AnxInterface
         $strClass = '';
         $strClass .= 'class ' . $className . ' extends DatabaseEntity {' . chr(10);
         $strAttributes = '';
-        $strAttributes .= 'const TABLE = \'' .  $table . '\';' . chr(10);
+        $strAttributes .= chr(9) . 'const TABLE = \'' .  $table . '\';' . chr(10);
         $strMethods = '';
-        $strToArray = 'public function toArray(){' . chr(10) . ' return array(' . chr(10);
+        $strToArray = chr(9). 'public function toArray(){' . chr(10) . chr(9) . chr(9).  'return array(' . chr(10);
         foreach ($tableFields as $i => $field) {
             $fieldName = $field['column_name'];
             $attribute = '';
@@ -116,9 +116,9 @@ class BizEntity extends Anx implements AnxInterface
             foreach ($arr as $partialName) {
                 $attribute .= ucfirst($partialName);
             }
-            $strAttributes .= 'private $' . $field['column_name'] . ';' . chr(10);
-            $strMethods .= 'public function set' . $attribute . '($' . lcfirst($attribute) . '){' . chr(10) . '$this->' . $field['column_name'] . ' = $' . lcfirst($attribute) . ';' . chr(10) . 'return $this;' . chr(10) . '}' . chr(10);
-            $strMethods .= 'public function get' . $attribute . '(){' . chr(10) . 'return $this->' . $field['column_name'] . ';' . chr(10) . '}' . chr(10);
+            $strAttributes .= chr(9) . 'private $' . $field['column_name'] . ';' . chr(10);
+            $strMethods .= chr(9) . 'public function set' . $attribute . '($' . lcfirst($attribute) . '){' . chr(10) . chr(9) . chr(9) . '$this->' . $field['column_name'] . ' = $' . lcfirst($attribute) . ';' . chr(10) . chr(9) . chr(9) . 'return $this;' . chr(10) . chr(9) . '}' . chr(10);
+            $strMethods .= chr(9) . 'public function get' . $attribute . '(){' . chr(10) . chr(9) . chr(9). 'return $this->' . $field['column_name'] . ';' . chr(10) . chr(9) . '}' . chr(10);
             $strToArray .= '\'' . $field['column_name'] . '\' => $this->get' . $attribute . '()' . (($i + 1) < count($tableFields) ? ',' : '') . chr(10);
         }
         $strToArray .= ');' . chr(10) . '}';
@@ -133,63 +133,35 @@ class BizEntity extends Anx implements AnxInterface
 
     /**
      * @param array $params [biz, module, entity]
-     * @return string $fileAsString
+     * @return string $repository
      */
     protected function generateRepositoryFile($params) {
         $biz = ucwords($params[0]);
         $biz_module = ucwords($params[1]);
-        $table = $params[2];
-        $entityClass = ucwords($table).'Entity';
-        if (!$table) {
-            throw new Exception('Informar o nome da conexao /conexao/tabela');
-        }
+        $biz_entity = ucwords($params[2]);
+        $repository = $this->getTemplate('Repository' . DS . 'RepositoryTemplate', [
+            '{{biz}}' => $biz,
+            '{{biz_module}}' => $biz_module,
+            '{{biz_entity}}' => $biz_entity
+        ]);
 
-        $db = Database::getInstance();
+        return $repository;
+    }
 
-        $tableFields = array_values($db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$table' order by ordinal_position asc")->fetchAll());
+    /**
+     * @param array $params [biz, module, entity]
+     * @return string $rule
+     */
+    protected function generateRuleFile($params) {
+        $biz = ucwords($params[0]);
+        $biz_module = ucwords($params[1]);
+        $biz_entity = ucwords($params[2]);
+        $rule = $this->getTemplate('Rule' . DS . 'RuleTemplate', [
+            '{{biz}}' => $biz,
+            '{{biz_module}}' => $biz_module,
+            '{{biz_entity}}' => $biz_entity
+        ]);
 
-        // if (!$tableFields) {
-        //     throw new Exception("Error: table $table fields not found");
-        // }
-
-        $className = '';
-        $arr = explode('_', $table);
-        foreach ($arr as $partialName) {
-            $className .= ucfirst($partialName);
-        }
-        $className .= 'Repository';
-
-        $strHeader = '';
-        $strHeader .= '<?php' . chr(10);
-        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Repository;' . chr(10);
-        // Incluindo Classes
-        $strHeader .= chr(10) . 'use AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity\\'.$entityClass.';' . chr(10);
-        $strHeader .= 'use AnexusPHP\\Core\\Database;' . chr(10);
-        $strHeader .= 'use AnexusPHP\\Core\\Libraries\\Pagination\\Pagination;' . chr(10);
-        $strHeader .= 'use Exception;' . chr(10);
-        $strHeader .= 'use PDO;' . chr(10);
-
-        $strClass = '';
-        $strClass .= 'class ' . $className . ' {' . chr(10);
-
-        // Criando método byId()
-        $strById = '/**' . chr(10) . '* @param integer|null $id' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
-        $strById .= 'public static function byId(?Int $id) {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$reg = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where id = :id limit 1\', [\'id\' => (int)$id])->fetchObject('.$entityClass.'::class);' . chr(10);
-        $strById .= 'if ($reg === false) {' . chr(10) . 'return new '.$entityClass.'();' . chr(10). '}' . chr(10) . chr(10) . 'return $reg;' . chr(10) . '}' . chr(10);
-
-        // Criando método all()
-        $strAll = chr(10) . '/**' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
-        $strAll .= 'public static function all() {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$regs = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where trash is false\')->fetchAll(PDO::FETCH_CLASS, '.$entityClass.'::class);' . chr(10) . chr(10) . 'return $regs;' . chr(10) . '}' . chr(10);
-
-        // Criando método allWithPagination()
-        $strAllWithPagination = chr(10) . '/**' . chr(10) . '* @param string $url' . chr(10) . '* @param string $filters' . chr(10) . '* @param int currentPg' . chr(10) . '* @param string $varPg' . chr(10) . '* @param int $perPg' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
-        //$strAllWithPagination .= 'public static function allWithPagination($url, $filters = array(), ) {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$regs = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where trash is false\')->fetchAll(PDO::FETCH_CLASS, '.$entityClass.'::class);' . chr(10) . chr(10) . 'return $regs;' . chr(10) . '}' . chr(10);
-
-        $strClass .= $strById;
-        $strClass .= $strAll;
-        $strClass .= $strAllWithPagination;
-        $strClass .= '}';
-
-        return ($strHeader . chr(10) . $strClass);
+        return $rule;
     }
 }
