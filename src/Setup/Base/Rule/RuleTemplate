@@ -1,0 +1,46 @@
+<?php
+
+namespace AnexusPHP\{{biz}}\{{biz_module}}\Rule\{{biz_entity}}Rule;
+
+use AnexusPHP\{{biz}}\{{biz_module}}\Entity\{{biz_entity}}Entity;
+
+use AnexusPHP\Core\Database;
+use Exception;
+
+class {{biz_entity}}Rule
+{
+    public static function insert({{biz_entity}}Entity &$register)
+    {
+        $db = Database::getInstance();
+        if ($register->getId()) {
+            throw new Exception('Esse método serve inserir registros e não alterar');
+        }
+        $register->setCreatedAt(date('Y-m-d H:i:s'))
+            ->save($db);
+    }
+    public static function update({{biz_entity}}Entity &$register)
+    {
+        $db = Database::getInstance();
+        if (!$register->getId()) {
+            throw new Exception('Esse método serve alterar registros e não inserir');
+        }
+        $register->setUpdatedAt(date('Y-m-d H:i:s'))
+            ->save($db);
+    }
+    public static function delete({{biz_entity}}Entity &$register)
+    {
+        $db = Database::getInstance();
+        if (!$register->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $register->delete($db);
+    }
+    public static function destroy({{biz_entity}}Entity &$register)
+    {
+        $db = Database::getInstance();
+        if (!$register->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $register->destroy($db);
+    }
+}
