@@ -55,7 +55,7 @@ class App extends Anx implements AnxInterface
                 new Module([
                     0 => $app,
                     1 => $app,
-                    2 => strtolower((isset($params[3]) || trim($params[3]) != '' ? $params[3] : $app))
+                    2 => strtolower((isset($params[2]) && trim($params[2]) != '' ? $params[3] : $app))
                 ]);
             }
         } catch (Exception $e) {

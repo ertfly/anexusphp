@@ -1,0 +1,34 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Models;
+
+use Core\Message;
+use Exception;
+
+class {{module}}Model
+{
+    public static function submit(): string
+    {
+        # code ...
+
+       
+        
+
+        // $msg = '';
+        // if (!$row->getId()) {
+        //     $msg = 'Record created successfully';
+        // } else {
+        //     $msg = 'Record changed successfully';
+        // }
+
+        // Message::create(Message::MSG_SUCCESS, $msg);
+        // return $row->getId();
+    }
+
+    public static function delete():void
+    {
+        # code ...
+        
+        // Message::create(Message::MSG_SUCCESS, 'Record deleted successfully!');
+    }
+}

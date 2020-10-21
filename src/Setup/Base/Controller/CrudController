@@ -1,0 +1,73 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Controllers;
+
+use {{app}}\Modules\{{module}}\Models\{{module}}Model;
+use Core\Message;
+use Core\Session;
+use Exception;
+
+class {{module}}Controller
+{
+    public function __construct()
+    {
+        # code ...
+    }
+
+    public function index()
+    {
+        $rows = [];
+
+        return request()->view->render('{{view}}/index', [
+            'rows' => $rows
+        ]);
+    }
+
+    public function add()
+    {
+        # code ...
+
+        return request()->view->render('{{view}}/edit', [
+            'isAdd' => true,
+            'id' => null,
+        ]);
+    }
+
+    public function edit()
+    {
+        # code ...
+
+        return request()->view->render('{{view}}/edit', [
+            'isAdd' => false,
+            'id' => input('id', null, 'get')
+        ]);
+    }
+
+    public function submit()
+    {
+        try {
+            $id = {{module}}Model::submit();
+            return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . $id);
+        } catch (Exception $e) {
+            Session::data('post', $_POST);
+            Message::create(Message::MSG_ERROR, $e->getMessage());
+            if (input('id', null, 'get')) {
+                return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . input('id', null, 'get'));
+            } else {
+                return response()->redirect(url('{{app}}{{module}}Add'));
+            }
+        }
+    }
+
+    public function delete()
+    {
+        try {
+            {{module}}Model::delete();
+        } catch (Exception $e) {
+            Session::data('post', $_POST);
+            Message::create(Message::MSG_ERROR, $e->getMessage());
+        }
+        return response()->redirect(url('{{app}}{{module}}') . '?pg=' . input('pg', null, 'get'));
+    }
+
+}
