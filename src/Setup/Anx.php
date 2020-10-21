@@ -5,9 +5,9 @@ namespace AnexusPHP\Setup;
 class Anx
 {
     const PATH_ANX_ROOT = __DIR__ . DS . '..' . DS  . '..' . DS;
-    const PATH_ANX_MIGRATION = self::PATH_ANX_ROOT . 'migration';
+    const PATH_ANX_MIGRATION = self::PATH_ANX_ROOT . 'migration' . DS;
     const PATH_ANX_SOURCE = self::PATH_ANX_ROOT . 'src' . DS;
-    const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base';
+    const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS;
 
     public function start(string $function, $params = [])
     {
