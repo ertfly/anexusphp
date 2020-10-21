@@ -50,11 +50,38 @@ class App extends Anx implements AnxInterface
             foreach ($files as $key => $value) {
                 $this->file_force_contents($key, $value);
             }
+
+            if(in_array('--with-module', $params)) {
+                new Module([
+                    0 => $app,
+                    1 => $app,
+                    2 => strtolower((isset($params[3]) || trim($params[3]) != '' ? $params[3] : $app))
+                ]);
+            }
         } catch (Exception $e) {
             if ($e->getCode() == 1) {
                 exit(chr(10) . $e->getMessage() . chr(10));
             }
             exit(chr(10) . 'Folder permissions error' . chr(10));
         }
+    }
+
+    public static function help()
+    {
+        echo "    ___    _   ___  __" . chr(10);
+        echo "   /   |  / | / / |/ /" . chr(10);
+        echo "  / /| | /  |/ /|   / " . chr(10);
+        echo " / ___ |/ /|  //   |  " . chr(10);
+        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
+        echo "                      " . chr(10);
+
+        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
+        echo "\tphp anx create-app [app] [optional-params]" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
+        echo "\t--with-module [optional-url]" . chr(10) . chr(10);
+
+
+        exit(chr(10));
     }
 }
