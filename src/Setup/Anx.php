@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Setup;
 
+use AnexusPHP\Setup\Setup\Help;
+
 class Anx
 {
     const PATH_ANX_ROOT = __DIR__ . DS . '..' . DS  . '..' . DS;
@@ -24,8 +26,8 @@ class Anx
         ];
 
         // verificando se a chave pedida existe
-        if ($function == 'help') {
-            new $ableFunctions['help']($params, []);
+        if ($function == 'help' || trim($function) == '') {
+            new Help([], []);
             exit;
         } elseif (!array_key_exists($function, $ableFunctions)) {
             exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands avaliable.' . chr(10) . chr(10)));

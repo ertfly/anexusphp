@@ -12,19 +12,20 @@ class Panel extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []): void
+    public function run(array $param = [], array $option = []): void
     {
-        if (!is_dir(PATH_PUBLIC . DS . 'assets' . DS) || !is_readable(PATH_PUBLIC . DS . 'assets' . DS) || !is_writable(PATH_PUBLIC . DS . 'assets' . DS)) {
-            exit('Assets path is not a directory, not readable or not writable' . chr(10));
+        if (!is_dir(PATH_ROOT) || !is_readable(PATH_ROOT) || !is_writable(PATH_ROOT)) {
+            exit('Root path is not a directory, not readable or not writable' . chr(10));
         }
 
-        if (!empty($params[0] && trim($params[0] != ''))) {
-            $panelName = strtolower($params[0]);
+        if (!empty($param['-p'] && trim($param['-p'] != ''))) {
+            $panelName = strtolower($param['-p']);
         } else {
             exit('Please, enter the panel name!' . chr(10));
         }
 
         $this->assets($panelName);
+        $this->routes($panelName, $param);
     }
 
     private function assets($panelName)
@@ -46,5 +47,37 @@ class Panel extends Anx implements AnxInterface
         foreach ($files as $key => $value) {
             $this->file_force_contents($key, $value);
         }
+    }
+
+    private function routes($panelName, $param) {
+        $app = ucwords($panelName);
+        $module = ucwords($panelName);
+        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' && strpos($param['-r'], '/') ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+
+        $index = $this->getTemplate('Route' . DS . 'IndexRoute', [
+            '{{app}}' => $app,
+            '{{module}}' => $module,
+            '{{prefix}}' => $path,
+            '{{route}}' => $app
+        ]);
+
+        $login = $this->getTemplate('Route' . DS . 'LoginRoute', [
+            '{{app}}' => $app,
+            '{{module}}' => $module,
+            '{{prefix}}' => $path,
+        ]);
+
+        $files = [
+            PATH_ROUTES . $app . DS . $module . 'Routes.php' => $index,
+            PATH_ROUTES . $app . DS . 'AccountRoutes.php' => $login,
+        ];
+
+        foreach ($files as $key => $value) {
+            $this->file_force_contents($key, $value);
+        }
+    }
+
+    private function app() {
+
     }
 }
