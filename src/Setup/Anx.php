@@ -14,6 +14,9 @@ class Anx
             'init' => '\AnexusPHP\Setup\Setup\Init',
             'create-app' => '\AnexusPHP\Setup\Setup\App',
             'create-module' => '\AnexusPHP\Setup\Setup\Module',
+            'create-biz' => '\AnexusPHP\Setup\Setup\Biz',
+            'create-biz-module' => '\AnexusPHP\Setup\Setup\BizModule',
+            'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity',
             'create-panel' => '\AnexusPHP\Setup\Setup\Panel'
         ];
 
