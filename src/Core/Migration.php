@@ -13,9 +13,9 @@ class Migration
         if (!file_exists(PATH_LOGS . 'start_execution')) {
             exit("Inicialize a aplicação atraves do anx");
         }
-
+        
         try {
-            if(!ConfigurationRepository::getValue('MIGRATION_STARTED')){
+            if(ConfigurationRepository::getValue('MIGRATION_STARTED') == 'false'){
                 throw new \Exception();
             };
         } catch (\Exception $e) {
@@ -46,7 +46,7 @@ class Migration
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-
+        
         if(trim($sql) != '') {
             $database->exec($sql);
         }
@@ -66,7 +66,7 @@ class Migration
         if(trim($sql) != '') {
             $database->exec($sql);
         }
-        exit;
+
     }
 
     private static function executeDown($oldVersion, $newVersion)
