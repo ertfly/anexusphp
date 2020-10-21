@@ -42,6 +42,10 @@ class Migration
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
 
+        if(trim($sql) != '') {
+            $database->exec($sql);
+        }
+
         self::populate();
 
         return self::init();
