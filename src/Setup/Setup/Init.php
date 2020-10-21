@@ -74,5 +74,16 @@ class Init extends Anx implements AnxInterface
         } catch (Exception $e) {
             exit(chr(10) . 'Base tables error' . chr(10));
         }
+
+        // criar o conteudo base
+        try {
+            $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
+            $sql = file_get_contents(Anx::PATH_ANX_MIGRATION. 'data.sql');
+            if(trim($sql) != '') {
+                $database->exec($sql);
+            }
+        } catch (Exception $e) {
+            exit(chr(10) . 'Base data error' . chr(10));
+        }
     }
 }
