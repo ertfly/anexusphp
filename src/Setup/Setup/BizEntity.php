@@ -55,8 +55,8 @@ class BizEntity extends Anx implements AnxInterface
 
             $files = [
                 PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Repository' . DS . $biz_entity.'Repository.php' => '',
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Repository.php' => ''
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Repository' . DS . $biz_entity.'Repository.php' => $this->generateRepositoryFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Rule.php' => ''
             ];
 
             echo "\033[0;37m";
@@ -139,6 +139,7 @@ class BizEntity extends Anx implements AnxInterface
         $biz = ucwords($params[0]);
         $biz_module = ucwords($params[1]);
         $table = $params[2];
+        $entityClass = ucwords($table).'Entity';
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -158,24 +159,35 @@ class BizEntity extends Anx implements AnxInterface
         }
         $className .= 'Repository';
 
-        // TODO: Namespace dinamico
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
         $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Repository;' . chr(10);
-        // Incluindo Classe Entity
-        $strHeader .= chr(10) . 'use AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity\\'.ucwords($table).'Entity;' . chr(10);
-        $strHeader .= chr(10) . 'use AnexusPHP\\Core\\Database;' . chr(10);
+        // Incluindo Classes
+        $strHeader .= chr(10) . 'use AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity\\'.$entityClass.';' . chr(10);
+        $strHeader .= 'use AnexusPHP\\Core\\Database;' . chr(10);
+        $strHeader .= 'use AnexusPHP\\Core\\Libraries\\Pagination\\Pagination;' . chr(10);
+        $strHeader .= 'use Exception;' . chr(10);
+        $strHeader .= 'use PDO;' . chr(10);
 
         $strClass = '';
-        $strClass .= 'class ' . $className . chr(10);
+        $strClass .= 'class ' . $className . ' {' . chr(10);
 
         // Criando método byId()
-        $strById = '';
-        $strById .= 
+        $strById = '/**' . chr(10) . '* @param integer|null $id' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
+        $strById .= 'public static function byId(?Int $id) {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$reg = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where id = :id limit 1\', [\'id\' => (int)$id])->fetchObject('.$entityClass.'::class);' . chr(10);
+        $strById .= 'if ($reg === false) {' . chr(10) . 'return new '.$entityClass.'();' . chr(10). '}' . chr(10) . chr(10) . 'return $reg;' . chr(10) . '}' . chr(10);
 
-        $strClass .= $strAttributes;
-        $strClass .= $strMethods;
-        $strClass .= $strToArray . chr(10);
+        // Criando método all()
+        $strAll = chr(10) . '/**' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
+        $strAll .= 'public static function all() {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$regs = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where trash is false\')->fetchAll(PDO::FETCH_CLASS, '.$entityClass.'::class);' . chr(10) . chr(10) . 'return $regs;' . chr(10) . '}' . chr(10);
+
+        // Criando método allWithPagination()
+        $strAllWithPagination = chr(10) . '/**' . chr(10) . '* @param string $url' . chr(10) . '* @param string $filters' . chr(10) . '* @param int currentPg' . chr(10) . '* @param string $varPg' . chr(10) . '* @param int $perPg' . chr(10) . '* @return ' . $entityClass . chr(10) . '*/' . chr(10);
+        //$strAllWithPagination .= 'public static function allWithPagination($url, $filters = array(), ) {' . chr(10) . '$db = Database::getInstance();' . chr(10) . '$regs = $db->query(\'select * from \' . '.$entityClass.'::TABLE . \' where trash is false\')->fetchAll(PDO::FETCH_CLASS, '.$entityClass.'::class);' . chr(10) . chr(10) . 'return $regs;' . chr(10) . '}' . chr(10);
+
+        $strClass .= $strById;
+        $strClass .= $strAll;
+        $strClass .= $strAllWithPagination;
         $strClass .= '}';
 
         return ($strHeader . chr(10) . $strClass);
