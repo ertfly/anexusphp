@@ -13,7 +13,7 @@ class App extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []): void
+    public function run(array $param = [], array $option = []): void
     {        
         try {
             if (!is_writable(PATH_ROOT)) {
@@ -24,11 +24,11 @@ class App extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
-            if (!isset($params[0]) || trim($params[0] == '')) {
+            if (!isset($param['-n']) || trim($param['-n'] == '')) {
                 throw new Exception('The app must contain a name', 1);
             }
 
-            $app = ucwords($params[0]);
+            $app = ucwords($param['-n']);
 
             if (is_dir(PATH_ROOT . 'src/' . $app)) {
                 throw new Exception("The '{$app}' already exists", 1);
@@ -51,12 +51,12 @@ class App extends Anx implements AnxInterface
                 $this->file_force_contents($key, $value);
             }
 
-            if(in_array('--with-module', $params)) {
+            if(isset($param['-m']) && trim($param['-m'] != '')) {
                 new Module([
-                    0 => $app,
-                    1 => $app,
-                    2 => strtolower((isset($params[2]) && trim($params[2]) != '' ? $params[3] : $app))
-                ]);
+                    '-a' => $app,
+                    '-m' => $app,
+                    '-r' => strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : $app))
+                ],[]);
             }
         } catch (Exception $e) {
             if ($e->getCode() == 1) {

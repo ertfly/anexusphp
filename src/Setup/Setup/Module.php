@@ -13,7 +13,7 @@ class Module extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []): void
+    public function run(array $param = [], array $option = []): void
     {
         define('DS', DIRECTORY_SEPARATOR);
 
@@ -35,19 +35,19 @@ class Module extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
-            $app = ucwords($params[0]);
+            $app = ucwords($param['-a']);
             if (!is_dir(PATH_ROOT . 'src/' . $app)) {
                 throw new Exception("The App '{$app}' do not exists", 1);
             }
 
-            $module = ucwords($params[1]);
+            $module = ucwords($param['-m']);
             if (!is_dir(PATH_ROOT . 'src/' . $app)) {
                 throw new Exception("The Module '{$app}' already exists", 1);
             }
 
-            $path = strtolower((isset($params[2]) && trim($params[2] && strpos($params[2], '/')) != '' ? $params[2] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+            $path = strtolower((isset($param['-r']) && trim($param['-r'] && strpos($param['-r'], '/')) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
 
-            if (in_array('--crud-controller', $params)) {
+            if (in_array('--crud-controller', $option)) {
                 $files = $this->crud($app, $module, $path);
             } else {
                 $files = $this->single($app, $module, $path);

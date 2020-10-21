@@ -12,7 +12,7 @@ class Help extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []):void
+    public function run(array $param = [], array $option = []):void
     {
         echo "    ___    _   ___  __" . chr(10);
         echo "   /   |  / | / / |/ /" . chr(10);
