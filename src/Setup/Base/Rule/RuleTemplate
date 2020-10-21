@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\{{biz}}\{{biz_module}}\{{biz_entity}}\Rule\{{biz_entity}}Rule;
+namespace AnexusPHP\{{biz}}\{{biz_module}}\Rule\{{biz_entity}}Rule;
 
-use AnexusPHP\{{biz}}\{{biz_module}}\{{biz_entity}}\Entity\{{biz_entity}}Entity;
+use AnexusPHP\{{biz}}\{{biz_module}}\Entity\{{biz_entity}}Entity;
 
 use AnexusPHP\Core\Database;
 use Exception;

@@ -54,9 +54,9 @@ class BizEntity extends Anx implements AnxInterface
             }
 
             $files = [
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Repository' . DS . $biz_entity.'Repository.php' => $this->generateRepositoryFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Rule.php' => $this->generateRuleFile($params)
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Repository' . DS . $biz_entity.'Repository.php' => $this->generateRepositoryFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Rule' . DS . $biz_entity.'Rule.php' => $this->generateRuleFile($params)
             ];
 
             echo "\033[0;37m";
@@ -100,7 +100,7 @@ class BizEntity extends Anx implements AnxInterface
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
         // Definicao do namespace
-        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity;' . chr(10);
+        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\Entity;' . chr(10);
         $strHeader .= chr(10) . 'use AnexusPHP\\Core\\DatabaseEntity;' . chr(10);
 
         $strClass = '';
