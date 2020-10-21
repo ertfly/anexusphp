@@ -121,7 +121,7 @@ class BizEntity extends Anx implements AnxInterface
             $strMethods .= chr(9) . 'public function get' . $attribute . '(){' . chr(10) . chr(9) . chr(9). 'return $this->' . $field['column_name'] . ';' . chr(10) . chr(9) . '}' . chr(10);
             $strToArray .= '\'' . $field['column_name'] . '\' => $this->get' . $attribute . '()' . (($i + 1) < count($tableFields) ? ',' : '') . chr(10);
         }
-        $strToArray .= ');' . chr(10) . '}';
+        $strToArray .= chr(9) . chr(9) . ');' . chr(10) . chr(9) . '}';
 
         $strClass .= $strAttributes;
         $strClass .= $strMethods;
