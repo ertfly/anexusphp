@@ -54,7 +54,7 @@ class BizEntity extends Anx implements AnxInterface
             }
 
             $files = [
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->entityFileToString($biz_entity),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
                 PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Repository' . DS . $biz_entity.'Repository.php' => '',
                 PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . $biz_entity . DS . 'Rule' . DS . $biz_entity.'Repository.php' => ''
             ];
@@ -70,7 +70,14 @@ class BizEntity extends Anx implements AnxInterface
         }
     }
 
-    protected function entityFileToString($table) {
+    /**
+     * @param array $params [biz, module, entity]
+     * @return string $fileAsString
+     */
+    protected function generateEntityFile($params) {
+        $biz = ucwords($params[0]);
+        $biz_module = ucwords($params[1]);
+        $table = $params[2];
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -88,17 +95,18 @@ class BizEntity extends Anx implements AnxInterface
         foreach ($arr as $partialName) {
             $className .= ucfirst($partialName);
         }
-        $className .= 'Entidade';
+        $className .= 'Entity';
 
-        // TODO: Namespace dinamico
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
-        $strHeader .= 'namespace AnexusPHP\\Testestes';
+        // Definicao do namespace
+        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity;' . chr(10);
+        $strHeader .= chr(10) . 'use AnexusPHP\\Core\\DatabaseEntity;' . chr(10);
 
         $strClass = '';
-        $strClass .= 'class ' . $className . ' extends \\Core\\DatabaseEntity {' . chr(10);
+        $strClass .= 'class ' . $className . ' extends DatabaseEntity {' . chr(10);
         $strAttributes = '';
-        $strAttributes .= 'const TABELA = \'' .  $table . '\';' . chr(10);
+        $strAttributes .= 'const TABLE = \'' .  $table . '\';' . chr(10);
         $strMethods = '';
         $strToArray = 'public function toArray(){' . chr(10) . ' return array(' . chr(10);
         foreach ($tableFields as $i => $field) {
@@ -114,6 +122,56 @@ class BizEntity extends Anx implements AnxInterface
             $strToArray .= '\'' . $field['column_name'] . '\' => $this->get' . $attribute . '()' . (($i + 1) < count($tableFields) ? ',' : '') . chr(10);
         }
         $strToArray .= ');' . chr(10) . '}';
+
+        $strClass .= $strAttributes;
+        $strClass .= $strMethods;
+        $strClass .= $strToArray . chr(10);
+        $strClass .= '}';
+
+        return ($strHeader . chr(10) . $strClass);
+    }
+
+    /**
+     * @param array $params [biz, module, entity]
+     * @return string $fileAsString
+     */
+    protected function generateRepositoryFile($params) {
+        $biz = ucwords($params[0]);
+        $biz_module = ucwords($params[1]);
+        $table = $params[2];
+        if (!$table) {
+            throw new Exception('Informar o nome da conexao /conexao/tabela');
+        }
+
+        $db = Database::getInstance();
+
+        $tableFields = array_values($db->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$table' order by ordinal_position asc")->fetchAll());
+
+        // if (!$tableFields) {
+        //     throw new Exception("Error: table $table fields not found");
+        // }
+
+        $className = '';
+        $arr = explode('_', $table);
+        foreach ($arr as $partialName) {
+            $className .= ucfirst($partialName);
+        }
+        $className .= 'Repository';
+
+        // TODO: Namespace dinamico
+        $strHeader = '';
+        $strHeader .= '<?php' . chr(10);
+        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Repository;' . chr(10);
+        // Incluindo Classe Entity
+        $strHeader .= chr(10) . 'use AnexusPHP\\'.$biz.'\\'.$biz_module.'\\'.ucwords($table).'\\Entity\\'.ucwords($table).'Entity;' . chr(10);
+        $strHeader .= chr(10) . 'use AnexusPHP\\Core\\Database;' . chr(10);
+
+        $strClass = '';
+        $strClass .= 'class ' . $className . chr(10);
+
+        // Criando método byId()
+        $strById = '';
+        $strById .= 
 
         $strClass .= $strAttributes;
         $strClass .= $strMethods;
