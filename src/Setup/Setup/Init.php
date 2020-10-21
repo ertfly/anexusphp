@@ -44,7 +44,7 @@ class Init extends Anx implements AnxInterface
                 PATH_MIGRATIONS . 'up/.gitkeep' => '',
                 PATH_MIGRATIONS . 'down/.gitkeep' => '',
                 PATH_MIGRATIONS . 'base.sql' => '',
-                PATH_MIGRATIONS . 'dados.sql' => '',
+                PATH_MIGRATIONS . 'data.sql' => '',
                 PATH_CACHE . '.gitkeep' => '',
                 PATH_LOGS . '.gitkeep' => '',
                 PATH_ROUTES . 'ErrorRoutes.php' => "<?php\n\nuse Pecee\Http\Request;\nuse Pecee\SimpleRouter\Exceptions\NotFoundHttpException;\nuse Pecee\SimpleRouter\SimpleRouter;\n\nSimpleRouter::error(function (Request \$request, \Exception \$exception)\n{\n\tif (\$exception instanceof NotFoundHttpException) {\n\t\treturn response()->redirect(url('not-found'));\n\t}\n});\n",
