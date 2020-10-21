@@ -32,11 +32,11 @@ class AppSessionRepository
      * @param mixed $className
      * @return string
      */
-    public static function byToken(AppSessionEntity $appSession, $className): AppSessionEntity
+    public static function byToken($token, $className): AppSessionEntity
     {
         $db = Database::getInstance();
 
-        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $appSession->getToken()])->fetchObject($className);
+        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $token])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }
