@@ -3,8 +3,8 @@
 namespace {{app}}\Modules\{{module}}\Controllers;
 
 use {{app}}\Modules\{{module}}\Models\{{module}}Model;
-use Core\Message;
-use Core\Session;
+use AnexusPHP\Core\Message;
+use AnexusPHP\Core\Session;
 use Exception;
 
 class {{module}}Controller
@@ -16,10 +16,14 @@ class {{module}}Controller
 
     public function index()
     {
-        $rows = [];
+        // $filters = [];
+        // if (input('name', null, 'get')) {
+        //     $filters['name'] = input('name', null, 'get');
+        // }
+        // $rows = {{module}}Repositorio::allWithPagination(url('Product'), $filters, input('pg', 1, 'get'));
 
         return request()->view->render('{{view}}/index', [
-            'rows' => $rows
+            // 'rows' => $rows
         ]);
     }
 
@@ -35,11 +39,20 @@ class {{module}}Controller
 
     public function edit()
     {
+        // $row = {{module}}Repositorio::porId(input('id', null, 'get'));
+
+        // if (!$row->getId()) {
+        //     Message::create(Message::MSG_ERROR, 'Record not found!');
+        //     response()->redirect(url('{{app}}{{module}}'));
+        //     return;
+        // }
+
         # code ...
 
         return request()->view->render('{{view}}/edit', [
             'isAdd' => false,
-            'id' => input('id', null, 'get')
+            'id' => input('id', null, 'get'),
+            // 'row' => $row
         ]);
     }
 
