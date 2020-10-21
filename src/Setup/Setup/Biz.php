@@ -24,9 +24,14 @@ class Biz extends Anx implements AnxInterface
             //     throw new Exception('Please start the application', 1);
             // }
 
-            if (!isset($params[0]) || trim($params[0] == '')) {
+            // TODO: Receber os parametros com -a -b, etc. Exemplo em App.php
+            // TODO: Documentar os argumentos dos parametros em Help.php
+
+            if (!isset($params['-b']) || trim($params['-b'] == '')) {
                 throw new Exception('Error: param [business-name] is required', 1);
             }
+
+            exit($params['-b']);
 
             $biz = ucwords($params[0]);
 

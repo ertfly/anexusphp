@@ -53,7 +53,6 @@ class {{biz_entity}}Repository
         $where = " a.trash = false ";
 
         // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     // TODO: Deixar os filtros dinamicos
         //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
         //     //$bind['name'] = $filters['search'];
         // }
