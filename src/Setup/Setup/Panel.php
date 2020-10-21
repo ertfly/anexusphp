@@ -52,7 +52,7 @@ class Panel extends Anx implements AnxInterface
     private function routes($panelName, $param) {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
-        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' && strpos($param['-r'], '/') ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
 
         $index = $this->getTemplate('Route' . DS . 'IndexRoute', [
             '{{app}}' => $app,
@@ -64,7 +64,7 @@ class Panel extends Anx implements AnxInterface
         $login = $this->getTemplate('Route' . DS . 'LoginRoute', [
             '{{app}}' => $app,
             '{{module}}' => $module,
-            '{{prefix}}' => $path,
+            '{{prefix}}' => $path . '/account',
         ]);
 
         $files = [

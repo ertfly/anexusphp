@@ -34,7 +34,7 @@ class Module extends Anx implements AnxInterface
                 throw new Exception("The Module '{$app}' already exists", 1);
             }
 
-            $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' && strpos($param['-r'], '/') ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+            $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
 
             if (in_array('--crud-controller', $option)) {
                 $files = $this->crud($app, $module, $path);
