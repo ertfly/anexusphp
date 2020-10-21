@@ -2,8 +2,8 @@
 
 namespace AnexusPHP\core;
 
-use AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
-use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Configuration\Rule\ConfigurationRule;
 use PDO;
 
 class Migration
@@ -11,12 +11,12 @@ class Migration
     public static function init()
     {
         try {
-            ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
+            ConfigurationRepository::getValue('MIGRATION_STARTED');
         } catch (\Exception $e) {
             return self::install();
         }
 
-        $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
+        $migrationVersion = ConfigurationRepository::getValue('MIGRATION_VERSION');
         $newUp = self::getVersionUp();
         $newDown = self::getVersionDown();
         $newVersion = $newUp . '.' . $newDown;
@@ -29,8 +29,8 @@ class Migration
             if (intval($arr[1]) < $newDown) {
                 self::executeDown(intval($arr[1]), $newDown);
             }
-            $version = (ConfiguracaoRepositorio::porId('MIGRATION_VERSION'))->setValor($newVersion);
-            ConfiguracaoRegraDeNegocio::alterar($version);
+            $version = (ConfigurationRepository::byId('MIGRATION_VERSION'))->setValue($newVersion);
+            ConfigurationRule::update($version);
         }
     }
 
@@ -41,10 +41,6 @@ class Migration
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-
-        if(trim($sql) != '') {
-            $database->exec($sql);
-        }
 
         self::populate();
 
