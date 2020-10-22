@@ -126,8 +126,19 @@ class Panel extends Anx implements AnxInterface
             '{{app}}' => $app
         ]);
 
+        $headerIn = $this->getTemplate('Template' . DS . 'HeaderInPanel', []);
+        $headerOut = $this->getTemplate('Template' . DS . 'HeaderOutPanel', []);
+        $footerIn = $this->getTemplate('Template' . DS . 'FooterInPanel', []);
+        $footerOut = $this->getTemplate('Template' . DS . 'FooterOutPanel', []);
+        $messageModal = $this->getTemplate('Template' . DS . 'MessageModalPanel', []);
+
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerIn.phtml' => $headerIn,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerOut.phtml' => $headerOut,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerIn.phtml' => $footerIn,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerOut.phtml' => $footerOut,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'messageModal.phtml' => $messageModal,
             PATH_ROOT . 'src' . DS . $app . DS . 'Template.php' => $template,
         ];
 

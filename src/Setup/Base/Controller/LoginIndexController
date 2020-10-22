@@ -8,4 +8,9 @@ class {{module}}Controller
     {
         return response()->redirect(url('{{module}}AccountLogin'));
     }
+
+    public function panel()
+    {
+        return 'Hello ' . request()->sid->getPerson()->getFirstname();
+    }
 }
