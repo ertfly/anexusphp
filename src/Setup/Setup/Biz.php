@@ -26,7 +26,7 @@ class Biz extends Anx implements AnxInterface
 
 
             if (!isset($params['-b']) || trim($params['-b'] == '')) {
-                throw new Exception('Error: param [business-name] is required', 1);
+                throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
             $biz = ucwords($params['-b']);
