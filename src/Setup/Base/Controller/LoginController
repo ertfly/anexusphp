@@ -7,6 +7,11 @@ use Exception;
 
 class AccountController
 {
+    public function index()
+    {
+        # code ...
+    }
+
     public function login()
     {
         return request()->view->render('account/index', [
