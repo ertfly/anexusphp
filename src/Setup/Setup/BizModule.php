@@ -24,8 +24,8 @@ class BizModule extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
-            if (!isset($params[0]) || trim($params[0] == '')) {
-                throw new Exception('Error: param #1 [business-name] is required', 1);
+            if (!isset($params['-b']) || trim($params['-b'] == '')) {
+                throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
             if (!isset($params[1]) || trim($params[1] == '')) {

@@ -28,12 +28,10 @@ class Biz extends Anx implements AnxInterface
             // TODO: Documentar os argumentos dos parametros em Help.php
 
             if (!isset($params['-b']) || trim($params['-b'] == '')) {
-                throw new Exception('Error: param [business-name] is required', 1);
+                throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
-            exit($params['-b']);
-
-            $biz = ucwords($params[0]);
+            $biz = ucwords($params['-b']);
 
             if (is_dir(PATH_ROOT . 'src/' . $biz)) {
                 throw new Exception("The '{$biz}' business already exists", 1);
