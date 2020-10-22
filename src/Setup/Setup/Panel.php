@@ -30,6 +30,29 @@ class Panel extends Anx implements AnxInterface
         $this->view($panelName, $param);
     }
 
+    public static function help()
+    {
+        echo "    ___    _   ___  __" . chr(10);
+        echo "   /   |  / | / / |/ /" . chr(10);
+        echo "  / /| | /  |/ /|   / " . chr(10);
+        echo " / ___ |/ /|  //   |  " . chr(10);
+        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
+        echo "                      " . chr(10);
+
+        echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
+        echo "\tphp anx create-panel [params]" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Params:" . "\033[0m" . chr(10);
+        echo "\t-p [panel-name]" . chr(10);
+        echo "\t-ak [public-app-key]" . chr(10);
+        echo "\t-sk [secret-key]" . chr(10);
+        echo "\t-r [optional-route]" . chr(10);
+        echo "\t--help - See this helper" . chr(10);
+
+
+        exit(chr(10));
+    }
+
     private function assets($panelName)
     {
         $files = [
