@@ -22,7 +22,8 @@ class Anx
             'create-biz' => '\AnexusPHP\Setup\Setup\Biz',
             'create-biz-module' => '\AnexusPHP\Setup\Setup\BizModule',
             'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity',
-            'create-panel' => '\AnexusPHP\Setup\Setup\Panel'
+            'create-panel' => '\AnexusPHP\Setup\Setup\Panel',
+            'country' => '\AnexusPHP\Setup\Setup\Country'
         ];
 
         // verificando se a chave pedida existe

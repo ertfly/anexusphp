@@ -170,8 +170,6 @@ CREATE TABLE IF NOT EXISTS public.region_country (
 	"name" varchar(100) NOT NULL,
 	code varchar(3) NOT NULL,
 	initials varchar(3) NOT NULL,
-	person_field_id int4 NULL,
-	company_field_id int4 NULL,
 	flag varchar(100) NULL,
 	principal bool NOT NULL DEFAULT false,
 	visible bool NOT NULL DEFAULT true,
