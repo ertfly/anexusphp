@@ -24,6 +24,14 @@ class Module extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
+            if (!isset($param['-a']) || trim($param['-a'] == '')) {
+                throw new Exception('The module must contain a app', 1);
+            }
+
+            if (!isset($param['-m']) || trim($param['-m'] == '')) {
+                throw new Exception('The module must contain a name', 1);
+            }
+
             $app = ucwords($param['-a']);
             if (!is_dir(PATH_ROOT . 'src/' . $app)) {
                 throw new Exception("The App '{$app}' do not exists", 1);

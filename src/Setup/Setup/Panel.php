@@ -86,6 +86,10 @@ class Panel extends Anx implements AnxInterface
         $module = ucwords($panelName);
 
         $login = $this->getTemplate('Controller' . DS . 'LoginController', [
+            '{{app}}' => $app
+        ]);
+
+        $model = $this->getTemplate('Model' . DS . 'LoginModel', [
             '{{app}}' => $app,
             '{{app_key}}' => (isset($param['-ak']) && trim($param['-ak']) != '' ? $param['-ak'] : 'app-key'),
             '{{secret_key}}' => (isset($param['-sk']) && trim($param['-sk']) != '' ? $param['-sk'] : 'secret-key')
@@ -103,6 +107,7 @@ class Panel extends Anx implements AnxInterface
 
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . 'Account' . DS . 'Controllers' . DS . 'AccountController.php' => $login,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . 'Account' . DS . 'Models' . DS . 'AccountModel.php' => $model,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $index,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => $middleware,
         ];
@@ -126,11 +131,11 @@ class Panel extends Anx implements AnxInterface
             '{{app}}' => $app
         ]);
 
-        $headerIn = $this->getTemplate('Template' . DS . 'HeaderInPanel', []);
-        $headerOut = $this->getTemplate('Template' . DS . 'HeaderOutPanel', []);
-        $footerIn = $this->getTemplate('Template' . DS . 'FooterInPanel', []);
-        $footerOut = $this->getTemplate('Template' . DS . 'FooterOutPanel', []);
-        $messageModal = $this->getTemplate('Template' . DS . 'MessageModalPanel', []);
+        $headerIn = $this->getTemplate('View' . DS . 'HeaderInPanel', []);
+        $headerOut = $this->getTemplate('View' . DS . 'HeaderOutPanel', []);
+        $footerIn = $this->getTemplate('View' . DS . 'FooterInPanel', []);
+        $footerOut = $this->getTemplate('View' . DS . 'FooterOutPanel', []);
+        $messageModal = $this->getTemplate('View' . DS . 'MessageModalPanel', []);
 
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
