@@ -75,10 +75,10 @@ class App extends Anx implements AnxInterface
         echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
         echo "                      " . chr(10);
 
-        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
+        echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
         echo "\tphp anx create-app [params]" . chr(10) . chr(10);
 
-        echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
+        echo "\033[1;33m" . "Params:" . "\033[0m" . chr(10);
         echo "\t-a [app-name]" . chr(10);
         echo "\t-m [optional-module-name]" . chr(10);
         echo "\t-r [optional-route]" . chr(10);
