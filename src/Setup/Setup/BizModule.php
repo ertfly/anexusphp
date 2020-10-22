@@ -39,7 +39,7 @@ class BizModule extends Anx implements AnxInterface
                  throw new Exception("The '{$biz}' business doesn't exist", 1);
             }
 
-            if (is_dir(PATH_ROOT . 'src/' . $biz_module)) {
+            if (is_dir(PATH_ROOT . 'src/' . $biz . DS . $biz_module)) {
                 throw new Exception("The '{$biz_module}' module already exists", 1);
             }
 

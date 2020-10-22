@@ -77,7 +77,8 @@ class BizEntity extends Anx implements AnxInterface
     protected function generateEntityFile($params) {
         $biz = ucwords($params['-b']);
         $biz_module = ucwords($params['-bm']);
-        $table = $params['-e'];
+        $biz_entity = $params['-e'];
+        $table = strtolower($biz_entity);
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -91,7 +92,7 @@ class BizEntity extends Anx implements AnxInterface
         // }
 
         $className = '';
-        $arr = explode('_', $table);
+        $arr = explode('_', $biz_entity);
         foreach ($arr as $partialName) {
             $className .= ucfirst($partialName);
         }
