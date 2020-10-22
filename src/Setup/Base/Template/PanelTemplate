@@ -1,0 +1,55 @@
+<?php
+
+namespace {{app}};
+
+use AnexusPHP\Core\Lang;
+use AnexusPHP\Core\Message;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
+
+class Template
+{
+    public static function header($title, $css = [], $js = [])
+    {
+        $data = [];
+        $data['title'] = $title . ' - {{app}}';
+        $data['css'] = $css;
+        $data['js'] = $js;
+        $data['message'] = self::messageModal();
+
+        if (request()->sid->isLogged()) {
+            // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_IN, request()->country);
+            $data['account'] = request()->sid->getPessoaOuEmpresa();
+            return request()->view->render('include/headerIn', $data);
+        } else {
+            // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_OUT, request()->country);
+            $data['countries'] = RegionCountryRepository::allVisible(RegionCountryEntidade::class);
+            $data['country'] = request()->country;
+            return request()->view->render('include/headerOut', $data);
+        }
+    }
+
+    public static function footer()
+    {
+        if (request()->sid->isLogged()) {
+            return request()->view->render('include/footerIn', [
+                // 'lang' => Lang::loadPage(IdiomaTelaConstante::FOOTER_IN, request()->country)
+            ]);
+        } else {
+            return request()->view->render('include/footerOut', [
+                // 'lang' => Lang::loadPage(IdiomaTelaConstante::FOOTER_OUT, request()->country)
+            ]);
+        }
+    }
+
+    /**
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public static function messageModal()
+    {
+        $data = [];
+        Message::applyData($data);
+        return request()->view->render('include/messageModal', $data);
+    }
+}

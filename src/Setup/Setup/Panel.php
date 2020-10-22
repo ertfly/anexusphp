@@ -27,6 +27,7 @@ class Panel extends Anx implements AnxInterface
         $this->assets($panelName);
         $this->routes($panelName, $param);
         $this->app($panelName, $param);
+        $this->view($panelName, $param);
     }
 
     private function assets($panelName)
@@ -104,6 +105,30 @@ class Panel extends Anx implements AnxInterface
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . 'Account' . DS . 'Controllers' . DS . 'AccountController.php' => $login,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $index,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => $middleware,
+        ];
+
+        foreach ($files as $key => $value) {
+            $this->file_force_contents($key, $value);
+        }
+    }
+
+    private function view($panelName, $param) {
+        $app = ucwords($panelName);
+        $module = ucwords($panelName);
+
+        $view = $this->getTemplate('View' . DS . 'Login', [
+            '{{app}}' => $app,
+            '{{module}}' => $module,
+            '{{app_key}}' => (isset($param['-ak']) && trim($param['-ak']) != '' ? $param['-ak'] : 'app-key')
+        ]);
+
+        $template = $this->getTemplate('Template' . DS . 'PanelTemplate', [
+            '{{app}}' => $app
+        ]);
+
+        $files = [
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Template.php' => $template,
         ];
 
         foreach ($files as $key => $value) {
