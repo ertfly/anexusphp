@@ -63,7 +63,7 @@ class Module extends Anx implements AnxInterface
         echo "                      " . chr(10);
 
         echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
-        echo "\tphp anx create-module [app] [module-name] [optional-url]" . chr(10) . chr(10);
+        echo "\tphp anx create-module -a [app] -m [module-name] -r [optional-route] --help - see this helper --crud-controller - Create controller with crud methods" . chr(10) . chr(10);
 
         exit(chr(10));
     }

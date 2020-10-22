@@ -24,11 +24,12 @@ class Biz extends Anx implements AnxInterface
             //     throw new Exception('Please start the application', 1);
             // }
 
+
             if (!isset($params['-b']) || trim($params['-b'] == '')) {
-                throw new Exception('Error: param -b [business-name] is required', 1);
+                throw new Exception('Error: param [business-name] is required', 1);
             }
 
-            $biz = ucwords($params['-b']);
+            $biz = ucwords($params[0]);
 
             if (is_dir(PATH_ROOT . 'src/' . $biz)) {
                 throw new Exception("The '{$biz}' business already exists", 1);
