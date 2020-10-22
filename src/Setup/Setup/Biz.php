@@ -24,9 +24,6 @@ class Biz extends Anx implements AnxInterface
             //     throw new Exception('Please start the application', 1);
             // }
 
-            // TODO: Receber os parametros com -a -b, etc. Exemplo em App.php
-            // TODO: Documentar os argumentos dos parametros em Help.php
-
             if (!isset($params['-b']) || trim($params['-b'] == '')) {
                 throw new Exception('Error: param -b [business-name] is required', 1);
             }

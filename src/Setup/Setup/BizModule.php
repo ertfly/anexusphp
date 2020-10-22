@@ -28,12 +28,12 @@ class BizModule extends Anx implements AnxInterface
                 throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
-            if (!isset($params[1]) || trim($params[1] == '')) {
-                throw new Exception('Error: param #2 [business_module-name] is required', 1);
+            if (!isset($params['-bm']) || trim($params['-bm'] == '')) {
+                throw new Exception('Error: param -bm [business_module-name] is required', 1);
             }
 
-            $biz = ucwords($params[0]);
-            $biz_module = ucwords($params[1]);
+            $biz = ucwords($params['-b']);
+            $biz_module = ucwords($params['-bm']);
 
             if (!is_dir(PATH_ROOT . 'src/' . $biz)) {
                  throw new Exception("The '{$biz}' business doesn't exist", 1);

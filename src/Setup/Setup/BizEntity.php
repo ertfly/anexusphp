@@ -25,21 +25,21 @@ class BizEntity extends Anx implements AnxInterface
                 throw new Exception('Please start the application', 1);
             }
 
-            if (!isset($params[0]) || trim($params[0] == '')) {
-                throw new Exception('Error: param #1 [business-name] is required', 1);
+            if (!isset($params['-b']) || trim($params['-b'] == '')) {
+                throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
-            if (!isset($params[1]) || trim($params[1] == '')) {
-                throw new Exception('Error: param #2 [business_module-name] is required', 1);
+            if (!isset($params['-bm']) || trim($params['-bm'] == '')) {
+                throw new Exception('Error: param -bm [business_module-name] is required', 1);
             }
 
-            if (!isset($params[2]) || trim($params[2] == '')) {
-                throw new Exception('Error: param #3 [business_entity-name] is required', 1);
+            if (!isset($params['-e']) || trim($params['-e'] == '')) {
+                throw new Exception('Error: param -e [business_entity-name] is required', 1);
             }
 
-            $biz = ucwords($params[0]);
-            $biz_module = ucwords($params[1]);
-            $biz_entity = ucwords($params[2]);
+            $biz = ucwords($params['-b']);
+            $biz_module = ucwords($params['-bm']);
+            $biz_entity = ucwords($params['-e']);
 
             if (!is_dir(PATH_ROOT . 'src/' . $biz)) {
                  throw new Exception("The '{$biz}' business doesn't exist", 1);
@@ -75,9 +75,9 @@ class BizEntity extends Anx implements AnxInterface
      * @return string $fileAsString
      */
     protected function generateEntityFile($params) {
-        $biz = ucwords($params[0]);
-        $biz_module = ucwords($params[1]);
-        $table = $params[2];
+        $biz = ucwords($params['-b']);
+        $biz_module = ucwords($params['-bm']);
+        $table = $params['-e'];
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -136,9 +136,9 @@ class BizEntity extends Anx implements AnxInterface
      * @return string $repository
      */
     protected function generateRepositoryFile($params) {
-        $biz = ucwords($params[0]);
-        $biz_module = ucwords($params[1]);
-        $biz_entity = ucwords($params[2]);
+        $biz = ucwords($params['-b']);
+        $biz_module = ucwords($params['-bm']);
+        $biz_entity = ucwords($params['-e']);
         $repository = $this->getTemplate('Repository' . DS . 'RepositoryTemplate', [
             '{{biz}}' => $biz,
             '{{biz_module}}' => $biz_module,
@@ -153,9 +153,9 @@ class BizEntity extends Anx implements AnxInterface
      * @return string $rule
      */
     protected function generateRuleFile($params) {
-        $biz = ucwords($params[0]);
-        $biz_module = ucwords($params[1]);
-        $biz_entity = ucwords($params[2]);
+        $biz = ucwords($params['-b']);
+        $biz_module = ucwords($params['-bm']);
+        $biz_entity = ucwords($params['-e']);
         $rule = $this->getTemplate('Rule' . DS . 'RuleTemplate', [
             '{{biz}}' => $biz,
             '{{biz_module}}' => $biz_module,
