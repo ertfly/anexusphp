@@ -26,6 +26,7 @@ class Panel extends Anx implements AnxInterface
 
         $this->assets($panelName);
         $this->routes($panelName, $param);
+        $this->app($panelName, $param);
     }
 
     private function assets($panelName)
@@ -49,7 +50,8 @@ class Panel extends Anx implements AnxInterface
         }
     }
 
-    private function routes($panelName, $param) {
+    private function routes($panelName, $param)
+    {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
         $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
@@ -77,7 +79,35 @@ class Panel extends Anx implements AnxInterface
         }
     }
 
-    private function app() {
+    private function app($panelName, $param)
+    {
+        $app = ucwords($panelName);
+        $module = ucwords($panelName);
 
+        $login = $this->getTemplate('Controller' . DS . 'LoginController', [
+            '{{app}}' => $app,
+            '{{app_key}}' => (isset($param['-ak']) && trim($param['-ak']) != '' ? $param['-ak'] : 'app-key'),
+            '{{secret_key}}' => (isset($param['-sk']) && trim($param['-sk']) != '' ? $param['-sk'] : 'secret-key')
+        ]);
+
+        $index = $this->getTemplate('Controller' . DS . 'LoginIndexController', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
+        $middleware = $this->getTemplate('Middleware' . DS . 'LoginMiddleware', [
+            '{{app}}' => $app,
+            '{{session_name}}' => strtolower($app)
+        ]);
+
+        $files = [
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . 'Account' . DS . 'Controllers' . DS . 'AccountController.php' => $login,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $index,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => $middleware,
+        ];
+
+        foreach ($files as $key => $value) {
+            $this->file_force_contents($key, $value);
+        }
     }
 }

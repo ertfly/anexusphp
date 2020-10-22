@@ -37,7 +37,7 @@ class Anx
         $param = [];
         $option = [];
         foreach ($params as $key => $value) {
-            if (preg_match('/^-{1}[a-zA-Z]{1}/', $value)) {
+            if (preg_match('/^-{1}[a-zA-Z]/', $value)) {
                 $param[$value] = $params[$key + 1];
             }
             if (preg_match('/-{2}[a-zA-Z]/', $value)) {

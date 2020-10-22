@@ -1,0 +1,11 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Controllers;
+
+class {{module}}Controller
+{
+    public function index()
+    {
+        return response()->redirect(url('{{module}}AccountLogin'));
+    }
+}
