@@ -30,6 +30,9 @@ class Help extends Anx implements AnxInterface
         echo "\033[0;32m" . "  -m" . "\033[0m" . "\t\tPass a Module name" . chr(10);
         echo "\033[0;32m" . "  -r" . "\033[0m" . "\t\tPass a optional route name" . chr(10);
         echo "\033[0;32m" . "  -p" . "\033[0m" . "\t\tPass a panel name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -b" . "\033[0m" . "\t\tPass the Business name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -bm" . "\033[0m" . "\t\tPass the Business Module name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -e" . "\033[0m" . "\t\tPass the Business Entity name" . chr(10) . chr(10);
 
         echo "\033[1;33m" . "Available Commands:" . "\033[0m" . chr(10);
 
@@ -37,9 +40,9 @@ class Help extends Anx implements AnxInterface
         echo "\033[0;32m" . "  init" . "\033[0m" . "\t\t\tInitialize the project with the basics folders" . chr(10);
         echo "\033[0;32m" . "  create-app" . "\033[0m" . "\t\tCreate a new app folder" . chr(10);
         echo "\033[0;32m" . "  create-module" . "\033[0m" . "\t\tCreate a new module folder within an existing application folder" . chr(10);
-        echo "\033[0;32m" . "  create-biz" . "\033[0m" . "\t\t-" . chr(10);
-        echo "\033[0;32m" . "  create-biz-module" . "\033[0m" . "\t-" . chr(10);
-        echo "\033[0;32m" . "  create-biz-entity" . "\033[0m" . "\t-" . chr(10);
+        echo "\033[0;32m" . "  create-biz" . "\033[0m" . "\t\tCreate a new business folder" . chr(10);
+        echo "\033[0;32m" . "  create-biz-module" . "\033[0m" . "\t-Create a new business module folder within an existing business" . chr(10);
+        echo "\033[0;32m" . "  create-biz-entity" . "\033[0m" . "\t-Create entity, repository and rule files within an existing business module" . chr(10);
         echo "\033[0;32m" . "  create-panel" . "\033[0m" . "\t\t-" . chr(10) . chr(10);
     }
 }
