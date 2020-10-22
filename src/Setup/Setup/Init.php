@@ -86,4 +86,23 @@ class Init extends Anx implements AnxInterface
             exit(chr(10) . 'Base tables error' . chr(10));
         }
     }
+
+    public static function help()
+    {
+        echo "    ___    _   ___  __" . chr(10);
+        echo "   /   |  / | / / |/ /" . chr(10);
+        echo "  / /| | /  |/ /|   / " . chr(10);
+        echo " / ___ |/ /|  //   |  " . chr(10);
+        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
+        echo "                      " . chr(10);
+
+        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
+        echo "\tphp anx init [params]" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
+        echo "\t--help - See this helper" . chr(10);
+
+
+        exit(chr(10));
+    }
 }

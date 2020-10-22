@@ -9,38 +9,38 @@ use Exception;
 
 class {{biz_entity}}Rule
 {
-    public static function insert({{biz_entity}}Entity &$register)
+    public static function insert({{biz_entity}}Entity &$record)
     {
         $db = Database::getInstance();
-        if ($register->getId()) {
+        if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $register->setCreatedAt(date('Y-m-d H:i:s'))
+        $record->setCreatedAt(date('Y-m-d H:i:s'))
             ->save($db);
     }
-    public static function update({{biz_entity}}Entity &$register)
+    public static function update({{biz_entity}}Entity &$record)
     {
         $db = Database::getInstance();
-        if (!$register->getId()) {
+        if (!$record->getId()) {
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
-        $register->setUpdatedAt(date('Y-m-d H:i:s'))
+        $record->setUpdatedAt(date('Y-m-d H:i:s'))
             ->save($db);
     }
-    public static function delete({{biz_entity}}Entity &$register)
+    public static function delete({{biz_entity}}Entity &$record)
     {
         $db = Database::getInstance();
-        if (!$register->getId()) {
+        if (!$record->getId()) {
             throw new Exception('Esse método deve conter um ID');
         }
-        $register->delete($db);
+        $record->delete($db);
     }
-    public static function destroy({{biz_entity}}Entity &$register)
+    public static function destroy({{biz_entity}}Entity &$record)
     {
         $db = Database::getInstance();
-        if (!$register->getId()) {
+        if (!$record->getId()) {
             throw new Exception('Esse método deve conter um ID');
         }
-        $register->destroy($db);
+        $record->destroy($db);
     }
 }

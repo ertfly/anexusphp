@@ -77,7 +77,8 @@ class BizEntity extends Anx implements AnxInterface
     protected function generateEntityFile($params) {
         $biz = ucwords($params['-b']);
         $biz_module = ucwords($params['-bm']);
-        $table = $params['-e'];
+        $biz_entity = $params['-e'];
+        $table = strtolower($biz_entity);
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -91,7 +92,7 @@ class BizEntity extends Anx implements AnxInterface
         // }
 
         $className = '';
-        $arr = explode('_', $table);
+        $arr = explode('_', $biz_entity);
         foreach ($arr as $partialName) {
             $className .= ucfirst($partialName);
         }
@@ -163,5 +164,27 @@ class BizEntity extends Anx implements AnxInterface
         ]);
 
         return $rule;
+    }
+
+    public static function help()
+    {
+        echo "    ___    _   ___  __" . chr(10);
+        echo "   /   |  / | / / |/ /" . chr(10);
+        echo "  / /| | /  |/ /|   / " . chr(10);
+        echo " / ___ |/ /|  //   |  " . chr(10);
+        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
+        echo "                      " . chr(10);
+
+        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
+        echo "\tphp anx create-biz-entity [params]" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
+        echo "\t-b [business-name]" . chr(10) ;
+        echo "\t-bm [business-module-name]" . chr(10) ;
+        echo "\t-e [business-entity-name]" . chr(10) ;
+        echo "\t--help - See this helper" . chr(10);
+
+
+        exit(chr(10));
     }
 }
