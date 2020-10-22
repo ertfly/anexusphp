@@ -12,11 +12,11 @@ interface AnxInterface
      *     $this->run();
      * }
      */
-    public function __construct($params);
+    public function __construct($param, $option);
 
     /**
      * @param array $params
      * @return void
      */
-    public function run(array $params = []):void;
+    public function run(array $param = [], array $option = []):void;
 }

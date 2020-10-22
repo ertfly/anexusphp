@@ -1,0 +1,57 @@
+<?php
+
+namespace {{app}}\Modules\Account\Controllers;
+
+use AnexusPHP\Core\Tools\Jwt;
+use Exception;
+
+class AccountController
+{
+    public function login()
+    {
+        return request()->view->render('account/index', [
+            // 'header' => Template::header('Login', ['css/login.css']),
+            // 'footer' => Template::footer(),
+            'country' => request()->country
+        ]);
+    }
+
+    public function loginSubmit()
+    {
+        $jwt = new Jwt('{{secret_key}}');
+        $data = $jwt->decode(input('jwt', null, 'get'));
+
+        if (!isset($data['response']) || !isset($data['response']['code']) || trim($data['response']['code']) == '') {
+            throw new Exception('Invalid integration, ask for support help');
+        }
+
+        $headers = [
+            'appKey: {{app_key}}',
+            'secretKey: {{secret_key}}'
+        ];
+        $data = $this->sendGetJson('https://authfast.com.br/api/profile/' . $data['data']['authfast_id'], $headers, false);
+
+        var_dump($data);
+    }
+
+    public static function sendGetJson($url, $headers = [], $decode = true)
+        {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+    
+            $response = curl_exec($ch);
+    
+            if (curl_errno($ch) || !$response) {
+                throw new Exception('There was an error in your request');
+            }
+    
+            curl_close($ch);
+    
+            return json_decode($response, true);
+        }
+}

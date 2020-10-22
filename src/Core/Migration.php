@@ -2,21 +2,26 @@
 
 namespace AnexusPHP\core;
 
-use AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
-use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Configuration\Rule\ConfigurationRule;
 use PDO;
 
 class Migration
 {
     public static function init()
     {
+        if (!file_exists(PATH_LOGS . 'start_execution')) {
+            exit("Inicialize a aplicação atraves do anx");
+        }
+        
         try {
-            ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
+            if(ConfigurationRepository::getValue('MIGRATION_STARTED') == 'false'){
+                throw new \Exception();
+            };
         } catch (\Exception $e) {
             return self::install();
         }
-
-        $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
+        $migrationVersion = ConfigurationRepository::getValue('MIGRATION_VERSION');
         $newUp = self::getVersionUp();
         $newDown = self::getVersionDown();
         $newVersion = $newUp . '.' . $newDown;
@@ -29,8 +34,8 @@ class Migration
             if (intval($arr[1]) < $newDown) {
                 self::executeDown(intval($arr[1]), $newDown);
             }
-            $version = (ConfiguracaoRepositorio::porId('MIGRATION_VERSION'))->setValor($newVersion);
-            ConfiguracaoRegraDeNegocio::alterar($version);
+            $version = (ConfigurationRepository::byId('MIGRATION_VERSION'))->setValue($newVersion);
+            ConfigurationRule::update($version);
         }
     }
 
@@ -41,8 +46,10 @@ class Migration
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-
-        $database->exec($sql);
+        
+        if(trim($sql) != '') {
+            $database->exec($sql);
+        }
 
         self::populate();
 
@@ -53,10 +60,13 @@ class Migration
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
+        
+        $sql = file_get_contents(PATH_MIGRATIONS . 'data.sql');
 
-        $sql = file_get_contents(PATH_MIGRATIONS . 'dados.sql');
+        if(trim($sql) != '') {
+            $database->exec($sql);
+        }
 
-        $database->exec($sql);
     }
 
     private static function executeDown($oldVersion, $newVersion)

@@ -7,24 +7,26 @@ use AnexusPHP\Setup\Anx;
 
 class Panel extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []): void
+    public function run(array $param = [], array $option = []): void
     {
-        if (!is_dir(PATH_PUBLIC . DS . 'assets' . DS) || !is_readable(PATH_PUBLIC . DS . 'assets' . DS) || !is_writable(PATH_PUBLIC . DS . 'assets' . DS)) {
-            exit('Assets path is not a directory, not readable or not writable' . chr(10));
+        if (!is_dir(PATH_ROOT) || !is_readable(PATH_ROOT) || !is_writable(PATH_ROOT)) {
+            exit('Root path is not a directory, not readable or not writable' . chr(10));
         }
 
-        if (!empty($params[0] && trim($params[0] != ''))) {
-            $panelName = strtolower($params[0]);
+        if (!empty($param['-p'] && trim($param['-p'] != ''))) {
+            $panelName = strtolower($param['-p']);
         } else {
             exit('Please, enter the panel name!' . chr(10));
         }
 
         $this->assets($panelName);
+        $this->routes($panelName, $param);
+        $this->app($panelName, $param);
     }
 
     private function assets($panelName)
@@ -41,6 +43,67 @@ class Panel extends Anx implements AnxInterface
             PATH_PUBLIC . 'assets' . DS . $panelName . DS . 'img' . DS . 'logo.png' => file_get_contents(Anx::PATH_BASE . 'Img' . DS . 'logo.png'),
             PATH_PUBLIC . 'assets' . DS . $panelName . DS . 'img' . DS . 'no-user.png' => file_get_contents(Anx::PATH_BASE . 'Img' . DS . 'no-user.png'),
             PATH_PUBLIC . 'assets' . DS . $panelName . DS . 'img' . DS . 'sem-imagem.jpg' => file_get_contents(Anx::PATH_BASE . 'Img' . DS . 'sem-imagem.jpg'),
+        ];
+
+        foreach ($files as $key => $value) {
+            $this->file_force_contents($key, $value);
+        }
+    }
+
+    private function routes($panelName, $param)
+    {
+        $app = ucwords($panelName);
+        $module = ucwords($panelName);
+        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+
+        $index = $this->getTemplate('Route' . DS . 'IndexRoute', [
+            '{{app}}' => $app,
+            '{{module}}' => $module,
+            '{{prefix}}' => $path,
+            '{{route}}' => $app
+        ]);
+
+        $login = $this->getTemplate('Route' . DS . 'LoginRoute', [
+            '{{app}}' => $app,
+            '{{module}}' => $module,
+            '{{prefix}}' => $path . '/account',
+        ]);
+
+        $files = [
+            PATH_ROUTES . $app . DS . $module . 'Routes.php' => $index,
+            PATH_ROUTES . $app . DS . 'AccountRoutes.php' => $login,
+        ];
+
+        foreach ($files as $key => $value) {
+            $this->file_force_contents($key, $value);
+        }
+    }
+
+    private function app($panelName, $param)
+    {
+        $app = ucwords($panelName);
+        $module = ucwords($panelName);
+
+        $login = $this->getTemplate('Controller' . DS . 'LoginController', [
+            '{{app}}' => $app,
+            '{{app_key}}' => (isset($param['-ak']) && trim($param['-ak']) != '' ? $param['-ak'] : 'app-key'),
+            '{{secret_key}}' => (isset($param['-sk']) && trim($param['-sk']) != '' ? $param['-sk'] : 'secret-key')
+        ]);
+
+        $index = $this->getTemplate('Controller' . DS . 'LoginIndexController', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
+        $middleware = $this->getTemplate('Middleware' . DS . 'LoginMiddleware', [
+            '{{app}}' => $app,
+            '{{session_name}}' => strtolower($app)
+        ]);
+
+        $files = [
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . 'Account' . DS . 'Controllers' . DS . 'AccountController.php' => $login,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $index,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Modules/Middleware.php' => $middleware,
         ];
 
         foreach ($files as $key => $value) {

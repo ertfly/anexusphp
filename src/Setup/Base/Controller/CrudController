@@ -1,0 +1,86 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Controllers;
+
+use {{app}}\Modules\{{module}}\Models\{{module}}Model;
+use AnexusPHP\Core\Message;
+use AnexusPHP\Core\Session;
+use Exception;
+
+class {{module}}Controller
+{
+    public function __construct()
+    {
+        # code ...
+    }
+
+    public function index()
+    {
+        // $filters = [];
+        // if (input('name', null, 'get')) {
+        //     $filters['name'] = input('name', null, 'get');
+        // }
+        // $rows = {{module}}Repositorio::allWithPagination(url('Product'), $filters, input('pg', 1, 'get'));
+
+        return request()->view->render('{{view}}/index', [
+            // 'rows' => $rows
+        ]);
+    }
+
+    public function add()
+    {
+        # code ...
+
+        return request()->view->render('{{view}}/edit', [
+            'isAdd' => true,
+            'id' => null,
+        ]);
+    }
+
+    public function edit()
+    {
+        // $row = {{module}}Repositorio::porId(input('id', null, 'get'));
+
+        // if (!$row->getId()) {
+        //     Message::create(Message::MSG_ERROR, 'Record not found!');
+        //     response()->redirect(url('{{app}}{{module}}'));
+        //     return;
+        // }
+
+        # code ...
+
+        return request()->view->render('{{view}}/edit', [
+            'isAdd' => false,
+            'id' => input('id', null, 'get'),
+            // 'row' => $row
+        ]);
+    }
+
+    public function submit()
+    {
+        try {
+            $id = {{module}}Model::submit();
+            return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . $id);
+        } catch (Exception $e) {
+            Session::data('post', $_POST);
+            Message::create(Message::MSG_ERROR, $e->getMessage());
+            if (input('id', null, 'get')) {
+                return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . input('id', null, 'get'));
+            } else {
+                return response()->redirect(url('{{app}}{{module}}Add'));
+            }
+        }
+    }
+
+    public function delete()
+    {
+        try {
+            {{module}}Model::delete();
+        } catch (Exception $e) {
+            Session::data('post', $_POST);
+            Message::create(Message::MSG_ERROR, $e->getMessage());
+        }
+        return response()->redirect(url('{{app}}{{module}}') . '?pg=' . input('pg', null, 'get'));
+    }
+
+}

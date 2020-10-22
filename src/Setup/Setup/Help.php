@@ -7,12 +7,12 @@ use AnexusPHP\Setup\Anx;
 
 class Help extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []):void
+    public function run(array $param = [], array $option = []): void
     {
         echo "    ___    _   ___  __" . chr(10);
         echo "   /   |  / | / / |/ /" . chr(10);
@@ -21,13 +21,28 @@ class Help extends Anx implements AnxInterface
         echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
         echo "                      " . chr(10);
 
-        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
-        echo "\tphp anx command [arguments] [arguments2]" . chr(10) . chr(10);
+        echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
+        echo "\tphp anx command [arguments] [options]" . chr(10) . chr(10);
 
-        echo "\033[1;33m" . "Avaliable Commands:" . "\033[1;37m" . chr(10);
+        echo "\033[1;33m" . "Available Options:" . "\033[0m" . chr(10);
 
-        echo "\033[0;32m" . "  init" . "\033[1;37m" . "\t\t\tInitialize the project with the basics folders" . chr(10);
-        echo "\033[0;32m" . "  create-app" . "\033[1;37m" . "\t\tCreate a new app folder" . chr(10);
-        echo "\033[0;32m" . "  create-module" . "\033[1;37m" . "\t\tCreate a new module folder within an existing application folder" . chr(10);
+        echo "\033[0;32m" . "  -a" . "\033[0m" . "\t\tPass a App name" . chr(10);
+        echo "\033[0;32m" . "  -m" . "\033[0m" . "\t\tPass a Module name" . chr(10);
+        echo "\033[0;32m" . "  -r" . "\033[0m" . "\t\tPass a optional route name" . chr(10);
+        echo "\033[0;32m" . "  -p" . "\033[0m" . "\t\tPass a panel name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -b" . "\033[0m" . "\t\tPass the Business name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -bm" . "\033[0m" . "\t\tPass the Business Module name" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  -e" . "\033[0m" . "\t\tPass the Business Entity name" . chr(10) . chr(10);
+
+        echo "\033[1;33m" . "Available Commands:" . "\033[0m" . chr(10);
+
+        echo "\033[0;32m" . "  help" . "\033[0m" . "\t\t\tSee all command list" . chr(10);
+        echo "\033[0;32m" . "  init" . "\033[0m" . "\t\t\tInitialize the project with the basics folders" . chr(10);
+        echo "\033[0;32m" . "  create-app" . "\033[0m" . "\t\tCreate a new app folder" . chr(10);
+        echo "\033[0;32m" . "  create-module" . "\033[0m" . "\t\tCreate a new module folder within an existing application folder" . chr(10);
+        echo "\033[0;32m" . "  create-biz" . "\033[0m" . "\t\tCreate a new business folder" . chr(10);
+        echo "\033[0;32m" . "  create-biz-module" . "\033[0m" . "\t-Create a new business module folder within an existing business" . chr(10);
+        echo "\033[0;32m" . "  create-biz-entity" . "\033[0m" . "\t-Create entity, repository and rule files within an existing business module" . chr(10);
+        echo "\033[0;32m" . "  create-panel" . "\033[0m" . "\t\t-" . chr(10) . chr(10);
     }
 }

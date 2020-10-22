@@ -8,12 +8,12 @@ use Exception;
 
 class Biz extends Anx implements AnxInterface
 {
-    public function __construct($params)
+    public function __construct($param, $option)
     {
-        $this->run($params);
+        $this->run($param, $option);
     }
 
-    public function run(array $params = []):void
+    public function run(array $params = [], array $option = []):void
     {
         try {
             if (!is_writable(PATH_ROOT)) {
@@ -24,11 +24,11 @@ class Biz extends Anx implements AnxInterface
             //     throw new Exception('Please start the application', 1);
             // }
 
-            if (!isset($params[0]) || trim($params[0] == '')) {
-                throw new Exception('Error: param [business-name] is required', 1);
+            if (!isset($params['-b']) || trim($params['-b'] == '')) {
+                throw new Exception('Error: param -b [business-name] is required', 1);
             }
 
-            $biz = ucwords($params[0]);
+            $biz = ucwords($params['-b']);
 
             if (is_dir(PATH_ROOT . 'src/' . $biz)) {
                 throw new Exception("The '{$biz}' business already exists", 1);

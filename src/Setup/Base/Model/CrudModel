@@ -1,0 +1,33 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Models;
+
+use AnexusPHP\Core\Message;
+use Exception;
+
+class {{module}}Model
+{
+    public static function submit()
+    {
+        // $row = {{module}}Repositorio::porId(input('id', null, 'get'));
+
+        # code ...
+
+        // $msg = '';
+        // if (!$row->getId()) {
+        //     $msg = 'Record created successfully!';
+        // } else {
+        //     $msg = 'Record changed successfully!';
+        // }
+
+        // Message::create(Message::MSG_SUCCESS, $msg);
+        // return $row->getId();
+    }
+
+    public static function delete()
+    {
+        # code ...
+        
+        // Message::create(Message::MSG_SUCCESS, 'Record deleted successfully!');
+    }
+}

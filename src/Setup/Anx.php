@@ -2,12 +2,14 @@
 
 namespace AnexusPHP\Setup;
 
+use AnexusPHP\Setup\Setup\Help;
+
 class Anx
 {
     const PATH_ANX_ROOT = __DIR__ . DS . '..' . DS  . '..' . DS;
-    const PATH_ANX_MIGRATION = self::PATH_ANX_ROOT . 'migration';
+    const PATH_ANX_MIGRATION = self::PATH_ANX_ROOT . 'migration' . DS;
     const PATH_ANX_SOURCE = self::PATH_ANX_ROOT . 'src' . DS;
-    const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base';
+    const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS;
 
     public function start(string $function, $params = [])
     {
@@ -24,22 +26,29 @@ class Anx
         ];
 
         // verificando se a chave pedida existe
-        if ($function == 'help') {
-            new $ableFunctions['help']($params);
+        if ($function == 'help' || trim($function) == '') {
+            new Help([], []);
             exit;
         } elseif (!array_key_exists($function, $ableFunctions)) {
             exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands avaliable.' . chr(10) . chr(10)));
         }
         $function = $ableFunctions[$function];
 
-        if(in_array('--help', $params)) {
-            // $function::help();
+        $param = [];
+        $option = [];
+        foreach ($params as $key => $value) {
+            if (preg_match('/^-{1}[a-zA-Z]/', $value)) {
+                $param[$value] = $params[$key + 1];
+            }
+            if (preg_match('/-{2}[a-zA-Z]/', $value)) {
+                $option[] = $value;
+            }
         }
 
         // iniciando
         echo "\033[0;33m" . 'Application started...' . chr(10) . "\033[0;31m";
 
-        new $function($params);
+        new $function($param, $option);
 
         // encerrando
         exit(chr(10) . "\033[0;32m" . 'Execution ended with success' . chr(10));
