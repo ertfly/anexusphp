@@ -25,7 +25,7 @@ class AccountController
         try {
             AccountModel::submit();
 
-            response()->redirect(url('{{app}}'));
+            response()->redirect(url('{{app}}Panel'));
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 1);
         }
