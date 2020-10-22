@@ -27,6 +27,23 @@ class AuthfastRepository
     }
 
     /**
+     * Retorna um registro do banco pelo id
+     * 
+     * @param string|null $id
+     * @return AuthfastEntity
+     */
+    public static function byCode(?string $code)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . AuthfastEntity::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject(AuthfastEntity::class);
+        if ($reg === false) {
+            return new AuthfastEntity();
+        }
+
+        return $reg;
+    }
+
+    /**
      * Retorna todos os registros
      * 
      * @return AuthfastEntity[]

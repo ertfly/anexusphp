@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AppSessionEntity extends DatabaseEntity
@@ -117,5 +118,15 @@ class AppSessionEntity extends DatabaseEntity
             'create_at' => $this->getCreateAt(),
             'updated_at' => $this->getUpdatedAt(),
         ];
+    }
+
+    public $person;
+
+    public function getPerson()
+    {
+        if(!$this->person){
+            $this->person = AuthfastRepository::byId($this->person_id);
+        }
+        return $this->person;
     }
 }
