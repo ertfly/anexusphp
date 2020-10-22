@@ -21,6 +21,7 @@ class Migration
         } catch (\Exception $e) {
             return self::install();
         }
+
         $migrationVersion = ConfigurationRepository::getValue('MIGRATION_VERSION');
         $newUp = self::getVersionUp();
         $newDown = self::getVersionDown();
@@ -53,6 +54,9 @@ class Migration
 
         self::populate();
 
+        $config = (ConfigurationRepository::byId('MIGRATION_STARTED'))->setValue('true');
+        ConfigurationRule::update($config);
+    
         return self::init();
     }
 

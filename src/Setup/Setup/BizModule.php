@@ -68,10 +68,10 @@ class BizModule extends Anx implements AnxInterface
         echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
         echo "                      " . chr(10);
 
-        echo "\033[1;33m" . "Usage:" . "\033[1;37m" . chr(10);
+        echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
         echo "\tphp anx create-biz-module [params]" . chr(10) . chr(10);
 
-        echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
+        echo "\033[1;33m" . "Params:" . "\033[0m" . chr(10);
         echo "\t-b [business-name]" . chr(10) ;
         echo "\t-bm [business-module-name]" . chr(10) ;
         echo "\t--help - See this helper" . chr(10);

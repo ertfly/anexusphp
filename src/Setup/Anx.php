@@ -23,7 +23,8 @@ class Anx
             'create-biz-module' => '\AnexusPHP\Setup\Setup\BizModule',
             'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity',
             'create-panel' => '\AnexusPHP\Setup\Setup\Panel',
-            'create-route' => '\AnexusPHP\Setup\Setup\Route'
+            'create-route' => '\AnexusPHP\Setup\Setup\Route',
+            'country' => '\AnexusPHP\Setup\Setup\Country'
         ];
 
         // verificando se a chave pedida existe
@@ -73,7 +74,7 @@ class Anx
             $dir = implode('/', $parts);
 
             if (!is_dir($dir))
-                mkdir($dir, 0777, true);
+                mkdir($dir, 0755, true);
 
             file_put_contents($fullPath, $contents, $flags);
         }
