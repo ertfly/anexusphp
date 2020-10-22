@@ -1,3 +1,3 @@
 <!-- Load Authfast SDK for JavaScript -->
-<div class="authfast-button" data-custom-class="my-button-authfast" data-mode="login" data-screen="ProfilePersonal" data-redir-login="<?= url('{{module}}LoginSubmit')->getAbsoluteUrl() ?>" data-redir-logout="http://localhost:8083/account/logout/"></div>
+<div class="authfast-button" data-custom-class="my-button-authfast" data-mode="login" data-screen="ProfilePersonal" data-redir-login="<?= url('{{module}}AccountLoginSubmit')->getAbsoluteUrl() ?>" data-redir-logout="<?= url('{{module}}AccountLogout')->getAbsoluteUrl() ?>"></div>
 <script async defer src="https://authfast.com.br/sdk/pt_BR/sdk.js?version=1.0&appKey={{app_key}}"></script>

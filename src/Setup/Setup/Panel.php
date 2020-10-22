@@ -18,7 +18,7 @@ class Panel extends Anx implements AnxInterface
             exit('Root path is not a directory, not readable or not writable' . chr(10));
         }
 
-        if (!empty($param['-p'] && trim($param['-p'] != ''))) {
+        if (isset($param['-p']) && trim($param['-p'] != '')) {
             $panelName = strtolower($param['-p']);
         } else {
             exit('Please, enter the panel name!' . chr(10));
@@ -55,7 +55,7 @@ class Panel extends Anx implements AnxInterface
     {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
-        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . ($app == $module ? $app : $app . '/' . $module)));
+        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . $app));
 
         $index = $this->getTemplate('Route' . DS . 'IndexRoute', [
             '{{app}}' => $app,
