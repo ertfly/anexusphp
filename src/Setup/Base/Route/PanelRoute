@@ -10,5 +10,6 @@ $settings = [
 
 SimpleRouter::group($settings, function () {
     SimpleRouter::get('/', '{{module}}Controller@index')->setName('{{route}}');
-    SimpleRouter::get('/panel', '{{module}}Controller@index')->setName('{{route}}Panel');
+    
+    SimpleRouter::get('/panel', '{{module}}Controller@panel')->setName('{{route}}Panel');
 });
