@@ -17,11 +17,6 @@ define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
 // Carregando composer
 require PATH_ROOT . 'vendor/autoload.php';
 
-if (!file_exists(PATH_ROOT . 'environment')) {
-    file_put_contents(PATH_ROOT . 'environment', file_get_contents(PATH_ROOT . 'environment.sample'));
-}
-require PATH_ROOT . 'environment';
-
 // argumento da linha de comando
 unset($argv[0]);
 $function = isset($argv[1]) ? $argv[1] : '';
