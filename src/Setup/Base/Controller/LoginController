@@ -6,9 +6,17 @@ use {{app}}\Modules\Account\Models\AccountModel;
 
 class AccountController
 {
+    public function __construct()
+    {
+        if (is_looged()) {
+            return response()->redirect(url('AppPanel'));
+        }
+        return response()->redirect(url('AppAccountLogin'));
+    }
+
     public function index()
     {
-        
+        return response()->redirect(url('AppAccountLogin'));
     }
 
     public function login()

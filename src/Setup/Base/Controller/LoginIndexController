@@ -4,13 +4,30 @@ namespace {{app}}\Modules\{{module}}\Controllers;
 
 class {{module}}Controller
 {
+    public function __construct()
+    {
+        if (!is_looged()) {
+            return response()->redirect(url('AppAccountLogin'));
+        }
+    }
+
     public function index()
     {
-        return response()->redirect(url('{{module}}AccountLogin'));
+        return request()->view->render('{{path}}/index', [
+            'header' => Template::header('{{app}}'),
+            'footer' => Template::footer(),
+            // 'rows' => $rows
+        ]);
+
+        // return response()->redirect(url('{{module}}AccountLogin'));
     }
 
     public function panel()
     {
-        return 'Hello ' . request()->sid->getPerson()->getFirstname();
+        return request()->view->render('{{path}}/index', [
+            'header' => Template::header('{{app}}'),
+            'footer' => Template::footer(),
+            // 'rows' => $rows
+        ]);
     }
 }
