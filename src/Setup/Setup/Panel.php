@@ -76,7 +76,7 @@ class Panel extends Anx implements AnxInterface
     {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
-        $path = strtolower(($app == 'App' ? '/' : '/' . $app));
+        $path = strtolower(($app == 'App' ? '/' : '/' . $app . '/'));
 
         $index = $this->getTemplate('Route' . DS . 'PanelRoute', [
             '{{app}}' => $app,
