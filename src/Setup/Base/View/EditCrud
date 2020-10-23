@@ -11,7 +11,7 @@
                 <p class="card-text">Preencha os campos para alterar as informações</p>
             <?php endif ?>
             <hr>
-            <form action="<?= url('{{app}}{{module}}', ['id' => $row->getId()]) ?>" method="post">
+            <form action="<?= url('{{app}}{{module}}Submit', ['id' => $row->getId()]) ?>" method="post">
                 <div class="form-row">
                     <div class="col-md-6 form-group">
                         <label>Nome</label>
