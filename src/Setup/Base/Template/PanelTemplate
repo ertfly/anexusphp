@@ -19,7 +19,7 @@ class Template
         $data['countries'] = RegionCountryRepository::allVisible(RegionCountryEntity::class);
         $data['country'] = request()->country;
 
-        if (request()->sid->isLogged()) {
+        if (is_logged()) {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_IN, request()->country);
             $data['account'] = request()->sid->getPerson();
             return request()->view->render('include/headerIn', $data);
@@ -31,7 +31,7 @@ class Template
 
     public static function footer()
     {
-        if (request()->sid->isLogged()) {
+        if (is_logged()) {
             return request()->view->render('include/footerIn', [
                 // 'lang' => Lang::loadPage(IdiomaTelaConstante::FOOTER_IN, request()->country)
             ]);

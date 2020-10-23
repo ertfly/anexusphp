@@ -8,15 +8,15 @@ class AccountController
 {
     public function __construct()
     {
-        if (is_looged()) {
-            return response()->redirect(url('AppPanel'));
+        if (is_logged()) {
+            return response()->redirect(url('{{app}}Panel'));
         }
-        return response()->redirect(url('AppAccountLogin'));
+        return response()->redirect(url('{{app}}AccountLogin'));
     }
 
     public function index()
     {
-        return response()->redirect(url('AppAccountLogin'));
+        return response()->redirect(url('{{app}}AccountLogin'));
     }
 
     public function login()

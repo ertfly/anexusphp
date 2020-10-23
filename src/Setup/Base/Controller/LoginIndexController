@@ -6,8 +6,8 @@ class {{module}}Controller
 {
     public function __construct()
     {
-        if (!is_looged()) {
-            return response()->redirect(url('AppAccountLogin'));
+        if (!is_logged()) {
+            return response()->redirect(url('{{app}}AccountLogin'));
         }
     }
 
