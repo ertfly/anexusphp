@@ -18,10 +18,9 @@ class Panel extends Anx implements AnxInterface
             exit('Root path is not a directory, not readable or not writable' . chr(10));
         }
 
+        $panelName = 'App';
         if (isset($param['-p']) && trim($param['-p'] != '')) {
             $panelName = strtolower($param['-p']);
-        } else {
-            exit('Please, enter the panel name!' . chr(10));
         }
 
         $this->assets($panelName);
@@ -43,10 +42,9 @@ class Panel extends Anx implements AnxInterface
         echo "\tphp anx create-panel [params]" . chr(10) . chr(10);
 
         echo "\033[1;33m" . "Params:" . "\033[0m" . chr(10);
-        echo "\t-p [panel-name]" . chr(10);
+        echo "\t-p [optional-panel-name]" . chr(10);
         echo "\t-ak [public-app-key]" . chr(10);
         echo "\t-sk [secret-key]" . chr(10);
-        echo "\t-r [optional-route]" . chr(10);
         echo "\t--help - See this helper" . chr(10);
 
 
@@ -78,7 +76,7 @@ class Panel extends Anx implements AnxInterface
     {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
-        $path = strtolower((isset($param['-r']) && trim($param['-r']) != '' ? $param['-r'] : '/' . $app));
+        $path = strtolower(($app == 'App' ? '/' : $app));
 
         $index = $this->getTemplate('Route' . DS . 'PanelRoute', [
             '{{app}}' => $app,
@@ -90,7 +88,7 @@ class Panel extends Anx implements AnxInterface
         $login = $this->getTemplate('Route' . DS . 'LoginRoute', [
             '{{app}}' => $app,
             '{{module}}' => $module,
-            '{{prefix}}' => $path . '/account',
+            '{{prefix}}' => $path . 'account',
         ]);
 
         $files = [
@@ -141,7 +139,8 @@ class Panel extends Anx implements AnxInterface
         }
     }
 
-    private function view($panelName, $param) {
+    private function view($panelName, $param)
+    {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
 
@@ -158,9 +157,11 @@ class Panel extends Anx implements AnxInterface
         ]);
 
         $headerIn = $this->getTemplate('View' . DS . 'HeaderInPanel', [
+            '{{app}}' => $app,
             '{{path}}' => strtolower($app) . '/'
         ]);
         $headerOut = $this->getTemplate('View' . DS . 'HeaderOutPanel', [
+            '{{app}}' => $app,
             '{{path}}' => strtolower($app) . '/'
         ]);
 

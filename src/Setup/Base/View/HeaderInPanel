@@ -73,15 +73,12 @@
                 <div class="infos">
                     <div class="side-l">
                         <span class="item-1"><?php echo $account->getFirstname() . ' ' . $account->getLastname() ?></span><br />
-                        <!-- <span class="item-1">Anexus Teste</span><br /> -->
                         <span class="item-2">Perfil</span>
                     </div>
                     <div class="side-r">
                         <img class="img-fluid rounded-circle" src="<?php // echo $account->getFoto(true) ?>" />
                     </div>
                     <div class="submenu border-bottom">
-                        <a href="#" class="item">Meus dados</a>
-                        <hr />
                         <a href="javascript:void(0);" class="item sair ajax-to" data-event="click_confirm" data-url="<?= url('{{app}}AccountLogout'); ?>" data-confirm="Atenção||Deseja se desconectar do sistema?">Sair</a>
                     </div>
                 </div>
