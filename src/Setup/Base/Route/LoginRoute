@@ -9,9 +9,9 @@ $settings = [
 ];
 
 SimpleRouter::group($settings, function () {
-    SimpleRouter::get('/', 'AccountController@index')->setName('{{module}}Account');
-    SimpleRouter::get('/login', 'AccountController@login')->setName('{{module}}AccountLogin');
-    SimpleRouter::get('/login/validate', 'AccountController@loginSubmit')->setName('{{module}}AccountLoginSubmit');
+    SimpleRouter::get('/', 'AccountController@index')->setName('{{app}}Account');
+    SimpleRouter::get('/login', 'AccountController@login')->setName('{{app}}AccountLogin');
+    SimpleRouter::get('/login/validate', 'AccountController@loginSubmit')->setName('{{app}}AccountLoginSubmit');
 
-    SimpleRouter::get('/logout', 'AccountController@logout')->setName('{{module}}AccountLogout');
+    SimpleRouter::get('/logout', 'AccountController@logout')->setName('{{app}}AccountLogout');
 });

@@ -18,7 +18,7 @@ class Template
 
         if (request()->sid->isLogged()) {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_IN, request()->country);
-            $data['account'] = request()->sid->getPessoaOuEmpresa();
+            $data['account'] = request()->sid->getPerson();
             return request()->view->render('include/headerIn', $data);
         } else {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_OUT, request()->country);

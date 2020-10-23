@@ -154,8 +154,13 @@ class Panel extends Anx implements AnxInterface
             '{{app}}' => $app
         ]);
 
-        $headerIn = $this->getTemplate('View' . DS . 'HeaderInPanel', []);
-        $headerOut = $this->getTemplate('View' . DS . 'HeaderOutPanel', []);
+        $headerIn = $this->getTemplate('View' . DS . 'HeaderInPanel', [
+            '{{path}}' => strtolower($app) . '/'
+        ]);
+        $headerOut = $this->getTemplate('View' . DS . 'HeaderOutPanel', [
+            '{{path}}' => strtolower($app) . '/'
+        ]);
+
         $footerIn = $this->getTemplate('View' . DS . 'FooterInPanel', []);
         $footerOut = $this->getTemplate('View' . DS . 'FooterOutPanel', []);
         $messageModal = $this->getTemplate('View' . DS . 'MessageModalPanel', []);
