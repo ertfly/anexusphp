@@ -120,7 +120,8 @@ class Panel extends Anx implements AnxInterface
 
         $index = $this->getTemplate('Controller' . DS . 'LoginIndexController', [
             '{{app}}' => $app,
-            '{{module}}' => $module
+            '{{module}}' => $module,
+            '{{path}}' => strtolower($app),
         ]);
 
         $middleware = $this->getTemplate('Middleware' . DS . 'LoginMiddleware', [
@@ -150,6 +151,8 @@ class Panel extends Anx implements AnxInterface
             '{{app_key}}' => (isset($param['-ak']) && trim($param['-ak']) != '' ? $param['-ak'] : 'app-key')
         ]);
 
+        $initial = $this->getTemplate('View' . DS . 'InitialPanel');
+
         $template = $this->getTemplate('Template' . DS . 'PanelTemplate', [
             '{{app}}' => $app
         ]);
@@ -161,12 +164,13 @@ class Panel extends Anx implements AnxInterface
             '{{path}}' => strtolower($app) . '/'
         ]);
 
-        $footerIn = $this->getTemplate('View' . DS . 'FooterInPanel', []);
-        $footerOut = $this->getTemplate('View' . DS . 'FooterOutPanel', []);
-        $messageModal = $this->getTemplate('View' . DS . 'MessageModalPanel', []);
+        $footerIn = $this->getTemplate('View' . DS . 'FooterInPanel');
+        $footerOut = $this->getTemplate('View' . DS . 'FooterOutPanel');
+        $messageModal = $this->getTemplate('View' . DS . 'MessageModalPanel');
 
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($app) . DS . 'index.phtml' => $view,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerIn.phtml' => $headerIn,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerOut.phtml' => $headerOut,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerIn.phtml' => $footerIn,

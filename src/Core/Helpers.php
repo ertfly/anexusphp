@@ -188,7 +188,14 @@ function timeConverter(string $time, RegionCountryEntity $country)
     return Date::timeConverter($time, $country);
 }
 
-function is_logged()
-{
-    $person = request()->sid
+function is_logged(){
+    $person = request()->sid->getPerson();
+
+    if($person->getId()){
+        if($person->getExpiredAt() == null){
+            return true;
+        }
+    }
+
+    return false;
 }

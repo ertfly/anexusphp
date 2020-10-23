@@ -5,6 +5,7 @@ namespace {{app}};
 use AnexusPHP\Core\Lang;
 use AnexusPHP\Core\Message;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 
 class Template
 {
@@ -15,6 +16,8 @@ class Template
         $data['css'] = $css;
         $data['js'] = $js;
         $data['message'] = self::messageModal();
+        $data['countries'] = RegionCountryRepository::allVisible(RegionCountryEntity::class);
+        $data['country'] = request()->country;
 
         if (request()->sid->isLogged()) {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_IN, request()->country);
@@ -22,8 +25,6 @@ class Template
             return request()->view->render('include/headerIn', $data);
         } else {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_OUT, request()->country);
-            $data['countries'] = RegionCountryRepository::allVisible(RegionCountryEntidade::class);
-            $data['country'] = request()->country;
             return request()->view->render('include/headerOut', $data);
         }
     }
