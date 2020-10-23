@@ -21,7 +21,7 @@ class Country extends Anx implements AnxInterface
         try {
             $database = Database::getInstance();
         } catch (\PDOException $e) {
-            exit(chr(10) . 'Database not found' . chr(10));
+            exit(chr(10) . 'Database not found' . "\033[0m" . chr(10));
         }
 
         // insere todos os paises
@@ -32,7 +32,7 @@ class Country extends Anx implements AnxInterface
                 $database->exec($sql);
             }
         } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
+            exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
         $flags = scandir(Anx::PATH_ANX_SOURCE.'Setup'.DS.'Base'.DS.'Flags');

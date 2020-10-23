@@ -21,7 +21,7 @@ class Init extends Anx implements AnxInterface
         try {
             $database = Database::getInstance();
         } catch (\PDOException $e) {
-            exit(chr(10) . 'Database not found' . chr(10));
+            exit(chr(10) . 'Database not found' . "\033[0m" . chr(10));
         }
 
         // criar as pastas básicas
@@ -59,9 +59,9 @@ class Init extends Anx implements AnxInterface
             }
         } catch (Exception $e) {
             if ($e->getCode() == 1) {
-                exit(chr(10) . 'The application has been started previously' . chr(10));
+                exit(chr(10) . 'The application has been started previously' . "\033[0m" . chr(10));
             }
-            exit(chr(10) . 'Folder permissions error' . chr(10));
+            exit(chr(10) . 'Folder permissions error' . "\033[0m" . chr(10));
         }
 
         // criar as tabelas base
@@ -72,7 +72,7 @@ class Init extends Anx implements AnxInterface
                 $database->exec($sql);
             }
         } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
+            exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
         // insere as os registros base
@@ -83,7 +83,7 @@ class Init extends Anx implements AnxInterface
                 $database->exec($sql);
             }
         } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
+            exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
         // insere todos os paises
@@ -94,7 +94,7 @@ class Init extends Anx implements AnxInterface
                 $database->exec($sql);
             }
         } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
+            exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
         $flags = scandir(Anx::PATH_ANX_SOURCE.'Setup'.DS.'Base'.DS.'Flags');

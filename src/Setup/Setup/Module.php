@@ -55,9 +55,9 @@ class Module extends Anx implements AnxInterface
             }
         } catch (Exception $e) {
             if ($e->getCode() == 1) {
-                exit(chr(10) . $e->getMessage() . chr(10));
+                exit(chr(10) . $e->getMessage() . "\033[0m" . chr(10));
             }
-            exit(chr(10) . 'Folder permissions error' . chr(10));
+            exit(chr(10) . 'Folder permissions error' . "\033[0m" . chr(10));
         }
     }
 

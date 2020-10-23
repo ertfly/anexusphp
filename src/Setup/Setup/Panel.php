@@ -15,7 +15,7 @@ class Panel extends Anx implements AnxInterface
     public function run(array $param = [], array $option = []): void
     {
         if (!is_dir(PATH_ROOT) || !is_readable(PATH_ROOT) || !is_writable(PATH_ROOT)) {
-            exit('Root path is not a directory, not readable or not writable' . chr(10));
+            exit('Root path is not a directory, not readable or not writable' . "\033[0m" . chr(10));
         }
 
         $panelName = 'App';

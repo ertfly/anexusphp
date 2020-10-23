@@ -66,7 +66,7 @@ class BizEntity extends Anx implements AnxInterface
             }
 
         } catch (Exception $e) {
-            exit(chr(10) . $e->getMessage() . chr(10));
+            exit(chr(10) . $e->getMessage() . "\033[0m" . chr(10));
         }
     }
 
