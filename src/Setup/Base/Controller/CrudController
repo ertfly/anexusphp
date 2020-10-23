@@ -41,7 +41,7 @@ class {{module}}Controller
     {
         # code ...
 
-        return request()->view->render('{{view}}/add', [
+        return request()->view->render('{{view}}/edit', [
             // 'header' => Template::header('{{module}}'),
             // 'footer' => Template::footer(),
             // 'breadcrumb' => Template::breadcrumb([
