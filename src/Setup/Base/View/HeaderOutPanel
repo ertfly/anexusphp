@@ -58,11 +58,11 @@
                         // TODO: ajustar rota
                         <a class="item<?= url()->getPath() == '' ? ' active' : ''; ?>" href="<?= url('AdminLogin') ?>">Login</a>
                         <div class="countries">
-                            <a href="javascript:void(0)"><img src="<?= $country->getBandeira(true) ?>" alt=""></a>
+                            <a href="javascript:void(0)"><img src="<?= $country->getFlag(true) ?>" alt=""></a>
                             <div class="countries-sub">
                                 <div class="countries-sub-in">
                                     <?php foreach ($countries as $row) : ?>
-                                        <a href="javascript:void(0)" onclick="changeCountry(<?= $row->getId() ?>)"><?= $row->getSigla() ?>&nbsp;&nbsp;<img src="<?= $row->getBandeira(true) ?>" class="img-flutuante" alt=""></a>
+                                        <a href="javascript:void(0)" onclick="changeCountry(<?= $row->getId() ?>)"><?= $row->getInitials() ?>&nbsp;&nbsp;<img src="<?= $row->getFlag(true) ?>" class="img-flutuante" alt=""></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
