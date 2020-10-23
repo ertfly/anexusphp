@@ -20,9 +20,15 @@ class {{module}}Controller
         // if (input('name', null, 'get')) {
         //     $filters['name'] = input('name', null, 'get');
         // }
-        // $rows = {{module}}Repositorio::allWithPagination(url('Product'), $filters, input('pg', 1, 'get'));
+        // $rows = {{module}}Repository::allWithPagination(url('{{Product}}'), $filters, input('pg', 1, 'get'));
 
         return request()->view->render('{{view}}/index', [
+            // 'header' => Template::header('{{module}}'),
+            // 'footer' => Template::footer(),
+            // 'breadcrumb' => Template::breadcrumb([
+            //     ['text' => '{{app}}', 'url' => url('{{app}}')],
+            //     ['text' => '{{module}}', 'active' => true]
+            ]),
             // 'rows' => $rows
         ]);
     }
@@ -31,15 +37,23 @@ class {{module}}Controller
     {
         # code ...
 
-        return request()->view->render('{{view}}/edit', [
+        return request()->view->render('{{view}}/add', [
+            // 'header' => Template::header('{{module}}'),
+            // 'footer' => Template::footer(),
+            // 'breadcrumb' => Template::breadcrumb([
+            //     ['text' => '{{app}}', 'url' => url('{{app}}')],
+            //     ['text' => '{{module}}', 'active' => true],
+            //     ['text' => 'New Record', 'active' => true]
+            ]),
+            //'row' => new {{module}}Entity,
             'isAdd' => true,
-            'id' => null,
+            'id' => null
         ]);
     }
 
-    public function edit()
+    public function edit($id = null)
     {
-        // $row = {{module}}Repositorio::porId(input('id', null, 'get'));
+        // $row = {{module}}Repository::byId($id);
 
         // if (!$row->getId()) {
         //     Message::create(Message::MSG_ERROR, 'Record not found!');
@@ -50,37 +64,48 @@ class {{module}}Controller
         # code ...
 
         return request()->view->render('{{view}}/edit', [
-            'isAdd' => false,
-            'id' => input('id', null, 'get'),
-            // 'row' => $row
+            // 'header' => Template::header('{{module}}'),
+            // 'footer' => Template::footer(),
+            // 'breadcrumb' => Template::breadcrumb([
+            //     ['text' => '{{app}}', 'url' => url('{{app}}')],
+            //     ['text' => '{{module}}', 'active' => true],
+            //     ['text' => 'Edit Record', 'active' => true]
+            // ]),
+            //'row' => $row,
+            'idAdd' => false,
+            'id' => $id
         ]);
     }
 
-    public function submit()
+    public function submit($id = null)
     {
         try {
-            $id = {{module}}Model::submit();
-            return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . $id);
+            $result = {{module}}Model::submit($id);
+            return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . $result['id']);
         } catch (Exception $e) {
             Session::data('post', $_POST);
             Message::create(Message::MSG_ERROR, $e->getMessage());
-            if (input('id', null, 'get')) {
-                return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . input('id', null, 'get'));
+            if (isset($result)) {
+                return response()->redirect(url('{{app}}{{module}}Edit') . '?id=' . $result['id']);
             } else {
                 return response()->redirect(url('{{app}}{{module}}Add'));
             }
         }
     }
 
-    public function delete()
+    public function delete($id = null)
     {
         try {
-            {{module}}Model::delete();
+            $result = {{module}}Model::delete($id);
+
+            Message::create(Message::MSG_SUCCESS, $result['msg']);
+            return response()->redirect(url('{{app}}{{module}}'));
         } catch (Exception $e) {
-            Session::data('post', $_POST);
+            //Session::data('post', $_POST);
             Message::create(Message::MSG_ERROR, $e->getMessage());
+            return response()->redirect(url('{{app}}{{module}}'));
         }
-        return response()->redirect(url('{{app}}{{module}}') . '?pg=' . input('pg', null, 'get'));
+        //return response()->redirect(url('{{app}}{{module}}') . '?pg=' . input('pg', null, 'get'));
     }
 
 }
