@@ -76,7 +76,7 @@
                         <span class="item-2">Perfil</span>
                     </div>
                     <div class="side-r">
-                        <img class="img-fluid rounded-circle" src="<?php // echo $account->getFoto(true) ?>" />
+                        <img class="img-fluid rounded-circle" src="<?= $account->getPhoto() ?>" />
                     </div>
                     <div class="submenu border-bottom">
                         <a href="javascript:void(0);" class="item sair ajax-to" data-event="click_confirm" data-url="<?= url('{{app}}AccountLogout'); ?>" data-confirm="Atenção||Deseja se desconectar do sistema?">Sair</a>
