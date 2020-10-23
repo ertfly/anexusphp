@@ -96,6 +96,8 @@ CREATE TABLE IF NOT EXISTS public.authfast (
 	lastname varchar(80) NULL,
 	username varchar(15) NOT NULL,
 	email varchar(100),
+	photo varchar(250),
+	banner varchar(250),
 	created_at timestamp NOT NULL,
 	updated_at timestamp NULL,
 	expired_at timestamp NULL,

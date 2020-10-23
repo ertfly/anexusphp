@@ -54,6 +54,9 @@ class AccountModel
             ->setFirstname($data['data']['firstname'])
             ->setLastname($data['data']['lastname'])
             ->setUsername($data['data']['username'])
+            ->setEmail(null)
+            ->setPhoto($data['data']['photo'])
+            ->setBanner($data['data']['banner'])
             ->setCreatedAt($data['data']['created_at'])
             ->setUpdatedAt($data['data']['updated_at']);
             

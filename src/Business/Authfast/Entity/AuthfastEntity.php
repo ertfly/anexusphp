@@ -70,6 +70,24 @@ class AuthfastEntity extends DatabaseEntity
 	{
 		return $this->email;
 	}
+	public function setPhoto($photo)
+	{
+		$this->photo = $photo;
+		return $this;
+	}
+	public function getPhoto()
+	{
+		return $this->photo;
+	}
+	public function setBanner($banner)
+	{
+		$this->banner = $banner;
+		return $this;
+	}
+	public function getBanner()
+	{
+		return $this->banner;
+	}
 	public function setCreatedAt($createdAt)
 	{
 		$this->created_at = $createdAt;
@@ -105,6 +123,8 @@ class AuthfastEntity extends DatabaseEntity
 			'lastname' => $this->getLastname(),
 			'username' => $this->getUsername(),
 			'email' => $this->getEmail(),
+			'photo' => $this->getPhoto(),
+			'banner' => $this->getBanner(),
 			'created_at' => $this->getCreatedAt(),
 			'updated_at' => $this->getUpdatedAt(),
 			'expired_at' => $this->getExpiredAt()
