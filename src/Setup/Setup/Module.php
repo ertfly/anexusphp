@@ -97,6 +97,16 @@ class Module extends Anx implements AnxInterface
             '{{module}}' => $module
         ]);
 
+        $indexView =  $this->getTemplate('View' . DS . 'IndexCrud', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
+        $editView =  $this->getTemplate('View' . DS . 'EditCrud', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
         $route = $this->getTemplate('Route' . DS . 'IndexRoute', [
             '{{app}}' => $app,
             '{{module}}' => $module,
@@ -107,7 +117,8 @@ class Module extends Anx implements AnxInterface
         return [
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $controller,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Models' . DS . $module . 'Model.php' => $model,
-            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'index.phtml' => $this->getTemplate('View' . DS . 'HelloWorld'),
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'index.phtml' => $indexView,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'edit.phtml' => $editView,
             PATH_ROUTES . $app . DS . $module . 'Routes.php' => $route
         ];
     }
@@ -125,6 +136,16 @@ class Module extends Anx implements AnxInterface
             '{{module}}' => $module
         ]);
 
+        $indexView =  $this->getTemplate('View' . DS . 'IndexCrud', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
+        $editView =  $this->getTemplate('View' . DS . 'EditCrud', [
+            '{{app}}' => $app,
+            '{{module}}' => $module
+        ]);
+
         $route = $this->getTemplate('Route' . DS . 'CrudRoute', [
             '{{app}}' => $app,
             '{{module}}' => $module,
@@ -135,7 +156,8 @@ class Module extends Anx implements AnxInterface
         return [
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Controllers' . DS . $module . 'Controller.php' => $controller,
             PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module . DS . 'Models' . DS . $module . 'Model.php' => $model,
-            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'index.phtml' => $this->getTemplate('View' . DS . 'HelloWorld'),
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'index.phtml' => $indexView,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($module) . DS . 'edit.phtml' => $editView,
             PATH_ROUTES . $app . DS . $module . 'Routes.php' => $route
         ];
     }
