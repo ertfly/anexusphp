@@ -17,7 +17,7 @@ class Middleware implements IMiddleware
     public function handle(Request $request): void
     {
         Session::init('{{session_name}}');
-        $request->app = AppRepository::byId(AppConstant::USER);
+        $request->app = AppRepository::byId(AppConstant::DEFAULT_USER);
         $request->sid = sid($request->app, AppSessionEntity::class);
         $request->view = new Engine(dirname(__DIR__, 1) . DS . 'Views', 'phtml');
 

@@ -4,6 +4,5 @@ namespace AnexusPHP\Business\App\Constant;
 
 class AppConstant
 {
-    const USER = 1;
-    const MANAGER = 2;
+    const DEFAULT_USER = 1;
 }
