@@ -47,21 +47,19 @@ class AccountModel
         }
 
         $authfast = AuthfastRepository::byCode($data['data']['authfast_id']);
+
+        $authfast = (new AuthfastEntity)
+        ->setCode($data['data']['authfast_id'])
+        ->setFirstname($data['data']['firstname'])
+        ->setLastname($data['data']['lastname'])
+        ->setUsername($data['data']['username'])
+        ->setEmail(null)
+        ->setPhoto($data['data']['photo'])
+        ->setBanner($data['data']['banner'])
+        ->setCreatedAt($data['data']['created_at'])
+        ->setUpdatedAt($data['data']['updated_at']);
         
-        if(!$authfast->getId()){
-            $authfast = (new AuthfastEntity)
-            ->setCode($data['data']['authfast_id'])
-            ->setFirstname($data['data']['firstname'])
-            ->setLastname($data['data']['lastname'])
-            ->setUsername($data['data']['username'])
-            ->setEmail(null)
-            ->setPhoto($data['data']['photo'])
-            ->setBanner($data['data']['banner'])
-            ->setCreatedAt($data['data']['created_at'])
-            ->setUpdatedAt($data['data']['updated_at']);
-            
-            AuthfastRule::insert($authfast);
-        }
+        AuthfastRule::insert($authfast);
         
         request()->sid->setPersonId($authfast->getId());
 
