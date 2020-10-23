@@ -2,6 +2,8 @@
 
 namespace {{app}}\Modules\{{module}}\Controllers;
 
+use {{app}}\Template;
+
 class {{module}}Controller
 {
     public function __construct()
