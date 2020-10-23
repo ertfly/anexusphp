@@ -170,7 +170,7 @@ class Panel extends Anx implements AnxInterface
 
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
-            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($app) . DS . 'index.phtml' => $view,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . strtolower($app) . DS . 'index.phtml' => $initial,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerIn.phtml' => $headerIn,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'headerOut.phtml' => $headerOut,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerIn.phtml' => $footerIn,
