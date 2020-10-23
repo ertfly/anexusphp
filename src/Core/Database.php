@@ -31,7 +31,7 @@ class Database
             self::$settings = require_once PATH_ROOT . 'database.php';
         }
 
-        if(!isset(self::$settings[$instanceName]) || trim(self::$settings[$instanceName])==''){
+        if(!isset(self::$settings[$instanceName])){
             throw new Exception('Instance name not exist.');
         }
 
