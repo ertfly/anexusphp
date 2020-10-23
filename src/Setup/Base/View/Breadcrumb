@@ -1,0 +1,14 @@
+<div class="sep-15"></div>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <?php foreach ($links as $link) : ?>
+                <?php if (isset($link['active']) && $link['active']) : ?>
+                    <li class="breadcrumb-item active" aria-current="page"><?= $link['text'] ?></li>
+                <?php else : ?>
+                    <li class="breadcrumb-item"><a href="<?= $link['url'] ?>"><?= $link['text'] ?></a></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ol>
+    </nav>
+</div>

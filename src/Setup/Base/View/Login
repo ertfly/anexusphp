@@ -2,14 +2,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
-            <div class="form rounded-lg">
-                <div class="form-group">
-                    <label class="label-title">Faça Login:<br /><span></span></label>
-                </div>
-                <div class="form-row">
-                    <!-- Load Authfast SDK for JavaScript -->
-                    <div class="authfast-button" data-custom-class="my-button-authfast" data-mode="login" data-screen="ProfilePersonal" data-redir-login="<?= url_absolute('{{module}}AccountLoginSubmit') ?>" data-redir-logout="<?= url_absolute('{{module}}AccountLogout') ?>"></div>
-                </div>
+            <div class="form rounded-lg w-100">
+                <!-- Load Authfast SDK for JavaScript -->
+                <div class="authfast-button" data-custom-class="my-button-authfast" data-mode="login" data-screen="ProfilePersonal" data-redir-login="<?= url_absolute('{{module}}AccountLoginSubmit') ?>" data-redir-logout="<?= url_absolute('{{module}}AccountLogout') ?>"></div>
             </div>
         </div>
     </div>

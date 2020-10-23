@@ -3,6 +3,7 @@
 namespace {{app}}\Modules\Account\Controllers;
 
 use {{app}}\Modules\Account\Models\AccountModel;
+use {{app}}\Template;
 
 class AccountController
 {
@@ -21,8 +22,8 @@ class AccountController
     public function login()
     {
         return request()->view->render('account/index', [
-            // 'header' => Template::header('Login', ['css/login.css']),
-            // 'footer' => Template::footer(),
+            'header' => Template::header('Login', ['css/login.css']),
+            'footer' => Template::footer(),
             'country' => request()->country
         ]);
     }

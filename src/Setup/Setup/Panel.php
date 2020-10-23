@@ -167,6 +167,7 @@ class Panel extends Anx implements AnxInterface
         $footerIn = $this->getTemplate('View' . DS . 'FooterInPanel');
         $footerOut = $this->getTemplate('View' . DS . 'FooterOutPanel');
         $messageModal = $this->getTemplate('View' . DS . 'MessageModalPanel');
+        $breadcrumb = $this->getTemplate('View' . DS . 'Breadcrumb');
 
         $files = [
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'account' . DS . 'index.phtml' => $view,
@@ -176,6 +177,7 @@ class Panel extends Anx implements AnxInterface
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerIn.phtml' => $footerIn,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'footerOut.phtml' => $footerOut,
             PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'messageModal.phtml' => $messageModal,
+            PATH_ROOT . 'src' . DS . $app . DS . 'Views' . DS . 'include' . DS . 'breadcrumb.phtml' => $breadcrumb,
             PATH_ROOT . 'src' . DS . $app . DS . 'Template.php' => $template,
         ];
 

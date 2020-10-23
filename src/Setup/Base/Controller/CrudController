@@ -6,6 +6,7 @@ use {{app}}\Modules\{{module}}\Models\{{module}}Model;
 use AnexusPHP\Core\Message;
 use AnexusPHP\Core\Session;
 use Exception;
+use {{app}}\Template;
 
 class {{module}}Controller
 {
