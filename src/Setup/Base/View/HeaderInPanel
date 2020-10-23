@@ -72,8 +72,8 @@
                 </div>
                 <div class="infos">
                     <div class="side-l">
-                        <span class="item-1"><?php // echo $account->getNome() . ' ' . $account->getSobrenome() ?></span><br />
-                        <span class="item-1">Anexus Teste</span><br />
+                        <span class="item-1"><?php echo $account->getFirstname() . ' ' . $account->getLastname() ?></span><br />
+                        <!-- <span class="item-1">Anexus Teste</span><br /> -->
                         <span class="item-2">Perfil</span>
                     </div>
                     <div class="side-r">
