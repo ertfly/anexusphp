@@ -42,6 +42,13 @@ class Template
         }
     }
 
+    public static function breadcrumb(array $links = [])
+    {
+        return request()->view->render('include/breadcrumb', [
+            'links' => $links,
+        ]);
+    }
+
     /**
      * @return string
      *
