@@ -187,3 +187,8 @@ function timeConverter(string $time, RegionCountryEntity $country)
 {
     return Date::timeConverter($time, $country);
 }
+
+function is_logged()
+{
+    $person = request()->sid
+}
