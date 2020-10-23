@@ -50,7 +50,7 @@
     <header>
         <div class="container menu-superior">
             <div class="left">
-                <a href="<?= url_absolute('{{app}}') ?>"><img class="img-fluid" src="<?php // echo $logo ?>" alt="Authfast" /></a>
+                <a href="<?= url_absolute('{{app}}') ?>"><img class="img-fluid" src="<?= asset('{{path}}img/logo-topo.png') ?>" alt="Authfast" /></a>
             </div>
             <div class="right">
                 <div class="countries">

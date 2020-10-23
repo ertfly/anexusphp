@@ -55,8 +55,6 @@
                         <a href="<?= url() ?>"><img class="img-fluid" src="<?= asset('{{path}}img/logo-topo.png') ?>" alt="Authfast" /></a>
                     </div>
                     <div class="menu-out">
-                        // TODO: ajustar rota
-                        <a class="item<?= url()->getPath() == '' ? ' active' : ''; ?>" href="<?= url('AdminLogin') ?>">Login</a>
                         <div class="countries">
                             <a href="javascript:void(0)"><img src="<?= $country->getFlag(true) ?>" alt=""></a>
                             <div class="countries-sub">
