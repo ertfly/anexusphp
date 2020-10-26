@@ -11,7 +11,7 @@ class Anx
     const PATH_ANX_SOURCE = self::PATH_ANX_ROOT . 'src' . DS;
     const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS;
 
-    public function start(string $function, $params = [])
+    public function start(string $function, $params = [], $inCore = false)
     {
         // funções liberadas pra uso
         $ableFunctions = [
@@ -27,13 +27,19 @@ class Anx
             'country' => '\AnexusPHP\Setup\Setup\Country'
         ];
 
-        // verificando se a chave pedida existe
+        $coreFunctions = ['create-biz-module', 'create-biz-entity'];
+
         if ($function == 'help' || trim($function) == '') {
             new Help([], []);
             exit;
         } elseif (!array_key_exists($function, $ableFunctions)) {
-            exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands avaliable.' . chr(10) . chr(10)));
+            exit((chr(10) . "\033[0;31m" . 'Invalid method. Try' . "\033[0;33m" . ' php anx help' . "\033[0;31m" . ' to see all comands available.' . "\033[0m" . chr(10) . chr(10)));
         }
+
+        if ($inCore && !in_array($function, $coreFunctions)) {
+            exit((chr(10) . "\033[0;31m" . 'This method cannot be used inside the core.' . "\033[0m" . chr(10) . chr(10)));
+        }
+
         $function = $ableFunctions[$function];
 
         $param = [];
@@ -57,7 +63,7 @@ class Anx
         new $function($param, $option);
 
         // encerrando
-        exit(chr(10) . "\033[0;32m" . 'Execution ended with success' . chr(10));
+        exit(chr(10) . "\033[0;32m" . 'Execution ended with success' . "\033[0m" . chr(10));
     }
 
     /**
@@ -85,7 +91,8 @@ class Anx
      * @param array $params
      * @return string
      */
-    public function getTemplate(string $name, array $params = []):string {
+    public function getTemplate(string $name, array $params = []): string
+    {
         $name = dirname(__FILE__, 1) . DS . 'Base' . DS . $name;
         $content = file_get_contents($name);
 

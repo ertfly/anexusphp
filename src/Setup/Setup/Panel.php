@@ -15,7 +15,7 @@ class Panel extends Anx implements AnxInterface
     public function run(array $param = [], array $option = []): void
     {
         if (!is_dir(PATH_ROOT) || !is_readable(PATH_ROOT) || !is_writable(PATH_ROOT)) {
-            exit('Root path is not a directory, not readable or not writable' . chr(10));
+            exit('Root path is not a directory, not readable or not writable' . "\033[0m" . chr(10));
         }
 
         $panelName = 'App';
@@ -31,12 +31,12 @@ class Panel extends Anx implements AnxInterface
 
     public static function help()
     {
-        echo "    ___    _   ___  __" . chr(10);
-        echo "   /   |  / | / / |/ /" . chr(10);
-        echo "  / /| | /  |/ /|   / " . chr(10);
-        echo " / ___ |/ /|  //   |  " . chr(10);
-        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
-        echo "                      " . chr(10);
+        echo "\033[0m" .  "    ___    _   ___  __" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "   /   |  / | / / |/ /" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "  / /| | /  |/ /|   / " . "\033[0m" . chr(10);
+        echo "\033[0m" .  " / ___ |/ /|  //   |  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "/_/  |_/_/ |_//_/|_|  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "                      " . "\033[0m" . chr(10);
 
         echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
         echo "\tphp anx create-panel [params]" . chr(10) . chr(10);
@@ -76,7 +76,7 @@ class Panel extends Anx implements AnxInterface
     {
         $app = ucwords($panelName);
         $module = ucwords($panelName);
-        $path = strtolower(($app == 'App' ? '/' : '/' . $app));
+        $path = strtolower(($app == 'App' ? '/' : '/' . $app . '/'));
 
         $index = $this->getTemplate('Route' . DS . 'PanelRoute', [
             '{{app}}' => $app,

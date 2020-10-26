@@ -21,7 +21,7 @@ class Country extends Anx implements AnxInterface
         try {
             $database = Database::getInstance();
         } catch (\PDOException $e) {
-            exit(chr(10) . 'Database not found' . chr(10));
+            exit(chr(10) . 'Database not found' . "\033[0m" . chr(10));
         }
 
         // insere todos os paises
@@ -32,7 +32,7 @@ class Country extends Anx implements AnxInterface
                 $database->exec($sql);
             }
         } catch (Exception $e) {
-            exit(chr(10) . 'Base tables error' . chr(10));
+            exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
         $flags = scandir(Anx::PATH_ANX_SOURCE.'Setup'.DS.'Base'.DS.'Flags');
@@ -51,12 +51,12 @@ class Country extends Anx implements AnxInterface
 
     public static function help()
     {
-        echo "    ___    _   ___  __" . chr(10);
-        echo "   /   |  / | / / |/ /" . chr(10);
-        echo "  / /| | /  |/ /|   / " . chr(10);
-        echo " / ___ |/ /|  //   |  " . chr(10);
-        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
-        echo "                      " . chr(10);
+        echo "\033[0m" .  "    ___    _   ___  __" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "   /   |  / | / / |/ /" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "  / /| | /  |/ /|   / " . "\033[0m" . chr(10);
+        echo "\033[0m" .  " / ___ |/ /|  //   |  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "/_/  |_/_/ |_//_/|_|  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "                      " . "\033[0m" . chr(10);
 
         echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
         echo "\tphp anx country" . chr(10) . chr(10);

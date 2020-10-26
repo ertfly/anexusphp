@@ -60,20 +60,20 @@ class App extends Anx implements AnxInterface
             }
         } catch (Exception $e) {
             if ($e->getCode() == 1) {
-                exit(chr(10) . $e->getMessage() . chr(10));
+                exit(chr(10) . $e->getMessage() . "\033[0m" . chr(10));
             }
-            exit(chr(10) . 'Folder permissions error' . chr(10));
+            exit(chr(10) . 'Folder permissions error' . "\033[0m" . chr(10));
         }
     }
 
     public static function help()
     {
-        echo "    ___    _   ___  __" . chr(10);
-        echo "   /   |  / | / / |/ /" . chr(10);
-        echo "  / /| | /  |/ /|   / " . chr(10);
-        echo " / ___ |/ /|  //   |  " . chr(10);
-        echo "/_/  |_/_/ |_//_/|_|  " . chr(10);
-        echo "                      " . chr(10);
+        echo "\033[0m" .  "    ___    _   ___  __" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "   /   |  / | / / |/ /" . "\033[0m" . chr(10);
+        echo "\033[0m" .  "  / /| | /  |/ /|   / " . "\033[0m" . chr(10);
+        echo "\033[0m" .  " / ___ |/ /|  //   |  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "/_/  |_/_/ |_//_/|_|  " . "\033[0m" . chr(10);
+        echo "\033[0m" .  "                      " . "\033[0m" . chr(10);
 
         echo "\033[1;33m" . "Usage:" . "\033[0m" . chr(10);
         echo "\tphp anx create-app [params]" . chr(10) . chr(10);
@@ -83,7 +83,6 @@ class App extends Anx implements AnxInterface
         echo "\t-m [optional-module-name]" . chr(10);
         echo "\t-r [optional-route]" . chr(10);
         echo "\t--help - See this helper" . chr(10);
-
 
         exit(chr(10));
     }
