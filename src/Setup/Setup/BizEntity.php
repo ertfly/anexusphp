@@ -101,7 +101,7 @@ class BizEntity extends Anx implements AnxInterface
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
         // Definicao do namespace
-        $strHeader .= chr(10) . 'namespace AnexusPHP\\'.$biz.'\\'.$biz_module.'\\Entity;' . chr(10);
+        $strHeader .= chr(10) . 'namespace '.$biz.'\\'.$biz_module.'\\Entity;' . chr(10);
         $strHeader .= chr(10) . 'use AnexusPHP\\Core\\DatabaseEntity;' . chr(10);
 
         $strClass = '';
