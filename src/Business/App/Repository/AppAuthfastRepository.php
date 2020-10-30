@@ -7,7 +7,7 @@ use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
-class App_authfastRepository
+class AppAuthfastRepository
 {
     /**
      * Retorna um registro do banco pelo id

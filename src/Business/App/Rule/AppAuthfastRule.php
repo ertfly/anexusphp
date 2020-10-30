@@ -6,7 +6,7 @@ use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
 use AnexusPHP\Core\Database;
 use Exception;
 
-class App_authfastRule
+class AppAuthfastRule
 {
     public static function insert(AppAuthfastEntity &$record)
     {
