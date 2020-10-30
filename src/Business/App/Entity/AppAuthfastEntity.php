@@ -1,0 +1,43 @@
+<?php
+
+namespace AnexusPHP\Business\App\Entity;
+
+use AnexusPHP\Core\DatabaseEntity;
+
+class AppAuthfastEntity extends DatabaseEntity
+{
+	const TABLE = 'app_authfast';
+	private $app_id;
+	private $authfast_id;
+	public function setId($id)
+	{
+	}
+	public function getId()
+	{
+	}
+	public function setAppId($appId)
+	{
+		$this->app_id = $appId;
+		return $this;
+	}
+	public function getAppId()
+	{
+		return $this->app_id;
+	}
+	public function setAuthfastId($authfastId)
+	{
+		$this->authfast_id = $authfastId;
+		return $this;
+	}
+	public function getAuthfastId()
+	{
+		return $this->authfast_id;
+	}
+	public function toArray()
+	{
+		return array(
+			'app_id' => $this->getAppId(),
+			'authfast_id' => $this->getAuthfastId()
+		);
+	}
+}
