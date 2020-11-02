@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AppAuthfastEntity extends DatabaseEntity
@@ -39,5 +40,16 @@ class AppAuthfastEntity extends DatabaseEntity
 			'app_id' => $this->getAppId(),
 			'authfast_id' => $this->getAuthfastId()
 		);
+	}
+
+	private $person;
+
+	public function getPerson()
+	{
+		if(!$this->person){
+			$this->person = AuthfastRepository::byCode($this->authfast_id);
+		}
+
+		return $this->person;
 	}
 }

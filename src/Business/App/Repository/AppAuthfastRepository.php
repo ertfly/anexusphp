@@ -12,13 +12,13 @@ class AppAuthfastRepository
     /**
      * Retorna um registro do banco pelo id
      * 
-     * @param integer|null $id
+     * @param string|null $id
      * @return AppAuthfastEntity
      */
-    public static function byId(?int $id)
+    public static function byAuthfastId(?string $authfastId)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppAuthfastEntity::class);
+        $reg = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id limit 1', ['authfast_id' => $authfastId])->fetchObject(AppAuthfastEntity::class);
         if ($reg === false) {
             return new AppAuthfastEntity();
         }
