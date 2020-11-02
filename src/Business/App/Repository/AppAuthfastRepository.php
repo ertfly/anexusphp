@@ -49,23 +49,28 @@ class AppAuthfastRepository
      * @param integer $perPg
      * @return Pagination[]
      */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
+    public static function allWithPagination($url, $filters = [], $currentPg, $varPg = 'pg', $perPg = 12)
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = " a.trash = false ";
+        $bind = [];
+        $where = "";
 
         // if (isset($filters['search']) && trim($filters['search']) != '') {
         //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
         //     //$bind['name'] = $filters['search'];
         // }
 
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where .= " a.app_id = :app_id ";
+            $bind['app_id'] = $filters['app_id'];
+        }
+
         $total = $db->query('select count(1) as total from ' . AppAuthfastEntity::TABLE . ' a where ' . $where, $bind)->fetch();
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . AppAuthfastEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
+        $regs = $db->query('select a.* from ' . AppAuthfastEntity::TABLE . ' a where ' . $where . ' order by a.authfast_id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
 
         $pagination->setRows($regs);
 
