@@ -13,7 +13,9 @@ class ApiRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->save($db);
+        $record
+            ->setCreatedAt(date('Y-m-d H:i:s'))
+            ->save($db);
     }
     public static function update(ApiEntity &$record)
     {
@@ -21,6 +23,8 @@ class ApiRule
         if (!$record->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
+        $record
+            ->setUpdatedAt(date('Y-m-d H:i:s'))
+            ->save($db);
     }
 }

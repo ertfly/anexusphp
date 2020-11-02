@@ -43,6 +43,11 @@ class ApiRepository
         $bind = array();
         $where = "";
 
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
+            $bind['name'] = $filters['search'];
+        }
+
         if (isset($filters['code']) && trim($filters['code']) != '') {
             $where .= " code like :code ";
             $bind['code'] = $filters['code'];
