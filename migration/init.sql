@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS public.app (
 
 -- DROP TABLE public.app_authfast;
 
-CREATE TABLE IF NOT EXISTS public.app_authfast (
+CREATE TABLE public.app_authfast (
 	app_id int2 NOT NULL,
-	authfast_id int8 NOT NULL,
+	authfast_id varchar NOT NULL,
 	CONSTRAINT app_authfast_pk PRIMARY KEY (app_id, authfast_id)
 );
 

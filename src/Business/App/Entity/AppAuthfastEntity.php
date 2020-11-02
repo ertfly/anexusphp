@@ -8,14 +8,18 @@ use AnexusPHP\Core\DatabaseEntity;
 class AppAuthfastEntity extends DatabaseEntity
 {
 	const TABLE = 'app_authfast';
+    protected $id;
 	private $app_id;
 	private $authfast_id;
-	public function setId($id)
-	{
-	}
-	public function getId()
-	{
-	}
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    public function getId()
+    {
+        return $this->id;
+    }
 	public function setAppId($appId)
 	{
 		$this->app_id = $appId;
