@@ -9,8 +9,10 @@ class ApiKeyEntity extends DatabaseEntity
     const TABLE = 'api_key';
     protected $id;
     protected $api_id;
+    protected $name;
     protected $app_key;
     protected $secret_key;
+    protected $production;
     protected $uri_domain;
     protected $uri_hook;
     protected $created_at;
@@ -34,6 +36,15 @@ class ApiKeyEntity extends DatabaseEntity
     {
         return $this->api_id;
     }
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
     public function setAppKey($app_key)
     {
         $this->app_key = $app_key;
@@ -51,6 +62,15 @@ class ApiKeyEntity extends DatabaseEntity
     public function getSecretKey()
     {
         return $this->secret_key;
+    }
+    public function setProduction($production)
+    {
+        $this->production = $production;
+        return $this;
+    }
+    public function getProduction()
+    {
+        return $this->production;
     }
     public function setUriDomain($uri_domain)
     {
@@ -101,8 +121,10 @@ class ApiKeyEntity extends DatabaseEntity
     {
         return [
             'api_id' => $this->getApiId(),
+            'name' => $this->getName(),
             'app_key' => $this->getAppKey(),
             'secret_key' => $this->getSecretKey(),
+            'production' => $this->getProduction(),
             'uri_domain' => $this->getUriDomain(),
             'uri_hook' => $this->getUriHook(),
             'created_at' => $this->getCreatedAt(),
