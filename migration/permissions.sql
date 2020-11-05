@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS public.manager_permission (
-	manager_id int8 NOT NULL,
+CREATE TABLE IF NOT EXISTS public.authfast_permission (
+	authfast_id int8 NOT NULL,
 	module_id int8 NOT NULL,
 	events VARCHAR(250) NOT NULL,
-	CONSTRAINT pk_manager_permission PRIMARY KEY (manager_id, module_id)
+	CONSTRAINT pk_authfast_permission PRIMARY KEY (authfast_id)
 );
 
 CREATE TABLE IF NOT EXISTS public.permission_event (
