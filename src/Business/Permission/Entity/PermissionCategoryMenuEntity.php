@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Permission\Entity;
 
+use AnexusPHP\Business\Permission\Repository\PermissionMenuRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class PermissionCategoryMenuEntity extends DatabaseEntity
@@ -54,5 +55,15 @@ class PermissionCategoryMenuEntity extends DatabaseEntity
 			'trash' => $this->getTrash(),
 			'app' => $this->getApp()
 		);
+	}
+
+	private $menu;
+	
+	public function getMenu() {
+		if (!$this->menu) {
+			$this->menu = PermissionMenuRepository::byCategoryId($this->getId());
+		}
+
+		return $this->menu;
 	}
 }

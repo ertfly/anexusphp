@@ -28,6 +28,18 @@ class PermissionMenuRepository
     }
 
     /**
+     * @param integer|null $id
+     * @return PermissionMenuEntity[]
+     */
+    public static function byCategoryId(?int $id)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . PermissionMenuEntity::TABLE . ' where category_id = :category_id limit 1', ['category_id' => (int)$id])->fetchAll(PDO::FETCH_CLASS, PermissionMenuEntity::class);
+
+        return $reg;
+    }
+
+    /**
      * Retorna todos os registros do banco
      * 
      * @return PermissionMenuEntity[]
