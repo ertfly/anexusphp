@@ -8,9 +8,9 @@ class PermissionModuleEntity extends DatabaseEntity
 {
 	const TABLE = 'permission_module';
 	private $id;
-	private $nome;
+	private $name;
 	private $events;
-	private $posicao;
+	private $position;
 	private $trash;
 	private $app;
 	public function setId($id)
@@ -22,14 +22,14 @@ class PermissionModuleEntity extends DatabaseEntity
 	{
 		return $this->id;
 	}
-	public function setNome($nome)
+	public function setName($name)
 	{
-		$this->nome = $nome;
+		$this->name = $name;
 		return $this;
 	}
-	public function getNome()
+	public function getName()
 	{
-		return $this->nome;
+		return $this->name;
 	}
 	public function setEvents($events)
 	{
@@ -40,14 +40,14 @@ class PermissionModuleEntity extends DatabaseEntity
 	{
 		return $this->events;
 	}
-	public function setPosicao($posicao)
+	public function setPosition($position)
 	{
-		$this->posicao = $posicao;
+		$this->position = $position;
 		return $this;
 	}
-	public function getPosicao()
+	public function getPosition()
 	{
-		return $this->posicao;
+		return $this->position;
 	}
 	public function setTrash($trash)
 	{
@@ -70,9 +70,9 @@ class PermissionModuleEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
-			'nome' => $this->getNome(),
+			'name' => $this->getName(),
 			'events' => $this->getEvents(),
-			'posicao' => $this->getPosicao(),
+			'position' => $this->getPosition(),
 			'trash' => $this->getTrash(),
 			'app' => $this->getApp()
 		);
