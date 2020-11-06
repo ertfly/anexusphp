@@ -25,6 +25,14 @@ class PermissionEventRule
         }
         $record->save($db);
     }
+    public static function delete(PermissionEventEntity &$record)
+    {
+        $db = Database::getInstance();
+        if (!$record->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $record->delete($db);
+    }
     public static function destroy(PermissionEventEntity &$record)
     {
         $db = Database::getInstance();

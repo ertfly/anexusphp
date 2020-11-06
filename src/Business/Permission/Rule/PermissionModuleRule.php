@@ -25,6 +25,14 @@ class PermissionModuleRule
         }
         $record->save($db);
     }
+    public static function delete(PermissionModuleEntity &$record)
+    {
+        $db = Database::getInstance();
+        if (!$record->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $record->delete($db);
+    }
     public static function destroy(PermissionModuleEntity &$record)
     {
         $db = Database::getInstance();

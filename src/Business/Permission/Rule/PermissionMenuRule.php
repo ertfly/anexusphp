@@ -25,6 +25,14 @@ class PermissionMenuRule
         }
         $record->save($db);
     }
+    public static function delete(PermissionMenuEntity &$record)
+    {
+        $db = Database::getInstance();
+        if (!$record->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $record->delete($db);
+    }
     public static function destroy(PermissionMenuEntity &$record)
     {
         $db = Database::getInstance();

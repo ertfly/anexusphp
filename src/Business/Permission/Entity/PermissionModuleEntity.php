@@ -11,6 +11,7 @@ class PermissionModuleEntity extends DatabaseEntity
 	private $nome;
 	private $events;
 	private $posicao;
+	private $trash;
 	private $app;
 	public function setId($id)
 	{
@@ -48,6 +49,15 @@ class PermissionModuleEntity extends DatabaseEntity
 	{
 		return $this->posicao;
 	}
+	public function setTrash($trash)
+	{
+		$this->trash = $trash;
+		return $this;
+	}
+	public function getTrash()
+	{
+		return $this->trash;
+	}
 	public function setApp($app)
 	{
 		$this->app = $app;
@@ -63,6 +73,7 @@ class PermissionModuleEntity extends DatabaseEntity
 			'nome' => $this->getNome(),
 			'events' => $this->getEvents(),
 			'posicao' => $this->getPosicao(),
+			'trash' => $this->getTrash(),
 			'app' => $this->getApp()
 		);
 	}

@@ -11,6 +11,7 @@ class PermissionMenuEntity extends DatabaseEntity
 	private $category_id;
 	private $module_id;
 	private $description;
+	private $icon;
 	private $link;
 	private $target;
 	private $trash;
@@ -50,6 +51,15 @@ class PermissionMenuEntity extends DatabaseEntity
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function setIcon($icon)
+	{
+		$this->icon = $icon;
+		return $this;
+	}
+	public function getIcon()
+	{
+		return $this->icon;
 	}
 	public function setLink($link)
 	{
@@ -93,6 +103,7 @@ class PermissionMenuEntity extends DatabaseEntity
 			'category_id' => $this->getCategoryId(),
 			'module_id' => $this->getModuleId(),
 			'description' => $this->getDescription(),
+			'icon' => $this->getIcon(),
 			'link' => $this->getLink(),
 			'target' => $this->getTarget(),
 			'trash' => $this->getTrash(),
