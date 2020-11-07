@@ -96,7 +96,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function principal($className): RegionCountryEntity
+    public static function main($className): RegionCountryEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where principal is true limit 1')->fetchObject($className);
