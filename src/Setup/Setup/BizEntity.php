@@ -14,7 +14,7 @@ class BizEntity extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []):void
+    public function run(array $params = [], array $option = []): void
     {
         try {
             if (!is_writable(PATH_ROOT)) {
@@ -41,22 +41,22 @@ class BizEntity extends Anx implements AnxInterface
             $biz_module = ucwords($params['-bm']);
             $biz_entity = ucwords($params['-e']);
 
-            if (!is_dir(PATH_ROOT . 'src/' . $biz)) {
-                 throw new Exception("The '{$biz}' business doesn't exist", 1);
+            if (!is_dir(PATH_ROOT . 'src' . DS . $biz)) {
+                throw new Exception("The '{$biz}' business doesn't exist", 1);
             }
 
-            if (!is_dir(PATH_ROOT . 'src/' . $biz . DS . $biz_module)) {
+            if (!is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $biz_module)) {
                 throw new Exception("The '{$biz_module}' module doesn't exist", 1);
             }
 
-            if (is_dir(PATH_ROOT . 'src/' . $biz_entity)) {
+            if (is_dir(PATH_ROOT . 'src' . DS . $biz_entity)) {
                 throw new Exception("The '{$biz_entity}' business entity already exists", 1);
             }
 
             $files = [
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Entity' . DS . $biz_entity.'Entity.php' => $this->generateEntityFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Repository' . DS . $biz_entity.'Repository.php' => $this->generateRepositoryFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Rule' . DS . $biz_entity.'Rule.php' => $this->generateRuleFile($params)
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Entity' . DS . $biz_entity . 'Entity.php' => $this->generateEntityFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Repository' . DS . $biz_entity . 'Repository.php' => $this->generateRepositoryFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Rule' . DS . $biz_entity . 'Rule.php' => $this->generateRuleFile($params)
             ];
 
             echo "\033[0;37m";
@@ -64,7 +64,6 @@ class BizEntity extends Anx implements AnxInterface
             foreach ($files as $key => $value) {
                 $this->file_force_contents($key, $value);
             }
-
         } catch (Exception $e) {
             exit(chr(10) . $e->getMessage() . "\033[0m" . chr(10));
         }
@@ -74,7 +73,8 @@ class BizEntity extends Anx implements AnxInterface
      * @param array $params [biz, module, entity]
      * @return string $fileAsString
      */
-    protected function generateEntityFile($params) {
+    protected function generateEntityFile($params)
+    {
         $biz = ucwords($params['-b']);
         $biz_module = ucwords($params['-bm']);
         $biz_entity = $params['-e'];
@@ -101,7 +101,7 @@ class BizEntity extends Anx implements AnxInterface
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
         // Definicao do namespace
-        $strHeader .= chr(10) . 'namespace '.$biz.'\\'.$biz_module.'\\Entity;' . chr(10);
+        $strHeader .= chr(10) . 'namespace ' . $biz . '\\' . $biz_module . '\\Entity;' . chr(10);
         $strHeader .= chr(10) . 'use AnexusPHP\\Core\\DatabaseEntity;' . chr(10);
 
         $strClass = '';
@@ -109,7 +109,7 @@ class BizEntity extends Anx implements AnxInterface
         $strAttributes = '';
         $strAttributes .= chr(9) . 'const TABLE = \'' .  $table . '\';' . chr(10);
         $strMethods = '';
-        $strToArray = chr(9). 'public function toArray(){' . chr(10) . chr(9) . chr(9).  'return array(' . chr(10);
+        $strToArray = chr(9) . 'public function toArray(){' . chr(10) . chr(9) . chr(9) .  'return array(' . chr(10);
         foreach ($tableFields as $i => $field) {
             $fieldName = $field['column_name'];
             $attribute = '';
@@ -119,7 +119,7 @@ class BizEntity extends Anx implements AnxInterface
             }
             $strAttributes .= chr(9) . 'private $' . $field['column_name'] . ';' . chr(10);
             $strMethods .= chr(9) . 'public function set' . $attribute . '($' . lcfirst($attribute) . '){' . chr(10) . chr(9) . chr(9) . '$this->' . $field['column_name'] . ' = $' . lcfirst($attribute) . ';' . chr(10) . chr(9) . chr(9) . 'return $this;' . chr(10) . chr(9) . '}' . chr(10);
-            $strMethods .= chr(9) . 'public function get' . $attribute . '(){' . chr(10) . chr(9) . chr(9). 'return $this->' . $field['column_name'] . ';' . chr(10) . chr(9) . '}' . chr(10);
+            $strMethods .= chr(9) . 'public function get' . $attribute . '(){' . chr(10) . chr(9) . chr(9) . 'return $this->' . $field['column_name'] . ';' . chr(10) . chr(9) . '}' . chr(10);
             $strToArray .= '\'' . $field['column_name'] . '\' => $this->get' . $attribute . '()' . (($i + 1) < count($tableFields) ? ',' : '') . chr(10);
         }
         $strToArray .= chr(9) . chr(9) . ');' . chr(10) . chr(9) . '}';
@@ -136,7 +136,8 @@ class BizEntity extends Anx implements AnxInterface
      * @param array $params [biz, module, entity]
      * @return string $repository
      */
-    protected function generateRepositoryFile($params) {
+    protected function generateRepositoryFile($params)
+    {
         $biz = ucwords($params['-b']);
         $biz_module = ucwords($params['-bm']);
         $biz_entity = ucwords($params['-e']);
@@ -153,7 +154,8 @@ class BizEntity extends Anx implements AnxInterface
      * @param array $params [biz, module, entity]
      * @return string $rule
      */
-    protected function generateRuleFile($params) {
+    protected function generateRuleFile($params)
+    {
         $biz = ucwords($params['-b']);
         $biz_module = ucwords($params['-bm']);
         $biz_entity = ucwords($params['-e']);
@@ -179,9 +181,9 @@ class BizEntity extends Anx implements AnxInterface
         echo "\tphp anx create-biz-entity [params]" . chr(10) . chr(10);
 
         echo "\033[1;33m" . "Params:" . "\033[0m" . chr(10);
-        echo "\t-b [business-name]" . chr(10) ;
-        echo "\t-bm [business-module-name]" . chr(10) ;
-        echo "\t-e [business-entity-name]" . chr(10) ;
+        echo "\t-b [business-name]" . chr(10);
+        echo "\t-bm [business-module-name]" . chr(10);
+        echo "\t-e [business-entity-name]" . chr(10);
         echo "\t--help - See this helper" . chr(10);
 
 
