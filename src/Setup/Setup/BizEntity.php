@@ -38,25 +38,32 @@ class BizEntity extends Anx implements AnxInterface
             }
 
             $biz = ucwords($params['-b']);
-            $biz_module = ucwords($params['-bm']);
-            $biz_entity = ucwords($params['-e']);
+            $bizModule = ucwords($params['-bm']);
+            $bizEntity = ucwords($params['-e']);
 
             if (!is_dir(PATH_ROOT . 'src' . DS . $biz)) {
                 throw new Exception("The '{$biz}' business doesn't exist", 1);
             }
 
-            if (!is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $biz_module)) {
-                throw new Exception("The '{$biz_module}' module doesn't exist", 1);
+            if (!is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $bizModule)) {
+                throw new Exception("The '{$bizModule}' module doesn't exist", 1);
             }
 
-            if (is_dir(PATH_ROOT . 'src' . DS . $biz_entity)) {
-                throw new Exception("The '{$biz_entity}' business entity already exists", 1);
+
+            $arr = explode('_', $bizEntity);
+            $bizEntity = '';
+            foreach ($arr as $partialName) {
+                $bizEntity .= ucfirst($partialName);
+            }
+
+            if (is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Entity' . DS . $bizEntity . 'Entity.php')) {
+                throw new Exception("The '{$bizEntity}' business entity already exists", 1);
             }
 
             $files = [
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Entity' . DS . $biz_entity . 'Entity.php' => $this->generateEntityFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Repository' . DS . $biz_entity . 'Repository.php' => $this->generateRepositoryFile($params),
-                PATH_ROOT . 'src' . DS . $biz . DS . $biz_module . DS . 'Rule' . DS . $biz_entity . 'Rule.php' => $this->generateRuleFile($params)
+                PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Entity' . DS . $bizEntity . 'Entity.php' => $this->generateEntityFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Repository' . DS . $bizEntity . 'Repository.php' => $this->generateRepositoryFile($params),
+                PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Rule' . DS . $bizEntity . 'Rule.php' => $this->generateRuleFile($params)
             ];
 
             echo "\033[0;37m";
@@ -76,9 +83,9 @@ class BizEntity extends Anx implements AnxInterface
     protected function generateEntityFile($params)
     {
         $biz = ucwords($params['-b']);
-        $biz_module = ucwords($params['-bm']);
-        $biz_entity = $params['-e'];
-        $table = strtolower($biz_entity);
+        $bizModule = ucwords($params['-bm']);
+        $bizEntity = $params['-e'];
+        $table = strtolower($bizEntity);
         if (!$table) {
             throw new Exception('Informar o nome da conexao /conexao/tabela');
         }
@@ -92,7 +99,7 @@ class BizEntity extends Anx implements AnxInterface
         // }
 
         $className = '';
-        $arr = explode('_', $biz_entity);
+        $arr = explode('_', $bizEntity);
         foreach ($arr as $partialName) {
             $className .= ucfirst($partialName);
         }
@@ -101,7 +108,7 @@ class BizEntity extends Anx implements AnxInterface
         $strHeader = '';
         $strHeader .= '<?php' . chr(10);
         // Definicao do namespace
-        $strHeader .= chr(10) . 'namespace ' . $biz . '\\' . $biz_module . '\\Entity;' . chr(10);
+        $strHeader .= chr(10) . 'namespace ' . $biz . '\\' . $bizModule . '\\Entity;' . chr(10);
         $strHeader .= chr(10) . 'use AnexusPHP\\Core\\DatabaseEntity;' . chr(10);
 
         $strClass = '';
