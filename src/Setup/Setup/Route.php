@@ -13,7 +13,7 @@ class Route extends Anx implements AnxInterface
         $this->run($param, $option);
     }
 
-    public function run(array $params = [], array $option = []):void
+    public function run(array $params = [], array $option = []): void
     {
         try {
             if (!is_writable(PATH_ROOT)) {
@@ -31,7 +31,7 @@ class Route extends Anx implements AnxInterface
 
             $app = ucwords($params['-a']);
 
-            if (!is_dir(PATH_ROOT . 'src/' . $app)) {
+            if (!is_dir(PATH_ROOT . 'src' . DS . $app)) {
                 throw new Exception("The '{$app}' application doesn't exists", 1);
             }
 
@@ -41,19 +41,19 @@ class Route extends Anx implements AnxInterface
 
             $module = ucwords($params['-m']);
 
-            if (!is_dir(PATH_ROOT . 'src/' . $app . DS . 'Modules' . DS . $module)) {
+            if (!is_dir(PATH_ROOT . 'src' . DS . $app . DS . 'Modules' . DS . $module)) {
                 throw new Exception("The '{$module}' module doesn't exists", 1);
             }
 
-            $path = strtolower( '/' . ($app . '/' . $module));
+            $path = strtolower('/' . ($app . '/' . $module));
 
-            if(in_array('--crud', $option)) {
+            if (in_array('--crud', $option)) {
                 $routeType = 'Crud';
             } else {
                 $routeType = 'Index';
             }
 
-            $route = $this->getTemplate('Route' . DS . $routeType.'Route', [
+            $route = $this->getTemplate('Route' . DS . $routeType . 'Route', [
                 '{{app}}' => $app,
                 '{{module}}' => $module,
                 '{{prefix}}' => $path,
@@ -71,7 +71,6 @@ class Route extends Anx implements AnxInterface
             foreach ($files as $key => $value) {
                 $this->file_force_contents($key, $value);
             }
-
         } catch (Exception $e) {
             exit(chr(10) . $e->getMessage() . "\033[0m" . chr(10));
         }
@@ -90,7 +89,7 @@ class Route extends Anx implements AnxInterface
         echo "\tphp anx create-route [params]" . chr(10) . chr(10);
 
         echo "\033[1;33m" . "Params:" . "\033[1;37m" . chr(10);
-        echo "\t-a [app-name]" . chr(10) ;
+        echo "\t-a [app-name]" . chr(10);
         echo "\t-m [module-name]" . chr(10);
         echo "\t--crud - Opitional: generate file with crud routes defined" . chr(10);
         echo "\t--help - See this helper" . chr(10);
