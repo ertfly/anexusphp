@@ -27,7 +27,7 @@ class Init extends Anx implements AnxInterface
         // criar as pastas básicas
         try {
             if (!is_writable(PATH_ROOT)) {
-                throw new Exception("");
+                throw new Exception('Folder \"' . PATH_ROOT . '\" does not have write permission');
             }
 
             if (file_exists(PATH_LOGS . 'start_execution')) {
