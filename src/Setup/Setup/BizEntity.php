@@ -49,13 +49,11 @@ class BizEntity extends Anx implements AnxInterface
                 throw new Exception("The '{$bizModule}' module doesn't exist", 1);
             }
 
-
             $arr = explode('_', $bizEntity);
             $bizEntity = '';
             foreach ($arr as $partialName) {
                 $bizEntity .= ucfirst($partialName);
             }
-            $params['-e'] = $bizEntity;
 
             if (is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Entity' . DS . $bizEntity . 'Entity.php')) {
                 throw new Exception("The '{$bizEntity}' business entity already exists", 1);
@@ -147,12 +145,19 @@ class BizEntity extends Anx implements AnxInterface
     protected function generateRepositoryFile($params)
     {
         $biz = ucwords($params['-b']);
-        $biz_module = ucwords($params['-bm']);
-        $biz_entity = ucwords($params['-e']);
+        $bizModule = ucwords($params['-bm']);
+        $bizEntity = ucwords($params['-e']);
+
+        $arr = explode('_', $bizEntity);
+        $bizEntity = '';
+        foreach ($arr as $partialName) {
+            $bizEntity .= ucfirst($partialName);
+        }
+
         $repository = $this->getTemplate('Repository' . DS . 'RepositoryTemplate', [
             '{{biz}}' => $biz,
-            '{{biz_module}}' => $biz_module,
-            '{{biz_entity}}' => $biz_entity
+            '{{biz_module}}' => $bizModule,
+            '{{biz_entity}}' => $bizEntity
         ]);
 
         return $repository;
@@ -165,12 +170,19 @@ class BizEntity extends Anx implements AnxInterface
     protected function generateRuleFile($params)
     {
         $biz = ucwords($params['-b']);
-        $biz_module = ucwords($params['-bm']);
-        $biz_entity = ucwords($params['-e']);
+        $bizModule = ucwords($params['-bm']);
+        $bizEntity = ucwords($params['-e']);
+
+        $arr = explode('_', $bizEntity);
+        $bizEntity = '';
+        foreach ($arr as $partialName) {
+            $bizEntity .= ucfirst($partialName);
+        }
+        
         $rule = $this->getTemplate('Rule' . DS . 'RuleTemplate', [
             '{{biz}}' => $biz,
-            '{{biz_module}}' => $biz_module,
-            '{{biz_entity}}' => $biz_entity
+            '{{biz_module}}' => $bizModule,
+            '{{biz_entity}}' => $bizEntity
         ]);
 
         return $rule;
