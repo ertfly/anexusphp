@@ -55,6 +55,7 @@ class BizEntity extends Anx implements AnxInterface
             foreach ($arr as $partialName) {
                 $bizEntity .= ucfirst($partialName);
             }
+            $params['-e'] = $bizEntity;
 
             if (is_dir(PATH_ROOT . 'src' . DS . $biz . DS . $bizModule . DS . 'Entity' . DS . $bizEntity . 'Entity.php')) {
                 throw new Exception("The '{$bizEntity}' business entity already exists", 1);
