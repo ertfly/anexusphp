@@ -13,7 +13,10 @@ class ApiKeyRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->save($db);
+        $record
+        ->setProduction(false)
+        ->setCreatedAt(date('Y-m-d H:i:s'))
+        ->save($db);
     }
     public static function update(ApiKeyEntity &$record)
     {
@@ -23,12 +26,12 @@ class ApiKeyRule
         }
         $record->save($db);
     }
-    public static function delete(ApiKeyEntity &$record)
+    public static function destroy(ApiKeyEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
             throw new \Exception('Esse método deve conter um ID');
         }
-        $record->delete($db);
+        $record->destroy($db);
     }
 }

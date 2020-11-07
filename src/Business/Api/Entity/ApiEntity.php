@@ -8,6 +8,7 @@ class ApiEntity extends DatabaseEntity
 {
     const TABLE = 'api';
     protected $id;
+    protected $code;
     protected $name;
     protected $img_logo;
     protected $terms_privacy;
@@ -24,6 +25,15 @@ class ApiEntity extends DatabaseEntity
     {
         return $this->id;
     }
+    public function setCode($code)
+    {
+        $this->code = $code;
+        return $this;
+    }
+    public function getCode()
+    {
+        return $this->code;
+    }
     public function setName($name)
     {
         $this->name = $name;
@@ -38,8 +48,14 @@ class ApiEntity extends DatabaseEntity
         $this->img_logo = $img_logo;
         return $this;
     }
-    public function getImgLogo()
+    public function getImgLogo(bool $withUrl = null)
     {
+        if ($withUrl) {
+            if (trim($this->img_logo) == '' || !is_file(PATH_UPLOADS . 'application' . DS . $this->img_logo)) {
+                return asset('app/img/no-user.png');
+            }
+            return upload('application/' . $this->img_logo);
+        }
         return $this->img_logo;
     }
     public function setTermsPrivacy($terms_privacy)
@@ -90,6 +106,7 @@ class ApiEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            'code' => $this->getCode(),
             'name' => $this->getName(),
             'img_logo' => $this->getImgLogo(),
             'terms_privacy' => $this->getTermsPrivacy(),
