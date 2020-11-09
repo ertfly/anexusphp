@@ -15,7 +15,8 @@ class PermissionMenuRule
         if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->save($db);
+        $record->setTrash(false)
+            ->save($db);
     }
     public static function update(PermissionMenuEntity &$record)
     {
