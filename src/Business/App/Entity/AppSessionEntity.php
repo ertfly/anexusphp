@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
@@ -87,7 +88,7 @@ class AppSessionEntity extends DatabaseEntity
     }
     public function getCreateAt($format = false)
     {
-        if($format && $this->create_at){
+        if ($format && $this->create_at) {
             return timeConverter($this->create_at, request()->country);
         }
 
@@ -100,7 +101,7 @@ class AppSessionEntity extends DatabaseEntity
     }
     public function getUpdatedAt($format = false)
     {
-        if($format && $this->updated_at){
+        if ($format && $this->updated_at) {
             return timeConverter($this->updated_at, request()->country);
         }
 
@@ -120,13 +121,36 @@ class AppSessionEntity extends DatabaseEntity
         ];
     }
 
+    /**
+     * Undocumented variable
+     *
+     * @var AuthfastEntity
+     */
     public $person;
 
+    /**
+     * Undocumented function
+     *
+     * @return AuthfastEntity
+     */
     public function getPerson()
     {
-        if(!$this->person){
+        if (!$this->person) {
             $this->person = AuthfastRepository::byId($this->person_id);
         }
         return $this->person;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isLogged()
+    {
+        $person = $this->getPerson();
+        if (is_null($person->getId()) || strtotime(date('Y-m-d H:i:s')) > strtotime($person->getExpiredAt())) {
+            return false;
+        }
+
+        return true;
     }
 }
