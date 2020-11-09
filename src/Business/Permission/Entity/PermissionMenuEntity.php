@@ -2,6 +2,9 @@
 
 namespace AnexusPHP\Business\Permission\Entity;
 
+use AnexusPHP\Business\Permission\Constant\PermissionMenuTargetConstant;
+use AnexusPHP\Business\Permission\Repository\PermissionCategoryMenuRepository;
+use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class PermissionMenuEntity extends DatabaseEntity
@@ -75,8 +78,11 @@ class PermissionMenuEntity extends DatabaseEntity
 		$this->target = $target;
 		return $this;
 	}
-	public function getTarget()
+	public function getTarget(bool $format = false)
 	{
+		if ($format) {
+			return PermissionMenuTargetConstant::getOption($this->target);
+		}
 		return $this->target;
 	}
 	public function setTrash($trash)
@@ -109,5 +115,33 @@ class PermissionMenuEntity extends DatabaseEntity
 			'trash' => $this->getTrash(),
 			'app' => $this->getApp()
 		);
+	}
+
+	private $module;
+
+	/**
+	 * @return PermissionModuleEntity
+	 */
+	public function getModule()
+	{
+		if (!$this->module) {
+			$this->module = PermissionModuleRepository::byId($this->getModuleId());
+		}
+
+		return $this->module;
+	}
+
+	private $category;
+
+	/**
+	 * @return PermissionCategoryMenuEntity
+	 */
+	public function getCategory()
+	{
+		if (!$this->category) {
+			$this->category = PermissionCategoryMenuRepository::byId($this->getCategoryId());
+		}
+
+		return $this->category;
 	}
 }

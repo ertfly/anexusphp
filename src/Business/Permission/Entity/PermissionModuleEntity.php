@@ -40,7 +40,7 @@ class PermissionModuleEntity extends DatabaseEntity
 	public function getEvents($arrayFormat = false)
 	{
 		if($arrayFormat) {
-			$idArr = explode(',', $this->events);
+			$idArr = strlen($this->events > 0) ? explode(',', $this->events) : [];
 			$arr = [];
 			foreach($idArr as $value) {
 				$arr[$value] = PermissionEventRepository::byId($value)->getDescription();

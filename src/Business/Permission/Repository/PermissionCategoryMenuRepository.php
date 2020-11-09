@@ -41,6 +41,19 @@ class PermissionCategoryMenuRepository
     }
 
     /**
+     * Retorna todos os menus pelo App
+     * 
+     * @return PermissionCategoryMenuEntity[]
+     */
+    public static function byApp($app)
+    {
+        $db = Database::getInstance();
+        $regs = $db->query('select * from ' . PermissionCategoryMenuEntity::TABLE . ' where trash is false and app = :app', ['app' => (int)$app])->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
+
+        return $regs;
+    }
+
+    /**
      * Retorna os registro do banco com paginacao
      * 
      * @param string $url
