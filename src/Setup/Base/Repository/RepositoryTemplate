@@ -19,12 +19,12 @@ class {{biz_entity}}Repository
     public static function byId(?int $id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . {{biz_entity}}Entity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject({{biz_entity}}Entity::class);
-        if ($reg === false) {
+        $row = $db->query('select * from ' . {{biz_entity}}Entity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject({{biz_entity}}Entity::class);
+        if ($row === false) {
             return new {{biz_entity}}Entity();
         }
 
-        return $reg;
+        return $row;
     }
 
     /**
@@ -35,9 +35,9 @@ class {{biz_entity}}Repository
     public static function all()
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . {{biz_entity}}Entity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, {{biz_entity}}Entity::class);
+        $rows = $db->query('select * from ' . {{biz_entity}}Entity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, {{biz_entity}}Entity::class);
 
-        return $regs;
+        return $rows;
     }
 
     /**
@@ -48,7 +48,7 @@ class {{biz_entity}}Repository
      * @param int $currentPg
      * @param string $varPg
      * @param integer $perPg
-     * @return Pagination[]
+     * @return Pagination
      */
     public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
     {
@@ -66,9 +66,9 @@ class {{biz_entity}}Repository
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . {{biz_entity}}Entity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, {{biz_entity}}Entity::class);
+        $rows = $db->query('select a.* from ' . {{biz_entity}}Entity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, {{biz_entity}}Entity::class);
 
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }

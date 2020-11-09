@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Region\Entity;
 
+use AnexusPHP\Business\Region\Repository\RegionStateRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class RegionCityEntity extends DatabaseEntity
@@ -55,5 +56,26 @@ class RegionCityEntity extends DatabaseEntity
             'name' => $this->getName(),
             'code' => $this->getCode()
         ];
+    }
+
+    /**
+     * Undocumented variable
+     *
+     * @var RegionStateEntity
+     */
+    private $state;
+
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  RegionStateEntity
+     */
+    public function getState()
+    {
+        if (!$this->state) {
+            $this->state = RegionStateRepository::byId($this->state_id);
+        }
+        return $this->state;
     }
 }
