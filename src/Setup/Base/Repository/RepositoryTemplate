@@ -1,6 +1,6 @@
 <?php
 
-namespace {{biz}}\{{biz_module}}\Repository\{{biz_entity}}Repository;
+namespace {{biz}}\{{biz_module}}\Repository;
 
 use {{biz}}\{{biz_module}}\Entity\{{biz_entity}}Entity;
 

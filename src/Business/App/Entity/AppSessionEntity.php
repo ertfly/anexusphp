@@ -126,7 +126,7 @@ class AppSessionEntity extends DatabaseEntity
      *
      * @var AuthfastEntity
      */
-    public $person;
+    protected $person;
 
     /**
      * Undocumented function

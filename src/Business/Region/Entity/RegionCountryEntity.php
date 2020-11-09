@@ -63,7 +63,7 @@ class RegionCountryEntity extends DatabaseEntity
     {
         if ($withUrl) {
             if (trim($this->flag) == '' || !is_file(PATH_UPLOADS . 'flags' . DS . $this->flag)) {
-                return asset('app/img/sem-imagem.jpg');
+                return asset('app/img/no-image.jpg');
             }
             return upload('flags/' . $this->flag);
         }
