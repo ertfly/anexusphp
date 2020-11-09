@@ -34,7 +34,7 @@ class PermissionMenuRepository
     public static function byCategoryId(?int $id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . PermissionMenuEntity::TABLE . ' where category_id = :category_id limit 1', ['category_id' => (int)$id])->fetchAll(PDO::FETCH_CLASS, PermissionMenuEntity::class);
+        $reg = $db->query('select * from ' . PermissionMenuEntity::TABLE . ' where category_id = :category_id and trash = false limit 1', ['category_id' => (int)$id])->fetchAll(PDO::FETCH_CLASS, PermissionMenuEntity::class);
 
         return $reg;
     }
