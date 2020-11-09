@@ -57,16 +57,16 @@ class PermissionModuleRepository
         $bind = array();
         $where = " a.trash = false ";
 
-        // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
-        //     //$bind['name'] = $filters['search'];
-        // }
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
+            $bind['name'] = $filters['search'];
+        }
 
         $total = $db->query('select count(1) as total from ' . PermissionModuleEntity::TABLE . ' a where ' . $where, $bind)->fetch();
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . PermissionModuleEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, PermissionModuleEntity::class);
+        $regs = $db->query('select a.* from ' . PermissionModuleEntity::TABLE . ' a where ' . $where . ' order by a.position asc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, PermissionModuleEntity::class);
 
         $pagination->setRows($regs);
 

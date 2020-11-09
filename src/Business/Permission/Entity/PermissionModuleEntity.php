@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Permission\Entity;
 
+use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class PermissionModuleEntity extends DatabaseEntity
@@ -36,8 +37,16 @@ class PermissionModuleEntity extends DatabaseEntity
 		$this->events = $events;
 		return $this;
 	}
-	public function getEvents()
+	public function getEvents($arrayFormat = false)
 	{
+		if($arrayFormat) {
+			$idArr = explode(',', $this->events);
+			$arr = [];
+			foreach($idArr as $value) {
+				$arr[$value] = PermissionEventRepository::byId($value)->getDescription();
+			}
+			return $arr;
+		}
 		return $this->events;
 	}
 	public function setPosition($position)
