@@ -58,8 +58,8 @@ class PermissionCategoryMenuRepository
         $where = " a.trash = false ";
 
         if (isset($filters['search']) && trim($filters['search']) != '') {
-            //$where .= " and upper(a.description) like upper('%'||:description||'%') ";
-            //$bind['description'] = $filters['search'];
+            $where .= " and upper(a.description) like upper('%'||:description||'%') ";
+            $bind['description'] = $filters['search'];
         }
 
         $total = $db->query('select count(1) as total from ' . PermissionCategoryMenuEntity::TABLE . ' a where ' . $where, $bind)->fetch();
