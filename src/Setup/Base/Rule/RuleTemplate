@@ -1,6 +1,6 @@
 <?php
 
-namespace {{biz}}\{{biz_module}}\Rule\{{biz_entity}}Rule;
+namespace {{biz}}\{{biz_module}}\Rule;
 
 use {{biz}}\{{biz_module}}\Entity\{{biz_entity}}Entity;
 

@@ -39,7 +39,7 @@ class Lang
             return $translations[$country->getId()][$page];
         }
 
-        $translate = self::toArray(LanguageRepository::byScreen($page, $country->getId()));
+        $translate = self::toArray(LanguageRepository::byScreen($page, $country));
         $translate['SCREEN_CACHE_VERSION'] = $version;
 
         $translations[$country->getId()][$page] = $translate;
