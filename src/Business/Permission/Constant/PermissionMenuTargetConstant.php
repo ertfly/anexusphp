@@ -10,8 +10,8 @@ class PermissionMenuTargetConstant
     const SELF_SCREEN = 'SELF_SCREEN';
 
     public static $options = [
-        self::BLANK_SCREEN => 'Blank screen',
-        self::SELF_SCREEN => 'Self screen'
+        self::BLANK_SCREEN => '_blank',
+        self::SELF_SCREEN => '_self'
     ];
 
     public static function getOptions(){
