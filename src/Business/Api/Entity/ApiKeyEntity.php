@@ -135,15 +135,11 @@ class ApiKeyEntity extends DatabaseEntity
     }
 
     /**
-     * Undocumented variable
-     *
      * @var ApiEntity
      */
     private $api;
 
     /**
-     * Get undocumented variable
-     *
      * @return  ApiEntity
      */ 
     public function getApi()

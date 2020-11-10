@@ -30,6 +30,23 @@ class ApiKeyRepository
      * Retorna um registro do banco pela secret key
      *
      * @param ApiKeyEntity $apiKeyEntity
+     * @return instanceof ApiKeyEntity
+     */
+    public static function byAppKey(ApiKeyEntity $apiKeyEntity, $class)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $apiKeyEntity->getAppKey()])->fetchObject($class);
+        if ($reg === false) {
+            return new $class();
+        }
+
+        return $reg;
+    }
+
+    /**
+     * Retorna um registro do banco pela secret key
+     *
+     * @param ApiKeyEntity $apiKeyEntity
      * @return ApiKeyEntity
      */
     public static function bySecretKey(ApiKeyEntity $apiKeyEntity)
