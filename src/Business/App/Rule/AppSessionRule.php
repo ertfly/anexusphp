@@ -14,7 +14,7 @@ class AppSessionRule
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
 
-        $record->setCreateAt(date('Y-m-d H:i:s'));
+        $record->setCreatedAt(date('Y-m-d H:i:s'));
         $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->save($db);
     }
