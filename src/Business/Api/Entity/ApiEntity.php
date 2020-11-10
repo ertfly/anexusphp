@@ -8,7 +8,6 @@ class ApiEntity extends DatabaseEntity
 {
     const TABLE = 'api';
     protected $id;
-    protected $code;
     protected $name;
     protected $img_logo;
     protected $terms_privacy;
@@ -24,15 +23,6 @@ class ApiEntity extends DatabaseEntity
     public function getId()
     {
         return $this->id;
-    }
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-    public function getCode()
-    {
-        return $this->code;
     }
     public function setName($name)
     {
@@ -106,7 +96,6 @@ class ApiEntity extends DatabaseEntity
     public function toArray()
     {
         return [
-            'code' => $this->getCode(),
             'name' => $this->getName(),
             'img_logo' => $this->getImgLogo(),
             'terms_privacy' => $this->getTermsPrivacy(),
