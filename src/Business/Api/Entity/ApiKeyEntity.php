@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Api\Entity;
 
+use AnexusPHP\Business\Api\Repository\ApiRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class ApiKeyEntity extends DatabaseEntity
@@ -131,5 +132,25 @@ class ApiKeyEntity extends DatabaseEntity
             'updated_at' => $this->getUpdatedAt(),
             'expired_at' => $this->getExpiredAt(),
         ];
+    }
+
+    /**
+     * Undocumented variable
+     *
+     * @var ApiEntity
+     */
+    private $api;
+
+    /**
+     * Get undocumented variable
+     *
+     * @return  ApiEntity
+     */ 
+    public function getApi()
+    {
+        if(!$this->api){
+            $this->api = ApiRepository::byId($this->api_id);
+        }
+        return $this->api;
     }
 }
