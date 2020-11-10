@@ -8,6 +8,7 @@ class ApiEntity extends DatabaseEntity
 {
     const TABLE = 'api';
     protected $id;
+    protected $authfast_id;
     protected $name;
     protected $img_logo;
     protected $terms_privacy;
@@ -23,6 +24,16 @@ class ApiEntity extends DatabaseEntity
     public function getId()
     {
         return $this->id;
+    }
+    public function getAuthfastId()
+    {
+        return $this->authfast_id;
+    }
+    public function setAuthfastId($authfastId)
+    {
+        $this->authfast_id = $authfastId;
+
+        return $this;
     }
     public function setName($name)
     {
@@ -105,4 +116,5 @@ class ApiEntity extends DatabaseEntity
             'expired_at' => $this->getExpiredAt(),
         ];
     }
+
 }
