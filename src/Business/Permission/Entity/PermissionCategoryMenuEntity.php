@@ -59,7 +59,16 @@ class PermissionCategoryMenuEntity extends DatabaseEntity
 
 	private $menu;
 	
-	public function getMenu() {
+	public function getMenu(?array $menu = null) {
+		if (!is_null($menu)) {
+			$this->menu = [];
+			foreach ($menu as $value) {
+				if ($value->getCategoryId() == $this->getId()) {
+					$this->menu[] = $value;
+				}
+			}
+		}
+
 		if (!$this->menu) {
 			$this->menu = PermissionMenuRepository::byCategoryId($this->getId());
 		}
