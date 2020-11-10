@@ -13,7 +13,7 @@ class AppSessionEntity extends DatabaseEntity
     protected $token;
     protected $app_id;
     protected $person_id;
-    protected $analyst_code;
+    protected $support_code;
     protected $type;
     protected $access_ip;
     protected $access_browser;
@@ -55,13 +55,13 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->person_id;
     }
-    public function getAnalystCode()
+    public function getSupportCode()
     {
-        return $this->analyst_code;
+        return $this->support_code;
     }
-    public function setAnalystCode($analystCode)
+    public function setSupportCode($supportCode)
     {
-        $this->analyst_code = $analystCode;
+        $this->support_code = $supportCode;
 
         return $this;
     }
@@ -124,7 +124,7 @@ class AppSessionEntity extends DatabaseEntity
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
             'person_id' => $this->getPersonId(),
-            'analyst_code' => $this->getAnalystCode(),
+            'support_code' => $this->getSupportCode(),
             'type' => $this->getType(),
             'access_ip' => $this->getAccessIp(),
             'access_browser' => $this->getAccessBrowser(),

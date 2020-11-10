@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS public.app_session (
 	"token" varchar(64) NOT NULL,
 	app_id int4 NOT NULL,
 	person_id int8 NULL,
+	support_code varchar(6) null,
 	"type" varchar(1) NOT NULL,
 	access_ip varchar(20) NULL,
 	access_browser varchar(150) NULL,
