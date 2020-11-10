@@ -13,10 +13,11 @@ class AppSessionEntity extends DatabaseEntity
     protected $token;
     protected $app_id;
     protected $person_id;
+    protected $analyst_code;
     protected $type;
     protected $access_ip;
     protected $access_browser;
-    protected $create_at;
+    protected $created_at;
     protected $updated_at;
     public function setId($id)
     {
@@ -54,6 +55,16 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->person_id;
     }
+    public function getAnalystCode()
+    {
+        return $this->analyst_code;
+    }
+    public function setAnalystCode($analystCode)
+    {
+        $this->analyst_code = $analystCode;
+
+        return $this;
+    }
     public function setType($type)
     {
         $this->type = $type;
@@ -81,18 +92,18 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->access_browser;
     }
-    public function setCreateAt($createAt)
+    public function setCreatedAt($createdAt)
     {
-        $this->create_at = $createAt;
+        $this->created_at = $createdAt;
         return $this;
     }
-    public function getCreateAt($format = false)
+    public function getCreatedAt($format = false)
     {
-        if ($format && $this->create_at) {
-            return timeConverter($this->create_at, request()->country);
+        if ($format && $this->created_at) {
+            return timeConverter($this->created_at, request()->country);
         }
 
-        return $this->create_at;
+        return $this->created_at;
     }
     public function setUpdatedAt($updateAt)
     {
@@ -113,10 +124,11 @@ class AppSessionEntity extends DatabaseEntity
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
             'person_id' => $this->getPersonId(),
+            'analyst_code' => $this->getAnalystCode(),
             'type' => $this->getType(),
             'access_ip' => $this->getAccessIp(),
             'access_browser' => $this->getAccessBrowser(),
-            'create_at' => $this->getCreateAt(),
+            'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
         ];
     }
