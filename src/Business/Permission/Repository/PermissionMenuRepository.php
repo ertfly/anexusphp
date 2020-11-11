@@ -84,4 +84,32 @@ class PermissionMenuRepository
 
         return $pagination;
     }
+
+    /**
+     * @param string $modules
+     * @param int $app
+     * @return PermissionMenuEntity[]
+     */
+    public static function byModules(string $modules, $app)
+    {
+        $db = Database::getInstance();
+
+        if (trim($modules) == '') {
+            return [];
+        }
+
+        $regs = $db->query(
+            'select 
+            * from 
+            ' . PermissionMenuEntity::TABLE . ' 
+            where trash is false and 
+            module_id in(' . $modules . ') and 
+            app = :app',
+            [
+                'app' => $app
+            ]
+        )->fetchAll(PDO::FETCH_CLASS, PermissionMenuEntity::class);
+
+        return $regs;
+    }
 }

@@ -72,4 +72,21 @@ class AuthfastPermissionRepository
 
         return $pagination;
     }
+
+    /**
+     * Retorna um registro do banco pelo id do Authfast
+     * 
+     * @param integer|null $authfastId
+     * @return AuthfastPermissionEntity[]
+     */
+    public static function byAuthfastId(?int $authfastId)
+    {
+        $db = Database::getInstance();
+        $regs = $db->query('select * from ' . AuthfastPermissionEntity::TABLE . ' where authfast_id = :authfastId', ['authfastId' => (int)$authfastId])->fetchAll(PDO::FETCH_CLASS, AuthfastPermissionEntity::class);
+        if (empty($regs)) {
+            return [new AuthfastPermissionEntity()];
+        }
+
+        return $regs;
+    }
 }

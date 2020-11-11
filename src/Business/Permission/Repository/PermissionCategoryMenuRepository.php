@@ -85,4 +85,27 @@ class PermissionCategoryMenuRepository
 
         return $pagination;
     }
+
+    /**
+     * @param string $list
+     * @return PermissionCategoryMenuEntity[]
+     */
+    public static function byIdList($list)
+    {
+        $db = Database::getInstance();
+
+        if (trim($list) == '') {
+            return [];
+        }
+
+        $regs = $db->query(
+            'select 
+            * from 
+            ' . PermissionCategoryMenuEntity::TABLE . ' 
+            where trash is false and 
+            id in(' . $list . ')'
+        )->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
+
+        return $regs;
+    }
 }
