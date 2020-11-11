@@ -97,27 +97,4 @@ class PermissionModuleRepository
         $regs = implode(',', array_keys($regs));
         return $regs;
     }
-
-    /**
-     * @param AuthfastEntity $authfast
-     * @param int $moduleId
-     * @return AuthfastPermissionEntity
-     */
-    public static function byAuthfastAndModule(AuthfastEntity $authfast, $moduleId)
-    {
-        $db = Database::getInstance();
-
-        $reg = $db->query(
-            'select * from 
-        ' . AuthfastPermissionEntity::TABLE . ' 
-        where authfast_id = :authfast_id and module_id = :module_id',
-            ['authfast_id' => $authfast->getId(), 'module_id' => $moduleId]
-        )->fetchObject(AuthfastPermissionEntity::class);
-
-        if ($reg === false) {
-            return new AuthfastPermissionEntity;
-        }
-
-        return $reg;
-    }
 }

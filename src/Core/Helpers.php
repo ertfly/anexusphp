@@ -4,7 +4,7 @@ use AnexusPHP\Business\App\Constant\AppTypeConstant;
 use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
-use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
+use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
 use AnexusPHP\Core\Session;
@@ -208,7 +208,7 @@ function is_logged(){
  */
 function verifyPermission(int $module, int $event): bool
 {
-    $module = PermissionModuleRepository::byAuthfastAndModule(request()->sid->getPerson(), $module);
+    $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getPerson(), $module);
 
     return in_array($event, explode(',', (string)$module->getEvents()));
 }

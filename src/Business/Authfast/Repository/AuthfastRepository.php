@@ -51,7 +51,7 @@ class AuthfastRepository
     public static function all()
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . AuthfastEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
+        $regs = $db->query('select * from ' . AuthfastEntity::TABLE . ' ')->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
 
         return $regs;
     }
@@ -71,18 +71,18 @@ class AuthfastRepository
         $db = Database::getInstance();
 
         $bind = array();
-        $where = " a.trash = false ";
+        $where = "";
 
-        // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
-        //     //$bind['name'] = $filters['search'];
-        // }
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and upper(concat(a.firstname, ' ', a.lastname)) like upper('%'||:name||'%') ";
+            $bind['name'] = $filters['search'];
+        }
 
-        $total = $db->query('select count(1) as total from ' . AuthfastEntity::TABLE . ' a where ' . $where, $bind)->fetch();
+        $total = $db->query('select count(1) as total from ' . AuthfastEntity::TABLE . ' a ' . $where, $bind)->fetch();
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . AuthfastEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
+        $regs = $db->query('select a.* from ' . AuthfastEntity::TABLE . ' a ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
 
         $pagination->setRows($regs);
 
