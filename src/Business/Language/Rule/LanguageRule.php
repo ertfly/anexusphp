@@ -15,7 +15,7 @@ class LanguageRule
         }
         $record->save($db, [
             'id' => $record->getId(),
-            'region' => $record->getRegionCountryId(),
+            'region_country_id' => $record->getRegionCountryId(),
             'screen_id' => $record->getScreenId()
         ]);
     }
