@@ -25,7 +25,6 @@ class Router extends SimpleRouter
         unset($scanDir[1]);
         $scanDir = array_values($scanDir);
 
-
         $j = count($scanDir);
         for ($i = 0; $i < $j; $i++) {
             require_once PATH_ROUTES . $app . DS . $scanDir[$i];

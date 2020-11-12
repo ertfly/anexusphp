@@ -13,6 +13,8 @@ class AuthfastEntity extends DatabaseEntity
 	private $lastname;
 	private $username;
 	private $email;
+	private $photo;
+	private $banner;
 	private $created_at;
 	private $updated_at;
 	private $expired_at;

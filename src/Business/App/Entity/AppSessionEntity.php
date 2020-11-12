@@ -5,6 +5,7 @@ namespace AnexusPHP\Business\App\Entity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\Session;
 
 class AppSessionEntity extends DatabaseEntity
 {
@@ -158,6 +159,10 @@ class AppSessionEntity extends DatabaseEntity
      */
     public function isLogged()
     {
+        if (Session::item('manager')) {
+            return true;
+        }
+        
         $person = $this->getPerson();
         if (is_null($person->getId()) || strtotime(date('Y-m-d H:i:s')) > strtotime($person->getExpiredAt())) {
             return false;
