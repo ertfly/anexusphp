@@ -107,6 +107,7 @@ class ApiEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            'authfast_id' => $this->getAuthfastId(),
             'name' => $this->getName(),
             'img_logo' => $this->getImgLogo(),
             'terms_privacy' => $this->getTermsPrivacy(),

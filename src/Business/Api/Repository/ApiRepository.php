@@ -48,9 +48,9 @@ class ApiRepository
             $bind['name'] = $filters['search'];
         }
 
-        if (isset($filters['code']) && trim($filters['code']) != '') {
-            $where .= " code like :code ";
-            $bind['code'] = $filters['code'];
+        if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
+            $where .= " authfast_id = :authfast_id ";
+            $bind['authfast_id'] = $filters['authfast_id'];
         }
 
         $total = $db->query('select count(1) as total from ' . ApiEntity::TABLE . ' a where ' . $where, $bind)->fetch();
