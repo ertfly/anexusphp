@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AuthfastPermissionEntity extends DatabaseEntity {
@@ -40,10 +41,13 @@ class AuthfastPermissionEntity extends DatabaseEntity {
 	}
 	public function toArray(){
 		return array(
-'id' => $this->getId(),
-'authfast_id' => $this->getAuthfastId(),
-'module_id' => $this->getModuleId(),
-'events' => $this->getEvents()
+			'authfast_id' => $this->getAuthfastId(),
+			'module_id' => $this->getModuleId(),
+			'events' => $this->getEvents()
 		);
+	}
+	public function getAuthfast()
+	{
+		return AuthfastRepository::byId($this->getAuthfastId());
 	}
 }

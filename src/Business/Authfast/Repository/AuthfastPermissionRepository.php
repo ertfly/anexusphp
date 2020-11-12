@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Authfast\Repository;
 
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
 
 use AnexusPHP\Core\Database;
@@ -71,5 +72,45 @@ class AuthfastPermissionRepository
         $pagination->setRows($regs);
 
         return $pagination;
+    }
+
+    /**
+     * Retorna um registro do banco pelo id do Authfast
+     * 
+     * @param integer|null $authfastId
+     * @return AuthfastPermissionEntity[]
+     */
+    public static function byAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+        $regs = $db->query('select * from ' . AuthfastPermissionEntity::TABLE . ' where authfast_id = :authfastId', ['authfastId' => (int)$authfast->getId()])->fetchAll(PDO::FETCH_CLASS, AuthfastPermissionEntity::class);
+        if (empty($regs)) {
+            return [new AuthfastPermissionEntity()];
+        }
+
+        return $regs;
+    }
+
+    /**
+     * @param AuthfastEntity $authfast
+     * @param int $moduleId
+     * @return AuthfastPermissionEntity
+     */
+    public static function byAuthfastAndModule(AuthfastEntity $authfast, $moduleId)
+    {
+        $db = Database::getInstance();
+
+        $reg = $db->query(
+            'select * from 
+        ' . AuthfastPermissionEntity::TABLE . ' 
+        where authfast_id = :authfast_id and module_id = :module_id',
+            ['authfast_id' => $authfast->getId(), 'module_id' => $moduleId]
+        )->fetchObject(AuthfastPermissionEntity::class);
+
+        if ($reg === false) {
+            return new AuthfastPermissionEntity;
+        }
+
+        return $reg;
     }
 }

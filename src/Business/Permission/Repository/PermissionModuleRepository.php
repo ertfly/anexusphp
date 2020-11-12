@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Business\Permission\Repository;
 
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 
 use AnexusPHP\Core\Database;
@@ -71,5 +73,28 @@ class PermissionModuleRepository
         $pagination->setRows($regs);
 
         return $pagination;
+    }
+
+    /**
+     * @param AuthfastEntity $authfast
+     * @return string
+     */
+    public static function byAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+
+        $regs = $db->query(
+            'select module_id from 
+        ' . AuthfastPermissionEntity::TABLE . ' 
+        where authfast_id = :authfast_id',
+            ['authfast_id' => $authfast->getId()]
+        )->fetchAll(PDO::FETCH_UNIQUE);
+
+        if ($regs === false) {
+            $regs = [];
+        }
+
+        $regs = implode(',', array_keys($regs));
+        return $regs;
     }
 }

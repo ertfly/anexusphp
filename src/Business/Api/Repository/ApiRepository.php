@@ -49,7 +49,7 @@ class ApiRepository
         }
 
         if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
-            $where .= " authfast_id = :authfast_id ";
+            $where .= " authfast_id =` :authfast_id ";
             $bind['authfast_id'] = $filters['authfast_id'];
         }
 
