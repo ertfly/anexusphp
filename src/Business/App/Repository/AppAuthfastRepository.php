@@ -10,6 +10,23 @@ use PDO;
 class AppAuthfastRepository
 {
     /**
+     * Retorna um registro do banco pelo id
+     *
+     * @param integer|null $id
+     * @return AppAuthfastEntity
+     */
+    public static function byId(?int $id)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppAuthfastEntity::class);
+        if ($reg === false) {
+            return new AppAuthfastEntity();
+        }
+
+        return $reg;
+    }
+
+    /**
      * Retorna um registro do banco pelo authfast id
      * 
      * @param string|null $id
@@ -72,7 +89,7 @@ class AppAuthfastRepository
         $db = Database::getInstance();
 
         $bind = [];
-        $where = "";
+        $where = "1 = 1 ";
 
         // if (isset($filters['search']) && trim($filters['search']) != '') {
         //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
@@ -80,7 +97,7 @@ class AppAuthfastRepository
         // }
 
         if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
-            $where .= " a.app_id = :app_id ";
+            $where .= " and a.app_id = :app_id ";
             $bind['app_id'] = $filters['app_id'];
         }
 
