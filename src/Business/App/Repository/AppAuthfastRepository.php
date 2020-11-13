@@ -91,10 +91,10 @@ class AppAuthfastRepository
         $bind = [];
         $where = "1 = 1 ";
 
-        // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
-        //     //$bind['name'] = $filters['search'];
-        // }
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and a.authfast_id = (select b.id from authfast b where b.code like '%'||:code||'%' limit 1) ";
+            $bind['code'] = $filters['search'];
+        }
 
         if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
             $where .= " and a.app_id = :app_id ";
