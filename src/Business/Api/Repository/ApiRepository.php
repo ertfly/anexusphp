@@ -18,12 +18,12 @@ class ApiRepository
     public static function byId(?string $id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject($className);
-        if ($reg === false) {
-            return new ApiEntity();
+        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject($className);
+        if ($row === false) {
+            return new $className();
         }
 
-        return $reg;
+        return $row;
     }
 
     /**

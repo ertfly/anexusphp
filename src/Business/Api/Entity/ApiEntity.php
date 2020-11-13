@@ -100,8 +100,12 @@ class ApiEntity extends DatabaseEntity
         $this->expired_at = $expired_at;
         return $this;
     }
-    public function getExpiredAt()
+    public function getExpiredAt($format = false)
     {
+        if ($format && $this->expired_at) {
+            return timeConverter($this->expired_at, request()->country);
+        }
+
         return $this->expired_at;
     }
     public function toArray()
@@ -117,5 +121,4 @@ class ApiEntity extends DatabaseEntity
             'expired_at' => $this->getExpiredAt(),
         ];
     }
-
 }
