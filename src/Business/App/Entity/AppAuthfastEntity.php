@@ -51,7 +51,7 @@ class AppAuthfastEntity extends DatabaseEntity
 	public function getPerson()
 	{
 		if(!$this->person){
-			$this->person = AuthfastRepository::byCode($this->authfast_id);
+			$this->person = AuthfastRepository::byId($this->authfast_id);
 		}
 
 		return $this->person;
