@@ -15,10 +15,10 @@ class ApiRepository
      * @param string|null $id
      * @return ApiEntity
      */
-    public static function byId(?string $id)
+    public static function byId(?string $id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(ApiEntity::class);
+        $reg = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject($className);
         if ($reg === false) {
             return new ApiEntity();
         }
@@ -27,39 +27,53 @@ class ApiRepository
     }
 
     /**
-     * Retorna os registro do banco com paginacao
-     * 
+     * Undocumented function
+     *
+     * @return ApiEntity[]
+     */
+    public static function all($className = ApiEntity::class)
+    {
+        $db = Database::getInstance();
+        $rows = $db->query('select * from ' . ApiEntity::TABLE)->fetchAll(PDO::FETCH_CLASS, $className);
+
+        return $rows;
+    }
+
+
+    /**
+     * Undocumented function
+     *
      * @param string $url
      * @param array $filters
-     * @param int $currentPg
-     * @param string $varPg
-     * @param integer $perPg
-     * @return Pagination[]
+     * @param int $page
+     * @param string $varPage
+     * @param int $perPage
+     * @param string $className
+     * @return Pagination
      */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
+    public static function allWithPagination($url, $filters = array(), $page, $varPage = 'pg', $perPage = 12, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
 
         $bind = array();
-        $where = "";
+        $where = ' 1=1 ';
 
-        if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
-            $bind['name'] = $filters['search'];
-        }
-
-        if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
-            $where .= " authfast_id = :authfast_id ";
-            $bind['authfast_id'] = $filters['authfast_id'];
+        if (isset($filters['person_id']) && trim($filters['person_id']) != '') {
+            $where .= " and a.person_id = :person_id ";
+            $bind['person_id'] = (int)$filters['person_id'];
         }
 
         $total = $db->query('select count(1) as total from ' . ApiEntity::TABLE . ' a where ' . $where, $bind)->fetch();
 
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
+        $pagination = new Pagination($total['total'], $perPage, $varPage, $page, $url);
 
-        $regs = $db->query('select a.* from ' . ApiEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, ApiEntity::class);
+        $rows = $db->query('select a.* from ' . ApiEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPage . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $className);
 
-        $pagination->setRows($regs);
+        if (!$rows) {
+            return $pagination;
+        }
+
+        $pagination->setRows($rows);
 
         return $pagination;
     }
