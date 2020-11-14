@@ -54,6 +54,7 @@ class Init extends Anx implements AnxInterface
                 PATH_PUBLIC . 'uploads/index.html' => '',
                 PATH_PUBLIC . '.htaccess' => $this->getTemplate('Configuration' . DS . 'htaccess'),
                 PATH_PUBLIC . 'index.php' => $this->getTemplate('Configuration' . DS . 'index'),
+                PATH_ROOT . 'config.php' => $this->getTemplate('Configuration' . DS . 'config'),
             ];
 
             foreach ($files as $key => $value) {

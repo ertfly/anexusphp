@@ -17,6 +17,8 @@ class Cron
 
         file_put_contents(PATH_TMP . $token . '.tmp', json_encode($data));
 
+        Log::debug('/usr/bin/php ' . PATH_CRON . $command . '.php "' .  $token . '.tmp' . '" &');
+
         $handle = popen('/usr/bin/php ' . PATH_CRON . $command . '.php "' .  $token . '.tmp' . '" &', 'r');
         if ($debug) {
             $output = "";
