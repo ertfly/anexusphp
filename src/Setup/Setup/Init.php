@@ -47,6 +47,7 @@ class Init extends Anx implements AnxInterface
                 PATH_MIGRATIONS . 'data.sql' => '',
                 PATH_CACHE . '.gitkeep' => '',
                 PATH_LOGS . '.gitkeep' => '',
+                PATH_TMP . '.gitkeep' => '',
                 PATH_ROUTES . 'ErrorRoutes.php' => $this->getTemplate('Route' . DS . 'ErrorRoute'),
                 PATH_PUBLIC . 'assets/index.html' => '',
                 PATH_PUBLIC . 'uploads/index.html' => '',

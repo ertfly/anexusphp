@@ -17,6 +17,7 @@ define('PATH_ROOT', dirname(__FILE__) . DS . '..' . DS);
 define('PATH_PUBLIC', PATH_ROOT . 'public' . DS);
 define('PATH_CACHE', PATH_ROOT . 'cache' . DS);
 define('PATH_LOGS', PATH_ROOT . 'logs' . DS);
+define('PATH_TMP', PATH_ROOT . 'tmp' . DS);
 define('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);
 define('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);
 define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
