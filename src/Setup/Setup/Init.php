@@ -48,6 +48,7 @@ class Init extends Anx implements AnxInterface
                 PATH_CACHE . '.gitkeep' => '',
                 PATH_LOGS . '.gitkeep' => '',
                 PATH_TMP . '.gitkeep' => '',
+                PATH_CRON . '.gitkeep' => '',
                 PATH_ROUTES . 'ErrorRoutes.php' => $this->getTemplate('Route' . DS . 'ErrorRoute'),
                 PATH_PUBLIC . 'assets/index.html' => '',
                 PATH_PUBLIC . 'uploads/index.html' => '',
@@ -98,13 +99,13 @@ class Init extends Anx implements AnxInterface
             exit(chr(10) . 'Base tables error' . "\033[0m" . chr(10));
         }
 
-        $flags = scandir(Anx::PATH_ANX_SOURCE.'Setup'.DS.'Base'.DS.'Flags');
+        $flags = scandir(Anx::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS . 'Flags');
         unset($flags[0]);
         unset($flags[1]);
 
         $files = [];
         foreach ($flags as $key => $value) {
-            $files += [PATH_UPLOADS.'flags'.DS.$value => file_get_contents(Anx::PATH_ANX_SOURCE.'Setup'.DS.'Base'.DS.'Flags'.DS.$value)];
+            $files += [PATH_UPLOADS . 'flags' . DS . $value => file_get_contents(Anx::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS . 'Flags' . DS . $value)];
         }
 
         foreach ($files as $key => $value) {
