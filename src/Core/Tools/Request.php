@@ -30,7 +30,7 @@ class Request
         $response = @gzdecode($response);
 
         if(!trim($response)){
-            $response = json_encode(['msg' => $oldResponse, 'acao' => 1]);
+            $response = json_decode($oldResponse, true);
             $info['http_code'] = 500;
         }
 
@@ -63,7 +63,7 @@ class Request
         $response = @gzdecode($response);
 
         if(!trim($response)){
-            $response = json_encode(['msg' => $oldResponse, 'acao' => 1]);
+            $response = json_decode($oldResponse, true);
             $info['http_code'] = 500;
         }
 
@@ -97,7 +97,7 @@ class Request
         $response = @gzdecode($response);
 
         if(!trim($response)){
-            $response = json_encode(['msg' => $oldResponse, 'acao' => 1]);
+            $response = json_decode($oldResponse, true);
             $info['http_code'] = 500;
         }
 
@@ -133,7 +133,7 @@ class Request
         $response = @gzdecode($response);
 
         if(!trim($response)){
-            $response = json_encode(['msg' => $oldResponse, 'acao' => 1]);
+            $response = json_decode($oldResponse, true);
             $info['http_code'] = 500;
         }
 
