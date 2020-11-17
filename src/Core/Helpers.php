@@ -189,10 +189,12 @@ function timeConverter(string $time, RegionCountryEntity $country)
     return Date::timeConverter($time, $country);
 }
 
-function is_logged()
-{
-    $person = request()->sid->getPerson();
+function is_logged(){
+    if (Session::item('manager')) {
+        return true;
+    }
 
+    $person = request()->sid->getAuthfast();
     if ($person->getId()) {
         if ($person->getExpiredAt() == null) {
             return true;
@@ -209,7 +211,7 @@ function is_logged()
  */
 function verifyPermission(int $module, int $event): bool
 {
-    $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getPerson(), $module);
+    $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getAuthfast(), $module);
 
     return in_array($event, explode(',', (string)$module->getEvents()));
 }
