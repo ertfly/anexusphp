@@ -30,7 +30,7 @@ class ApiKeyRepository
      * Retorna um registro do banco pela appKey
      *
      * @param string $appKey
-     * @return ApiKeyEntity
+     * @return instanceof ApiKeyEntity
      */
     public static function byAppKey($appKey, $className = ApiKeyEntity::class)
     {
