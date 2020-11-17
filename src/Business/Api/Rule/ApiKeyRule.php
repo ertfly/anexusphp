@@ -14,9 +14,10 @@ class ApiKeyRule
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
         $record
-        ->setProduction(false)
-        ->setCreatedAt(date('Y-m-d H:i:s'))
-        ->save($db);
+            ->setProduction(false)
+            ->setCreatedAt(date('Y-m-d H:i:s'))
+            ->setTrash(false)
+            ->save($db);
     }
     public static function update(ApiKeyEntity &$record)
     {
