@@ -13,7 +13,7 @@ class AppSessionEntity extends DatabaseEntity
     protected $id;
     protected $token;
     protected $app_id;
-    protected $authfast_id;
+    protected $person_id;
     protected $support_code;
     protected $type;
     protected $access_ip;
@@ -47,15 +47,15 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->app_id;
     }
-    public function setAuthfastId($authfastId)
+    public function setPersonId($person_id)
     {
-        $this->authfast_id = $authfastId;
+        $this->person_id = $person_id;
 
         return $this;
     }
-    public function getAuthfastId()
+    public function getPersonId()
     {
-        return $this->authfast_id;
+        return $this->person_id;
     }
     public function getSupportCode()
     {
@@ -125,7 +125,7 @@ class AppSessionEntity extends DatabaseEntity
         return [
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
-            'authfast_id' => $this->getAuthfastId(),
+            'person_id' => $this->getPersonId(),
             'support_code' => $this->getSupportCode(),
             'type' => $this->getType(),
             'access_ip' => $this->getAccessIp(),
@@ -150,7 +150,7 @@ class AppSessionEntity extends DatabaseEntity
     public function getAuthfast()
     {
         if (!$this->authfast) {
-            $this->authfast = AuthfastRepository::byId($this->authfast_id);
+            $this->authfast = AuthfastRepository::byId($this->person_id);
         }
         return $this->authfast;
     }
