@@ -27,12 +27,12 @@ class ApiKeyRule
         }
         $record->save($db);
     }
-    public static function destroy(ApiKeyEntity &$record)
+    public static function delete(ApiKeyEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
             throw new \Exception('Esse método deve conter um ID');
         }
-        $record->destroy($db);
+        $record->delete($db);
     }
 }

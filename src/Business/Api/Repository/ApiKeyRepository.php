@@ -18,7 +18,7 @@ class ApiKeyRepository
     public static function byId(?string $id, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject($className);
+        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
         if ($row === false) {
             return new ApiKeyEntity();
         }
@@ -35,7 +35,7 @@ class ApiKeyRepository
     public static function byAppKey($appKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $appKey])->fetchObject($className);
+        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key and trash = false limit 1', ['app_key' => $appKey])->fetchObject($className);
         if ($row === false) {
             return new $className();
         }
@@ -52,7 +52,7 @@ class ApiKeyRepository
     public static function bySecretKey($secretKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key limit 1', ['secret_key' => $secretKey])->fetchObject($className);
+        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key and trash = false limit 1', ['secret_key' => $secretKey])->fetchObject($className);
         if ($reg === false) {
             return new ApiKeyEntity();
         }
@@ -68,7 +68,7 @@ class ApiKeyRepository
     public static function all($className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
+        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where trash = false order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $rows;
     }
@@ -83,7 +83,7 @@ class ApiKeyRepository
     public static function allByApi(ApiEntity $api, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where api_id = :api_id order by id asc', ['api_id' => (int)$api->getId()])->fetchAll(PDO::FETCH_CLASS, $className);
+        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where api_id = :api_id and trash = false order by id asc', ['api_id' => (int)$api->getId()])->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $rows;
     }

@@ -115,8 +115,12 @@ class ApiKeyEntity extends DatabaseEntity
         $this->expired_at = $expired_at;
         return $this;
     }
-    public function getExpiredAt()
+    public function getExpiredAt($format = false)
     {
+        if ($format && $this->expired_at) {
+            return timeConverter($this->expired_at, request()->country);
+        }
+
         return $this->expired_at;
     }
     public function getTrash()
@@ -153,10 +157,10 @@ class ApiKeyEntity extends DatabaseEntity
 
     /**
      * @return  ApiEntity
-     */ 
+     */
     public function getApi()
     {
-        if(!$this->api){
+        if (!$this->api) {
             $this->api = ApiRepository::byId($this->api_id);
         }
         return $this->api;
