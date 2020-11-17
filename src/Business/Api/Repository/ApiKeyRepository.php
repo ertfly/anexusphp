@@ -35,7 +35,7 @@ class ApiKeyRepository
     public static function byAppKey($appKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key and trash = false limit 1', ['app_key' => $appKey])->fetchObject($className);
+        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $appKey])->fetchObject($className);
         if ($row === false) {
             return new $className();
         }
