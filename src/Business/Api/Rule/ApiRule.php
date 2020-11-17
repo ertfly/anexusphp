@@ -15,6 +15,7 @@ class ApiRule
         }
         $record
             ->setCreatedAt(date('Y-m-d H:i:s'))
+            ->setTrash(false)
             ->save($db);
     }
     public static function update(ApiEntity &$record)
