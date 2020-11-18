@@ -165,8 +165,14 @@ class AppSessionEntity extends DatabaseEntity
         }
 
         $authfast = $this->getAuthfast();
-        if (is_null($authfast->getId()) || strtotime(date('Y-m-d H:i:s')) > strtotime($authfast->getExpiredAt())) {
+        if (is_null($authfast->getId())) {
             return false;
+        }
+
+        if ($authfast->getExpiredAt()) {
+            if (strtotime(date('Y-m-d H:i:s')) > strtotime($authfast->getExpiredAt())) {
+                return false;
+            }
         }
 
         return true;
