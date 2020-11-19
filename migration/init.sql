@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS public.app_session (
 	support_code varchar(6) null,
 	"type" varchar(1) NOT NULL,
 	access_ip varchar(20) NULL,
-	access_browser varchar(150) NULL,
+	access_browser varchar(250) NULL,
 	created_at timestamp NOT NULL,
 	updated_at timestamp NOT NULL,
 	CONSTRAINT app_session_pkey PRIMARY KEY (token)
