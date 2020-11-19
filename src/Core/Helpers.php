@@ -35,7 +35,7 @@ function url_absolute(?string $name = null, $parameters = null, ?array $getParam
 {
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
     $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
-    return rtrim($protocol . $domainName . url($name, $parameters, $getParams),'/');
+    return rtrim($protocol . $domainName . url($name, $parameters, $getParams), '/');
 }
 
 /**
@@ -190,10 +190,13 @@ function timeConverter(string $time, RegionCountryEntity $country)
 }
 
 function is_logged(){
-    $person = request()->sid->getPerson();
+    if (Session::item('manager')) {
+        return true;
+    }
 
-    if($person->getId()){
-        if($person->getExpiredAt() == null){
+    $person = request()->sid->getAuthfast();
+    if ($person->getId()) {
+        if ($person->getExpiredAt() == null) {
             return true;
         }
     }
@@ -208,7 +211,16 @@ function is_logged(){
  */
 function verifyPermission(int $module, int $event): bool
 {
-    $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getPerson(), $module);
+    $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getAuthfast(), $module);
 
     return in_array($event, explode(',', (string)$module->getEvents()));
+}
+
+function GUID()
+{
+    if (function_exists('com_create_guid') === true) {
+        return trim(com_create_guid(), '{}');
+    }
+
+    return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 }

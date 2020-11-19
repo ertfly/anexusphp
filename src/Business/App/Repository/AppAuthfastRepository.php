@@ -3,12 +3,31 @@
 namespace AnexusPHP\Business\App\Repository;
 
 use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class AppAuthfastRepository
 {
+    /**
+     * Retorna um registro do banco pelo id
+     *
+     * @param integer|null $id
+     * @return AppAuthfastEntity
+     */
+    public static function byId(?int $id)
+    {
+        $db = Database::getInstance();
+        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppAuthfastEntity::class);
+        if ($row === false) {
+            return new AppAuthfastEntity();
+        }
+
+        return $row;
+    }
+
     /**
      * Retorna um registro do banco pelo authfast id
      * 
@@ -18,12 +37,30 @@ class AppAuthfastRepository
     public static function byAuthfastId(?string $authfastId)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id limit 1', ['authfast_id' => $authfastId])->fetchObject(AppAuthfastEntity::class);
-        if ($reg === false) {
+        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id limit 1', ['authfast_id' => $authfastId])->fetchObject(AppAuthfastEntity::class);
+        if ($row === false) {
             return new AppAuthfastEntity();
         }
 
-        return $reg;
+        return $row;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AppEntity $app
+     * @param AuthfastEntity $authfast
+     * @return AppAuthfastEntity
+     */
+    public static function byAppAuthfast(AppEntity $app, AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where app_id = :app_id and authfast_id = :authfast_id limit 1', ['app_id' => $app->getId(), 'authfast_id' => $authfast->getId()])->fetchObject(AppAuthfastEntity::class);
+        if ($row === false) {
+            return new AppAuthfastEntity();
+        }
+
+        return $row;
     }
 
     /**
@@ -36,12 +73,12 @@ class AppAuthfastRepository
     public static function byAuthfastIdAndAppId(string $authfastId, int $app)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id and app_id = :app_id limit 1', ['authfast_id' => $authfastId, 'app_id' => $app])->fetchObject(AppAuthfastEntity::class);
-        if ($reg === false) {
+        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id and app_id = :app_id limit 1', ['authfast_id' => $authfastId, 'app_id' => $app])->fetchObject(AppAuthfastEntity::class);
+        if ($row === false) {
             return new AppAuthfastEntity();
         }
 
-        return $reg;
+        return $row;
     }
 
     /**
@@ -52,9 +89,9 @@ class AppAuthfastRepository
     public static function all()
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
+        $rows = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
 
-        return $regs;
+        return $rows;
     }
 
     /**
@@ -72,15 +109,15 @@ class AppAuthfastRepository
         $db = Database::getInstance();
 
         $bind = [];
-        $where = "";
+        $where = "1 = 1 ";
 
-        // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
-        //     //$bind['name'] = $filters['search'];
-        // }
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and a.authfast_id = (select b.id from authfast b where b.code like '%'||:code||'%' limit 1) ";
+            $bind['code'] = $filters['search'];
+        }
 
         if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
-            $where .= " a.app_id = :app_id ";
+            $where .= " and a.app_id = :app_id ";
             $bind['app_id'] = $filters['app_id'];
         }
 
@@ -88,9 +125,9 @@ class AppAuthfastRepository
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . AppAuthfastEntity::TABLE . ' a where ' . $where . ' order by a.authfast_id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
+        $rows = $db->query('select a.* from ' . AppAuthfastEntity::TABLE . ' a where ' . $where . ' order by a.authfast_id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
 
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }

@@ -15,44 +15,44 @@ class ApiKeyRepository
      * @param string|null $id
      * @return ApiKeyEntity
      */
-    public static function byId(?string $id)
+    public static function byId(?string $id, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(ApiKeyEntity::class);
-        if ($reg === false) {
+        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
+        if ($row === false) {
             return new ApiKeyEntity();
         }
 
-        return $reg;
+        return $row;
     }
 
     /**
-     * Retorna um registro do banco pela secret key
+     * Retorna um registro do banco pela appKey
      *
-     * @param ApiKeyEntity $apiKeyEntity
+     * @param string $appKey
      * @return instanceof ApiKeyEntity
      */
-    public static function byAppKey(ApiKeyEntity $apiKeyEntity, $class)
+    public static function byAppKey($appKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $apiKeyEntity->getAppKey()])->fetchObject($class);
-        if ($reg === false) {
-            return new $class();
+        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $appKey])->fetchObject($className);
+        if ($row === false) {
+            return new $className();
         }
 
-        return $reg;
+        return $row;
     }
 
     /**
      * Retorna um registro do banco pela secret key
      *
-     * @param ApiKeyEntity $apiKeyEntity
+     * @param string $secretKey
      * @return ApiKeyEntity
      */
-    public static function bySecretKey(ApiKeyEntity $apiKeyEntity)
+    public static function bySecretKey($secretKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key limit 1', ['secret_key' => $apiKeyEntity->getSecretKey()])->fetchObject(ApiKeyEntity::class);
+        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key and trash = false limit 1', ['secret_key' => $secretKey])->fetchObject($className);
         if ($reg === false) {
             return new ApiKeyEntity();
         }
@@ -65,26 +65,26 @@ class ApiKeyRepository
      *
      * @return ApiKeyEntity[]
      */
-    public static function all()
+    public static function all($className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . ApiKeyEntity::TABLE . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, ApiKeyEntity::class);
+        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where trash = false order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
-        return $regs;
+        return $rows;
     }
 
 
     /**
      * Retorna todos os registros do banco por aplicativo
      *
-     * @param ApiEntity $application
+     * @param ApiEntity $api
      * @return ApiKeyEntity[]
      */
-    public static function allByApplication(ApiEntity $application)
+    public static function allByApi(ApiEntity $api, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where api_id = :api_id order by id asc', ['api_id' => (int)$application->getId()])->fetchAll(PDO::FETCH_CLASS, ApiKeyEntity::class);
+        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where api_id = :api_id and trash = false order by id asc', ['api_id' => (int)$api->getId()])->fetchAll(PDO::FETCH_CLASS, $className);
 
-        return $regs;
+        return $rows;
     }
 }

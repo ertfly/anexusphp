@@ -21,7 +21,7 @@ class Template
 
         if (is_logged()) {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_IN, request()->country);
-            $data['account'] = request()->sid->getPerson();
+            $data['account'] = request()->sid->getAuthfast();
             return request()->view->render('include/headerIn', $data);
         } else {
             // $data['lang'] = Lang::loadPage(IdiomaTelaConstante::HEADER_OUT, request()->country);

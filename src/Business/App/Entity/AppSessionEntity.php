@@ -13,7 +13,7 @@ class AppSessionEntity extends DatabaseEntity
     protected $id;
     protected $token;
     protected $app_id;
-    protected $person_id;
+    protected $authfast_id;
     protected $support_code;
     protected $type;
     protected $access_ip;
@@ -47,14 +47,15 @@ class AppSessionEntity extends DatabaseEntity
     {
         return $this->app_id;
     }
-    public function setPersonId($personId)
+    public function setAuthfastId($authfastId)
     {
-        $this->person_id = $personId;
+        $this->authfast_id = $authfastId;
+
         return $this;
     }
-    public function getPersonId()
+    public function getAuthfastId()
     {
-        return $this->person_id;
+        return $this->authfast_id;
     }
     public function getSupportCode()
     {
@@ -124,7 +125,7 @@ class AppSessionEntity extends DatabaseEntity
         return [
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
-            'person_id' => $this->getPersonId(),
+            'authfast_id' => $this->getAuthfastId(),
             'support_code' => $this->getSupportCode(),
             'type' => $this->getType(),
             'access_ip' => $this->getAccessIp(),
@@ -139,19 +140,19 @@ class AppSessionEntity extends DatabaseEntity
      *
      * @var AuthfastEntity
      */
-    protected $person;
+    protected $authfast;
 
     /**
      * Undocumented function
      *
      * @return AuthfastEntity
      */
-    public function getPerson()
+    public function getAuthfast()
     {
-        if (!$this->person) {
-            $this->person = AuthfastRepository::byId($this->person_id);
+        if (!$this->authfast) {
+            $this->authfast = AuthfastRepository::byId($this->authfast_id);
         }
-        return $this->person;
+        return $this->authfast;
     }
 
     /**
@@ -162,10 +163,16 @@ class AppSessionEntity extends DatabaseEntity
         if (Session::item('manager')) {
             return true;
         }
-        
-        $person = $this->getPerson();
-        if (is_null($person->getId()) || strtotime(date('Y-m-d H:i:s')) > strtotime($person->getExpiredAt())) {
+
+        $authfast = $this->getAuthfast();
+        if (is_null($authfast->getId())) {
             return false;
+        }
+
+        if ($authfast->getExpiredAt()) {
+            if (strtotime(date('Y-m-d H:i:s')) > strtotime($authfast->getExpiredAt())) {
+                return false;
+            }
         }
 
         return true;

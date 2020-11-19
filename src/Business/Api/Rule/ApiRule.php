@@ -15,6 +15,7 @@ class ApiRule
         }
         $record
             ->setCreatedAt(date('Y-m-d H:i:s'))
+            ->setTrash(false)
             ->save($db);
     }
     public static function update(ApiEntity &$record)
@@ -27,12 +28,12 @@ class ApiRule
             ->setUpdatedAt(date('Y-m-d H:i:s'))
             ->save($db);
     }
-    public static function destroy(ApiEntity &$record)
+    public static function delete(ApiEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
             throw new \Exception('Esse método deve conter um ID');
         }
-        $record->destroy($db);
+        $record->delete($db);
     }
 }

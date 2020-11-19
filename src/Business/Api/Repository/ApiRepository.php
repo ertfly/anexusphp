@@ -18,7 +18,7 @@ class ApiRepository
     public static function byId(?string $id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject($className);
+        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
         if ($row === false) {
             return new $className();
         }
@@ -34,7 +34,7 @@ class ApiRepository
     public static function all($className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiEntity::TABLE)->fetchAll(PDO::FETCH_CLASS, $className);
+        $rows = $db->query('select * from ' . ApiEntity::TABLE.' where trash = false')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $rows;
     }
@@ -56,11 +56,16 @@ class ApiRepository
         $db = Database::getInstance();
 
         $bind = array();
-        $where = ' 1=1 ';
+        $where = ' trash = false ';
 
-        if (isset($filters['person_id']) && trim($filters['person_id']) != '') {
-            $where .= " and a.person_id = :person_id ";
-            $bind['person_id'] = (int)$filters['person_id'];
+        if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
+            $where .= " and authfast_id = :authfast_id ";
+            $bind['authfast_id'] = $filters['authfast_id'];
+        }
+
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
+            $bind['name'] = $filters['search'];
         }
 
         $total = $db->query('select count(1) as total from ' . ApiEntity::TABLE . ' a where ' . $where, $bind)->fetch();

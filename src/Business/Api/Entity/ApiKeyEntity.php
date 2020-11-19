@@ -19,6 +19,7 @@ class ApiKeyEntity extends DatabaseEntity
     protected $created_at;
     protected $updated_at;
     protected $expired_at;
+    protected $trash;
     public function setId($id)
     {
         $this->id = $id;
@@ -114,9 +115,23 @@ class ApiKeyEntity extends DatabaseEntity
         $this->expired_at = $expired_at;
         return $this;
     }
-    public function getExpiredAt()
+    public function getExpiredAt($format = false)
     {
+        if ($format && $this->expired_at) {
+            return timeConverter($this->expired_at, request()->country);
+        }
+
         return $this->expired_at;
+    }
+    public function getTrash()
+    {
+        return $this->trash;
+    }
+    public function setTrash($trash)
+    {
+        $this->trash = $trash;
+
+        return $this;
     }
     public function toArray()
     {
@@ -131,6 +146,7 @@ class ApiKeyEntity extends DatabaseEntity
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
             'expired_at' => $this->getExpiredAt(),
+            'trash' => $this->getTrash(),
         ];
     }
 
@@ -141,10 +157,10 @@ class ApiKeyEntity extends DatabaseEntity
 
     /**
      * @return  ApiEntity
-     */ 
+     */
     public function getApi()
     {
-        if(!$this->api){
+        if (!$this->api) {
             $this->api = ApiRepository::byId($this->api_id);
         }
         return $this->api;

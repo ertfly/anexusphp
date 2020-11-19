@@ -44,6 +44,7 @@ class Help extends Anx implements AnxInterface
         echo "\033[0;32m" . "  create-biz-module" . "\033[0m" . "\tCreate a new business module folder within an existing business" . chr(10);
         echo "\033[0;32m" . "  create-biz-entity" . "\033[0m" . "\tCreate entity, repository and rule files within an existing business module" . chr(10);
         echo "\033[0;32m" . "  create-panel" . "\033[0m" . "\t\tCreate a panel with routes and authfast login" . chr(10);
-        echo "\033[0;32m" . "  country" . "\033[0m" . "\t\tInstall or Update existing countries" . chr(10) . chr(10);
+        echo "\033[0;32m" . "  country" . "\033[0m" . "\t\tInstall or Update existing countries" . chr(10);
+        echo "\033[0;32m" . "  create-cron" . "\033[0m" . "\t\tCreates a php file that will run in the background" . chr(10). chr(10);
     }
 }

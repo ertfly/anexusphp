@@ -33,10 +33,10 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byLocale(?RegionCountryEntity $country, $className): RegionCountryEntity
+    public static function byLocale($locale, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $country->getLocale()])->fetchObject($className);
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }

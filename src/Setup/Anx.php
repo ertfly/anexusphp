@@ -24,7 +24,8 @@ class Anx
             'create-biz-entity' => '\AnexusPHP\Setup\Setup\BizEntity',
             'create-panel' => '\AnexusPHP\Setup\Setup\Panel',
             'create-route' => '\AnexusPHP\Setup\Setup\Route',
-            'country' => '\AnexusPHP\Setup\Setup\Country'
+            'country' => '\AnexusPHP\Setup\Setup\Country',
+            'create-cron' => '\AnexusPHP\Setup\Setup\Cron',
         ];
 
         $coreFunctions = ['create-biz-module', 'create-biz-entity'];
