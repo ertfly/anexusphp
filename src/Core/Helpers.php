@@ -224,6 +224,18 @@ function is_logged()
     return false;
 }
 
+function isLoggedApi()
+{
+    $person = request()->sid->getAuthfast();
+    if ($person->getId()) {
+        if ($person->getExpiredAt() == null) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 /**
  * @param integer $module
  * @param integer $event
