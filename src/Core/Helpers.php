@@ -142,13 +142,13 @@ function redirect(string $url, ?int $code = null): void
  */
 function responseApi(array $data, $code = 0, $msg = 'Success')
 {
-    return [
+    return response()->json([
         'response' => [
             'code' => $code,
             'msg' => $msg,
         ],
         'data' => $data,
-    ];
+    ]);
 }
 
 //Retona a url do asset em questão
