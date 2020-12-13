@@ -132,6 +132,25 @@ function redirect(string $url, ?int $code = null): void
     response()->redirect($url);
 }
 
+/**
+ * Undocumented function
+ *
+ * @param array $data
+ * @param integer $code
+ * @param string $msg
+ * @return array
+ */
+function responseApi(array $data, $code = 0, $msg = 'Success')
+{
+    return [
+        'response' => [
+            'code' => $code,
+            'msg' => $msg,
+        ],
+        'data' => $data,
+    ];
+}
+
 //Retona a url do asset em questão
 function asset(string $path, $time = true)
 {
@@ -189,7 +208,8 @@ function timeConverter(string $time, RegionCountryEntity $country)
     return Date::timeConverter($time, $country);
 }
 
-function is_logged(){
+function is_logged()
+{
     if (Session::item('manager')) {
         return true;
     }
