@@ -11,7 +11,7 @@ class AppRepository
      * Retorna um registro do banco pelo id
      *
      * @param integer|null $id
-     * @return AppEntity
+     * @return mixed
      */
     public static function byId(?int $id, $className = AppEntity::class)
     {
