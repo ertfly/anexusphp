@@ -16,8 +16,9 @@ use Pecee\Http\Url;
 use Pecee\Http\Response;
 use Pecee\Http\Request;
 
-$_JSON = file_get_contents('php://input');
-$_JSON = @json_decode($_JSON, true);
+$json = file_get_contents('php://input');
+$json = @json_decode($json, true);
+$GLOBALS['json'] = $json;
 
 /**
  * @param string|null $name
@@ -112,8 +113,8 @@ function input_json($index, $defaultValue = null)
 {
     $value = $defaultValue;
     if ($index !== null) {
-        if (isset($_JSON[$index]) && trim($_JSON[$index]) != '') {
-            $value = trim($_JSON[$index]);
+        if (isset($GLOBALS['json'][$index]) && trim($GLOBALS['json'][$index]) != '') {
+            $value = trim($GLOBALS['json'][$index]);
         }
     }
     return $value;
