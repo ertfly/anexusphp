@@ -160,7 +160,7 @@ function responseApi(array $data, $code = 0, $msg = 'Success')
  */
 function responseApiError(\Exception $e)
 {
-    $code = 1000;
+    $code = -1;
     if ($e->getCode() > 0) {
         $code = $e->getCode();
     }
