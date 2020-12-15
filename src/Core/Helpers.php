@@ -152,6 +152,27 @@ function responseApi(array $data, $code = 0, $msg = 'Success')
     ]);
 }
 
+/**
+ * Undocumented function
+ *
+ * @param \Exception $e
+ * @return array
+ */
+function responseApiError(\Exception $e)
+{
+    $code = 1000;
+    if ($e->getCode() > 0) {
+        $code = $e->getCode();
+    }
+    return response()->json([
+        'response' => [
+            'code' => $code,
+            'msg' => $e->getMessage(),
+        ],
+        'data' => [],
+    ]);
+}
+
 //Retona a url do asset em questão
 function asset(string $path, $time = true)
 {
