@@ -113,8 +113,12 @@ function input_json($index, $defaultValue = null)
 {
     $value = $defaultValue;
     if ($index !== null) {
-        if (isset($GLOBALS['json'][$index]) && trim($GLOBALS['json'][$index]) != '') {
-            $value = trim($GLOBALS['json'][$index]);
+        if (isset($GLOBALS['json'][$index])) {
+            if(is_array($GLOBALS['json'][$index])){
+                $value = $GLOBALS['json'][$index];
+            }elseif(trim($GLOBALS['json'][$index]) != ''){
+                $value = trim($GLOBALS['json'][$index]);
+            }
         }
     }
     return $value;
