@@ -16,8 +16,9 @@ use Pecee\Http\Url;
 use Pecee\Http\Response;
 use Pecee\Http\Request;
 
-$_JSON = file_get_contents('php://input');
-$_JSON = @json_decode($_JSON, true);
+$json = file_get_contents('php://input');
+$json = @json_decode($json, true);
+$GLOBALS['json'] = $json;
 
 /**
  * @param string|null $name
@@ -112,8 +113,12 @@ function input_json($index, $defaultValue = null)
 {
     $value = $defaultValue;
     if ($index !== null) {
-        if (isset($_JSON[$index]) && trim($_JSON[$index]) != '') {
-            $value = trim($_JSON[$index]);
+        if (isset($GLOBALS['json'][$index])) {
+            if(is_array($GLOBALS['json'][$index])){
+                $value = $GLOBALS['json'][$index];
+            }elseif(trim($GLOBALS['json'][$index]) != ''){
+                $value = trim($GLOBALS['json'][$index]);
+            }
         }
     }
     return $value;
@@ -130,6 +135,46 @@ function redirect(string $url, ?int $code = null): void
     }
 
     response()->redirect($url);
+}
+
+/**
+ * Undocumented function
+ *
+ * @param array $data
+ * @param integer $code
+ * @param string $msg
+ * @return array
+ */
+function responseApi(array $data, $code = 0, $msg = 'Success')
+{
+    return response()->json([
+        'response' => [
+            'code' => $code,
+            'msg' => $msg,
+        ],
+        'data' => $data,
+    ]);
+}
+
+/**
+ * Undocumented function
+ *
+ * @param \Exception $e
+ * @return array
+ */
+function responseApiError(\Exception $e)
+{
+    $code = -1;
+    if ($e->getCode() > 0) {
+        $code = $e->getCode();
+    }
+    return response()->json([
+        'response' => [
+            'code' => $code,
+            'msg' => $e->getMessage(),
+        ],
+        'data' => [],
+    ]);
 }
 
 //Retona a url do asset em questão
@@ -189,11 +234,24 @@ function timeConverter(string $time, RegionCountryEntity $country)
     return Date::timeConverter($time, $country);
 }
 
-function is_logged(){
+function is_logged()
+{
     if (Session::item('manager')) {
         return true;
     }
 
+    $person = request()->sid->getAuthfast();
+    if ($person->getId()) {
+        if ($person->getExpiredAt() == null) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isLoggedApi()
+{
     $person = request()->sid->getAuthfast();
     if ($person->getId()) {
         if ($person->getExpiredAt() == null) {

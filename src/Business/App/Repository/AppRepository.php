@@ -11,14 +11,14 @@ class AppRepository
      * Retorna um registro do banco pelo id
      *
      * @param integer|null $id
-     * @return AppEntity
+     * @return mixed
      */
-    public static function byId(?int $id)
+    public static function byId(?int $id, $className = AppEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppEntity::class);
+        $reg = $db->query('select * from ' . $className::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
         if ($reg === false) {
-            return new AppEntity();
+            return new $className();
         }
 
         return $reg;
