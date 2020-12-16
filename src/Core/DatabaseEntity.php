@@ -10,6 +10,18 @@ abstract class DatabaseEntity
     abstract public function getId();
     abstract public function toArray();
 
+    public function insert(Medoo $db, $isId = false)
+    {
+        $tabela = static::TABLE;
+        $db->insert($tabela, $this->toArray());
+        if (!$isId) {
+            $id = $db->id();
+            $this->setId($id);
+            return;
+        }
+        return;
+    }
+
     public function save(Medoo $db, $where = [])
     {
         $tabela = static::TABLE;
