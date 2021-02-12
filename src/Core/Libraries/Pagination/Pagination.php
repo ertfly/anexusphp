@@ -56,4 +56,180 @@ class Pagination
         $data['pageVar'] = $this->pageVar;
         return (new Engine(dirname(__DIR__) . DS . 'Pagination' . DS . 'Views', 'phtml'))->render('Pagination', $data);
     }
+    
+    public function getJson()
+    {
+        $totalPages = ceil($this->total / $this->perPage);
+        $pages = array();
+
+        if ($totalPages > 1 && $this->page > 1) {
+            $pages[] = array(
+                'pg' => 1,
+                'content' => '<<',
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1 && $this->page > 1) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 1),
+                'content' => '<',
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 3),
+                'content' => str_pad(($this->page - 3), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 2),
+                'content' => str_pad(($this->page - 2), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 1),
+                'content' => str_pad(($this->page - 1), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1) {
+            $pages[] = array(
+                'pg' => (int)$this->page,
+                'content' => str_pad($this->page, 2, '0', STR_PAD_LEFT),
+                'active' => true
+            );
+        }
+
+        if ($totalPages >= ($this->page + 1)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 1),
+                'content' => str_pad(($this->page + 1), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($totalPages >= ($this->page + 2)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 2),
+                'content' => str_pad(($this->page + 2), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($totalPages >= ($this->page + 3)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 3),
+                'content' => str_pad(($this->page + 3), 2, '0', STR_PAD_LEFT),
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1 && $this->page < $totalPages) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 1),
+                'content' => '>',
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1 && $this->page < $totalPages) {
+            $pages[] = array(
+                'pg' => (int)$totalPages,
+                'content' => '>>',
+                'active' => false
+            );
+        }
+
+        return $pages;
+    }
+
+    public function getJson2()
+    {
+        $totalPages = ceil($this->total / $this->perPage);
+        $pages = array();
+
+        if ($totalPages > 1 && $this->page > 1) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 1),
+                'content' => '<i class="fa fa-angle-left"></i>',
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 3),
+                'content' => (string)($this->page - 3),
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 2),
+                'content' => (string)($this->page - 2),
+                'active' => false
+            );
+        }
+
+        if ($this->page > 1 && $totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
+            $pages[] = array(
+                'pg' => (int)($this->page - 1),
+                'content' => (string)($this->page - 1),
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1) {
+            $pages[] = array(
+                'pg' => (int)$this->page,
+                'content' => (string)$this->page,
+                'active' => true
+            );
+        }
+
+        if ($totalPages >= ($this->page + 1)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 1),
+                'content' => (string)($this->page + 1),
+                'active' => false
+            );
+        }
+
+        if ($totalPages >= ($this->page + 2)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 2),
+                'content' => (string)($this->page + 2),
+                'active' => false
+            );
+        }
+
+        if ($totalPages >= ($this->page + 3)) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 3),
+                'content' => (string)($this->page + 3),
+                'active' => false
+            );
+        }
+
+        if ($totalPages > 1 && $this->page < $totalPages) {
+            $pages[] = array(
+                'pg' => (int)($this->page + 1),
+                'content' => '<i class="fa fa-angle-right"></i>',
+                'active' => false
+            );
+        }
+
+        return $pages;
+    }
 }

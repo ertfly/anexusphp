@@ -6,19 +6,15 @@ use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
-use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
+use AnexusPHP\Core\Tools\Request as ToolsRequest;
 use AnexusPHP\Core\Tools\Strings;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
 use Pecee\Http\Request;
-
-$json = file_get_contents('php://input');
-$json = @json_decode($json, true);
-$GLOBALS['json'] = $json;
 
 /**
  * @param string|null $name
@@ -65,7 +61,23 @@ function input($index = null, $defaultValue = null, $method)
 {
     $value = null;
     if ($index !== null) {
-        $value = request()->getInputHandler()->value($index, $defaultValue, $method);
+        switch ($method) {
+            case 'get':
+                $value = ToolsRequest::get($index);
+                break;
+            case 'post':
+                $value = ToolsRequest::post($index);
+                break;
+            case 'json':
+                $value = ToolsRequest::json($index);
+                break;
+            default:
+                $value = ToolsRequest::get($index);
+                break;
+        }
+        if (!$value) {
+            return $defaultValue;
+        }
     }
     return $value;
 }
@@ -97,14 +109,17 @@ function input_validation($method, $index, $description = null, $validations = [
 {
     $value = null;
     if ($index !== null) {
-        if ($method == 'json') {
-            $value = input_json($index);
-        } else {
-            $value = trim(request()->getInputHandler()->value($index, null, $method));
+        switch ($method) {
+            case 'json':
+                $value = ToolsRequest::json($index, $description, $validations, $options);
+                break;
+            case 'get':
+                $value = ToolsRequest::get($index, $description, $validations, $options);
+                break;
+            case 'post':
+                $value = ToolsRequest::post($index, $description, $validations, $options);
+                break;
         }
-    }
-    if (isset($description) && isset($validations) && is_string($description) && is_array($validations) && count($validations) > 0) {
-        new FormValidation($value, $description, $validations, $options);
     }
     return $value;
 }
@@ -113,13 +128,10 @@ function input_json($index, $defaultValue = null)
 {
     $value = $defaultValue;
     if ($index !== null) {
-        if (isset($GLOBALS['json'][$index])) {
-            if(is_array($GLOBALS['json'][$index])){
-                $value = $GLOBALS['json'][$index];
-            }elseif(trim($GLOBALS['json'][$index]) != ''){
-                $value = trim($GLOBALS['json'][$index]);
-            }
-        }
+        $value = ToolsRequest::json($index);
+    }
+    if (!$value) {
+        $value = $defaultValue;
     }
     return $value;
 }
@@ -283,6 +295,8 @@ function GUID()
     return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 }
 
-function dd($value) {
-    var_dump($value);die();
+function dd($value)
+{
+    var_dump($value);
+    die();
 }
