@@ -97,6 +97,11 @@ function input_selected($name, $value, $defaultValue = null, $checkGet = false)
     return Form::selected($name, $value, $defaultValue, $checkGet);
 }
 
+function input_checked($name, $value, $defaultValue = null, $checkGet = false)
+{
+    return Form::checked($name, $value, $defaultValue, $checkGet);
+}
+
 /**
  * @param string $method
  * @param string $index
