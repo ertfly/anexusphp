@@ -85,9 +85,9 @@ function input($index = null, $defaultValue = null, $method)
 /**
  * @param [type] $name
  * @param boolean $isGet
- * @return string
+ * @return string|int|array
  */
-function  input_form($name, $defaultValue = null, $isGet = false)
+function input_form($name, $defaultValue = null, $isGet = false)
 {
     return Form::input($name, $defaultValue, $isGet);
 }
@@ -221,7 +221,7 @@ function upload(string $path, $time = false)
     return $fileUrl;
 }
 
-function  sid(AppEntity $app, $className)
+function sid(AppEntity $app, $className)
 {
     if (!$app->getId()) {
         throw new \Exception('App inválido');
