@@ -5,6 +5,7 @@ use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
+use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Date;
@@ -304,4 +305,10 @@ function dd($value)
 {
     var_dump($value);
     die();
+}
+
+function lang($id)
+{
+    $lang = LanguageRepository::byId($id);
+    return $lang->getValue();
 }
