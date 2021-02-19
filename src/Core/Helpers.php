@@ -8,6 +8,7 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
+use AnexusPHP\Core\Lang;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
@@ -318,5 +319,5 @@ function dd($value)
  */
 function lang($id)
 {
-    
+    return Lang::title($id);
 }
