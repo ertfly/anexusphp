@@ -7,9 +7,48 @@ use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use AnexusPHP\Business\Language\Entity\LanguageEntity;
 use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use Exception;
 
 class Lang
 {
+    private static $country;
+
+    public static function getCountry()
+    {
+        return self::$country;
+    }
+
+    public static function setCountry(RegionCountryEntity $country)
+    {
+        self::$country = $country;
+    }
+
+    public static function title($id)
+    {
+        if (!self::$country) {
+            throw new Exception('Country not set');
+        }
+
+        $translations = Session::item('translations');
+        if (!isset($translations) || !is_array($translations)) {
+            $translations = [];
+        }
+
+        if (!isset($translations[self::getCountry()->getId()])) {
+            $translations[self::getCountry()->getId()] = [];
+        }
+
+        if (!isset($translations[self::getCountry()->getId()][$id])) {
+            $lang = LanguageRepository::byIdCountry($id, self::getCountry());
+            if (!$lang->getId()) {
+                throw new Exception('Title ' . $id . ' not exist');
+            }
+            $translations[self::getCountry()->getId()][$id] = $lang->getValue();
+        }
+
+        return $translations[self::getCountry()->getId()][$id];
+    }
+
     /**
      * @param integer $page
      * @param RegionCountryEntity $country

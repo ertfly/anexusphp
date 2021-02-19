@@ -316,15 +316,7 @@ function dd($value)
  * @param string $countryClass
  * @return string
  */
-function lang($id, $countryId = null, $countryClass = RegionCountryEntity::class)
+function lang($id)
 {
-    if (!$countryId) {
-        $countryId = Session::item('country');
-    }
-    $country = RegionCountryRepository::byId($countryId, $countryClass);
-    $lang = LanguageRepository::byIdCountry($id, $country);
-    if (!$lang->getId()) {
-        throw new Exception($id . ' variable not exist language');
-    }
-    return $lang->getValue();
+    
 }
