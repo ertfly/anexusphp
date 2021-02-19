@@ -1,6 +1,7 @@
 <?php
 
 namespace AnexusPHP\Business\Language\Repository;
+
 use AnexusPHP\Core\Database;
 use AnexusPHP\Business\Language\Entity\LanguageEntity;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
@@ -9,13 +10,31 @@ use PDO;
 class LanguageRepository
 {
     /**
-     * @param int $id
+     * @param string $id
      * @return LanguageEntity
      */
-    public static function byId(?int $id)
+    public static function byId(?string $id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . LanguageEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(LanguageEntity::class);
+        if ($reg === false) {
+            return new LanguageEntity();
+        }
+
+        return $reg;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string|null $id
+     * @param RegionCountryEntity $country
+     * @return LanguageEntity
+     */
+    public static function byIdCountry(?string $id, RegionCountryEntity $country)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . LanguageEntity::TABLE . ' where id = :id and region_country_id = :region_country_id limit 1', ['id' => $id, 'region_country_id' => $country->getId()])->fetchObject(LanguageEntity::class);
         if ($reg === false) {
             return new LanguageEntity();
         }

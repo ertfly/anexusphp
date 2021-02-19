@@ -7,6 +7,7 @@ use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
@@ -307,9 +308,21 @@ function dd($value)
     die();
 }
 
-function lang($id)
+/**
+ * Undocumented function
+ *
+ * @param string $id
+ * @param int $countryId
+ * @param string $countryClass
+ * @return string
+ */
+function lang($id, $countryId = null, $countryClass = RegionCountryEntity::class)
 {
-    $lang = LanguageRepository::byId($id);
+    if (!$countryId) {
+        $countryId = Session::item('country');
+    }
+    $country = RegionCountryRepository::byId($countryId, $countryClass);
+    $lang = LanguageRepository::byIdCountry($id, $country);
     if (!$lang->getId()) {
         throw new Exception($id . ' variable not exist language');
     }
