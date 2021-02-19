@@ -310,5 +310,8 @@ function dd($value)
 function lang($id)
 {
     $lang = LanguageRepository::byId($id);
+    if (!$lang->getId()) {
+        throw new Exception($id . ' variable not exist language');
+    }
     return $lang->getValue();
 }
