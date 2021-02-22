@@ -69,10 +69,10 @@ class PermissionMenuRepository
         $bind = array();
         $where = " a.trash = false ";
 
-        // if (isset($filters['search']) && trim($filters['search']) != '') {
-        //     //$where .= " and upper(concat(a.nome, ' ', a.sobrenome)) like upper('%'||:nome||'%') ";
-        //     //$bind['name'] = $filters['search'];
-        // }
+        if (isset($filters['search']) && trim($filters['search']) != '') {
+            $where .= " and upper(a.description) like upper('%'||:description||'%') ";
+            $bind['description'] = $filters['search'];
+        }
 
         $total = $db->query('select count(1) as total from ' . PermissionMenuEntity::TABLE . ' a where ' . $where, $bind)->fetch();
 
