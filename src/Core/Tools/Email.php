@@ -10,10 +10,10 @@ class Email
 {
     public static function send($toEmails, $subject, $message, $fromEmail, $fromName)
     {
-        $smtp_url = 'smtp.naoresponder.com.br';
-        $smtp_port = 587;
-        $smtp_pwd = 'Naoresp@135';
-        $smtp_user = 'no-replay@naoresponder.com.br';
+        $smtp_url = 'srv20.prodns.com.br';
+        $smtp_port = 465;
+        $smtp_pwd = 'padrao@naoresponda';
+        $smtp_user = 'naoresponda@anexus.com.br';
         $smtp_fromEmail = $fromEmail;
         $smtp_fromName = $fromName;
 
