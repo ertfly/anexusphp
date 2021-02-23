@@ -10,14 +10,14 @@ class Email
 {
     public static function send($toEmails, $subject, $message, $fromEmail, $fromName)
     {
-        $smtp_url = 'ssl://srv20.prodns.com.br';
-        $smtp_port = 465;
+        $smtp_url = 'srv20.prodns.com.br';
+        $smtp_port = 587;
         $smtp_pwd = 'padrao@naoresponda';
         $smtp_user = 'naoresponda@anexus.com.br';
         $smtp_fromEmail = $fromEmail;
         $smtp_fromName = $fromName;
 
-        $transport = (new Swift_SmtpTransport($smtp_url, (int) $smtp_port))
+        $transport = (new Swift_SmtpTransport($smtp_url, (int) $smtp_port,'tls'))
             ->setUsername($smtp_user)
             ->setPassword($smtp_pwd);
 
