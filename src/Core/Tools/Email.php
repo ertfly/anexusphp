@@ -2,22 +2,24 @@
 
 namespace AnexusPHP\Core\Tools;
 
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 
 class Email
 {
-    public static function send($toEmails, $subject, $message, $fromEmail, $fromName)
+    public static function send($toEmails, $subject, $message)
     {
-        $smtp_url = 'smtp.umbler.com';
-        $smtp_port = 587;
-        $smtp_pwd = 'Lauv@1029';
-        $smtp_user = 'contato@lauvishoes.com.br';
-        $smtp_fromEmail = $fromEmail;
-        $smtp_fromName = $fromName;
+        $smtp_url = ConfigurationRepository::getValue('email_url');
+        $smtp_port = ConfigurationRepository::getValue('email_port');
+        $smtp_pwd = ConfigurationRepository::getValue('email_password');
+        $smtp_user = ConfigurationRepository::getValue('email_user');
+        $smtp_fromEmail = ConfigurationRepository::getValue('email_from_email');
+        $smtp_fromName = ConfigurationRepository::getValue('email_from_name');
+        $smtp_protocol = ConfigurationRepository::getValue('email_protocol');
 
-        $transport = (new Swift_SmtpTransport($smtp_url, (int) $smtp_port,'tls'))
+        $transport = (new Swift_SmtpTransport($smtp_url, intval($smtp_port), $smtp_protocol))
             ->setUsername($smtp_user)
             ->setPassword($smtp_pwd);
 
@@ -33,7 +35,7 @@ class Email
             ->setFrom([$smtp_user => $smtp_fromName])
             ->setTo($emails)
             ->setBody($message, 'text/html')
-            ->setReplyTo($smtp_fromEmail,$smtp_fromName);
+            ->setReplyTo($smtp_fromEmail, $smtp_fromName);
 
         // Send the message
         return $mailer->send($message);
