@@ -10,7 +10,7 @@ class Email
 {
     public static function send($toEmails, $subject, $message, $fromEmail, $fromName)
     {
-        $smtp_url = 'srv20.prodns.com.br';
+        $smtp_url = 'ssl://srv20.prodns.com.br';
         $smtp_port = 465;
         $smtp_pwd = 'padrao@naoresponda';
         $smtp_user = 'naoresponda@anexus.com.br';
