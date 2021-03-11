@@ -14,6 +14,7 @@ use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
 use AnexusPHP\Core\Tools\Request as ToolsRequest;
 use AnexusPHP\Core\Tools\Strings;
+use Core\Template;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -320,4 +321,9 @@ function dd($value)
 function lang($id)
 {
     return Lang::title($id);
+}
+
+function template($name)
+{
+    return Template::getSettingByKey($name);
 }
