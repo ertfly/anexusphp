@@ -3,7 +3,6 @@
 namespace Core;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
-use Exception;
 
 class Template
 {
@@ -25,11 +24,11 @@ class Template
         return self::$setting;
     }
 
-    public static function getSettingByKey($name)
+    public static function getSettingByKey($name, $defaultValue = null)
     {
         self::init();
         if (!isset(self::$setting[$name])) {
-            throw new Exception('Variable ' . $name . ' not exist in template');
+            return $defaultValue;
         }
 
         return self::$setting[$name];

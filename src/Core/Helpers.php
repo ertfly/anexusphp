@@ -323,7 +323,7 @@ function lang($id)
     return Lang::title($id);
 }
 
-function template($name)
+function template($name, $defaultValue = null)
 {
-    return Template::getSettingByKey($name);
+    return Template::getSettingByKey($name, $defaultValue);
 }
