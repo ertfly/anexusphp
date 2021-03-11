@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace AnexusPHP\Core;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 
