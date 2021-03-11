@@ -192,4 +192,20 @@ class Strings
     {
         return mb_convert_case(hash('sha256', $str), MB_CASE_UPPER);
     }
+
+    public static function prepareEmailTemplate($subject, $content, $vars)
+    {
+        $variables = [];
+        foreach ($vars as $key => $value) {
+            $variables['{{' . $key . '}}'] = $value;
+        }
+
+        $subject = str_replace(array_keys($variables), array_values($variables), $subject);
+        $body = str_replace(array_keys($variables), array_values($variables), $content);
+
+        return [
+            'subject' => $subject,
+            'body' => $body
+        ];
+    }
 }
