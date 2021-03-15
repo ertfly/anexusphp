@@ -226,6 +226,9 @@ class Strings
             'image/jpeg' => 'jpg',
             'image/jpg' => 'jpg',
         );
+        if (!isset($extensions[$mimeEncoded])) {
+            throw new Exception('Mimetype não disponível para upload');
+        }
         $filename = Strings::token() . '.' . $extensions[$mimeEncoded];
         @file_put_contents($pathDest . $filename, base64_decode($decoded));
         if (!is_file($pathDest . $filename)) {
