@@ -321,7 +321,7 @@ function lang($id)
     return Lang::title($id);
 }
 
-function template($name, $defaultValue = null)
+function template($name, $defaultValue = null, $isUpload=false)
 {
-    return Template::getSettingByKey($name, $defaultValue);
+    return Template::getSettingByKey($name, $defaultValue,$isUpload);
 }

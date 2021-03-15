@@ -24,13 +24,13 @@ class Template
         return self::$setting;
     }
 
-    public static function getSettingByKey($name, $defaultValue = null)
+    public static function getSettingByKey($name, $defaultValue = null, $isUpload = false)
     {
         self::init();
         if (!isset(self::$setting[$name])) {
             return $defaultValue;
         }
 
-        return self::$setting[$name];
+        return !$isUpload ? self::$setting[$name] : upload('template/' . self::$setting[$name]);
     }
 }
