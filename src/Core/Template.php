@@ -10,8 +10,8 @@ class Template
 
     public static function init()
     {
-        if (self::$setting) {
-            self::$setting = @json_decode(ConfigurationRepository::getValue('template_config'));
+        if (!self::$setting) {
+            self::$setting = @json_decode(ConfigurationRepository::getValue('template_config'), true);
             if (!self::$setting) {
                 self::$setting = [];
             }
