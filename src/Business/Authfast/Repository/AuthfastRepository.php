@@ -15,12 +15,12 @@ class AuthfastRepository
      * @param integer|null $id
      * @return AuthfastEntity
      */
-    public static function byId(?int $id)
+    public static function byId(?int $id, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AuthfastEntity::class);
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);
         if ($reg === false) {
-            return new AuthfastEntity();
+            return new $cls();
         }
 
         return $reg;
@@ -32,12 +32,12 @@ class AuthfastRepository
      * @param string|null $id
      * @return AuthfastEntity
      */
-    public static function byCode(?string $code)
+    public static function byCode(?string $code, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AuthfastEntity::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject(AuthfastEntity::class);
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject($cls);
         if ($reg === false) {
-            return new AuthfastEntity();
+            return new $cls();
         }
 
         return $reg;
@@ -48,10 +48,10 @@ class AuthfastRepository
      * 
      * @return AuthfastEntity[]
      */
-    public static function all()
+    public static function all($cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . AuthfastEntity::TABLE . ' ')->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
+        $regs = $db->query('select * from ' . $cls::TABLE . ' ')->fetchAll(PDO::FETCH_CLASS, $cls);
 
         return $regs;
     }
@@ -66,7 +66,7 @@ class AuthfastRepository
      * @param integer $perPg
      * @return Pagination[]
      */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
+    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
 
@@ -78,11 +78,11 @@ class AuthfastRepository
             $bind['name'] = $filters['search'];
         }
 
-        $total = $db->query('select count(1) as total from ' . AuthfastEntity::TABLE . ' a ' . $where, $bind)->fetch();
+        $total = $db->query('select count(1) as total from ' . $cls::TABLE . ' a ' . $where, $bind)->fetch();
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . AuthfastEntity::TABLE . ' a ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AuthfastEntity::class);
+        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
 
         $pagination->setRows($regs);
 
