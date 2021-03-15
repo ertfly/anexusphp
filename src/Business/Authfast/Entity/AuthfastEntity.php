@@ -7,17 +7,17 @@ use AnexusPHP\Core\DatabaseEntity;
 class AuthfastEntity extends DatabaseEntity
 {
 	const TABLE = 'authfast';
-	private $id;
-	private $code;
-	private $firstname;
-	private $lastname;
-	private $username;
-	private $email;
-	private $photo;
-	private $banner;
-	private $created_at;
-	private $updated_at;
-	private $expired_at;
+	protected $id;
+	protected $code;
+	protected $firstname;
+	protected $lastname;
+	protected $username;
+	protected $email;
+	protected $photo;
+	protected $banner;
+	protected $created_at;
+	protected $updated_at;
+	protected $expired_at;
 	public function setId($id)
 	{
 		$this->id = $id;
