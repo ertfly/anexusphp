@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use League\Plates\Engine;
 
 class Template
 {
@@ -32,5 +33,34 @@ class Template
         }
 
         return !$isUpload ? self::$setting[$name] : upload('template/' . self::$setting[$name]);
+    }
+
+    public static function generateFiles()
+    {
+        $template = ConfigurationRepository::getValue('template');
+        $resourcePath = PATH_ROOT . 'src' . DS . 'App' . DS . 'Views' . DS . $template . DS . 'resource';
+        $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
+
+        $engine = new Engine($resourcePath, 'css');
+
+        $templateFiles = scandir($resourcePath);
+        unset($templateFiles[0]);
+        unset($templateFiles[1]);
+
+        if(!empty($templateFiles)){
+            foreach ($templateFiles as $file) {
+                $fileParts = explode('.', $file);
+                array_pop($fileParts);
+                $fileName = implode('.', $fileParts);
+
+                $fileContent = $engine->render($fileName);
+
+                if(is_file($assetsPath . $file)){
+                    unlink($assetsPath . $file);
+                }
+
+                file_put_contents($assetsPath . $file, $fileContent);
+            }
+        }
     }
 }
