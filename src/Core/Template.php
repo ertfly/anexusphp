@@ -16,12 +16,13 @@ class Template
             self::$locale = $locale;
             self::$setting = @json_decode(ConfigurationRepository::getValue('template_config'), true);
             if (!self::$setting) {
+                self::$setting = [];
+            }
+            if (!isset(self::$setting[self::$locale])) {
                 self::$setting = [
                     self::$locale => []
                 ];
             }
-
-            self::$setting = self::$setting[self::$locale];
 
             $template = ConfigurationRepository::getValue('template');
             $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
@@ -43,11 +44,11 @@ class Template
     public static function getSettingByKey($name, $defaultValue = null, $isUpload = false)
     {
         self::init();
-        if (!isset(self::$setting[$name])) {
+        if (!isset(self::$setting[self::$locale][$name])) {
             return $defaultValue;
         }
 
-        return !$isUpload ? self::$setting[$name] : upload('template/' . self::$setting[$name]);
+        return !$isUpload ? self::$setting[self::$locale][$name] : upload('template/' . self::$setting[self::$locale][$name]);
     }
 
     public static function generateFiles()
