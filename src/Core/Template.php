@@ -64,7 +64,7 @@ class Template
 
                 $fileContent = $engine->render($fileName);
 
-                if (is_file($assetsPath . $file)) {
+                if(is_file($assetsPath . $file)){
                     @unlink($assetsPath . $file);
                 }
 
