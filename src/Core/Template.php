@@ -8,14 +8,20 @@ use League\Plates\Engine;
 class Template
 {
     private static $setting;
+    private static $locale;
 
-    public static function init()
+    public static function init($locale = 'pt_BR')
     {
-        if (!self::$setting) {
+        if (!self::$setting && !self::$locale) {
+            self::$locale = $locale;
             self::$setting = @json_decode(ConfigurationRepository::getValue('template_config'), true);
             if (!self::$setting) {
-                self::$setting = [];
+                self::$setting = [
+                    self::$locale => []
+                ];
             }
+
+            self::$setting = self::$setting[self::$locale];
 
             $template = ConfigurationRepository::getValue('template');
             $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
@@ -64,7 +70,7 @@ class Template
 
                 $fileContent = $engine->render($fileName);
 
-                if(is_file($assetsPath . $file)){
+                if (is_file($assetsPath . $file)) {
                     @unlink($assetsPath . $file);
                 }
 
