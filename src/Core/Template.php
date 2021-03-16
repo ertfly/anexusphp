@@ -16,6 +16,15 @@ class Template
             if (!self::$setting) {
                 self::$setting = [];
             }
+
+            $template = ConfigurationRepository::getValue('template');
+            $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
+            $templateFiles = scandir($assetsPath);
+            unset($templateFiles[0]);
+            unset($templateFiles[1]);
+            if (count($templateFiles) < 2) {
+                self::generateFiles();
+            }
         }
     }
 
@@ -47,7 +56,7 @@ class Template
         unset($templateFiles[0]);
         unset($templateFiles[1]);
 
-        if(!empty($templateFiles)){
+        if (!empty($templateFiles)) {
             foreach ($templateFiles as $file) {
                 $fileParts = explode('.', $file);
                 array_pop($fileParts);
@@ -55,11 +64,11 @@ class Template
 
                 $fileContent = $engine->render($fileName);
 
-                if(is_file($assetsPath . $file)){
-                    unlink($assetsPath . $file);
+                if (is_file($assetsPath . $file)) {
+                    @unlink($assetsPath . $file);
                 }
 
-                file_put_contents($assetsPath . $file, $fileContent);
+                @file_put_contents($assetsPath . $file, $fileContent);
             }
         }
     }
