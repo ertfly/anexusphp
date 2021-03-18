@@ -71,11 +71,11 @@ class Template
 
                 $fileContent = $engine->render($fileName);
 
-                if (is_file($assetsPath . $file)) {
-                    @unlink($assetsPath . $file);
-                }
-
-                @file_put_contents($assetsPath . $file, $fileContent);
+                $data = [
+                    'file' => $assetsPath . $file,
+                    'content' => $fileContent,
+                ];
+                Cron::execute('SaveTemplateFile', $data);
             }
         }
     }
