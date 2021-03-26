@@ -35,7 +35,7 @@ class PermissionEventRepository
     public static function all($cls = PermissionEventEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, $cls);
+        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false order by description asc')->fetchAll(PDO::FETCH_CLASS, $cls);
 
         return $regs;
     }
