@@ -18,12 +18,12 @@ class PermissionModuleRepository
      * @param integer|null $id
      * @return PermissionModuleEntity
      */
-    public static function byId(?int $id)
+    public static function byId(?int $id, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . PermissionModuleEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(PermissionModuleEntity::class);
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);
         if ($reg === false) {
-            return new PermissionModuleEntity();
+            return new $cls();
         }
 
         return $reg;
@@ -34,10 +34,10 @@ class PermissionModuleRepository
      * 
      * @return PermissionModuleEntity[]
      */
-    public static function all()
+    public static function all($cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . PermissionModuleEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, PermissionModuleEntity::class);
+        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, $cls);
 
         return $regs;
     }
@@ -52,7 +52,7 @@ class PermissionModuleRepository
      * @param integer $perPg
      * @return Pagination[]
      */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
+    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
 
@@ -64,11 +64,11 @@ class PermissionModuleRepository
             $bind['name'] = $filters['search'];
         }
 
-        $total = $db->query('select count(1) as total from ' . PermissionModuleEntity::TABLE . ' a where ' . $where, $bind)->fetch();
+        $total = $db->query('select count(1) as total from ' . $cls::TABLE . ' a where ' . $where, $bind)->fetch();
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . PermissionModuleEntity::TABLE . ' a where ' . $where . ' order by a.position asc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, PermissionModuleEntity::class);
+        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a where ' . $where . ' order by a.position asc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
 
         $pagination->setRows($regs);
 
