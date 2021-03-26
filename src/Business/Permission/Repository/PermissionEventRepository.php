@@ -41,6 +41,19 @@ class PermissionEventRepository
     }
 
     /**
+     * Retorna todos os registros do banco
+     * 
+     * @return PermissionEventEntity[]
+     */
+    public static function byLevelEqualOrHigher(int $level,$cls = PermissionEventEntity::class)
+    {
+        $db = Database::getInstance();
+        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false and level >= :level order by description asc', ['level' => $level])->fetchAll(PDO::FETCH_CLASS, $cls);
+
+        return $regs;
+    }
+
+    /**
      * Retorna os registro do banco com paginacao
      * 
      * @param string $url
