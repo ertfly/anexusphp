@@ -7,10 +7,10 @@ use AnexusPHP\Core\DatabaseEntity;
 class PermissionEventEntity extends DatabaseEntity
 {
 	const TABLE = 'permission_event';
-	private $id;
-	private $description;
-	private $trash;
-	private $app;
+	protected $id;
+	protected $description;
+	protected $trash;
+	protected $app;
 	public function setId($id)
 	{
 		$this->id = $id;
