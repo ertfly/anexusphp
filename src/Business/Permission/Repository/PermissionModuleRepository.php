@@ -43,7 +43,7 @@ class PermissionModuleRepository
     }
 
     /**
-     * Retorna todos os registros do banco
+     * Retorna os registros que tenham o nivel maior ou igual ao especificado
      * 
      * @return PermissionModuleEntity[]
      */
