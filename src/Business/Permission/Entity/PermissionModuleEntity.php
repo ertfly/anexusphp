@@ -8,12 +8,12 @@ use AnexusPHP\Core\DatabaseEntity;
 class PermissionModuleEntity extends DatabaseEntity
 {
 	const TABLE = 'permission_module';
-	private $id;
-	private $name;
-	private $events;
-	private $position;
-	private $trash;
-	private $app;
+	protected $id;
+	protected $name;
+	protected $events;
+	protected $position;
+	protected $trash;
+	protected $app;
 	public function setId($id)
 	{
 		$this->id = $id;

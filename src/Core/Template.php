@@ -8,13 +8,20 @@ use League\Plates\Engine;
 class Template
 {
     private static $setting;
+    private static $locale;
 
-    public static function init()
+    public static function init($locale = 'pt_BR')
     {
-        if (!self::$setting) {
+        if (!self::$setting && !self::$locale) {
+            self::$locale = $locale;
             self::$setting = @json_decode(ConfigurationRepository::getValue('template_config'), true);
             if (!self::$setting) {
                 self::$setting = [];
+            }
+            if (!isset(self::$setting[self::$locale])) {
+                self::$setting = [
+                    self::$locale => []
+                ];
             }
 
             $template = ConfigurationRepository::getValue('template');
@@ -37,11 +44,11 @@ class Template
     public static function getSettingByKey($name, $defaultValue = null, $isUpload = false)
     {
         self::init();
-        if (!isset(self::$setting[$name])) {
+        if (!isset(self::$setting[self::$locale][$name])) {
             return $defaultValue;
         }
 
-        return !$isUpload ? self::$setting[$name] : upload('template/' . self::$setting[$name]);
+        return !$isUpload ? self::$setting[self::$locale][$name] : upload('template/' . self::$setting[self::$locale][$name]);
     }
 
     public static function generateFiles()
@@ -64,11 +71,11 @@ class Template
 
                 $fileContent = $engine->render($fileName);
 
-                if(is_file($assetsPath . $file)){
-                    @unlink($assetsPath . $file);
-                }
-
-                @file_put_contents($assetsPath . $file, $fileContent);
+                $data = [
+                    'file' => $assetsPath . $file,
+                    'content' => $fileContent,
+                ];
+                Cron::execute('SaveTemplateFile', $data);
             }
         }
     }

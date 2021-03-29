@@ -44,6 +44,23 @@ class AuthfastRepository
     }
 
     /**
+     * Retorna um registro do banco pelo id
+     * 
+     * @param string|null $id
+     * @return AuthfastEntity
+     */
+    public static function byUsername(?string $username, $cls = AuthfastEntity::class)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where username = :username limit 1', ['username' => $username])->fetchObject($cls);
+        if ($reg === false) {
+            return new $cls();
+        }
+
+        return $reg;
+    }
+
+    /**
      * Retorna todos os registros
      * 
      * @return AuthfastEntity[]
