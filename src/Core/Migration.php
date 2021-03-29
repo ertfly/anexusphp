@@ -4,6 +4,7 @@ namespace AnexusPHP\core;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use AnexusPHP\Business\Configuration\Rule\ConfigurationRule;
+use Exception;
 use PDO;
 
 class Migration
@@ -13,9 +14,9 @@ class Migration
         if (!file_exists(PATH_LOGS . 'start_execution')) {
             exit("Inicialize a aplicação atraves do anx");
         }
-        
+
         try {
-            if(ConfigurationRepository::getValue('MIGRATION_STARTED') == 'false'){
+            if (ConfigurationRepository::getValue('MIGRATION_STARTED') == 'false') {
                 throw new \Exception();
             };
         } catch (\Exception $e) {
@@ -47,16 +48,20 @@ class Migration
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
-        
-        if(trim($sql) != '') {
-            $database->exec($sql);
+
+        if (trim($sql) != '') {
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file base.sql >> ' . $e->getMessage());
+            }
         }
 
         self::populate();
 
         $config = (ConfigurationRepository::byId('MIGRATION_STARTED'))->setValue('true');
         ConfigurationRule::update($config);
-    
+
         return self::init();
     }
 
@@ -64,13 +69,16 @@ class Migration
     {
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
-        
+
         $sql = file_get_contents(PATH_MIGRATIONS . 'data.sql');
 
-        if(trim($sql) != '') {
-            $database->exec($sql);
+        if (trim($sql) != '') {
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file data.sql >> ' . $e->getMessage());
+            }
         }
-
     }
 
     private static function executeDown($oldVersion, $newVersion)
@@ -86,7 +94,11 @@ class Migration
             if (trim($sql) == '') {
                 continue;
             }
-            $database->exec($sql);
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file ' . $v . '.sql >> ' . $e->getMessage());
+            }
         }
     }
 
@@ -103,7 +115,12 @@ class Migration
             if (trim($sql) == '') {
                 continue;
             }
-            $database->exec($sql);
+
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file ' . $v . '.sql >> ' . $e->getMessage());
+            }
         }
     }
 
