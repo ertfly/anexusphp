@@ -9,8 +9,8 @@ class AppAuthfastEntity extends DatabaseEntity
 {
 	const TABLE = 'app_authfast';
     protected $id;
-	private $app_id;
-	private $authfast_id;
+	protected $app_id;
+	protected $authfast_id;
     public function setId($id)
     {
         $this->id = $id;
