@@ -27,11 +27,11 @@ class Date
         return $date;
     }
 
-    public static function timeConverter(string $time, RegionCountryEntity $country)
+    public static function timeConverter(string $time, RegionCountryEntity $country, bool $hour = false)
     {
         $localTime = DateTime::createFromFormat('Y-m-d H:i:s', $time, new DateTimeZone('America/Sao_Paulo'));
         
-        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $country->getDateFormat());
+        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $hour ? $country->getDateHourFormat() :  $country->getDateFormat());
 
         return $formatter->format($localTime);
     }

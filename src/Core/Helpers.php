@@ -248,9 +248,9 @@ function sid(AppEntity $app, $className)
     return $sid;
 }
 
-function timeConverter(string $time, RegionCountryEntity $country)
+function timeConverter(string $time, RegionCountryEntity $country, $hour = false)
 {
-    return Date::timeConverter($time, $country);
+    return Date::timeConverter($time, $country, $hour);
 }
 
 function is_logged()
