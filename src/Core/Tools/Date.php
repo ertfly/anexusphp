@@ -29,9 +29,16 @@ class Date
 
     public static function timeConverter(string $time, RegionCountryEntity $country, bool $hour = false)
     {
-        $localTime = DateTime::createFromFormat($hour ? 'Y-m-d H:i:s' : 'Y-m-d', $time, new DateTimeZone('America/Sao_Paulo'));
+        $arr = explode(' ', $time);
+        $format = '';
+        if (count($arr) > 1) {
+            $format = 'Y-m-d H:i:s';
+        } else {
+            $format = 'Y-m-d';
+        }
+        $localTime = DateTime::createFromFormat($format, $time, new DateTimeZone('America/Sao_Paulo'));
 
-        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(),IntlDateFormatter::GREGORIAN, $hour ? $country->getDateHourFormat() :  $country->getDateFormat());
+        $formatter = new IntlDateFormatter($country->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, $country->getTimeZone(), IntlDateFormatter::GREGORIAN, $hour ? $country->getDateHourFormat() :  $country->getDateFormat());
 
         return $formatter->format($localTime);
     }
