@@ -118,8 +118,7 @@ class ApiKeyEntity extends DatabaseEntity
     public function getExpiredAt($format = false)
     {
         if ($format && $this->expired_at) {
-            $arr = explode(' ',$this->expired_at);
-            return timeConverter($arr[0], request()->country);
+            return timeConverter($this->expired_at, request()->country);
         }
 
         return $this->expired_at;
