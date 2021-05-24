@@ -30,7 +30,7 @@ class AppSessionRepository
      *
      * @param string $token
      * @param mixed $className
-     * @return string
+     * @return AppSessionEntity
      */
     public static function byToken($token, $className): AppSessionEntity
     {
