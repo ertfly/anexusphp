@@ -4,7 +4,9 @@ use AnexusPHP\Business\App\Constant\AppTypeConstant;
 use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
+use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
+use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Lang;
 use AnexusPHP\Core\Session;
@@ -324,4 +326,21 @@ function lang($id)
 function template($name, $defaultValue = null, $isUpload=false)
 {
     return Template::getSettingByKey($name, $defaultValue,$isUpload);
+}
+
+/**
+ * @param int $activity
+ * @param int $module
+ * @param int $bind_id
+ * @param int $description
+ */
+function create_log(int $activity, int $module, int $bind_id, $description = null)
+{
+    $log = new AuthfastActivityEntity;
+    $log->setAuthfastId(request()->sid->getAuthfastId() ? request()->sid->getAuthfastId() : 0)
+        ->setModule($module)
+        ->setBindId($bind_id)
+        ->setActivity($activity)
+        ->setDescription($description);
+    AuthfastActivityRule::insert($log);
 }
