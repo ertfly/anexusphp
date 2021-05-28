@@ -337,7 +337,11 @@ function template($name, $defaultValue = null, $isUpload=false)
 function create_log(int $activity, int $module, int $bind_id, $description = null)
 {
     $log = new AuthfastActivityEntity;
-    $log->setAuthfastId(request()->sid->getAuthfastId() ? request()->sid->getAuthfastId() : 0)
+    $authfastId = 0;
+    if(request()->sid) {
+        $authfastId = request()->sid->getAuthfastId();
+    }
+    $log->setAuthfastId($authfastId ? $authfastId : 0)
         ->setModule($module)
         ->setBindId($bind_id)
         ->setActivity($activity)
