@@ -225,6 +225,7 @@ class Strings
             'image/png' => 'png',
             'image/jpeg' => 'jpg',
             'image/jpg' => 'jpg',
+            'application/pdf' => 'pdf',
         );
         if (!isset($extensions[$mimeEncoded])) {
             throw new Exception('Mimetype não disponível para upload');
