@@ -6,13 +6,13 @@ use AnexusPHP\Core\DatabaseEntity;
 
 class AuthfastActivityEntity extends DatabaseEntity {
 	const TABLE = 'authfast_activity';
-	private $id;
-	private $activity;
-	private $authfast_id;
-	private $module;
-	private $bind_id;
-	private $description;
-	private $created_at;
+	protected $id;
+	protected $activity;
+	protected $authfast_id;
+	protected $module;
+	protected $bind_id;
+	protected $description;
+	protected $created_at;
 	public function setId($id){
 		$this->id = $id;
 		return $this;
