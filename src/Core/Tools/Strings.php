@@ -145,10 +145,10 @@ class Strings
         return implode('\\', $arr);
     }
 
-    public static function classToPath($classname)
+    /* public static function classToPath($classname)
     {
         return PATH_ROOT . 'src' . DS . str_replace('\\', DS, $classname) . DS;
-    }
+    } */
 
     public static function escapeSequenceDecode($str)
     {
