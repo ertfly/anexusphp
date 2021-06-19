@@ -49,6 +49,11 @@ class Pagination
         return (int) $this->total;
     }
 
+    public function getTotalPages()
+    {
+        return (int) $this->totalPages;
+    }
+
     public function getHtml()
     {
         $data['pagination'] = array();
