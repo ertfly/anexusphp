@@ -3,8 +3,10 @@
 namespace AnexusPHP\Core\Tools;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use Exception;
 use Swift_Mailer;
 use Swift_Message;
+use Swift_Plugins_Loggers_ArrayLogger;
 use Swift_SmtpTransport;
 
 class Email
@@ -23,8 +25,10 @@ class Email
             ->setUsername($smtp_user)
             ->setPassword($smtp_pwd);
 
+        $logger = new Swift_Plugins_Loggers_ArrayLogger();
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
+        $mailer->registerPlugin(new \Swift_Plugins_LoggerPlugin($logger));
         $emails = array();
         foreach ($toEmails as $email => $name) {
             $emails[$email] = $name;
@@ -37,7 +41,12 @@ class Email
             ->setBody($message, 'text/html')
             ->setReplyTo($smtp_fromEmail, $smtp_fromName);
 
+        $send = $mailer->send($message);
         // Send the message
-        return $mailer->send($message);
+        if (!$send) {
+            throw new Exception($logger->dump());
+        }
+
+        return $send;
     }
 }
