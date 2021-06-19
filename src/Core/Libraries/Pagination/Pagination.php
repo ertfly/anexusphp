@@ -12,6 +12,7 @@ class Pagination
     private $page;
     private $rows;
     private $pageVar;
+    private $totalPages;
 
     public function __construct($total, $perPage, $pageVar, $page, $url)
     {
@@ -21,6 +22,7 @@ class Pagination
         $this->url = $url;
         $this->rows = array();
         $this->pageVar = $pageVar;
+        $this->totalPages = ceil($this->total / ($this->perPage == 0 ? 1 : $this->perPage));
     }
 
     public function setRows(array $rows)
@@ -56,13 +58,12 @@ class Pagination
         $data['pageVar'] = $this->pageVar;
         return (new Engine(dirname(__DIR__) . DS . 'Pagination' . DS . 'Views', 'phtml'))->render('Pagination', $data);
     }
-    
+
     public function getJson()
     {
-        $totalPages = ceil($this->total / $this->perPage);
         $pages = array();
 
-        if ($totalPages > 1 && $this->page > 1) {
+        if ($this->totalPages > 1 && $this->page > 1) {
             $pages[] = array(
                 'pg' => 1,
                 'content' => '<<',
@@ -70,7 +71,7 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1 && $this->page > 1) {
+        if ($this->totalPages > 1 && $this->page > 1) {
             $pages[] = array(
                 'pg' => (int)($this->page - 1),
                 'content' => '<',
@@ -78,7 +79,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 3),
                 'content' => str_pad(($this->page - 3), 2, '0', STR_PAD_LEFT),
@@ -86,7 +87,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 2),
                 'content' => str_pad(($this->page - 2), 2, '0', STR_PAD_LEFT),
@@ -94,7 +95,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 1),
                 'content' => str_pad(($this->page - 1), 2, '0', STR_PAD_LEFT),
@@ -102,7 +103,7 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1) {
+        if ($this->totalPages > 1) {
             $pages[] = array(
                 'pg' => (int)$this->page,
                 'content' => str_pad($this->page, 2, '0', STR_PAD_LEFT),
@@ -110,7 +111,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 1)) {
+        if ($this->totalPages >= ($this->page + 1)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 1),
                 'content' => str_pad(($this->page + 1), 2, '0', STR_PAD_LEFT),
@@ -118,7 +119,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 2)) {
+        if ($this->totalPages >= ($this->page + 2)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 2),
                 'content' => str_pad(($this->page + 2), 2, '0', STR_PAD_LEFT),
@@ -126,7 +127,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 3)) {
+        if ($this->totalPages >= ($this->page + 3)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 3),
                 'content' => str_pad(($this->page + 3), 2, '0', STR_PAD_LEFT),
@@ -134,7 +135,7 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1 && $this->page < $totalPages) {
+        if ($this->totalPages > 1 && $this->page < $this->totalPages) {
             $pages[] = array(
                 'pg' => (int)($this->page + 1),
                 'content' => '>',
@@ -142,9 +143,9 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1 && $this->page < $totalPages) {
+        if ($this->totalPages > 1 && $this->page < $this->totalPages) {
             $pages[] = array(
-                'pg' => (int)$totalPages,
+                'pg' => (int)$this->totalPages,
                 'content' => '>>',
                 'active' => false
             );
@@ -155,10 +156,9 @@ class Pagination
 
     public function getJson2()
     {
-        $totalPages = ceil($this->total / $this->perPage);
         $pages = array();
 
-        if ($totalPages > 1 && $this->page > 1) {
+        if ($this->totalPages > 1 && $this->page > 1) {
             $pages[] = array(
                 'pg' => (int)($this->page - 1),
                 'content' => '<i class="fa fa-angle-left"></i>',
@@ -166,7 +166,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 3) && ($this->page - 3) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 3),
                 'content' => (string)($this->page - 3),
@@ -174,7 +174,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 2) && ($this->page - 2) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 2),
                 'content' => (string)($this->page - 2),
@@ -182,7 +182,7 @@ class Pagination
             );
         }
 
-        if ($this->page > 1 && $totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
+        if ($this->page > 1 && $this->totalPages > ($this->page - 1) && ($this->page - 1) > 0) {
             $pages[] = array(
                 'pg' => (int)($this->page - 1),
                 'content' => (string)($this->page - 1),
@@ -190,7 +190,7 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1) {
+        if ($this->totalPages > 1) {
             $pages[] = array(
                 'pg' => (int)$this->page,
                 'content' => (string)$this->page,
@@ -198,7 +198,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 1)) {
+        if ($this->totalPages >= ($this->page + 1)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 1),
                 'content' => (string)($this->page + 1),
@@ -206,7 +206,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 2)) {
+        if ($this->totalPages >= ($this->page + 2)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 2),
                 'content' => (string)($this->page + 2),
@@ -214,7 +214,7 @@ class Pagination
             );
         }
 
-        if ($totalPages >= ($this->page + 3)) {
+        if ($this->totalPages >= ($this->page + 3)) {
             $pages[] = array(
                 'pg' => (int)($this->page + 3),
                 'content' => (string)($this->page + 3),
@@ -222,7 +222,7 @@ class Pagination
             );
         }
 
-        if ($totalPages > 1 && $this->page < $totalPages) {
+        if ($this->totalPages > 1 && $this->page < $this->totalPages) {
             $pages[] = array(
                 'pg' => (int)($this->page + 1),
                 'content' => '<i class="fa fa-angle-right"></i>',
