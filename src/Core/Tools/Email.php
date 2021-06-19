@@ -20,10 +20,12 @@ class Email
         $smtp_fromEmail = ConfigurationRepository::getValue('email_from_email');
         $smtp_fromName = ConfigurationRepository::getValue('email_from_name');
         $smtp_protocol = ConfigurationRepository::getValue('email_protocol');
+        $smtp_domain = ConfigurationRepository::getValue('smtp_domain');
 
         $transport = (new Swift_SmtpTransport($smtp_url, intval($smtp_port), $smtp_protocol))
             ->setUsername($smtp_user)
-            ->setPassword($smtp_pwd);
+            ->setPassword($smtp_pwd)
+            ->setLocalDomain($smtp_domain);
 
         $logger = new Swift_Plugins_Loggers_ArrayLogger();
         // Create the Mailer using your created Transport
@@ -38,10 +40,11 @@ class Email
         $message = (new Swift_Message($subject))
             ->setFrom([$smtp_user => $smtp_fromName])
             ->setTo($emails)
-            ->setBody($message, 'text/html')
+            ->setBody($message, 'text/html','utf-8')
             ->setReplyTo($smtp_fromEmail, $smtp_fromName);
 
         $send = $mailer->send($message);
+        echo $logger->dump();
         // Send the message
         if (!$send) {
             throw new Exception($logger->dump());
