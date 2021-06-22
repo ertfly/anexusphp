@@ -4,6 +4,7 @@ namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Business\Api\Repository\ApiRepository;
 use AnexusPHP\Core\DatabaseEntity;
+use Authfast\Api\Entity\ApiKeyFieldEntity;
 
 class ApiKeyEntity extends DatabaseEntity
 {
