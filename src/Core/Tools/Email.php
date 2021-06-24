@@ -20,7 +20,7 @@ class Email
         $smtp_fromEmail = ConfigurationRepository::getValue('email_from_email');
         $smtp_fromName = ConfigurationRepository::getValue('email_from_name');
         $smtp_protocol = ConfigurationRepository::getValue('email_protocol');
-        $smtp_domain = ConfigurationRepository::getValue('smtp_domain');
+        $smtp_domain = ConfigurationRepository::getValue('email_domain');
 
         $transport = (new Swift_SmtpTransport($smtp_url, intval($smtp_port), $smtp_protocol))
             ->setUsername($smtp_user)
