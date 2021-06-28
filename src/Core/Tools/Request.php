@@ -126,13 +126,13 @@ class Request
         return '';
     }
 
-    public static function sendGetUrlRedirect($url, $ssl = true, $encoded = true)
+    public static function sendGetUrlRedirect($url, $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, true);
 
         if ($ssl === false) {
@@ -166,7 +166,7 @@ class Request
      * @return array
      * @throws Exception
      */
-    public static function sendPostJson($url, $data, $headers = [], $ssl = true, $encoded = true)
+    public static function sendPostJson($url, $data, $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         $postFields = (is_array($data) ? json_encode($data) : $data);
@@ -175,8 +175,8 @@ class Request
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, Strings::escapeSequenceDecode($postFields));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
         if ($ssl === false) {
@@ -209,14 +209,14 @@ class Request
      * @return array
      * @throws Exception
      */
-    public static function sendGetJson($url, $headers = [], $ssl = true, $encoded = true)
+    public static function sendGetJson($url, $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
         if ($ssl === false) {
@@ -243,15 +243,15 @@ class Request
         );
     }
 
-    public static function sendDeleteJson($url, $headers = [], $ssl = true, $encoded = true)
+    public static function sendDeleteJson($url, $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
         if ($ssl === false) {
@@ -278,7 +278,7 @@ class Request
         );
     }
 
-    public static function sendPutJson($url, $data, $headers = [], $ssl = true, $encoded = true)
+    public static function sendPutJson($url, $data, $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         $postFields = (is_array($data) ? json_encode($data) : $data);
@@ -287,8 +287,8 @@ class Request
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, Strings::escapeSequenceDecode($postFields));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
         if ($ssl === false) {
