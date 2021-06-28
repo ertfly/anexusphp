@@ -148,7 +148,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição');
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
         }
 
         curl_close($ch);
@@ -192,7 +192,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição');
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
         }
 
         curl_close($ch);
@@ -232,7 +232,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição');
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
         }
 
         curl_close($ch);
@@ -267,7 +267,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição');
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
         }
 
         curl_close($ch);
@@ -304,7 +304,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição');
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
         }
 
         curl_close($ch);
