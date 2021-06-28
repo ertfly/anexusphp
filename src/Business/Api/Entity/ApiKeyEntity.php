@@ -20,6 +20,7 @@ class ApiKeyEntity extends DatabaseEntity
     protected $updated_at;
     protected $expired_at;
     protected $trash;
+    protected $webhook_log;
     public function setId($id)
     {
         $this->id = $id;
@@ -137,6 +138,16 @@ class ApiKeyEntity extends DatabaseEntity
 
         return $this;
     }
+    public function getWebhookLog()
+    {
+        return $this->webhook_log;
+    }
+    public function setWebhookLog($webhookLog)
+    {
+        $this->webhook_log = $webhookLog;
+
+        return $this;
+    }
     public function toArray()
     {
         return [
@@ -151,6 +162,7 @@ class ApiKeyEntity extends DatabaseEntity
             'updated_at' => $this->getUpdatedAt(),
             'expired_at' => $this->getExpiredAt(),
             'trash' => $this->getTrash(),
+            'webhook_log' => $this->getWebhookLog(),
         ];
     }
 
