@@ -68,7 +68,12 @@ class ApiKeyRepository
     public static function all($className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where trash = false order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
+        $rows = $db->query('
+        select a.* 
+        from ' . ApiKeyEntity::TABLE . ' a 
+        join ' . ApiEntity::TABLE . ' b on b.id = a.api_id and b.trash = false
+        where a.trash = false 
+        order by a.id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $rows;
     }
