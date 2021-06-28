@@ -14,7 +14,7 @@ class ApiKeyEntity extends DatabaseEntity
     protected $name;
     protected $app_key;
     protected $secret_key;
-    protected $production;
+    protected $webhook;
     protected $uri_domain;
     protected $uri_hook;
     protected $created_at;
@@ -66,14 +66,18 @@ class ApiKeyEntity extends DatabaseEntity
     {
         return $this->secret_key;
     }
-    public function setProduction($production)
+    public function getWebhook()
     {
-        $this->production = $production;
-        return $this;
+        if (is_null($this->webhook)) {
+            $this->webhook = false;
+        }
+        return boolval($this->webhook);
     }
-    public function getProduction()
+    public function setWebhook($webhook)
     {
-        return $this->production;
+        $this->webhook = $webhook;
+
+        return $this;
     }
     public function setUriDomain($uri_domain)
     {
@@ -141,7 +145,7 @@ class ApiKeyEntity extends DatabaseEntity
             'name' => $this->getName(),
             'app_key' => $this->getAppKey(),
             'secret_key' => $this->getSecretKey(),
-            'production' => $this->getProduction(),
+            'webhook' => $this->getWebhook(),
             'uri_domain' => $this->getUriDomain(),
             'uri_hook' => $this->getUriHook(),
             'created_at' => $this->getCreatedAt(),
