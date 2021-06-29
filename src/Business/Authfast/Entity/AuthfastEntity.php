@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AuthfastEntity extends DatabaseEntity
@@ -131,5 +132,31 @@ class AuthfastEntity extends DatabaseEntity
 			'updated_at' => $this->getUpdatedAt(),
 			'expired_at' => $this->getExpiredAt()
 		);
+	}
+
+	private $document;
+
+	/**
+	 * Get the value of document
+	 */
+	public function getDocument()
+	{
+		if (!$this->document) {
+			if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BRA)) == RegionCountryCodeConstant::BRA) {
+				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BRA));
+			} else if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BOL)) == RegionCountryCodeConstant::BOL) {
+				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BOL));
+			}
+		}
+		return $this->document;
+	}
+
+	public function inCountry($initials)
+	{
+		if (substr($this->getCode(), strrpos($this->getCode(), $initials)) == $initials) {
+			return true;
+		}
+
+		return false;
 	}
 }
