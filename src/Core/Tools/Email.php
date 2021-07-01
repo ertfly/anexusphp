@@ -11,7 +11,7 @@ use Swift_SmtpTransport;
 
 class Email
 {
-    public static function send($toEmails, $subject, $message)
+    public static function send($toEmails, $subject, $message, $debug = false)
     {
         $smtp_url = ConfigurationRepository::getValue('email_url');
         $smtp_port = ConfigurationRepository::getValue('email_port');
@@ -30,10 +30,18 @@ class Email
             $transport->setLocalDomain($smtp_domain);
         }
 
-        $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        $logger = null;
+        if ($debug) {
+            $logger = new Swift_Plugins_Loggers_ArrayLogger();
+        }
+
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
-        $mailer->registerPlugin(new \Swift_Plugins_LoggerPlugin($logger));
+
+        if ($debug) {
+            $mailer->registerPlugin(new \Swift_Plugins_LoggerPlugin($logger));
+        }
+
         $emails = array();
         foreach ($toEmails as $email => $name) {
             $emails[$email] = $name;
@@ -47,10 +55,14 @@ class Email
             ->setReplyTo($smtp_fromEmail, $smtp_fromName);
 
         $send = $mailer->send($message);
-        echo $logger->dump();
+
         // Send the message
         if (!$send) {
-            throw new Exception($logger->dump());
+            if ($debug) {
+                throw new Exception($logger->dump());
+            } else {
+                throw new Exception('Ocorreu um erro ao enviar o email solicitado, favor entrar em contato com o suporte!');
+            }
         }
 
         return $send;
