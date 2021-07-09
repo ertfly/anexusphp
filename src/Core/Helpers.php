@@ -347,3 +347,16 @@ function create_log(int $activity, int $module, int $bind_id, $description = nul
         AuthfastActivityRule::insert($log);
     }
 }
+
+/**
+ * Recebe uma string xml e formata os dados para retornar 
+ * um array contendo os valores (values) e indices (indexes)
+ * @param string $data
+ * @return array 
+*/
+function xmlFormatter(string $data) {
+    $p = xml_parser_create();
+    xml_parse_into_struct($p,$data,$values,$indexes);
+    xml_parser_free($p);
+    return ['values' => $values, 'indexes' => $indexes];
+}
