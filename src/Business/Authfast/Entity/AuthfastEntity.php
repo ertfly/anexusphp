@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\Authfast\Rule\AuthfastRule;
 use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
@@ -14,6 +15,7 @@ class AuthfastEntity extends DatabaseEntity
 	protected $code;
 	protected $firstname;
 	protected $lastname;
+	protected $document;
 	protected $username;
 	protected $email;
 	protected $photo;
@@ -57,6 +59,21 @@ class AuthfastEntity extends DatabaseEntity
 	public function getLastname()
 	{
 		return $this->lastname;
+	}
+	public function getDocument()
+	{
+		if (!$this->document) {
+			$countryCode = substr($this->getCode(), -3);
+			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
+			AuthfastRule::update($this);
+		}
+		return $this->document;
+	}
+	public function setDocument($document)
+	{
+		$this->document = $document;
+
+		return $this;
 	}
 	public function setUsername($username)
 	{
@@ -127,6 +144,7 @@ class AuthfastEntity extends DatabaseEntity
 			$countryCode = substr($this->getCode(), -3);
 			$country = RegionCountryRepository::byCode($countryCode);
 			$this->region_country_id = $country->getId();
+			AuthfastRule::update($this);
 		}
 		return $this->region_country_id;
 	}
@@ -152,11 +170,8 @@ class AuthfastEntity extends DatabaseEntity
 		);
 	}
 
-	private $document;
+	/* private $document;
 
-	/**
-	 * Get the value of document
-	 */
 	public function getDocument()
 	{
 		if (!$this->document) {
@@ -164,7 +179,7 @@ class AuthfastEntity extends DatabaseEntity
 			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
 		}
 		return $this->document;
-	}
+	} */
 
 	public function inCountry($initials)
 	{
