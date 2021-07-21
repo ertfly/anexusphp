@@ -3,6 +3,8 @@
 namespace AnexusPHP\Business\Authfast\Entity;
 
 use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AuthfastEntity extends DatabaseEntity
@@ -19,6 +21,7 @@ class AuthfastEntity extends DatabaseEntity
 	protected $created_at;
 	protected $updated_at;
 	protected $expired_at;
+	protected $region_country_id;
 	public function setId($id)
 	{
 		$this->id = $id;
@@ -118,6 +121,16 @@ class AuthfastEntity extends DatabaseEntity
 	{
 		return $this->expired_at;
 	}
+	public function getRegionCountryId()
+	{
+		return $this->region_country_id;
+	}
+	public function setRegionCountryId($regionCountryId)
+	{
+		$this->region_country_id = $regionCountryId;
+
+		return $this;
+	}
 	public function toArray()
 	{
 		return array(
@@ -130,7 +143,8 @@ class AuthfastEntity extends DatabaseEntity
 			'banner' => $this->getBanner(),
 			'created_at' => $this->getCreatedAt(),
 			'updated_at' => $this->getUpdatedAt(),
-			'expired_at' => $this->getExpiredAt()
+			'expired_at' => $this->getExpiredAt(),
+			'region_country_id' => $this->getRegionCountryId(),
 		);
 	}
 
@@ -158,5 +172,25 @@ class AuthfastEntity extends DatabaseEntity
 		}
 
 		return false;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var RegionCountryEntity
+	 */
+	private $regionCountry;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  RegionCountryEntity
+	 */
+	public function getRegionCountry()
+	{
+		if (!$this->regionCountry) {
+			$this->regionCountry = RegionCountryRepository::byId($this->region_country_id, RegionCountryEntity::class);
+		}
+		return $this->regionCountry;
 	}
 }
