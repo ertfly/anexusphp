@@ -14,7 +14,7 @@ class ApiKeyRule
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
         $record
-            ->setProduction(false)
+            ->setWebhook(false)
             ->setCreatedAt(date('Y-m-d H:i:s'))
             ->setTrash(false)
             ->save($db);
