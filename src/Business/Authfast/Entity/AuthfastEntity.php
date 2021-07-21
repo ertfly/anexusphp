@@ -123,12 +123,16 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getRegionCountryId()
 	{
+		if (!$this->region_country_id && $this->getCode()) {
+			$countryCode = substr($this->getCode(), -3);
+			$country = RegionCountryRepository::byCode($countryCode);
+			$this->region_country_id = $country->getId();
+		}
 		return $this->region_country_id;
 	}
 	public function setRegionCountryId($regionCountryId)
 	{
 		$this->region_country_id = $regionCountryId;
-
 		return $this;
 	}
 	public function toArray()
@@ -156,18 +160,15 @@ class AuthfastEntity extends DatabaseEntity
 	public function getDocument()
 	{
 		if (!$this->document) {
-			if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BRA)) == RegionCountryCodeConstant::BRA) {
-				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BRA));
-			} else if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BOL)) == RegionCountryCodeConstant::BOL) {
-				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BOL));
-			}
+			$countryCode = substr($this->getCode(), -3);
+			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
 		}
 		return $this->document;
 	}
 
 	public function inCountry($initials)
 	{
-		if (substr($this->getCode(), strrpos($this->getCode(), $initials)) == $initials) {
+		if (substr($this->getCode(), -3) == $initials) {
 			return true;
 		}
 
