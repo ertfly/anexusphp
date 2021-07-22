@@ -161,6 +161,9 @@ class RegionCountryEntity extends DatabaseEntity
     }
     public function getMoneyExchange()
     {
+        if (is_null($this->money_exchange)) {
+            $this->money_exchange = 1;
+        }
         return $this->money_exchange;
     }
     public function setMoneyExchange($moneyExchange)
