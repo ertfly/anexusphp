@@ -18,6 +18,12 @@ class RegionCountryEntity extends DatabaseEntity
     protected $date_hour_format;
     protected $locale;
     protected $timezone;
+    protected $money_symbol_left;
+    protected $money_symbol_right;
+    protected $money_decimal_place;
+    protected $money_exchange;
+    protected $separator_decimal;
+    protected $separator_thousands;
     public function setId($id)
     {
         $this->id = $id;
@@ -123,6 +129,66 @@ class RegionCountryEntity extends DatabaseEntity
     {
         return $this->timezone;
     }
+    public function getMoneySymbolLeft()
+    {
+        return $this->money_symbol_left;
+    }
+    public function setMoneySymbolLeft($moneySymbolLeft)
+    {
+        $this->money_symbol_left = $moneySymbolLeft;
+
+        return $this;
+    }
+    public function getMoneySymbolRight()
+    {
+        return $this->money_symbol_right;
+    }
+    public function setMoneySymbolRight($moneySymbolRight)
+    {
+        $this->money_symbol_right = $moneySymbolRight;
+
+        return $this;
+    }
+    public function getMoneyDecimalPlace()
+    {
+        return $this->money_decimal_place;
+    }
+    public function setMoneyDecimalPlace($moneyDecimalPlace)
+    {
+        $this->money_decimal_place = $moneyDecimalPlace;
+
+        return $this;
+    }
+    public function getMoneyExchange()
+    {
+        return $this->money_exchange;
+    }
+    public function setMoneyExchange($moneyExchange)
+    {
+        $this->money_exchange = $moneyExchange;
+
+        return $this;
+    }
+    public function getSeparatorDecimal()
+    {
+        return $this->separator_decimal;
+    }
+    public function setSeparatorDecimal($separatorDecimal)
+    {
+        $this->separator_decimal = $separatorDecimal;
+
+        return $this;
+    }
+    public function getSeparatorThousands()
+    {
+        return $this->separator_thousands;
+    }
+    public function setSeparatorThousands($separatorThousands)
+    {
+        $this->separator_thousands = $separatorThousands;
+
+        return $this;
+    }
     public function toArray()
     {
         return [
@@ -135,7 +201,13 @@ class RegionCountryEntity extends DatabaseEntity
             'date_format' => $this->getDateFormat(),
             'date_hour_format' => $this->getDateHourFormat(),
             'locale' => $this->getLocale(),
-            'timezone' => $this->getTimezone()
+            'timezone' => $this->getTimezone(),
+            'money_symbol_left' => $this->getMoneySymbolLeft(),
+            'money_symbol_right' => $this->getMoneySymbolRight(),
+            'money_decimal_place' => $this->getMoneyDecimalPlace(),
+            'money_exchange' => $this->getMoneyExchange(),
+            'separator_decimal' => $this->getSeparatorDecimal(),
+            'separator_thousands' => $this->getSeparatorThousands(),
         ];
     }
 }
