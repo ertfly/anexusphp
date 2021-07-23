@@ -33,7 +33,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byLocale($locale, $className): RegionCountryEntity
+    public static function byLocale($locale, $className = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);
@@ -50,7 +50,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function all($className)
+    public static function all($className = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
@@ -64,7 +64,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function allVisible($className)
+    public static function allVisible($className = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where visible is true order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
@@ -79,10 +79,28 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byInitials(RegionCountryEntity $country, $className): RegionCountryEntity
+    public static function byInitials(RegionCountryEntity $country, $className = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where initials = :initials limit 1', ['initials' => $country->getInitials()])->fetchObject($className);
+        if ($reg === false) {
+            return new $className();
+        }
+
+        return $reg;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $code
+     * @param string $className
+     * @return RegionCountryEntity
+     */
+    public static function byCode($code, $className = RegionCountryEntity::class)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject($className);
         if ($reg === false) {
             return new $className();
         }

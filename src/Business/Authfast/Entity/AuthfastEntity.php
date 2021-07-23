@@ -2,7 +2,10 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\Authfast\Rule\AuthfastRule;
 use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AuthfastEntity extends DatabaseEntity
@@ -12,6 +15,7 @@ class AuthfastEntity extends DatabaseEntity
 	protected $code;
 	protected $firstname;
 	protected $lastname;
+	protected $document;
 	protected $username;
 	protected $email;
 	protected $photo;
@@ -19,6 +23,7 @@ class AuthfastEntity extends DatabaseEntity
 	protected $created_at;
 	protected $updated_at;
 	protected $expired_at;
+	protected $region_country_id;
 	public function setId($id)
 	{
 		$this->id = $id;
@@ -54,6 +59,21 @@ class AuthfastEntity extends DatabaseEntity
 	public function getLastname()
 	{
 		return $this->lastname;
+	}
+	public function getDocument()
+	{
+		if (!$this->document) {
+			$countryCode = substr($this->getCode(), -3);
+			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
+			AuthfastRule::update($this);
+		}
+		return $this->document;
+	}
+	public function setDocument($document)
+	{
+		$this->document = $document;
+
+		return $this;
 	}
 	public function setUsername($username)
 	{
@@ -118,6 +138,21 @@ class AuthfastEntity extends DatabaseEntity
 	{
 		return $this->expired_at;
 	}
+	public function getRegionCountryId()
+	{
+		if (!$this->region_country_id && $this->getCode()) {
+			$countryCode = substr($this->getCode(), -3);
+			$country = RegionCountryRepository::byCode($countryCode);
+			$this->region_country_id = $country->getId();
+			AuthfastRule::update($this);
+		}
+		return $this->region_country_id;
+	}
+	public function setRegionCountryId($regionCountryId)
+	{
+		$this->region_country_id = $regionCountryId;
+		return $this;
+	}
 	public function toArray()
 	{
 		return array(
@@ -130,33 +165,48 @@ class AuthfastEntity extends DatabaseEntity
 			'banner' => $this->getBanner(),
 			'created_at' => $this->getCreatedAt(),
 			'updated_at' => $this->getUpdatedAt(),
-			'expired_at' => $this->getExpiredAt()
+			'expired_at' => $this->getExpiredAt(),
+			'region_country_id' => $this->getRegionCountryId(),
 		);
 	}
 
-	private $document;
+	/* private $document;
 
-	/**
-	 * Get the value of document
-	 */
 	public function getDocument()
 	{
 		if (!$this->document) {
-			if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BRA)) == RegionCountryCodeConstant::BRA) {
-				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BRA));
-			} else if (substr($this->getCode(), strrpos($this->getCode(), RegionCountryCodeConstant::BOL)) == RegionCountryCodeConstant::BOL) {
-				$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), RegionCountryCodeConstant::BOL));
-			}
+			$countryCode = substr($this->getCode(), -3);
+			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
 		}
 		return $this->document;
-	}
+	} */
 
 	public function inCountry($initials)
 	{
-		if (substr($this->getCode(), strrpos($this->getCode(), $initials)) == $initials) {
+		if (substr($this->getCode(), -3) == $initials) {
 			return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var RegionCountryEntity
+	 */
+	private $regionCountry;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  RegionCountryEntity
+	 */
+	public function getRegionCountry()
+	{
+		if (!$this->regionCountry) {
+			$this->regionCountry = RegionCountryRepository::byId($this->region_country_id, RegionCountryEntity::class);
+		}
+		return $this->regionCountry;
 	}
 }
