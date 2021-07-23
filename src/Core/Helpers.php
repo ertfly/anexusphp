@@ -7,6 +7,7 @@ use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
+use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Lang;
 use AnexusPHP\Core\Session;
@@ -323,9 +324,15 @@ function lang($id)
     return Lang::title($id);
 }
 
-function template($name, $defaultValue = null, $isUpload=false)
+function lang2($id)
 {
-    return Template::getSettingByKey($name, $defaultValue,$isUpload);
+    $lang = LanguageRepository::byId($id);
+    return $lang->getValue();
+}
+
+function template($name, $defaultValue = null, $isUpload = false)
+{
+    return Template::getSettingByKey($name, $defaultValue, $isUpload);
 }
 
 /**
@@ -338,7 +345,7 @@ function create_log(int $activity, int $module, int $bind_id, $description = nul
 {
     $log = new AuthfastActivityEntity;
     $sid = request()->sid;
-    if(!is_null($sid)){
+    if (!is_null($sid)) {
         $log->setAuthfastId(request()->sid->getAuthfastId() ? request()->sid->getAuthfastId() : 0)
             ->setModule($module)
             ->setBindId($bind_id)
@@ -353,10 +360,11 @@ function create_log(int $activity, int $module, int $bind_id, $description = nul
  * um array contendo os valores (values) e indices (indexes)
  * @param string $data
  * @return array 
-*/
-function xmlFormatter(string $data) {
+ */
+function xmlFormatter(string $data)
+{
     $p = xml_parser_create();
-    xml_parse_into_struct($p,$data,$values,$indexes);
+    xml_parse_into_struct($p, $data, $values, $indexes);
     xml_parser_free($p);
     return ['values' => $values, 'indexes' => $indexes];
 }
