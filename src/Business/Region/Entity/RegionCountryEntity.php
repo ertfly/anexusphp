@@ -159,10 +159,13 @@ class RegionCountryEntity extends DatabaseEntity
 
         return $this;
     }
-    public function getMoneyExchange()
+    public function getMoneyExchange($format = false)
     {
         if (is_null($this->money_exchange)) {
             $this->money_exchange = 1;
+        }
+        if ($format) {
+            return number_format($this->money_exchange, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
         }
         return doubleval($this->money_exchange);
     }
