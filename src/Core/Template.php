@@ -19,9 +19,7 @@ class Template
                 self::$setting = [];
             }
             if (!isset(self::$setting[self::$locale])) {
-                self::$setting = [
-                    self::$locale => []
-                ];
+                self::$setting[self::$locale] = [];
             }
 
             $template = ConfigurationRepository::getValue('template');
