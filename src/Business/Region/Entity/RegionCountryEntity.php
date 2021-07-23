@@ -216,4 +216,20 @@ class RegionCountryEntity extends DatabaseEntity
             'separator_thousands' => $this->getSeparatorThousands(),
         ];
     }
+
+    public function numberFormat($value)
+    {
+        return number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
+    }
+
+    public function moneyFormat($value)
+    {
+        $value = $this->moneyExchange($value);
+        return trim($this->getMoneySymbolLeft() . ' ' . number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands()) . ' ' . $this->getMoneySymbolRight());
+    }
+
+    public function moneyExchange($value)
+    {
+        return $value * $this->getMoneyExchange();
+    }
 }
