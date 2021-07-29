@@ -144,7 +144,9 @@ class AuthfastEntity extends DatabaseEntity
 			$countryCode = substr($this->getCode(), -3);
 			$country = RegionCountryRepository::byCode($countryCode);
 			$this->region_country_id = $country->getId();
-			AuthfastRule::update($this);
+			if ($this->getId()) {
+				AuthfastRule::update($this);
+			}
 		}
 		return $this->region_country_id;
 	}
