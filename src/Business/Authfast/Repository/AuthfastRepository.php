@@ -78,6 +78,23 @@ class AuthfastRepository
     }
 
     /**
+     * Retorna um registro do banco pelo id
+     * 
+     * @param string|null $document
+     * @return AuthfastEntity
+     */
+    public static function byDocument(?string $document, $cls = AuthfastEntity::class)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where document = :document limit 1', ['document' => $document])->fetchObject($cls);
+        if ($reg === false) {
+            return new $cls();
+        }
+
+        return $reg;
+    }
+
+    /**
      * Retorna todos os registros
      * 
      * @return AuthfastEntity[]
