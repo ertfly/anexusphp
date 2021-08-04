@@ -29,7 +29,7 @@ class AuthfastRepository
     /**
      * Retorna um registro do banco pelo id
      * 
-     * @param string|null $id
+     * @param string|null $code
      * @return AuthfastEntity
      */
     public static function byCode(?string $code, $cls = AuthfastEntity::class)
@@ -46,13 +46,30 @@ class AuthfastRepository
     /**
      * Retorna um registro do banco pelo id
      * 
-     * @param string|null $id
+     * @param string|null $username
      * @return AuthfastEntity
      */
     public static function byUsername(?string $username, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where username = :username limit 1', ['username' => $username])->fetchObject($cls);
+        if ($reg === false) {
+            return new $cls();
+        }
+
+        return $reg;
+    }
+
+    /**
+     * Retorna um registro do banco pelo id
+     * 
+     * @param string|null $email
+     * @return AuthfastEntity
+     */
+    public static function byEmail(?string $email, $cls = AuthfastEntity::class)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . $cls::TABLE . ' where email = :email limit 1', ['email' => $email])->fetchObject($cls);
         if ($reg === false) {
             return new $cls();
         }
