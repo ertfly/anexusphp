@@ -7,7 +7,7 @@ use Exception;
 
 class Cron
 {
-    public static function execute($command, $data, $debug = false)
+    public static function execute($command, $data = [], $debug = false)
     {
         if (!is_file(PATH_CRON . $command . '.php')) {
             throw new Exception('Arquivo de comando não existe');
