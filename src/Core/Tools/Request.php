@@ -278,7 +278,7 @@ class Request
         );
     }
 
-    public static function sendDeleteDataJson($url, $headers = [], $data = [], $ssl = true, $encoded = true, $timeout = 30)
+    public static function sendDeleteDataJson($url, $data = [], $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
         $postFields = (is_array($data) ? json_encode($data) : $data);
