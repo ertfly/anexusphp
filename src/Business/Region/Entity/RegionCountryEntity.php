@@ -222,9 +222,11 @@ class RegionCountryEntity extends DatabaseEntity
         return number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
     }
 
-    public function moneyFormat($value)
+    public function moneyFormat($value, $exchange = true)
     {
-        $value = $this->moneyExchange($value);
+        if($exchange){
+            $value = $this->moneyExchange($value);
+        }
         return trim($this->getMoneySymbolLeft() . ' ' . number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands()) . ' ' . $this->getMoneySymbolRight());
     }
 
