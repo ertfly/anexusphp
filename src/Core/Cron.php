@@ -7,7 +7,7 @@ use Exception;
 
 class Cron
 {
-    public static function execute($command, $data, $debug = false)
+    public static function execute($command, $data = [], $debug = false)
     {
         if (!is_file(PATH_CRON . $command . '.php')) {
             throw new Exception('Arquivo de comando não existe');
@@ -15,8 +15,9 @@ class Cron
 
         $token = Strings::token();
 
-        file_put_contents(PATH_TMP . $token . '.tmp', json_encode($data));
-
+        if (count($data) > 0) {
+            file_put_contents(PATH_TMP . $token . '.tmp', json_encode($data));
+        }
         $handle = popen('/usr/bin/php ' . PATH_CRON . $command . '.php "' .  $token . '.tmp' . '" &', 'r');
         if ($debug) {
             $output = '/usr/bin/php ' . PATH_CRON . $command . '.php "' .  $token . '.tmp' . '" &\n';

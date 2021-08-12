@@ -19,13 +19,11 @@ class Template
                 self::$setting = [];
             }
             if (!isset(self::$setting[self::$locale])) {
-                self::$setting = [
-                    self::$locale => []
-                ];
+                self::$setting[self::$locale] = [];
             }
 
             $template = ConfigurationRepository::getValue('template');
-            $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
+            $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS . self::$locale . DS;
             $templateFiles = scandir($assetsPath);
             unset($templateFiles[0]);
             unset($templateFiles[1]);
@@ -55,7 +53,7 @@ class Template
     {
         $template = ConfigurationRepository::getValue('template');
         $resourcePath = PATH_ROOT . 'src' . DS . 'App' . DS . 'Views' . DS . $template . DS . 'resource';
-        $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS;
+        $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS . self::$locale . DS;
 
         $engine = new Engine($resourcePath, 'css');
 

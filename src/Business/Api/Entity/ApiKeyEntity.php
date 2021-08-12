@@ -123,7 +123,7 @@ class ApiKeyEntity extends DatabaseEntity
     public function getExpiredAt($format = false)
     {
         if ($format && $this->expired_at) {
-            return timeConverter($this->expired_at, request()->country);
+            return date('d/m/Y', strtotime($this->expired_at));
         }
 
         return $this->expired_at;

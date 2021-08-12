@@ -278,6 +278,43 @@ class Request
         );
     }
 
+    public static function sendDeleteDataJson($url, $data = [], $headers = [], $ssl = true, $encoded = true, $timeout = 30)
+    {
+        $ch = curl_init();
+        $postFields = (is_array($data) ? json_encode($data) : $data);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, Strings::escapeSequenceDecode($postFields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+
+        if ($ssl === false) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        }
+
+        if ($encoded === false) {
+            curl_setopt($ch, CURLOPT_ENCODING, "");
+        }
+
+        $response = curl_exec($ch);
+        $info = curl_getinfo($ch);
+
+        if (curl_errno($ch)) {
+            throw new Exception('Ocorreu um erro na sua requisição.' . chr(10) . 'Response:' . chr(10) . $response);
+        }
+
+        curl_close($ch);
+
+        return array(
+            'response' => $response,
+            'info' => $info
+        );
+    }
+
     public static function sendPutJson($url, $data, $headers = [], $ssl = true, $encoded = true, $timeout = 30)
     {
         $ch = curl_init();
