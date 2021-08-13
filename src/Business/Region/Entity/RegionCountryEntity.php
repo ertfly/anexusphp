@@ -217,14 +217,17 @@ class RegionCountryEntity extends DatabaseEntity
         ];
     }
 
-    public function numberFormat($value)
+    public function numberFormat($value, $decimalPlace = null)
     {
-        return number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
+        if (is_null($decimalPlace)) {
+            $decimalPlace = $this->getMoneyDecimalPlace();
+        }
+        return number_format($value, $decimalPlace, $this->getSeparatorDecimal(), $this->getSeparatorThousands());
     }
 
     public function moneyFormat($value, $exchange = true)
     {
-        if($exchange){
+        if ($exchange) {
             $value = $this->moneyExchange($value);
         }
         return trim($this->getMoneySymbolLeft() . ' ' . number_format($value, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands()) . ' ' . $this->getMoneySymbolRight());
