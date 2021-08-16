@@ -35,6 +35,10 @@ class Translate
                 self::$vars[$key] = [];
                 $lines = file(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $file);
                 for ($l = 0; $l < count($lines); $l++) {
+                    if (strpos($lines[$l], '=') === false) {
+                        continue;
+                    }
+
                     $arr = explode('=', $lines[$l]);
                     self::$vars[$key][$arr[0]] = $arr[1];
                 }
