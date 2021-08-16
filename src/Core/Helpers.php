@@ -325,9 +325,9 @@ function lang($id)
     return Lang::title($id);
 }
 
-function translate($var, $key, $defaultValue = null)
+function translate($var, $key)
 {
-    return Translate::get($var, $key, $defaultValue);
+    return Translate::get($var, $key);
 }
 
 function lang2($id)
