@@ -19,7 +19,7 @@ class Translate
             unset($files[2]);
 
             if (count($files) == 0) {
-                $path = PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR;
+                $path = PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . '_default' . DIRECTORY_SEPARATOR;
                 $pathInput = PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR;
                 $files = scandir($path);
                 unset($files[0]);
