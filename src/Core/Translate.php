@@ -42,6 +42,7 @@ class Translate
                     // $arr = explode('=', $lines[$l]);
                     // self::$vars[$key][$arr[0]] = $arr[1];
                     $varKey = substr($lines[$l], 0, strpos($lines[$l], '='));
+                    $varKey = str_replace(' ', '', $varKey);
                     $varValue = substr($lines[$l], strpos($lines[$l], '=') + 1);
                     self::$vars[$key][$varKey] = $varValue;
                 }
