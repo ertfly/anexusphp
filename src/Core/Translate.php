@@ -16,6 +16,20 @@ class Translate
             $files = scandir(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale);
             unset($files[0]);
             unset($files[1]);
+            unset($files[2]);
+
+            if (count($files) == 0) {
+                $path = PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR;
+                $pathInput = PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR;
+                $files = scandir($path);
+                unset($files[0]);
+                unset($files[1]);
+                foreach ($files as $file) {
+                    $content = file_get_contents($path . $file);
+                    file_put_contents($pathInput . $file, $content);
+                }
+            }
+
             foreach ($files as $file) {
                 $key = substr($file, 0, strrpos($file, '.'));
                 self::$vars[$key] = [];
