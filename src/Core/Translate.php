@@ -39,8 +39,11 @@ class Translate
                         continue;
                     }
 
-                    $arr = explode('=', $lines[$l]);
-                    self::$vars[$key][$arr[0]] = $arr[1];
+                    // $arr = explode('=', $lines[$l]);
+                    // self::$vars[$key][$arr[0]] = $arr[1];
+                    $varKey = substr($lines[$l], 0, strpos($lines[$l], '='));
+                    $varValue = substr($lines[$l], strpos($lines[$l], '=') + 1);
+                    self::$vars[$key][$varKey] = $varValue;
                 }
             }
         }
