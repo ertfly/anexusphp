@@ -16,6 +16,7 @@ use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
 use AnexusPHP\Core\Tools\Request as ToolsRequest;
 use AnexusPHP\Core\Tools\Strings;
+use AnexusPHP\Core\Translate;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -322,6 +323,11 @@ function dd($value)
 function lang($id)
 {
     return Lang::title($id);
+}
+
+function translate($var, $key, $defaultValue = null)
+{
+    return Translate::get($var, $key, $defaultValue);
 }
 
 function lang2($id)
