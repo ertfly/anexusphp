@@ -37,7 +37,7 @@ function url(?string $name = null, $parameters = null, ?array $getParams = null)
 function url_absolute(?string $name = null, $parameters = null, ?array $getParams = null)
 {
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
-    $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
+    $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '/');
     return rtrim($protocol . $domainName . url($name, $parameters, $getParams), '/');
 }
 
