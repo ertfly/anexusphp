@@ -51,7 +51,7 @@ class Translate
         }
     }
 
-    public static function get($var, $key)
+    public static function get($var, $key, $defaultValue = null)
     {
         if (is_null(self::$vars)) {
             throw new Exception('Translate is not started');
@@ -62,7 +62,11 @@ class Translate
         }
 
         if (!isset(self::$vars[$var][$key])) {
-            throw new Exception($key . ' not found in ' . $var);
+            return $defaultValue;
+        }
+
+        if (self::$vars[$var][$key] == '') {
+            return $defaultValue;
         }
 
         return self::$vars[$var][$key];
