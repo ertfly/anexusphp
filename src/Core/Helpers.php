@@ -16,6 +16,7 @@ use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
 use AnexusPHP\Core\Tools\Request as ToolsRequest;
 use AnexusPHP\Core\Tools\Strings;
+use AnexusPHP\Core\Translate;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -36,7 +37,7 @@ function url(?string $name = null, $parameters = null, ?array $getParams = null)
 function url_absolute(?string $name = null, $parameters = null, ?array $getParams = null)
 {
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
-    $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
+    $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '/');
     return rtrim($protocol . $domainName . url($name, $parameters, $getParams), '/');
 }
 
@@ -322,6 +323,11 @@ function dd($value)
 function lang($id)
 {
     return Lang::title($id);
+}
+
+function translate($var, $key, $defaultValue = null)
+{
+    return Translate::get($var, $key, $defaultValue);
 }
 
 function lang2($id)
