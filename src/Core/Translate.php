@@ -51,7 +51,7 @@ class Translate
         }
     }
 
-    public static function get($var, $key, $defaultValue = null)
+    public static function get($var, $key, $defaultValue = null, $trim = false)
     {
         if (is_null(self::$vars)) {
             throw new Exception('Translate is not started');
@@ -67,6 +67,10 @@ class Translate
 
         if (self::$vars[$var][$key] == '') {
             return $defaultValue;
+        }
+
+        if ($trim) {
+            self::$vars[$var][$key] = trim(self::$vars[$var][$key]);
         }
 
         return self::$vars[$var][$key];
