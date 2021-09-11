@@ -83,6 +83,6 @@ class RegionCityRepository
     public static function byState(RegionStateEntity $state)
     {
         $db = Database::getInstance();
-        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where state_id = :state_id', ['state_id' => $state->getId()])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where state_id = :state_id order by "name" asc', ['state_id' => $state->getId()])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
     }
 }

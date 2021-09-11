@@ -51,7 +51,8 @@ class RegionStateRepository
         $rows = $db->query('
         select a.* 
         from ' . RegionStateEntity::TABLE . ' a 
-        where a.country_id = :country_id', [
+        where a.country_id = :country_id
+        order by a.name asc', [
             'country_id' => $country->getId(),
         ])->fetchAll(PDO::FETCH_CLASS, RegionStateEntity::class);
 
