@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Region\Repository;
 
 use AnexusPHP\Business\Region\Entity\RegionCityEntity;
+use AnexusPHP\Business\Region\Entity\RegionStateEntity;
 use AnexusPHP\Core\Database;
 use Exception;
 use PDO;
@@ -71,5 +72,17 @@ class RegionCityRepository
     {
         $db = Database::getInstance();
         return $db->query('select * from ' . RegionCityEntity::TABLE . ' where trash = 0')->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param RegionStateEntity $state
+     * @return RegionCityEntity[]
+     */
+    public static function byState(RegionStateEntity $state)
+    {
+        $db = Database::getInstance();
+        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where state_id = :state_id', ['state_id' => $state->getId()])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
     }
 }
