@@ -20,6 +20,7 @@ class AppSessionEntity extends DatabaseEntity
     protected $access_browser;
     protected $created_at;
     protected $updated_at;
+    protected $authfast_token;
     public function setId($id)
     {
         $this->id = $id;
@@ -120,6 +121,16 @@ class AppSessionEntity extends DatabaseEntity
 
         return $this->updated_at;
     }
+    public function getAuthfastToken()
+    {
+        return $this->authfast_token;
+    }
+    public function setAuthfastToken($authfastToken)
+    {
+        $this->authfast_token = $authfastToken;
+
+        return $this;
+    }
     public function toArray()
     {
         return [
@@ -132,6 +143,7 @@ class AppSessionEntity extends DatabaseEntity
             'access_browser' => $this->getAccessBrowser(),
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
+            'authfast_token' => $this->getAuthfastToken(),
         ];
     }
 
