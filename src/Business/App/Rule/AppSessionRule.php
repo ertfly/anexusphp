@@ -53,7 +53,7 @@ class AppSessionRule
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
         }
-        $record->setAuthfastToken($response['response']['data']['token']);
+        $record->setAuthfastToken($response['data']['token']);
         self::update($record);
     }
     public static function checkAuthfastToken($appKey, $secretKey, $baseUrl, $authfastToken, $countryCode)
