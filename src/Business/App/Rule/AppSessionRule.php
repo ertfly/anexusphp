@@ -4,6 +4,7 @@ namespace AnexusPHP\Business\App\Rule;
 
 use AnexusPHP\Business\App\Entity\AppSessionEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Business\Authfast\Rule\AuthfastRule;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Tools\Request;
@@ -75,18 +76,21 @@ class AppSessionRule
         $data = $response['data'];
         if ($data['logged']) {
             $authfast = AuthfastRepository::byCode($data['user']['code']);
+            $country = RegionCountryRepository::byCode($countryCode);
+            $authfast
+                ->setCode($data['user']['code'])
+                ->setFirstname($data['user']['firstname'])
+                ->setLastname($data['user']['lastname'])
+                ->setUsername($data['user']['username'])
+                ->setEmail($data['user']['email'])
+                ->setDocument($data['user']['document'])
+                ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
+                ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
+                ->setRegionCountryId($country->getId());
             if (!$authfast->getId()) {
-                $country = RegionCountryRepository::byCode($countryCode);
-                $authfast
-                    ->setCode($data['user']['code'])
-                    ->setFirstname($data['user']['firstname'])
-                    ->setLastname($data['user']['lastname'])
-                    ->setUsername($data['user']['username'])
-                    ->setEmail($data['user']['email'])
-                    ->setDocument($data['user']['document'])
-                    ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
-                    ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
-                    ->setRegionCountryId($country->getId());
+                AuthfastRule::insert($authfast);
+            } else {
+                AuthfastRule::update($authfast);
             }
             $record->setAuthfastId($authfast->getId());
         } else {
