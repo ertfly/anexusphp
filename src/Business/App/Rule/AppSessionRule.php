@@ -98,6 +98,23 @@ class AppSessionRule
                 $record->setAuthfastId(null);
             }
         }
-        AppSessionRule::update($record);
+        self::update($record);
+    }
+
+    public static function logoutAuthfast(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $authfastToken, $countryCode)
+    {
+        $headers = [
+            'appKey: ' . $appKey,
+            'secretKey: ' . $secretKey,
+            'token: ' . $authfastToken,
+            'countryCode' => $countryCode,
+        ];
+        $response = Request::sendPostJson(trim($baseUrl, '/') . '/api/account/logout', [], $headers, false, false);
+        $response = @json_decode($response['response'], true);
+        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
+            throw new Exception('Dados da integração para geração de token inválidos!');
+        }
+        $record->setAuthfastId(null);
+        self::update($record);
     }
 }
