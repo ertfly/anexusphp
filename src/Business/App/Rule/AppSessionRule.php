@@ -50,7 +50,7 @@ class AppSessionRule
             'access_browser' => $record->getAccessBrowser(),
         ], $headers, false, false);
         $response = @json_decode($response['response'], true);
-        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['response']['data'])) {
+        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
         }
         $record->setAuthfastToken($response['response']['data']['token']);
@@ -66,10 +66,10 @@ class AppSessionRule
         ];
         $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/account/login', $headers, false, false);
         $response = @json_decode($response['response'], true);
-        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['response']['data'])) {
+        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
         }
 
-        return $response['response']['data'];
+        return $response['data'];
     }
 }
