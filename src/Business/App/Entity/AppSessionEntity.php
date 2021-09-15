@@ -191,30 +191,4 @@ class AppSessionEntity extends DatabaseEntity
 
         return true;
     }
-
-    public function isLoggedAuthfast(RegionCountryEntity $country, $appKey, $secretKey, $baseUrl)
-    {
-        $data = AppSessionRule::checkAuthfastToken($appKey, $secretKey, $baseUrl, $this->getAuthfastToken(), $country->getCode());
-        if ($data['logged']) {
-            $authfast = AuthfastRepository::byCode($data['user']['code']);
-            if (!$authfast->getId()) {
-                $authfast
-                    ->setCode($data['user']['code'])
-                    ->setFirstname($data['user']['firstname'])
-                    ->setLastname($data['user']['lastname'])
-                    ->setUsername($data['user']['username'])
-                    ->setEmail($data['user']['email'])
-                    ->setDocument($data['user']['document'])
-                    ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
-                    ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
-                    ->setRegionCountryId($country->getId());
-            }
-
-            $this->authfast_id = $authfast->getId();
-            AppSessionRule::update($this);
-            return true;
-        }
-
-        return false;
-    }
 }
