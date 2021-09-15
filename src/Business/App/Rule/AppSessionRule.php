@@ -49,8 +49,6 @@ class AppSessionRule
             'access_ip' => $record->getAccessIp(),
             'access_browser' => $record->getAccessBrowser(),
         ], $headers, false, false);
-        var_dump($response['response']);
-        exit;
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['response']['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
