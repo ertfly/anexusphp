@@ -15,10 +15,10 @@ class ApiRepository
      * @param string|null $id
      * @return ApiEntity
      */
-    public static function byId(?string $id, $className = ApiEntity::class)
+    public static function byId($id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
+        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => intval($id)])->fetchObject($className);
         if ($row === false) {
             return new $className();
         }
@@ -34,7 +34,7 @@ class ApiRepository
     public static function all($className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiEntity::TABLE.' where trash = false')->fetchAll(PDO::FETCH_CLASS, $className);
+        $rows = $db->query('select * from ' . ApiEntity::TABLE . ' where trash = false')->fetchAll(PDO::FETCH_CLASS, $className);
 
         return $rows;
     }
