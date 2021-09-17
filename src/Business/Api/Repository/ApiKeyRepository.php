@@ -20,7 +20,7 @@ class ApiKeyRepository
         $db = Database::getInstance();
         $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
         if ($row === false) {
-            return new ApiKeyEntity();
+            return new $className();
         }
 
         return $row;
@@ -54,7 +54,7 @@ class ApiKeyRepository
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key and trash = false limit 1', ['secret_key' => $secretKey])->fetchObject($className);
         if ($reg === false) {
-            return new ApiKeyEntity();
+            return new $className();
         }
 
         return $reg;
