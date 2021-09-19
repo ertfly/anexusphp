@@ -59,15 +59,15 @@ class AppSessionRule
         $record->setAuthfastToken($response['data']['token']);
         self::update($record);
     }
-    public static function checkAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $authfastToken, $countryCode)
+    public static function checkAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $authfastToken, $countryCode, $forceAuthfastCode = null)
     {
         $headers = [
             'appKey: ' . $appKey,
             'secretKey: ' . $secretKey,
             'token: ' . $authfastToken,
-            'countryCode' => $countryCode,
+            'countryCode: ' . $countryCode,
         ];
-        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/account/login', $headers, false, false);
+        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/account/login?forceAuthfastCode=' . $forceAuthfastCode, $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
