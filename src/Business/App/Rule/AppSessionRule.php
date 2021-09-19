@@ -41,7 +41,7 @@ class AppSessionRule
         }
         $record->delete($db);
     }
-    public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl)
+    public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $token = null)
     {
         $headers = [
             'appKey: ' . $appKey,
@@ -51,6 +51,7 @@ class AppSessionRule
             'type' => $record->getType(),
             'access_ip' => $record->getAccessIp(),
             'access_browser' => $record->getAccessBrowser(),
+            'token' => $token,
         ], $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
