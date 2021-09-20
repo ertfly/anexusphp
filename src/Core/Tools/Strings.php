@@ -238,4 +238,23 @@ class Strings
 
         return $filename;
     }
+
+    public static function formatarCep($cep)
+    {
+        if (strlen($cep) == 8) {
+            return preg_replace("/([\d]{2})([\d]{3})([\d]{3})/", "$1.$2-$3", $cep);
+        }
+        return '';
+    }
+
+    public static function formatarTelefoneOuCelular($telefoneOuCelular)
+    {
+        $telefoneOuCelular = self::onlyNumber($telefoneOuCelular);
+        if (strlen($telefoneOuCelular) == 10) {
+            return preg_replace("/([\d]{2})([\d]{4})([\d]{4})/", "($1) $2-$3", $telefoneOuCelular);
+        } else if (strlen($telefoneOuCelular) == 11) {
+            return preg_replace("/([\d]{2})([\d]{5})([\d]{4})/", "($1) $2-$3", $telefoneOuCelular);
+        }
+        return '';
+    }
 }
