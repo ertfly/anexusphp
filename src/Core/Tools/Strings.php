@@ -44,6 +44,7 @@ class Strings
 
     public static function formatCpfCnpj($cpfCnpj)
     {
+        $cpfCnpj = self::onlyNumber($cpfCnpj);
         if (strlen($cpfCnpj) == 11) {
             return preg_replace("/([\d]{3})([\d]{3})([\d]{3})([\d]{2})/", "$1.$2.$3-$4", $cpfCnpj);
         } else if (strlen($cpfCnpj) == 14) {
