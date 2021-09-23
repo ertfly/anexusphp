@@ -185,7 +185,7 @@ class AuthfastEntity extends DatabaseEntity
 
 	public function inCountry($initials)
 	{
-		if (substr($this->getCode(), -3) == $initials) {
+		if ($this->getRegionCountry()->getInitials() == $initials) {
 			return true;
 		}
 
