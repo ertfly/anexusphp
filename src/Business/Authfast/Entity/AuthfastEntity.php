@@ -135,14 +135,6 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getRegionCountryId()
 	{
-		if (!$this->region_country_id && $this->getCode()) {
-			$countryCode = substr($this->getCode(), -3);
-			$country = RegionCountryRepository::byCode($countryCode);
-			$this->region_country_id = $country->getId();
-			if ($this->getId()) {
-				AuthfastRule::update($this);
-			}
-		}
 		return $this->region_country_id;
 	}
 	public function setRegionCountryId($regionCountryId)
@@ -156,6 +148,7 @@ class AuthfastEntity extends DatabaseEntity
 			'code' => $this->getCode(),
 			'firstname' => $this->getFirstname(),
 			'lastname' => $this->getLastname(),
+			'document' => $this->getDocument(),
 			'username' => $this->getUsername(),
 			'email' => $this->getEmail(),
 			'photo' => $this->getPhoto(),
@@ -166,17 +159,6 @@ class AuthfastEntity extends DatabaseEntity
 			'region_country_id' => $this->getRegionCountryId(),
 		);
 	}
-
-	/* private $document;
-
-	public function getDocument()
-	{
-		if (!$this->document) {
-			$countryCode = substr($this->getCode(), -3);
-			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
-		}
-		return $this->document;
-	} */
 
 	public function inCountry($code)
 	{
