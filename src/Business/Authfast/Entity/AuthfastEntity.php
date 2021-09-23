@@ -62,11 +62,6 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getDocument()
 	{
-		if (!$this->document && $this->id) {
-			$countryCode = substr($this->getCode(), -3);
-			$this->document = substr($this->getCode(), 0, strrpos($this->getCode(), $countryCode));
-			AuthfastRule::update($this);
-		}
 		return $this->document;
 	}
 	public function setDocument($document)
