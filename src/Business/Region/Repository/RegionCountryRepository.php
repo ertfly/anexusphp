@@ -15,7 +15,7 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byId(?int $id, $className): RegionCountryEntity
+    public static function byId($id, $className): RegionCountryEntity
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);

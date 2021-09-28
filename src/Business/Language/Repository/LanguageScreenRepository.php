@@ -15,7 +15,7 @@ class LanguageScreenRepository
      * @param integer|null $id
      * @return LanguageScreenEntity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . LanguageScreenEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(LanguageScreenEntity::class);

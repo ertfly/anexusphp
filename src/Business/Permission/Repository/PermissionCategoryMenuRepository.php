@@ -16,7 +16,7 @@ class PermissionCategoryMenuRepository
      * @param integer|null $id
      * @return PermissionCategoryMenuEntity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . PermissionCategoryMenuEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(PermissionCategoryMenuEntity::class);

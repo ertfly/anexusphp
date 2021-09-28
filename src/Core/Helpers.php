@@ -151,7 +151,7 @@ function input_json($index, $defaultValue = null)
  * @param string $url
  * @param int|null $code
  */
-function redirect(string $url, ?int $code = null): void
+function redirect(string $url, $code = null): void
 {
     if ($code !== null) {
         response()->httpCode($code);

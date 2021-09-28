@@ -16,7 +16,7 @@ class PermissionMenuRepository
      * @param integer|null $id
      * @return PermissionMenuEntity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . PermissionMenuEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(PermissionMenuEntity::class);
@@ -31,7 +31,7 @@ class PermissionMenuRepository
      * @param integer|null $id
      * @return PermissionMenuEntity[]
      */
-    public static function byCategoryId(?int $id)
+    public static function byCategoryId($id)
     {
         $db = Database::getInstance();
         $regs = $db->query('select * from ' . PermissionMenuEntity::TABLE . ' where category_id = :category_id and trash = false', ['category_id' => (int)$id])->fetchAll(PDO::FETCH_CLASS, PermissionMenuEntity::class);

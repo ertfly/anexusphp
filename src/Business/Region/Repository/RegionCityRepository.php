@@ -16,7 +16,7 @@ class RegionCityRepository
      * @param integer|null $id
      * @return RegionCityEntity
      */
-    public static function byId(?int $id): RegionCityEntity
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . RegionCityEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(RegionCityEntity::class);

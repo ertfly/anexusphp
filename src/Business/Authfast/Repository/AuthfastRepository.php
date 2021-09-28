@@ -15,7 +15,7 @@ class AuthfastRepository
      * @param integer|null $id
      * @return AuthfastEntity
      */
-    public static function byId(?int $id, $cls = AuthfastEntity::class)
+    public static function byId($id, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);

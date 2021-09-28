@@ -17,7 +17,7 @@ class AppAuthfastRepository
      * @param integer|null $id
      * @return AppAuthfastEntity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppAuthfastEntity::class);

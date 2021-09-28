@@ -16,7 +16,7 @@ class {{biz_entity}}Repository
      * @param integer|null $id
      * @return {{biz_entity}}Entity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . {{biz_entity}}Entity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject({{biz_entity}}Entity::class);

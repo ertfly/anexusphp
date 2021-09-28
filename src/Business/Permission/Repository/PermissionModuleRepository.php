@@ -18,7 +18,7 @@ class PermissionModuleRepository
      * @param integer|null $id
      * @return PermissionModuleEntity
      */
-    public static function byId(?int $id, $cls = PermissionModuleEntity::class)
+    public static function byId($id, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);

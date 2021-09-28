@@ -16,7 +16,7 @@ class AuthfastActivityRepository
      * @param integer|null $id
      * @return AuthfastActivityEntity
      */
-    public static function byId(?int $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . AuthfastActivityEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AuthfastActivityEntity::class);
