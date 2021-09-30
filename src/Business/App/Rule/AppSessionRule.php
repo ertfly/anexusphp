@@ -51,7 +51,7 @@ class AppSessionRule
             'type' => $record->getType(),
             'access_ip' => $record->getAccessIp(),
             'access_browser' => $record->getAccessBrowser(),
-        ], $headers, true, false);
+        ], $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
@@ -67,7 +67,7 @@ class AppSessionRule
             'token: ' . $authfastToken,
             'countryCode: ' . $countryCode,
         ];
-        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/account/login?forceAuthfastCode=' . $forceAuthfastCode, $headers, true, false);
+        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/account/login?forceAuthfastCode=' . $forceAuthfastCode, $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
@@ -109,7 +109,7 @@ class AppSessionRule
             'token: ' . $authfastToken,
             'countryCode' => $countryCode,
         ];
-        $response = Request::sendPostJson(trim($baseUrl, '/') . '/api/account/logout', [], $headers, true, false);
+        $response = Request::sendPostJson(trim($baseUrl, '/') . '/api/account/logout', [], $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
