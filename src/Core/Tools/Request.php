@@ -135,10 +135,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, true);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -179,10 +179,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -219,10 +219,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -254,10 +254,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -291,10 +291,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -328,10 +328,10 @@ class Request
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_HEADER, false);
 
-        if ($ssl === false) {
+        // if ($ssl === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        }
+        // }
 
         if ($encoded === false) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
