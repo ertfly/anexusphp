@@ -2,21 +2,28 @@
 
 namespace AnexusPHP\core;
 
-use AnexusPHP\RegraDeNegocio\Configuracao\RegraDeNegocio\ConfiguracaoRegraDeNegocio;
-use AnexusPHP\RegraDeNegocio\Configuracao\Repositorio\ConfiguracaoRepositorio;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Configuration\Rule\ConfigurationRule;
+use Exception;
 use PDO;
 
 class Migration
 {
     public static function init()
     {
+        if (!file_exists(PATH_LOGS . 'start_execution')) {
+            exit("Inicialize a aplicação atraves do anx");
+        }
+
         try {
-            ConfiguracaoRepositorio::obterValor('MIGRATION_STARTED');
+            if (ConfigurationRepository::getValue('MIGRATION_STARTED') == 'false') {
+                throw new \Exception();
+            };
         } catch (\Exception $e) {
             return self::install();
         }
 
-        $migrationVersion = ConfiguracaoRepositorio::obterValor('MIGRATION_VERSION');
+        $migrationVersion = ConfigurationRepository::getValue('MIGRATION_VERSION');
         $newUp = self::getVersionUp();
         $newDown = self::getVersionDown();
         $newVersion = $newUp . '.' . $newDown;
@@ -29,8 +36,8 @@ class Migration
             if (intval($arr[1]) < $newDown) {
                 self::executeDown(intval($arr[1]), $newDown);
             }
-            $version = (ConfiguracaoRepositorio::porId('MIGRATION_VERSION'))->setValor($newVersion);
-            ConfiguracaoRegraDeNegocio::alterar($version);
+            $version = (ConfigurationRepository::byId('MIGRATION_VERSION'))->setValue($newVersion);
+            ConfigurationRule::update($version);
         }
     }
 
@@ -42,9 +49,18 @@ class Migration
 
         $sql = file_get_contents(PATH_MIGRATIONS . 'base.sql');
 
-        $database->exec($sql);
+        if (trim($sql) != '') {
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file base.sql >> ' . $e->getMessage());
+            }
+        }
 
         self::populate();
+
+        $config = (ConfigurationRepository::byId('MIGRATION_STARTED'))->setValue('true');
+        ConfigurationRule::update($config);
 
         return self::init();
     }
@@ -54,9 +70,15 @@ class Migration
         $database = Database::getInstance();
         $database->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 1);
 
-        $sql = file_get_contents(PATH_MIGRATIONS . 'dados.sql');
+        $sql = file_get_contents(PATH_MIGRATIONS . 'data.sql');
 
-        $database->exec($sql);
+        if (trim($sql) != '') {
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file data.sql >> ' . $e->getMessage());
+            }
+        }
     }
 
     private static function executeDown($oldVersion, $newVersion)
@@ -72,7 +94,11 @@ class Migration
             if (trim($sql) == '') {
                 continue;
             }
-            $database->exec($sql);
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file ' . $v . '.sql >> ' . $e->getMessage());
+            }
         }
     }
 
@@ -89,7 +115,12 @@ class Migration
             if (trim($sql) == '') {
                 continue;
             }
-            $database->exec($sql);
+
+            try {
+                $database->exec($sql);
+            } catch (Exception $e) {
+                throw new Exception('Error file ' . $v . '.sql >> ' . $e->getMessage());
+            }
         }
     }
 

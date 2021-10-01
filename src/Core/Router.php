@@ -15,7 +15,9 @@ class Router extends SimpleRouter
 
         $arrUrl = explode('/', trim(url()->getPath(), '/'));
         $app = isset($arrUrl[0]) && trim($arrUrl[0]) != '' ? $arrUrl[0] : 'app';
-        $app = ucfirst($app);
+        $app = str_replace('-', ' ', $app);
+        $app = ucwords($app);
+        $app = str_replace(' ', '', $app);
         if (!is_dir(PATH_ROUTES . $app)) {
             $app = 'App';
         }
@@ -24,7 +26,6 @@ class Router extends SimpleRouter
         unset($scanDir[0]);
         unset($scanDir[1]);
         $scanDir = array_values($scanDir);
-
 
         $j = count($scanDir);
         for ($i = 0; $i < $j; $i++) {

@@ -1,0 +1,12 @@
+<?php
+// 
+// use Pecee\Http\Request;
+// use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
+// use Pecee\SimpleRouter\SimpleRouter;
+// 
+// SimpleRouter::error(function (Request $request, \Exception $exception)
+// {
+//     if ($exception instanceof NotFoundHttpException) {
+//         return response()->redirect(url('not-found'));
+//     }
+// });

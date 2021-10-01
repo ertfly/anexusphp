@@ -1,0 +1,35 @@
+<?php
+
+namespace {{app}}\Modules\{{module}}\Controllers;
+
+use {{app}}\Template;
+
+class {{module}}Controller
+{
+    public function __construct()
+    {
+        if (!is_logged()) {
+            return response()->redirect(url('{{app}}AccountLogin'));
+        }
+    }
+
+    public function index()
+    {
+        return request()->view->render('{{path}}/index', [
+            'header' => Template::header('{{app}}'),
+            'footer' => Template::footer(),
+            // 'rows' => $rows
+        ]);
+
+        // return response()->redirect(url('{{module}}AccountLogin'));
+    }
+
+    public function panel()
+    {
+        return request()->view->render('{{path}}/index', [
+            'header' => Template::header('{{app}}'),
+            'footer' => Template::footer(),
+            // 'rows' => $rows
+        ]);
+    }
+}

@@ -1,0 +1,41 @@
+<?php
+
+namespace {{app}}\Modules\Account\Controllers;
+
+use {{app}}\Modules\Account\Models\AccountModel;
+use {{app}}\Template;
+
+class AccountController
+{
+    public function __construct()
+    {
+        if (is_logged()) {
+            return response()->redirect(url('{{app}}Panel'));
+        }
+    }
+
+    public function index()
+    {
+        return response()->redirect(url('{{app}}AccountLogin'));
+    }
+
+    public function login()
+    {
+        return request()->view->render('account/index', [
+            'header' => Template::header('Login', ['css/login.css']),
+            'footer' => Template::footer(),
+            'country' => request()->country
+        ]);
+    }
+
+    public function loginSubmit()
+    {
+        try {
+            AccountModel::submit();
+
+            response()->redirect(url('{{app}}Panel'));
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 1);
+        }
+    }
+}

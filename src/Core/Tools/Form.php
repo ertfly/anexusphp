@@ -36,7 +36,7 @@ class Form
         // Session::item('post')
         if (!$isGet && self::$post) {
             if (isset(self::$post[$name])) {
-                if (trim(self::$post[$name]) != '') {
+                if (!is_array(self::$post[$name]) && trim(self::$post[$name]) != '') {
                     return trim(self::$post[$name]);
                 } else {
                     return $defaultValue;
@@ -45,7 +45,7 @@ class Form
         } else {
             if ($isGet) {
                 $value = input($name, null, 'get');
-                if (trim($value) != '') {
+                if (!is_array($value) && trim($value) != '') {
                     return trim($value);
                 } else {
                     return $defaultValue;

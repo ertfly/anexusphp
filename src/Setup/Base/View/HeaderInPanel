@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" sizes="16x16" href="<?php // echo $icon ?>">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title><?= $title ?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
+    <link href="<?= asset('{{path}}css/base_in.css'); ?>" rel="stylesheet">
+    <link href="<?= asset('{{path}}css/profile.css'); ?>" rel="stylesheet">
+
+    <?php if (count($css) > 0) { ?>
+        <?php foreach ($css as $file) { ?>
+            <link href="<?= asset('{{path}}' . $file); ?>" rel="stylesheet" type="text/css">
+        <?php } ?>
+    <?php } ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="<?= asset('{{path}}js/jquery.kurios.js'); ?>"></script>
+    <script type="text/javascript" src="<?= asset('{{path}}js/resumable.js'); ?>"></script>
+
+    <?php if (count($js) > 0) { ?>
+        <?php foreach ($js as $file) { ?>
+            <script type="text/javascript" src="<?= asset('{{path}}' . $file); ?>"></script>
+        <?php } ?>
+    <?php } ?>
+
+</head>
+
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <?php echo $message; ?>
+
+    <header>
+        <div class="container menu-superior">
+            <div class="left">
+                <a href="<?= url_absolute('{{app}}') ?>"><img class="img-fluid" src="<?= asset('{{path}}img/logo-topo.png') ?>" alt="Authfast" /></a>
+            </div>
+            <div class="right">
+                <div class="countries">
+                    <a href="javascript:void(0)"><img src="<?= $country->getFlag(true) ?>" alt=""></a>
+                    <div class="countries-sub">
+                        <div class="countries-sub-in">
+                            <?php foreach ($countries as $row) : ?>
+                                <a href="javascript:void(0)" onclick="changeCountry(<?= $row->getId() ?>)"><?= $row->getInitials() ?>&nbsp;&nbsp;<img src="<?= $row->getFlag(true) ?>" class="img-flutuante" alt=""></a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <script>
+                        function changeCountry(id) {
+                            $.get('<?= url('{{app}}CountryChange') ?>' + id, function(data) {
+                                location.reload(true);
+                            });
+                        }
+                    </script>
+                </div>
+                <div class="infos">
+                    <div class="side-l">
+                        <span class="item-1"><?php echo $account->getFirstname() . ' ' . $account->getLastname() ?></span><br />
+                        <span class="item-2">Perfil</span>
+                    </div>
+                    <div class="side-r">
+                        <img class="img-fluid rounded-circle" src="<?= $account->getPhoto() ?>" />
+                    </div>
+                    <div class="submenu border-bottom">
+                        <a href="javascript:void(0);" class="item sair ajax-to" data-event="click_confirm" data-url="<?= url('{{app}}AccountLogout'); ?>" data-confirm="Atenção||Deseja se desconectar do sistema?">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-inferior">
+            <div class="container">
+                <ul>
+                    <li class="sub">
+                        <a href="javascript:void(0)">Menu</a>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-money-check"></i>Menu</a></li>
+                            <li><a href="#"><i class="far fa-briefcase"></i>Menu</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub">
+                        <a href="javascript:void(0)">Menu</a>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-cog"></i>Menu</a></li>
+                            <li><a href="#"><i class="fas fa-cog"></i>Menu</a></li>
+                            <li class="sub lado">
+                                <a href="javascript:void(0)"><i class="fas fa-cog"></i>Menu</a>
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-cog"></i>Menu</a></li>
+                                    <li><a href="#"><i class="fas fa-cog"></i>Menu</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"><i class="fas fa-server"></i>Menu</a></li>
+                            <li><a href="#"><i class="fas fa-server"></i>Menu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>

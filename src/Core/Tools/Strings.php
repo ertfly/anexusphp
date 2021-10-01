@@ -44,6 +44,7 @@ class Strings
 
     public static function formatCpfCnpj($cpfCnpj)
     {
+        $cpfCnpj = self::onlyNumber($cpfCnpj);
         if (strlen($cpfCnpj) == 11) {
             return preg_replace("/([\d]{3})([\d]{3})([\d]{3})([\d]{2})/", "$1.$2.$3-$4", $cpfCnpj);
         } else if (strlen($cpfCnpj) == 14) {
@@ -133,7 +134,7 @@ class Strings
         return true;
     }
 
-    public static function apenasNumero($str)
+    public static function onlyNumber($str)
     {
         return preg_replace("/[^0-9]/", "", $str);
     }
@@ -145,10 +146,10 @@ class Strings
         return implode('\\', $arr);
     }
 
-    public static function classToPath($classname)
+    /* public static function classToPath($classname)
     {
         return PATH_ROOT . 'src' . DS . str_replace('\\', DS, $classname) . DS;
-    }
+    } */
 
     public static function escapeSequenceDecode($str)
     {
@@ -191,5 +192,71 @@ class Strings
     public static function password($str)
     {
         return mb_convert_case(hash('sha256', $str), MB_CASE_UPPER);
+    }
+
+    public static function prepareEmailTemplate($subject, $content, $vars)
+    {
+        $variables = [];
+        foreach ($vars as $key => $value) {
+            $variables['{{' . $key . '}}'] = $value;
+        }
+
+        $subject = str_replace(array_keys($variables), array_values($variables), $subject);
+        $body = str_replace(array_keys($variables), array_values($variables), $content);
+
+        return [
+            'subject' => $subject,
+            'body' => $body
+        ];
+    }
+
+    public static function base64ToFile($fileEncoded, $pathDest, array $checkMimes, $errorMsg)
+    {
+        $mimeEncoded = substr($fileEncoded, 0, strpos($fileEncoded, ';'));
+        $mimeEncoded = str_replace('data:', '', $mimeEncoded);
+
+        if (!in_array($mimeEncoded, $checkMimes)) {
+            throw new \Exception($errorMsg);
+        }
+
+        $decoded = substr($fileEncoded, strpos($fileEncoded, ',') + 1);
+        $decoded = str_replace(' ', '+', $decoded);
+
+        $extensions = array(
+            'image/png' => 'png',
+            'image/jpeg' => 'jpg',
+            'image/jpg' => 'jpg',
+            'application/pdf' => 'pdf',
+        );
+        if (!isset($extensions[$mimeEncoded])) {
+            throw new Exception('Mimetype não disponível para upload');
+        }
+        $filename = Strings::token() . '.' . $extensions[$mimeEncoded];
+        @file_put_contents($pathDest . $filename, base64_decode($decoded));
+        if (!is_file($pathDest . $filename)) {
+            throw new \Exception('Ocorreu um erro ao realizar o upload do arquivo, favor tentar novamente.');
+        }
+
+        return $filename;
+    }
+
+    public static function formatarCep($cep)
+    {
+        $cep = self::onlyNumber($cep);
+        if (strlen($cep) == 8) {
+            return preg_replace("/([\d]{2})([\d]{3})([\d]{3})/", "$1.$2-$3", $cep);
+        }
+        return '';
+    }
+
+    public static function formatarTelefoneOuCelular($telefoneOuCelular)
+    {
+        $telefoneOuCelular = self::onlyNumber($telefoneOuCelular);
+        if (strlen($telefoneOuCelular) == 10) {
+            return preg_replace("/([\d]{2})([\d]{4})([\d]{4})/", "($1) $2-$3", $telefoneOuCelular);
+        } else if (strlen($telefoneOuCelular) == 11) {
+            return preg_replace("/([\d]{2})([\d]{5})([\d]{4})/", "($1) $2-$3", $telefoneOuCelular);
+        }
+        return '';
     }
 }

@@ -1,0 +1,13 @@
+<?= $header; ?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <div class="form rounded-lg w-100">
+                <!-- Load Authfast SDK for JavaScript -->
+                <div class="authfast-button" data-custom-class="my-button-authfast" data-mode="login" data-screen="ProfilePersonal" data-redir-login="<?= url_absolute('{{module}}AccountLoginSubmit') ?>" data-redir-logout="<?= url_absolute('{{module}}AccountLogout') ?>"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script async defer src="https://authfast.com.br/sdk/pt_BR/sdk.js?version=1.0&appKey={{app_key}}"></script>
+<?= $footer ?>
