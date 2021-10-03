@@ -105,7 +105,7 @@ class Request
     public static function getData()
     {
         $data = file_get_contents('php://input');
-        $data = json_decode($data, true);
+        $data = @json_decode($data, true);
         return (isset($data) ? $data : false);
     }
 
@@ -386,5 +386,15 @@ class Request
         }
 
         return trim($data[$key]);
+    }
+
+    public static function jsons(){
+        $data = self::getData();
+        if($data===false){
+            return [];
+        }
+
+        self::inputArray($data);
+        return $data;
     }
 }
