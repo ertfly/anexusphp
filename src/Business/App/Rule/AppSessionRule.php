@@ -56,6 +56,9 @@ class AppSessionRule
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
         }
+        if ($response['response']['code'] != 0) {
+            throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
+        }
         $record->setAuthfastToken($response['data']['token']);
         self::update($record);
     }
@@ -71,6 +74,10 @@ class AppSessionRule
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
+        }
+
+        if ($response['response']['code'] != 0) {
+            throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
         }
 
         $data = $response['data'];
@@ -114,6 +121,11 @@ class AppSessionRule
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
         }
+
+        if ($response['response']['code'] != 0) {
+            throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
+        }
+
         $record->setAuthfastId(null);
         self::update($record);
     }
