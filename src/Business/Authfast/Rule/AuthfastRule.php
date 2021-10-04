@@ -46,7 +46,7 @@ class AuthfastRule
      * @param string $baseUrl
      * @return AuthfastEntity
      */
-    public static function createOrUpdateAuthfast($authfastCode, $appKey, $secretKey, $baseUrl)
+    public static function createOrUpdateAuthfast($authfastCode, $appKey, $secretKey, $baseUrl, $classname = AuthfastEntity::class)
     {
         $headers = [
             'appKey: ' . $appKey,
@@ -65,7 +65,7 @@ class AuthfastRule
             throw new Exception('Erro ao buscar informações do usuário "' . $authfastCode . '" no módulo de cadastro!');
         }
 
-        $authfast = AuthfastRepository::byCode($data['data']['authfast_id']);
+        $authfast = AuthfastRepository::byCode($data['data']['authfast_id'], $classname);
         $country = RegionCountryRepository::byCode($data['data']['country']);
 
         $authfast
