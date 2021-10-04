@@ -58,7 +58,7 @@ class Translate
         }
 
         if (!isset(self::$vars[$var])) {
-            return '{{' . $var . '}}';
+            throw new Exception($var . ' not found in vars');
         }
 
         if (!isset(self::$vars[$var][$key])) {
