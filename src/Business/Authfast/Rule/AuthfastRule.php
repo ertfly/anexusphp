@@ -61,23 +61,23 @@ class AuthfastRule
             throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
         }
 
-        if (!isset($data['data']['authfast_id'])) {
+        if (!isset($response['data']['authfast_id'])) {
             throw new Exception('Erro ao buscar informações do usuário "' . $authfastCode . '" no módulo de cadastro!');
         }
 
-        $authfast = AuthfastRepository::byCode($data['data']['authfast_id'], $classname);
-        $country = RegionCountryRepository::byCode($data['data']['country']);
+        $authfast = AuthfastRepository::byCode($response['data']['authfast_id'], $classname);
+        $country = RegionCountryRepository::byCode($response['data']['country']);
 
         $authfast
-            ->setType($data['data']['type'])
-            ->setCode($data['data']['authfast_id'])
-            ->setFirstname($data['data']['firstname'])
-            ->setLastname($data['data']['lastname'])
-            ->setUsername($data['data']['username'])
-            ->setEmail($data['data']['email'])
-            ->setDocument($data['data']['document'])
-            ->setPhoto(str_replace('http://', 'https://', $data['data']['photo']))
-            ->setBanner(str_replace('http://', 'https://', $data['data']['banner']))
+            ->setType($response['data']['type'])
+            ->setCode($response['data']['authfast_id'])
+            ->setFirstname($response['data']['firstname'])
+            ->setLastname($response['data']['lastname'])
+            ->setUsername($response['data']['username'])
+            ->setEmail($response['data']['email'])
+            ->setDocument($response['data']['document'])
+            ->setPhoto(str_replace('http://', 'https://', $response['data']['photo']))
+            ->setBanner(str_replace('http://', 'https://', $response['data']['banner']))
             ->setRegionCountryId($country->getId());
         if (!$authfast->getId()) {
             AuthfastRule::insert($authfast);
