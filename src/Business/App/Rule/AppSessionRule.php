@@ -85,6 +85,7 @@ class AppSessionRule
             $authfast = AuthfastRepository::byCode($data['user']['code']);
             $country = RegionCountryRepository::byCode($countryCode);
             $authfast
+                ->setType($data['user']['type'])
                 ->setCode($data['user']['code'])
                 ->setFirstname($data['user']['firstname'])
                 ->setLastname($data['user']['lastname'])

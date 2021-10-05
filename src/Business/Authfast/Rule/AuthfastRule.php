@@ -69,6 +69,7 @@ class AuthfastRule
         $country = RegionCountryRepository::byCode($data['data']['country']);
 
         $authfast
+            ->setType($data['data']['type'])
             ->setCode($data['data']['authfast_id'])
             ->setFirstname($data['data']['firstname'])
             ->setLastname($data['data']['lastname'])
