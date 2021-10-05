@@ -7,11 +7,13 @@ use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\DatabaseEntity;
+use Exception;
 
 class AuthfastEntity extends DatabaseEntity
 {
 	const TABLE = 'authfast';
 	protected $id;
+	protected $type;
 	protected $code;
 	protected $firstname;
 	protected $lastname;
@@ -32,6 +34,28 @@ class AuthfastEntity extends DatabaseEntity
 	public function getId()
 	{
 		return $this->id;
+	}
+	public function getType($format = false)
+	{
+		if ($format && $this->type) {
+			switch ($this->type) {
+				case 'F':
+					return 'Pessoa';
+					break;
+				case 'J':
+					return 'Empresa';
+					break;
+				default:
+					return 'Não informado';
+			}
+		}
+		return $this->type;
+	}
+	public function setType($type)
+	{
+		$this->type = $type;
+
+		return $this;
 	}
 	public function setCode($code)
 	{
@@ -145,6 +169,7 @@ class AuthfastEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'type' => $this->getType(),
 			'code' => $this->getCode(),
 			'firstname' => $this->getFirstname(),
 			'lastname' => $this->getLastname(),
