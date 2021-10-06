@@ -20,4 +20,9 @@ class Log
     {
         @file_put_contents(PATH_LOGS . 'log_' . date('Ymd\_His') . '_' . Strings::token() . '.log', $msg);
     }
+
+    public static function user($user, $location, $msg)
+    {
+        @file_put_contents(PATH_LOGS . 'user_' . $user . '_' . $location . '_' . date('Ymd\_His') . '_' . Strings::token() . '.log', $msg);
+    }
 }
