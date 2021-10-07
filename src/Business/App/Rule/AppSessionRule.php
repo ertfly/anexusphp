@@ -41,13 +41,14 @@ class AppSessionRule
         }
         $record->delete($db);
     }
-    public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl)
+    public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $appId = null)
     {
         $headers = [
             'appKey: ' . $appKey,
             'secretKey: ' . $secretKey,
         ];
         $response = Request::sendPostJson(trim($baseUrl, '/') . '/api/account/token', [
+            'app_id' => $appId,
             'type' => $record->getType(),
             'access_ip' => $record->getAccessIp(),
             'access_browser' => $record->getAccessBrowser(),
