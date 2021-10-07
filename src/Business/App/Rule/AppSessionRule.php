@@ -52,6 +52,7 @@ class AppSessionRule
             'type' => $record->getType(),
             'access_ip' => $record->getAccessIp(),
             'access_browser' => $record->getAccessBrowser(),
+            'manager' => $record->getManager(),
         ], $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
