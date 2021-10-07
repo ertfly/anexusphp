@@ -161,10 +161,10 @@ class AppSessionEntity extends DatabaseEntity
      *
      * @return AuthfastEntity
      */
-    public function getAuthfast()
+    public function getAuthfast($refresh = false, $cls = AuthfastEntity::class)
     {
-        if (!$this->authfast) {
-            $this->authfast = AuthfastRepository::byId($this->authfast_id);
+        if (!$this->authfast || $refresh) {
+            $this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
         }
         return $this->authfast;
     }

@@ -174,10 +174,10 @@ class ApiKeyEntity extends DatabaseEntity
     /**
      * @return  ApiEntity
      */
-    public function getApi()
+    public function getApi($refresh = false, $cls = ApiEntity::class)
     {
-        if (!$this->api) {
-            $this->api = ApiRepository::byId($this->api_id);
+        if (!$this->api || $refresh) {
+            $this->api = ApiRepository::byId($this->api_id, $cls);
         }
         return $this->api;
     }

@@ -2,24 +2,25 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\DatabaseEntity;
 
 class AppAuthfastEntity extends DatabaseEntity
 {
 	const TABLE = 'app_authfast';
-    protected $id;
+	protected $id;
 	protected $app_id;
 	protected $authfast_id;
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
+	public function setId($id)
+	{
+		$this->id = $id;
+		return $this;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
 	public function setAppId($appId)
 	{
 		$this->app_id = $appId;
@@ -46,14 +47,46 @@ class AppAuthfastEntity extends DatabaseEntity
 		);
 	}
 
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AuthfastEntity
+	 */
 	private $person;
 
-	public function getPerson()
+	/**
+	 * Undocumented function
+	 *
+	 * @param boolean $refresh
+	 * @param string $cls
+	 * @return AuthfastEntity
+	 */
+	public function getPerson($refresh = false, $cls = AuthfastEntity::class)
 	{
-		if(!$this->person){
-			$this->person = AuthfastRepository::byId($this->authfast_id);
+		if (!$this->person || $refresh) {
+			$this->person = AuthfastRepository::byId($this->authfast_id, $cls);
 		}
 
 		return $this->person;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AuthfastEntity
+	 */
+	private $authfast;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  AuthfastEntity
+	 */
+	public function getAuthfast($refresh = false, $cls = AuthfastEntity::class)
+	{
+		if (!$this->authfast || $refresh) {
+			$this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
+		}
+		return $this->authfast;
 	}
 }

@@ -206,10 +206,10 @@ class AuthfastEntity extends DatabaseEntity
 	 *
 	 * @return  RegionCountryEntity
 	 */
-	public function getRegionCountry()
+	public function getRegionCountry($refresh = false, $cls = RegionCountryEntity::class)
 	{
-		if (!$this->regionCountry) {
-			$this->regionCountry = RegionCountryRepository::byId($this->region_country_id, RegionCountryEntity::class);
+		if (!$this->regionCountry || $refresh) {
+			$this->regionCountry = RegionCountryRepository::byId($this->region_country_id, $cls);
 		}
 		return $this->regionCountry;
 	}
