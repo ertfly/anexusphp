@@ -2,6 +2,7 @@
 
 use AnexusPHP\Business\App\Constant\AppTypeConstant;
 use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Entity\AppSessionEntity;
 use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
@@ -259,11 +260,16 @@ function timeConverter(string $time, RegionCountryEntity $country, $hour = false
 
 function is_logged()
 {
-    if (Session::item('manager')) {
+    /**
+     * @var AppSessionEntity $sid
+     */
+    $sid = request()->sid;
+
+    if ($sid->getManager()) {
         return true;
     }
 
-    $person = request()->sid->getAuthfast();
+    $person = $sid->getAuthfast();
     if ($person->getId()) {
         if ($person->getExpiredAt() == null) {
             return true;
