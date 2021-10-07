@@ -189,7 +189,7 @@ class AppSessionEntity extends DatabaseEntity
      */
     public function isLogged()
     {
-        if (Session::item('manager')) {
+        if ($this->getManager()) {
             return true;
         }
 

@@ -84,25 +84,27 @@ class AppSessionRule
 
         $data = $response['data'];
         if ($data['logged']) {
-            $authfast = AuthfastRepository::byCode($data['user']['code']);
-            $country = RegionCountryRepository::byCode($countryCode);
-            $authfast
-                ->setType($data['user']['type'])
-                ->setCode($data['user']['code'])
-                ->setFirstname($data['user']['firstname'])
-                ->setLastname($data['user']['lastname'])
-                ->setUsername($data['user']['username'])
-                ->setEmail($data['user']['email'])
-                ->setDocument($data['user']['document'])
-                ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
-                ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
-                ->setRegionCountryId($country->getId());
-            if (!$authfast->getId()) {
-                AuthfastRule::insert($authfast);
-            } else {
-                AuthfastRule::update($authfast);
+            if (!$record->getManager()) {
+                $authfast = AuthfastRepository::byCode($data['user']['code']);
+                $country = RegionCountryRepository::byCode($countryCode);
+                $authfast
+                    ->setType($data['user']['type'])
+                    ->setCode($data['user']['code'])
+                    ->setFirstname($data['user']['firstname'])
+                    ->setLastname($data['user']['lastname'])
+                    ->setUsername($data['user']['username'])
+                    ->setEmail($data['user']['email'])
+                    ->setDocument($data['user']['document'])
+                    ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
+                    ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
+                    ->setRegionCountryId($country->getId());
+                if (!$authfast->getId()) {
+                    AuthfastRule::insert($authfast);
+                } else {
+                    AuthfastRule::update($authfast);
+                }
+                $record->setAuthfastId($authfast->getId());
             }
-            $record->setAuthfastId($authfast->getId());
         } else {
             if ($record->getAuthfastId()) {
                 $record->setAuthfastId(null);
