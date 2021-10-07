@@ -23,6 +23,7 @@ class AppSessionEntity extends DatabaseEntity
     protected $created_at;
     protected $updated_at;
     protected $authfast_token;
+    protected $manager;
     public function setId($id)
     {
         $this->id = $id;
@@ -133,6 +134,19 @@ class AppSessionEntity extends DatabaseEntity
 
         return $this;
     }
+    public function getManager()
+    {
+        if (is_null($this->manager)) {
+            $this->manager = false;
+        }
+        return $this->manager;
+    }
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
     public function toArray()
     {
         return [
@@ -146,6 +160,7 @@ class AppSessionEntity extends DatabaseEntity
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
             'authfast_token' => $this->getAuthfastToken(),
+            'manager' => $this->getManager(),
         ];
     }
 
