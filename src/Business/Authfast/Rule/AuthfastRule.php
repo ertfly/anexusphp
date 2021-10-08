@@ -52,7 +52,7 @@ class AuthfastRule
             'appKey: ' . $appKey,
             'secretKey: ' . $secretKey,
         ];
-        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/' . $authfastCode . '?' . ($forceAuthorization ? '?forceAuthorization=1' : ''), $headers, false, false);
+        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/' . $authfastCode . '?' . ($forceAuthorization ? 'forceAuthorization=1' : ''), $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
             throw new Exception('Dados da integração para geração de token inválidos!');
