@@ -51,6 +51,7 @@ class RegionStateEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            'id' => $this->getId(),
             'country_id' => $this->getCountryId(),
             'name' => $this->getName(),
             'initials' => $this->getInitials()

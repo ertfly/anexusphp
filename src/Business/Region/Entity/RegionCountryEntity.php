@@ -198,6 +198,7 @@ class RegionCountryEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            'id' => $this->getId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'initials' => $this->getInitials(),
