@@ -58,4 +58,21 @@ class RegionStateRepository
 
         return $rows;
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $initials
+     * @return RegionStateEntity
+     */
+    public static function byInitials($initials)
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where initials = :initials limit 1', ['initials' => $initials])->fetchObject(RegionStateEntity::class);
+        if ($reg === false) {
+            return new RegionStateEntity();
+        }
+
+        return $reg;
+    }
 }
