@@ -48,22 +48,7 @@ class AuthfastRule
      */
     public static function createOrUpdateAuthfast($authfastCode, $appKey, $secretKey, $baseUrl, $classname = AuthfastEntity::class, $forceAuthorization = false)
     {
-        $headers = [
-            'appKey: ' . $appKey,
-            'secretKey: ' . $secretKey,
-        ];
-        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/' . $authfastCode . '?' . ($forceAuthorization ? 'forceAuthorization=1' : ''), $headers, false, false);
-        $response = @json_decode($response['response'], true);
-        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
-            throw new Exception('Dados da integração para geração de token inválidos!');
-        }
-        if ($response['response']['code'] != 0) {
-            throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
-        }
-
-        if (!isset($response['data']['authfast_id'])) {
-            throw new Exception('Erro ao buscar informações do usuário "' . $authfastCode . '" no módulo de cadastro!');
-        }
+        $response = self::requestProfile($authfastCode, $appKey, $secretKey, $baseUrl, $forceAuthorization);
 
         $authfast = AuthfastRepository::byCode($response['data']['authfast_id'], $classname);
         $country = RegionCountryRepository::byCode($response['data']['country']);
@@ -86,5 +71,27 @@ class AuthfastRule
         }
 
         return $authfast;
+    }
+
+    public static function requestProfile($authfastCode, $appKey, $secretKey, $baseUrl, $forceAuthorization = false)
+    {
+        $headers = [
+            'appKey: ' . $appKey,
+            'secretKey: ' . $secretKey,
+        ];
+        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/' . $authfastCode . '?' . ($forceAuthorization ? 'forceAuthorization=1' : ''), $headers, false, false);
+        $response = @json_decode($response['response'], true);
+        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
+            throw new Exception('Dados da integração para geração de token inválidos!');
+        }
+        if ($response['response']['code'] != 0) {
+            throw new Exception('Erro na integração do módulo de cadastro: ' . $response['response']['code'] . ' - ' . $response['response']['msg']);
+        }
+
+        if (!isset($response['data']['authfast_id'])) {
+            throw new Exception('Erro ao buscar informações do usuário "' . $authfastCode . '" no módulo de cadastro!');
+        }
+
+        return $response;
     }
 }
