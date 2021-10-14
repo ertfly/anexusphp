@@ -106,9 +106,8 @@ class AppSessionRule
                 $record->setAuthfastId($authfast->getId());
             }
         } else {
-            if ($record->getAuthfastId()) {
-                $record->setAuthfastId(null);
-            }
+            $record->setAuthfastId(null);
+            $record->setManager(false);
         }
         self::update($record);
     }
