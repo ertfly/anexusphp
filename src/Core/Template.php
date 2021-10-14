@@ -77,4 +77,33 @@ class Template
             }
         }
     }
+
+    public static function generateDefaultFiles()
+    {
+        $template = 'default';
+        $resourcePath = PATH_ROOT . 'src' . DS . 'App' . DS . 'Views' . DS . $template . DS . 'resource';
+        $assetsPath = PATH_PUBLIC . 'assets' . DS . 'template' . DS . $template . DS . 'setting' . DS . self::$locale . DS;
+
+        $engine = new Engine($resourcePath, 'css');
+
+        $templateFiles = scandir($resourcePath);
+        unset($templateFiles[0]);
+        unset($templateFiles[1]);
+
+        if (!empty($templateFiles)) {
+            foreach ($templateFiles as $file) {
+                $fileParts = explode('.', $file);
+                array_pop($fileParts);
+                $fileName = implode('.', $fileParts);
+
+                $fileContent = $engine->render($fileName);
+
+                $data = [
+                    'file' => $assetsPath . $file,
+                    'content' => $fileContent,
+                ];
+                Cron::execute('SaveTemplateFile', $data);
+            }
+        }
+    }
 }
