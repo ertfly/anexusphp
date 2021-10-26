@@ -54,11 +54,11 @@ class Translate
     public static function get($var, $key, $defaultValue = null, $trim = false)
     {
         if (is_null(self::$vars)) {
-            throw new Exception('Translate is not started');
+            return $defaultValue;
         }
 
         if (!isset(self::$vars[$var])) {
-            throw new Exception($var . ' not found in vars');
+            return $defaultValue;
         }
 
         if (!isset(self::$vars[$var][$key])) {

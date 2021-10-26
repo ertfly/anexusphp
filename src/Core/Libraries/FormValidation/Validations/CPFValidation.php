@@ -6,10 +6,11 @@ use AnexusPHP\Core\Tools\Strings;
 
 class CPFValidation extends AbstractValidation
 {
-    private $message = 'O campo %s esta inválido';
+    private $message;
 
     public function validate()
     {
+        $this->message = translate('validations', 'CPFValidation', 'O campo %s esta inválido');
         if (trim($this->value) != '' && !$this->cpf($this->value)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }
