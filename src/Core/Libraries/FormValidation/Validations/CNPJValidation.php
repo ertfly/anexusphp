@@ -7,10 +7,10 @@ use AnexusPHP\Core\Tools\Strings;
 class CNPJValidation extends AbstractValidation
 {
     private $message;
-
+    
     public function validate()
     {
-        $this->message = translate('validations', 'CNPJValidation', 'O campo %s esta inválido');
+        $this->message = translate('validation', 'CNPJValidation', 'O campo %s esta inválido');
         if (trim($this->value) != '' && !$this->cnpj($this->value)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }

@@ -8,7 +8,7 @@ class EmailValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validations', 'EmailValidation', 'O %s esta inválido');
+        $this->message = translate('validation', 'EmailValidation', 'O %s esta inválido');
         if (trim($this->value) != '' && !filter_var(trim($this->value), FILTER_VALIDATE_EMAIL)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }

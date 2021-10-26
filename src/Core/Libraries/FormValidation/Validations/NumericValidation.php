@@ -8,7 +8,7 @@ class NumericValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validations', 'NumericValidation', 'O campo %s deve conter apenas número');
+        $this->message = translate('validation', 'NumericValidation', 'O campo %s deve conter apenas número');
         if (trim($this->value) != '' && !is_numeric($this->value)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }

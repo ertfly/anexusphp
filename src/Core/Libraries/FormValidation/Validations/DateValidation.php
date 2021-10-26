@@ -10,7 +10,7 @@ class DateValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validations', 'DateValidation', 'A data do campo %s é inválida');
+        $this->message = translate('validation', 'DateValidation', 'A data do campo %s é inválida');
         if (!isset($this->options['format'])) {
             throw new \Exception('Favor especificar o formato da validação da data');
         }

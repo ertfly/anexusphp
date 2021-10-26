@@ -8,7 +8,7 @@ class RequiredValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validations', 'RequiredValidation', 'O campo %s é obrigatório');
+        $this->message = translate('validation', 'RequiredValidation', 'O campo %s é obrigatório');
         if (trim($this->value) == '') {
             throw new \Exception(sprintf($this->message, $this->description));
         }

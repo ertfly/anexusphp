@@ -8,7 +8,7 @@ class StrLenMaxValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validations', 'StrLenMaxValidation', 'O campo %s deve conter no máximo %s caracteres');
+        $this->message = translate('validation', 'StrLenMaxValidation', 'O campo %s deve conter no máximo %s caracteres');
         if(trim($this->value) == ''){
             return;
         }
