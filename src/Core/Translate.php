@@ -46,7 +46,7 @@ class Translate
                     $varKey = substr($lines[$l], 0, strpos($lines[$l], '='));
                     $varKey = str_replace(' ', '', $varKey);
                     $varValue = substr($lines[$l], strpos($lines[$l], '=') + 1);
-                    self::$vars[$key][$varKey] = trim($varValue, '\t\n\r');
+                    self::$vars[$key][$varKey] = trim($varValue);
                 }
             }
         }
