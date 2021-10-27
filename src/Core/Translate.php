@@ -34,7 +34,8 @@ class Translate
             foreach ($files as $file) {
                 $key = substr($file, 0, strrpos($file, '.'));
                 self::$vars[$key] = [];
-                $lines = file(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $file);
+                $contentFile = file_get_contents(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $file);
+                $lines = explode(chr(10), $contentFile);
                 for ($l = 0; $l < count($lines); $l++) {
                     if (strpos($lines[$l], '=') === false) {
                         continue;
