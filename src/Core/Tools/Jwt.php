@@ -42,7 +42,7 @@ class Jwt
      * @param string $token
      * @return bool|array
      */
-    public function decode(string $token)
+    public function decode($token)
     {
         if (!empty($token)) {
             $split = explode('.', $token);

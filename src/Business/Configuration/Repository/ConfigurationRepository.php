@@ -14,7 +14,7 @@ class ConfigurationRepository
      * @param string|null $id
      * @return ConfigurationEntity
      */
-    public static function byId(?string $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(ConfigurationEntity::class);
@@ -31,7 +31,7 @@ class ConfigurationRepository
      * @param string|null $id
      * @return string
      */
-    public static function getValue(?string $id)
+    public static function getValue($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select value from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchColumn();
@@ -45,7 +45,7 @@ class ConfigurationRepository
      * @param string $match
      * @return ConfigurationEntity[]
      */
-    public static function byMatch(string $match)
+    public static function byMatch($match)
     {
         $db = Database::getInstance();
         $regs = $db->query('select * from ' . ConfigurationEntity::TABLE . " where lower(id) like concat('%', lower(:match), '%') order by id asc", ['match' => $match])->fetchAll(PDO::FETCH_CLASS, ConfigurationEntity::class);

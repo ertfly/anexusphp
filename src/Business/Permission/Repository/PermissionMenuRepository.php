@@ -90,7 +90,7 @@ class PermissionMenuRepository
      * @param int $app
      * @return PermissionMenuEntity[]
      */
-    public static function byModules(string $modules, $app)
+    public static function byModules($modules, $app)
     {
         $db = Database::getInstance();
 

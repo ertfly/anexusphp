@@ -11,7 +11,7 @@ class Anx
     const PATH_ANX_SOURCE = self::PATH_ANX_ROOT . 'src' . DS;
     const PATH_BASE = self::PATH_ANX_SOURCE . 'Setup' . DS . 'Base' . DS;
 
-    public function start(string $function, $params = [], $inCore = false)
+    public function start($function, $params = [], $inCore = false)
     {
         // funções liberadas pra uso
         $ableFunctions = [
@@ -73,7 +73,7 @@ class Anx
      * @param integer $flags
      * @return void
      */
-    public function file_force_contents(string $fullPath, string $contents, $flags = 0)
+    public function file_force_contents($fullPath, string $contents, $flags = 0)
     {
         if (!file_exists($fullPath)) {
             $parts = explode('/', $fullPath);
@@ -92,7 +92,7 @@ class Anx
      * @param array $params
      * @return string
      */
-    public function getTemplate(string $name, array $params = []): string
+    public function getTemplate($name, array $params = []): string
     {
         $name = dirname(__FILE__, 1) . DS . 'Base' . DS . $name;
         $content = file_get_contents($name);

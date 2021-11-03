@@ -13,7 +13,7 @@ class LanguageRepository
      * @param string $id
      * @return LanguageEntity
      */
-    public static function byId(?string $id)
+    public static function byId($id)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . LanguageEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(LanguageEntity::class);
@@ -31,7 +31,7 @@ class LanguageRepository
      * @param RegionCountryEntity $country
      * @return LanguageEntity
      */
-    public static function byIdCountry(?string $id, RegionCountryEntity $country)
+    public static function byIdCountry($id, RegionCountryEntity $country)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . LanguageEntity::TABLE . ' where id = :id and region_country_id = :region_country_id limit 1', ['id' => $id, 'region_country_id' => $country->getId()])->fetchObject(LanguageEntity::class);

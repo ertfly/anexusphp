@@ -15,7 +15,7 @@ class ApiKeyRepository
      * @param string|null $id
      * @return ApiKeyEntity
      */
-    public static function byId(?string $id, $className = ApiKeyEntity::class)
+    public static function byId($id, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);

@@ -27,7 +27,7 @@ class Date
         return $date;
     }
 
-    public static function timeConverter(string $time, RegionCountryEntity $country, bool $hour = false)
+    public static function timeConverter($time, RegionCountryEntity $country, bool $hour = false)
     {
         $arr = explode(' ', $time);
         $format = '';

@@ -8,6 +8,7 @@ use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Lang;
@@ -30,12 +31,12 @@ use Pecee\Http\Request;
  * @return \Pecee\Http\Url
  * @throws \InvalidArgument\Exception
  */
-function url(?string $name = null, $parameters = null, ?array $getParams = null): Url
+function url($name = null, $parameters = null, ?array $getParams = null)
 {
     return Router::getUrl($name, $parameters, $getParams);
 }
 
-function url_absolute(?string $name = null, $parameters = null, ?array $getParams = null)
+function url_absolute($name = null, $parameters = null, ?array $getParams = null)
 {
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
     $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '/');
@@ -45,7 +46,7 @@ function url_absolute(?string $name = null, $parameters = null, ?array $getParam
 /**
  * @return \Pecee\Http\Response
  */
-function response(): Response
+function response()
 {
     return Router::response();
 }
@@ -53,7 +54,7 @@ function response(): Response
 /**
  * @return \Pecee\Http\Request
  */
-function request(): Request
+function request()
 {
     return Router::request();
 }
@@ -152,7 +153,7 @@ function input_json($index, $defaultValue = null)
  * @param string $url
  * @param int|null $code
  */
-function redirect(string $url, $code = null): void
+function redirect($url, $code = null): void
 {
     if ($code !== null) {
         response()->httpCode($code);
@@ -202,7 +203,7 @@ function responseApiError(\Exception $e)
 }
 
 //Retona a url do asset em questão
-function asset(string $path, $time = true)
+function asset($path, $time = true)
 {
     $fileUrl = url_absolute('assets/' . $path);
     $fileUrl = rtrim($fileUrl, '/');
@@ -215,7 +216,7 @@ function asset(string $path, $time = true)
     return $fileUrl;
 }
 
-function upload(string $path, $time = false)
+function upload($path, $time = false)
 {
     $fileUrl = url_absolute('uploads/' . $path);
     $fileUrl = rtrim($fileUrl, '/');
@@ -253,7 +254,7 @@ function sid(AppEntity $app, $className)
     return $sid;
 }
 
-function timeConverter(string $time, RegionCountryEntity $country, $hour = false)
+function timeConverter($time, RegionCountryEntity $country, $hour = false)
 {
     return Date::timeConverter($time, $country, $hour);
 }
@@ -296,7 +297,7 @@ function isLoggedApi()
  * @param integer $event
  * @return boolean
  */
-function verifyPermission(int $module, int $event): bool
+function verifyPermission(int $module, int $event)
 {
     $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getAuthfast(), $module);
 
@@ -373,10 +374,27 @@ function create_log(int $activity, int $module, int $bind_id, $description = nul
  * @param string $data
  * @return array 
  */
-function xmlFormatter(string $data)
+function xmlFormatter($data)
 {
     $p = xml_parser_create();
     xml_parse_into_struct($p, $data, $values, $indexes);
     xml_parser_free($p);
     return ['values' => $values, 'indexes' => $indexes];
+}
+
+/**
+ * Undocumented function
+ *
+ * @param string $key
+ * @param string $defaultValue
+ * @return void
+ */
+function config($key, $defaultValue = null)
+{
+    $value = ConfigurationRepository::getValue($key);
+    if (trim($value) == '') {
+        return $defaultValue;
+    }
+
+    return $value;
 }

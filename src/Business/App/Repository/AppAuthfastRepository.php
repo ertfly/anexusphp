@@ -34,7 +34,7 @@ class AppAuthfastRepository
      * @param string|null $id
      * @return AppAuthfastEntity
      */
-    public static function byAuthfastId(?string $authfastId)
+    public static function byAuthfastId($authfastId)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id limit 1', ['authfast_id' => $authfastId])->fetchObject(AppAuthfastEntity::class);
@@ -70,7 +70,7 @@ class AppAuthfastRepository
      * @param int $id
      * @return AppAuthfastEntity
      */
-    public static function byAuthfastIdAndAppId(string $authfastId, int $app)
+    public static function byAuthfastIdAndAppId($authfastId, int $app)
     {
         $db = Database::getInstance();
         $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id and app_id = :app_id limit 1', ['authfast_id' => $authfastId, 'app_id' => $app])->fetchObject(AppAuthfastEntity::class);

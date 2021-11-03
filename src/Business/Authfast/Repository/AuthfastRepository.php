@@ -32,7 +32,7 @@ class AuthfastRepository
      * @param string|null $code
      * @return AuthfastEntity
      */
-    public static function byCode(?string $code, $cls = AuthfastEntity::class)
+    public static function byCode($code, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject($cls);
@@ -49,7 +49,7 @@ class AuthfastRepository
      * @param string|null $username
      * @return AuthfastEntity
      */
-    public static function byUsername(?string $username, $cls = AuthfastEntity::class)
+    public static function byUsername($username, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where username = :username limit 1', ['username' => $username])->fetchObject($cls);
@@ -66,7 +66,7 @@ class AuthfastRepository
      * @param string|null $email
      * @return AuthfastEntity
      */
-    public static function byEmail(?string $email, $cls = AuthfastEntity::class)
+    public static function byEmail($email, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where email = :email limit 1', ['email' => $email])->fetchObject($cls);
@@ -83,7 +83,7 @@ class AuthfastRepository
      * @param string|null $document
      * @return AuthfastEntity
      */
-    public static function byDocument(?string $document, $cls = AuthfastEntity::class)
+    public static function byDocument($document, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
         $reg = $db->query('select * from ' . $cls::TABLE . ' where document = :document limit 1', ['document' => $document])->fetchObject($cls);
