@@ -239,11 +239,18 @@ function sid(AppEntity $app, $className)
 
     $sid = AppSessionRepository::byToken($token, $className);
     if (!$sid->getId()) {
+        $remoteAddr = null;
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $remoteAddr = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+            $remoteAddr = $_SERVER['REMOTE_ADDR'];
+        }
+        //HTTP_X_FORWARDED_FOR
         $token = Strings::token();
         $sid->setToken($token)
             ->setAppId($app->getId())
             ->setType(AppTypeConstant::BROWSER)
-            ->setAccessIp((isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null))
+            ->setAccessIp($remoteAddr)
             ->setAccessBrowser((isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null));
         AppSessionRule::insert($sid);
         Session::data('token', $token);
