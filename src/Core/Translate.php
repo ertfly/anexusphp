@@ -36,19 +36,22 @@ class Translate
                 self::$vars[$key] = [];
                 $contentFile = file_get_contents(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $file);
                 $lines = explode(chr(10), $contentFile);
-                $accumulate = '';
+                $lastKey = '';
+                $lastVarKey = '';
                 for ($l = 0; $l < count($lines); $l++) {
                     if (strpos($lines[$l], '=') === false) {
-                        $accumulate .= $lines[$l];
+                        if (isset(self::$vars[$lastKey]) && isset(self::$vars[$lastKey][$lastVarKey]) && trim($lines[$l]) != '') {
+                            self::$vars[$lastKey][$lastVarKey] .= $lines[$l];
+                        }
                         continue;
                     }
 
-                    // $arr = explode('=', $lines[$l]);
-                    // self::$vars[$key][$arr[0]] = $arr[1];
                     $varKey = substr($lines[$l], 0, strpos($lines[$l], '='));
                     $varKey = str_replace(' ', '', $varKey);
                     $varValue = substr($lines[$l], strpos($lines[$l], '=') + 1);
-                    self::$vars[$key][$varKey] = ($accumulate != '' ? $accumulate : '') . trim($varValue);
+                    self::$vars[$key][$varKey] = trim($varValue);
+                    $lastKey = $key;
+                    $lastVarKey = $varKey;
                 }
             }
         }
