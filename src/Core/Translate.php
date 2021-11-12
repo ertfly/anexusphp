@@ -41,7 +41,7 @@ class Translate
                 for ($l = 0; $l < count($lines); $l++) {
                     if (strpos($lines[$l], '=') === false) {
                         if (isset(self::$vars[$lastKey]) && isset(self::$vars[$lastKey][$lastVarKey]) && trim($lines[$l]) != '') {
-                            self::$vars[$lastKey][$lastVarKey] .= $lines[$l];
+                            self::$vars[$lastKey][$lastVarKey] .= chr(10) . $lines[$l];
                         }
                         continue;
                     }
