@@ -36,8 +36,10 @@ class Translate
                 self::$vars[$key] = [];
                 $contentFile = file_get_contents(PATH_ROOT . 'languages' . DIRECTORY_SEPARATOR . $app . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $file);
                 $lines = explode(chr(10), $contentFile);
+                $accumulate = '';
                 for ($l = 0; $l < count($lines); $l++) {
                     if (strpos($lines[$l], '=') === false) {
+                        $accumulate .= $lines[$l];
                         continue;
                     }
 
@@ -46,7 +48,7 @@ class Translate
                     $varKey = substr($lines[$l], 0, strpos($lines[$l], '='));
                     $varKey = str_replace(' ', '', $varKey);
                     $varValue = substr($lines[$l], strpos($lines[$l], '=') + 1);
-                    self::$vars[$key][$varKey] = trim($varValue);
+                    self::$vars[$key][$varKey] = ($accumulate != '' ? $accumulate : '') . trim($varValue);
                 }
             }
         }
