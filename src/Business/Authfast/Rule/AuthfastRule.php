@@ -134,11 +134,16 @@ class AuthfastRule
      * @param string $baseUrl
      * @return array
      */
-    public static function requestWarning($authfastCode, $appKey, $secretKey, $baseUrl)
+    public static function requestWarning($authfastCode, $appKey, $secretKey, $baseUrl, array $rules = [])
     {
+        $strRules = '';
+        if (count($rules) > 0) {
+            $strRules = implode(',', $rules);
+        }
         $headers = [
             'appKey: ' . $appKey,
             'secretKey: ' . $secretKey,
+            'rules: ' . $strRules,
         ];
         $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/warning/' . $authfastCode, $headers, false, false);
         $response = @json_decode($response['response'], true);
