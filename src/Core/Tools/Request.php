@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core\Tools;
 
 use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
+use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Tools\Strings;
 use Exception;
 
@@ -13,6 +14,8 @@ use Exception;
  */
 class Request
 {
+
+    private static $post;
 
     public static function get($key, $description = null, $validations = null, $options = null)
     {
@@ -59,6 +62,12 @@ class Request
 
     public static function posts()
     {
+        if (is_null(self::$post)) {
+            self::$post = Form::getPost();
+        }
+        if (self::$post) {
+            $_POST = self::$post;
+        }
         if (!isset($_POST)) {
             return array();
         }
@@ -68,6 +77,13 @@ class Request
 
     public static function post($key, $description = null, $validations = null, $options = null)
     {
+        if (is_null(self::$post)) {
+            self::$post = Form::getPost();
+        }
+        if (self::$post) {
+            $_POST = self::$post;
+        }
+        
         if (!isset($_POST[$key]) && !isset($description)) {
             return null;
         }
@@ -388,9 +404,10 @@ class Request
         return trim($data[$key]);
     }
 
-    public static function jsons(){
+    public static function jsons()
+    {
         $data = self::getData();
-        if($data===false){
+        if ($data === false) {
             return [];
         }
 

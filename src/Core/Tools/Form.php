@@ -55,4 +55,18 @@ class Form
 
         return $defaultValue;
     }
+
+    /**
+     * Get the value of post
+     */
+    public static function getPost()
+    {
+        if (self::$post === null) {
+            self::$post = Session::item('post', true);
+            if(!self::$post){
+                self::$post = [];
+            }
+        }
+        return self::$post;
+    }
 }
