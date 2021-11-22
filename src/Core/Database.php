@@ -24,32 +24,38 @@ class Database
      */
     public static function getInstance($instanceName = 'default')
     {
-        if(!is_file(PATH_ROOT . 'database.php')){
+        if (!is_file(PATH_ROOT . 'database.php')) {
             throw new Exception('File database.php not exist.');
         }
         if (!self::$settings) {
             self::$settings = require_once PATH_ROOT . 'database.php';
         }
 
-        if(!isset(self::$settings[$instanceName])){
+        if (!isset(self::$settings[$instanceName])) {
             throw new Exception('Instance name not exist.');
         }
 
         if (!self::$instance) {
-            self::$instance = new Medoo([
-                'database_type' => self::$settings[$instanceName]['driver'],
-                'database_name' => self::$settings[$instanceName]['dbname'],
-                'server' => self::$settings[$instanceName]['host'],
-                'username' => self::$settings[$instanceName]['user'],
-                'password' => self::$settings[$instanceName]['pass'],
-                'port' => self::$settings[$instanceName]['port'],
-                'charset' => self::$settings[$instanceName]['charset'],
-                'option' => [
-                    PDO::ATTR_CASE => PDO::CASE_NATURAL,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                ]
-            ]);
+            if (self::$settings[$instanceName]['driver'] != 'mongo') {
+                self::$instance = new Medoo([
+                    'database_type' => self::$settings[$instanceName]['driver'],
+                    'database_name' => self::$settings[$instanceName]['dbname'],
+                    'server' => self::$settings[$instanceName]['host'],
+                    'username' => self::$settings[$instanceName]['user'],
+                    'password' => self::$settings[$instanceName]['pass'],
+                    'port' => self::$settings[$instanceName]['port'],
+                    'charset' => self::$settings[$instanceName]['charset'],
+                    'option' => [
+                        PDO::ATTR_CASE => PDO::CASE_NATURAL,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    ]
+                ]);
+            } else {
+                self::$instance = new MongoDB\Client(
+                    'mongodb://'.self::$settings[$instanceName]['user'].':'.self::$settings[$instanceName]['pass'].'@'.self::$settings[$instanceName]['host'].'/?retryWrites=true&w=majority&authSource=admin'
+                );
+            }
         }
 
         return self::$instance;
