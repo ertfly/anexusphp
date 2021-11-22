@@ -12,7 +12,7 @@ abstract class MongoEntity
     {
         $collection = static::TABLE;
         $result = $db->$collection->insertOne($this->toArray());
-        $this->setId((string) $result->getInsertedId());
+        $this->setId($result->getInsertedId()->__toString());
         return;
     }
 
