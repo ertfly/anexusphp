@@ -4,13 +4,15 @@ namespace AnexusPHP\Core;
 
 abstract class MongoEntity
 {
+    abstract public function setId($id);
     abstract public function getId();
     abstract public function toArray();
 
     public function insert($db)
     {
         $collection = static::TABLE;
-        $db->$collection->insertOne($this->toArray());
+        $result = $db->$collection->insertOne($this->toArray());
+        $this->setId((string) $result->getInsertedId());
         return;
     }
 
