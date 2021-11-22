@@ -55,7 +55,7 @@ class Database
             } else {
                 $dbname = self::$settings[$instanceName]['dbname'];
                 self::$instance = (new Client(
-                    'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . '/?retryWrites=true&w=majority&authSource=admin'
+                    'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . ':' . self::$settings[$instanceName]['port'] . '/' . self::$settings[$instanceName]['dbname'] . '?authSource=' . self::$settings[$instanceName]['dbname']
                 ))->$dbname;
             }
         }
