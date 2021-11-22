@@ -4,7 +4,6 @@ namespace Core;
 
 abstract class MongoEntity
 {
-    abstract public function setId($id);
     abstract public function getId();
     abstract public function toArray();
 
