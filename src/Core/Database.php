@@ -5,6 +5,7 @@ namespace AnexusPHP\Core;
 use Exception;
 use PDO;
 use Medoo\Medoo;
+use MongoDB\Client;
 
 class Database
 {
@@ -52,9 +53,10 @@ class Database
                     ]
                 ]);
             } else {
-                self::$instance = new MongoDB\Client(
-                    'mongodb://'.self::$settings[$instanceName]['user'].':'.self::$settings[$instanceName]['pass'].'@'.self::$settings[$instanceName]['host'].'/?retryWrites=true&w=majority&authSource=admin'
-                );
+                $dbname = self::$settings[$instanceName]['dbname'];
+                self::$instance = (new Client(
+                    'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . '/?retryWrites=true&w=majority&authSource=admin'
+                ))->$dbname;
             }
         }
 
