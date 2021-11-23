@@ -11,8 +11,28 @@ abstract class MongoEntity
     public function insert($db)
     {
         $collection = static::TABLE;
-        $result = $db->$collection->insertOne($this->toArray());
-        $this->setId($result->getInsertedId()->__toString());
+
+        $counter = $db->counters->findOne(['_id' => $collection]);
+        $seq = 1;
+        if (is_null($counter)) {
+            $db->counters->insertOne([
+                '_id' => $collection,
+                'seq' => $seq,
+            ]);
+        } else {
+            $seq = $counter->seq + 1;
+            $db->counters->updateOne([
+                '_id' => $collection,
+            ], [
+                '$set' => [
+                    'seq' => $seq
+                ],
+            ]);
+
+        }
+        $this->setId($seq);
+        $db->$collection->insertOne($this->toArray());
+        $this->setId($seq);
         return;
     }
 
