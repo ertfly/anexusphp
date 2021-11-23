@@ -2,14 +2,19 @@
 
 namespace AnexusPHP\Core;
 
+use AnexusPHP\core\Migration;
 use Pecee\SimpleRouter\SimpleRouter;
 
 class Router extends SimpleRouter
 {
-    public static function start(): void
+    public static function start($migration = true): void
     {
         //Arquivo de Métodos Globais
         require_once 'Helpers.php';
+
+        if ($migration) {
+            Migration::init();
+        }
 
         $arrUrl = explode('/', trim(url()->getPath(), '/'));
         $app = isset($arrUrl[0]) && trim($arrUrl[0]) != '' ? $arrUrl[0] : 'app';
