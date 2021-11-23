@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\core;
+namespace AnexusPHP\Core;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use AnexusPHP\Business\Configuration\Rule\ConfigurationRule;

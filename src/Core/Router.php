@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Core;
 
-use AnexusPHP\core\Migration;
+use AnexusPHP\Core\Migration;
 use Pecee\SimpleRouter\SimpleRouter;
 
 class Router extends SimpleRouter
