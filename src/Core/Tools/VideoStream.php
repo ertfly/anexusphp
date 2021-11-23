@@ -10,12 +10,12 @@ class VideoStream
     private $start  = -1;
     private $end    = -1;
     private $size   = 0;
- 
-    function __construct($filePath) 
+
+    function __construct($filePath)
     {
         $this->path = $filePath;
     }
-     
+
     /**
      * Open stream
      */
@@ -24,9 +24,8 @@ class VideoStream
         if (!($this->stream = fopen($this->path, 'rb', false, stream_context_create()))) {
             die('Could not open stream for reading');
         }
-         
     }
-     
+
     /**
      * Set proper header to serve the video content
      */
@@ -35,18 +34,18 @@ class VideoStream
         ob_get_clean();
         header("Content-Type: video/mp4");
         header("Cache-Control: max-age=2592000, public");
-        header("Expires: ".gmdate('D, d M Y H:i:s', time()+2592000) . ' GMT');
-        header("Last-Modified: ".gmdate('D, d M Y H:i:s', @filemtime($this->path)) . ' GMT' );
+        header("Expires: " . gmdate('D, d M Y H:i:s', time() + 2592000) . ' GMT');
+        header("Last-Modified: " . gmdate('D, d M Y H:i:s', @filemtime($this->path)) . ' GMT');
         $this->start = 0;
         $this->size  = filesize($this->path);
         $this->end   = $this->size - 1;
-        header("Accept-Ranges: 0-".$this->end);
-         
+        header("Accept-Ranges: 0-" . $this->end);
+
         if (isset($_SERVER['HTTP_RANGE'])) {
-  
+
             $c_start = $this->start;
             $c_end = $this->end;
- 
+
             list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
             if (strpos($range, ',') !== false) {
                 header('HTTP/1.1 416 Requested Range Not Satisfiable');
@@ -55,10 +54,10 @@ class VideoStream
             }
             if ($range == '-') {
                 $c_start = $this->size - substr($range, 1);
-            }else{
+            } else {
                 $range = explode('-', $range);
                 $c_start = $range[0];
-                 
+
                 $c_end = (isset($range[1]) && is_numeric($range[1])) ? $range[1] : $c_end;
             }
             $c_end = ($c_end > $this->end) ? $this->end : $c_end;
@@ -72,16 +71,13 @@ class VideoStream
             $length = $this->end - $this->start + 1;
             fseek($this->stream, $this->start);
             header('HTTP/1.1 206 Partial Content');
-            header("Content-Length: ".$length);
-            header("Content-Range: bytes $this->start-$this->end/".$this->size);
+            header("Content-Length: " . $length);
+            header("Content-Range: bytes $this->start-$this->end/" . $this->size);
+        } else {
+            header("Content-Length: " . $this->size);
         }
-        else
-        {
-            header("Content-Length: ".$this->size);
-        }  
-         
     }
-    
+
     /**
      * close curretly opened stream
      */
@@ -90,7 +86,7 @@ class VideoStream
         fclose($this->stream);
         exit;
     }
-     
+
     /**
      * perform the streaming of calculated range
      */
@@ -98,9 +94,9 @@ class VideoStream
     {
         $i = $this->start;
         set_time_limit(0);
-        while(!feof($this->stream) && $i <= $this->end && connection_aborted() == 0) {
+        while (!feof($this->stream) && $i <= $this->end && connection_aborted() == 0) {
             $bytesToRead = $this->buffer;
-            if(($i+$bytesToRead) > $this->end) {
+            if (($i + $bytesToRead) > $this->end) {
                 $bytesToRead = $this->end - $i + 1;
             }
             $data = stream_get_contents($this->stream, $bytesToRead);
@@ -109,13 +105,12 @@ class VideoStream
             $i += $bytesToRead;
         }
     }
-     
+
     /**
      * Start streaming video content
      */
     function start()
     {
-        session_write_close(); //ensure our session is written away before streaming, else we cannot use it elsewhere
         $this->open();
         $this->setHeader();
         $this->stream();
