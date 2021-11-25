@@ -28,7 +28,6 @@ abstract class MongoEntity
                     'seq' => $seq
                 ],
             ]);
-
         }
         $this->setId($seq);
         $db->$collection->insertOne($this->toArray());
@@ -64,10 +63,12 @@ abstract class MongoEntity
         ]);
     }
 
-    public function fromJson(array $json)
+    public function fromArray(array $arr)
     {
-        foreach ($json as $f => $v) {
-            $this->$f = $v;
+        foreach ($arr as $f => $v) {
+            if (property_exists($this, $f)) {
+                $this->$f = $v;
+            }
         }
     }
 }
