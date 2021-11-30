@@ -216,7 +216,7 @@ class Strings
         $mimeEncoded = str_replace('data:', '', $mimeEncoded);
 
         if (!in_array($mimeEncoded, $checkMimes)) {
-            throw new \Exception($errorMsg);
+            throw new \Exception($errorMsg . ' (Solicitado: ' . $mimeEncoded . ', Disponível: ' . implode(', ', $checkMimes) . ')');
         }
 
         $decoded = substr($fileEncoded, strpos($fileEncoded, ',') + 1);
@@ -227,6 +227,7 @@ class Strings
             'image/jpeg' => 'jpg',
             'image/jpg' => 'jpg',
             'application/pdf' => 'pdf',
+            'video/mp4' => 'mp4',
         );
         if (!isset($extensions[$mimeEncoded])) {
             throw new Exception('Mimetype não disponível para upload');
