@@ -37,4 +37,14 @@ class Cron
     {
         @unlink(PATH_TMP . $tmpFile);
     }
+
+    public static function isRuning($command)
+    {
+        $output = shell_exec('/bin/ps aux');
+        if (strpos($output, $command . '.php ') !== false) {
+            return true;
+        }
+
+        return false;
+    }
 }
