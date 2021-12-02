@@ -49,6 +49,11 @@ class Pagination
         return (int) $this->total;
     }
 
+    public function getPage()
+    {
+        return intval($this->page);
+    }
+
     public function getTotalPages()
     {
         return (int) $this->totalPages;
