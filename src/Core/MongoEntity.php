@@ -2,12 +2,11 @@
 
 namespace AnexusPHP\Core;
 
-abstract class MongoEntity
+abstract class MongoEntity implements \MongoDB\BSON\Unserializable
 {
     abstract public function setId($id);
     abstract public function getId();
     abstract public function toArray();
-
     public function insert($db)
     {
         $collection = static::TABLE;
@@ -34,7 +33,6 @@ abstract class MongoEntity
         $this->setId($seq);
         return;
     }
-
     public function update($db)
     {
         $collection = static::TABLE;
@@ -44,7 +42,6 @@ abstract class MongoEntity
             '$set' => $this->toArray(),
         ]);
     }
-
     public function delete($db)
     {
         $collection = static::TABLE;
@@ -54,7 +51,6 @@ abstract class MongoEntity
             '$set' => ['trash' => true],
         ]);
     }
-
     public function destroy($db)
     {
         $collection = static::TABLE;
@@ -62,7 +58,6 @@ abstract class MongoEntity
             '_id' => $this->getId(),
         ]);
     }
-
     public function fromArray(array $arr)
     {
         foreach ($arr as $f => $v) {
@@ -70,5 +65,12 @@ abstract class MongoEntity
                 $this->$f = $v;
             }
         }
+    }
+    function bsonUnserialize(array $map)
+    {
+        foreach ($map as $k => $value) {
+            $this->$k = $value;
+        }
+        $this->unserialized = true;
     }
 }
