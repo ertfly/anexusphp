@@ -2,9 +2,7 @@
 
 namespace AnexusPHP\Core;
 
-use MongoDB\BSON\Unserializable;
-
-abstract class MongoEntity implements Unserializable
+abstract class MongoEntity
 {
     abstract public function setId($id);
     abstract public function getId();
