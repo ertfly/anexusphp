@@ -11,16 +11,16 @@ abstract class MongoEntity implements \MongoDB\BSON\Unserializable
     {
         $collection = static::TABLE;
 
-        $counter = $db->counters->findOne(['_id' => $collection]);
+        $counter = $db->counter->findOne(['_id' => $collection]);
         $seq = 1;
         if (is_null($counter)) {
-            $db->counters->insertOne([
+            $db->counter->insertOne([
                 '_id' => $collection,
                 'seq' => $seq,
             ]);
         } else {
             $seq = $counter->seq + 1;
-            $db->counters->updateOne([
+            $db->counter->updateOne([
                 '_id' => $collection,
             ], [
                 '$set' => [
@@ -71,6 +71,5 @@ abstract class MongoEntity implements \MongoDB\BSON\Unserializable
         foreach ($map as $k => $value) {
             $this->$k = $value;
         }
-        $this->unserialized = true;
     }
 }
