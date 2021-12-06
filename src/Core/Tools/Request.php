@@ -118,6 +118,12 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
+    public static function getContent()
+    {
+        $data = file_get_contents('php://input');
+        return $data;
+    }
+
     public static function getData()
     {
         $data = file_get_contents('php://input');
