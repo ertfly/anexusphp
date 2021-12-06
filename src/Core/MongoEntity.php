@@ -10,27 +10,27 @@ abstract class MongoEntity implements \MongoDB\BSON\Unserializable
     public function insert($db)
     {
         $collection = static::TABLE;
-
-        $counter = $db->counter->findOne(['_id' => $collection]);
-        $seq = 1;
-        if (is_null($counter)) {
-            $db->counter->insertOne([
-                '_id' => $collection,
-                'seq' => $seq,
-            ]);
-        } else {
-            $seq = $counter->seq + 1;
-            $db->counter->updateOne([
-                '_id' => $collection,
-            ], [
-                '$set' => [
-                    'seq' => $seq
-                ],
-            ]);
+        if (!$this->getId()) {
+            $counter = $db->counter->findOne(['_id' => $collection]);
+            $seq = 1;
+            if (is_null($counter)) {
+                $db->counter->insertOne([
+                    '_id' => $collection,
+                    'seq' => $seq,
+                ]);
+            } else {
+                $seq = $counter->seq + 1;
+                $db->counter->updateOne([
+                    '_id' => $collection,
+                ], [
+                    '$set' => [
+                        'seq' => $seq
+                    ],
+                ]);
+            }
+            $this->setId($seq);
         }
-        $this->setId($seq);
         $db->$collection->insertOne($this->toArray());
-        $this->setId($seq);
         return;
     }
     public function update($db)
