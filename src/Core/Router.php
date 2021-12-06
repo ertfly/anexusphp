@@ -37,6 +37,6 @@ class Router extends SimpleRouter
 
         require_once PATH_ROUTES . 'ErrorRoutes.php';
 
-        parent::start();
+        parent::start();        
     }
 }

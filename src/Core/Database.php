@@ -12,7 +12,7 @@ class Database
     /**
      * @var Medoo
      */
-    private static $instance;
+    private static $instance = [];
 
     /**
      *
@@ -36,9 +36,9 @@ class Database
             throw new Exception('Instance name not exist.');
         }
 
-        if (!self::$instance) {
+        if (!isset(self::$instance[$instanceName])) {
             if (self::$settings[$instanceName]['driver'] != 'mongo') {
-                self::$instance = new Medoo([
+                self::$instance[$instanceName] = new Medoo([
                     'database_type' => self::$settings[$instanceName]['driver'],
                     'database_name' => self::$settings[$instanceName]['dbname'],
                     'server' => self::$settings[$instanceName]['host'],
@@ -54,12 +54,20 @@ class Database
                 ]);
             } else {
                 $dbname = self::$settings[$instanceName]['dbname'];
-                self::$instance = (new Client(
+                self::$instance[$instanceName] = (new Client(
                     'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . ':' . self::$settings[$instanceName]['port'] . '/' . self::$settings[$instanceName]['dbname'] . '?authSource=' . self::$settings[$instanceName]['dbname']
                 ))->$dbname;
             }
         }
 
-        return self::$instance;
+        return self::$instance[$instanceName];
+    }
+
+    public static function closeInstance($instanceName = 'default')
+    {
+        if (isset(self::$instance[$instanceName])) {
+            self::$instance[$instanceName] = null;
+            unset(self::$instance[$instanceName]);
+        }
     }
 }
