@@ -7,6 +7,7 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Tools\Request;
+use AnexusPHP\Core\Translate;
 use Exception;
 
 class AuthfastRule
@@ -82,14 +83,14 @@ class AuthfastRule
         $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/' . $authfastCode . '?' . ($forceAuthorization ? 'forceAuthorization=1' : ''), $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
-            throw new Exception(translate('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
+            throw new Exception(Translate::get('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
         }
         if ($response['response']['code'] != 0) {
-            throw new Exception(sprintf(translate('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
         }
 
         if (!isset($response['data']['authfast_id'])) {
-            throw new Exception(sprintf(translate('authfast', 'error_module_api_info', 'Erro ao buscar informações do usuário "%s" no módulo de cadastro!'), $authfastCode));
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_info', 'Erro ao buscar informações do usuário "%s" no módulo de cadastro!'), $authfastCode));
         }
 
         return $response;
@@ -112,14 +113,14 @@ class AuthfastRule
         $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/rule', $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
-            throw new Exception(translate('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
+            throw new Exception(Translate::get('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
         }
         if ($response['response']['code'] != 0) {
-            throw new Exception(sprintf(translate('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
         }
 
         if (!isset($response['data']['rules'])) {
-            throw new Exception(translate('authfast', 'error_module_api_rule_list', 'Erro ao buscar lista de regras'));
+            throw new Exception(Translate::get('authfast', 'error_module_api_rule_list', 'Erro ao buscar lista de regras'));
         }
 
         return $response;
@@ -148,14 +149,14 @@ class AuthfastRule
         $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/warning/' . $authfastCode, $headers, false, false);
         $response = @json_decode($response['response'], true);
         if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
-            throw new Exception(translate('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
+            throw new Exception(Translate::get('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
         }
         if ($response['response']['code'] != 0) {
-            throw new Exception(sprintf(translate('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
         }
 
         if (!isset($response['data']['pending'])) {
-            throw new Exception(sprintf(translate('authfast', 'error_module_api_pending', 'Erro ao buscar os avisos do módulo de cadastro para o usuário "%s"!'), $authfastCode));
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_pending', 'Erro ao buscar os avisos do módulo de cadastro para o usuário "%s"!'), $authfastCode));
         }
 
         return $response;
