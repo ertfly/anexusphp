@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
 use AnexusPHP\Core\Tools\Strings;
+use AnexusPHP\Core\Translate;
 
 class CNPJValidation extends AbstractValidation
 {
@@ -10,7 +11,7 @@ class CNPJValidation extends AbstractValidation
     
     public function validate()
     {
-        $this->message = translate('validation', 'CNPJValidation', 'O campo %s esta inválido');
+        $this->message = Translate::get('validation', 'CNPJValidation', 'O campo %s esta inválido');
         if (trim($this->value) != '' && !$this->cnpj($this->value)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }

@@ -2,13 +2,15 @@
 
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
+use AnexusPHP\Core\Translate;
+
 class StrLenMaxValidation extends AbstractValidation
 {
     private $message;
 
     public function validate()
     {
-        $this->message = translate('validation', 'StrLenMaxValidation', 'O campo %s deve conter no máximo %s caracteres');
+        $this->message = Translate::get('validation', 'StrLenMaxValidation', 'O campo %s deve conter no máximo %s caracteres');
         if(trim($this->value) == ''){
             return;
         }

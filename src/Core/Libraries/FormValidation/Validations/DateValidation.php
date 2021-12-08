@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
 use AnexusPHP\Core\Tools\Date;
+use AnexusPHP\Core\Translate;
 use Exception;
 
 class DateValidation extends AbstractValidation
@@ -11,7 +12,7 @@ class DateValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validation', 'DateValidation', 'A data do campo %s é inválida');
+        $this->message = Translate::get('validation', 'DateValidation', 'A data do campo %s é inválida');
         if (!isset($this->options['format'])) {
             throw new \Exception('Favor especificar o formato da validação da data');
         }

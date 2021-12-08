@@ -2,13 +2,15 @@
 
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
+use AnexusPHP\Core\Translate;
+
 class StrLenMinValidation extends AbstractValidation
 {
     private $message;
 
     public function validate()
     {
-        $this->message = translate('validation', 'StrLenMinValidation', 'O campo %s deve conter no mínimo %s caracteres');
+        $this->message = Translate::get('validation', 'StrLenMinValidation', 'O campo %s deve conter no mínimo %s caracteres');
         if(trim($this->value) == ''){
             return;
         }

@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
 use AnexusPHP\Core\Tools\Strings;
+use AnexusPHP\Core\Translate;
 
 class CPFValidation extends AbstractValidation
 {
@@ -10,7 +11,7 @@ class CPFValidation extends AbstractValidation
 
     public function validate()
     {
-        $this->message = translate('validation', 'CPFValidation', 'O campo %s esta inválido');
+        $this->message = Translate::get('validation', 'CPFValidation', 'O campo %s esta inválido');
         if (trim($this->value) != '' && !$this->cpf($this->value)) {
             throw new \Exception(sprintf($this->message, $this->description));
         }
