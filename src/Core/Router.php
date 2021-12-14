@@ -3,40 +3,48 @@
 namespace AnexusPHP\Core;
 
 use AnexusPHP\Core\Migration;
+use AnexusPHP\Core\Tools\Strings;
+use Exception;
 use Pecee\SimpleRouter\SimpleRouter;
 
-class Router extends SimpleRouter
+class Router
 {
+    private static $settings;
+    private static $uri;
+
     public static function start($migration = true): void
     {
+        self::init();
+
         //Arquivo de Métodos Globais
         require_once 'Helpers.php';
+    }
 
-        if ($migration) {
-            Migration::init();
+    private static function init()
+    {
+        if (is_null(self::$settings)) {
+            if (!is_file(PATH_ROOT . 'routes.php')) {
+                throw new Exception('File /routes.php in PATH_ROOT is missing');
+            }
+            self::$settings = require_once(PATH_ROOT . 'routes.php');
+        }
+    }
+
+    public static function getUri()
+    {
+        if (is_null(self::$uri)) {
+            self::$uri = $_SERVER['REQUEST_URI'];
+            self::$uri = Strings::removeInvisibleCharacters(self::$uri, false);
+            self::$uri = explode('?', self::$uri);
+            self::$uri = trim(self::$uri[0], '/');
         }
 
-        $arrUrl = explode('/', trim(url()->getPath(), '/'));
-        $app = isset($arrUrl[0]) && trim($arrUrl[0]) != '' ? $arrUrl[0] : 'app';
-        $app = str_replace('-', ' ', $app);
-        $app = ucwords($app);
-        $app = str_replace(' ', '', $app);
-        if (!is_dir(PATH_ROUTES . $app)) {
-            $app = 'App';
+        return self::$uri;
+    }
+
+    public static function uriExist()
+    {
+        foreach (self::$settings as $uri => $setting) {
         }
-
-        $scanDir = scandir(PATH_ROUTES . $app);
-        unset($scanDir[0]);
-        unset($scanDir[1]);
-        $scanDir = array_values($scanDir);
-
-        $j = count($scanDir);
-        for ($i = 0; $i < $j; $i++) {
-            require_once PATH_ROUTES . $app . DS . $scanDir[$i];
-        }
-
-        require_once PATH_ROUTES . 'ErrorRoutes.php';
-
-        parent::start();        
     }
 }

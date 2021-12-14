@@ -1,7 +1,0 @@
-<?php
-putenv('DB_HOST=192.168.0.139');
-putenv('DB_NAME=skeleton');
-putenv('DB_USER=skeleton');
-putenv('DB_PWD=Skel@1029');
-putenv('DB_PORT=5433');
-putenv('DB_CHARSET=utf8');
