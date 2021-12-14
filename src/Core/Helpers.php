@@ -9,9 +9,7 @@ use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
-use AnexusPHP\Business\Language\Repository\LanguageRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
-use AnexusPHP\Core\Lang;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Template;
 use AnexusPHP\Core\Tools\Date;
@@ -20,9 +18,6 @@ use AnexusPHP\Core\Tools\Request as ToolsRequest;
 use AnexusPHP\Core\Tools\Strings;
 use AnexusPHP\Core\Translate;
 use Pecee\SimpleRouter\SimpleRouter as Router;
-use Pecee\Http\Url;
-use Pecee\Http\Response;
-use Pecee\Http\Request;
 
 /**
  * @param string|null $name
@@ -326,28 +321,9 @@ function dd($value)
     die();
 }
 
-/**
- * Undocumented function
- *
- * @param string $id
- * @param int $countryId
- * @param string $countryClass
- * @return string
- */
-function lang($id)
-{
-    return Lang::title($id);
-}
-
 function translate($var, $key, $defaultValue = null, $trim = false)
 {
     return Translate::get($var, $key, $defaultValue, $trim);
-}
-
-function lang2($id)
-{
-    $lang = LanguageRepository::byId($id);
-    return $lang->getValue();
 }
 
 function template($name, $defaultValue = null, $isUpload = false)
