@@ -2,10 +2,8 @@
 
 namespace AnexusPHP\Core;
 
-use AnexusPHP\Core\Migration;
 use AnexusPHP\Core\Tools\Strings;
 use Exception;
-use Pecee\SimpleRouter\SimpleRouter;
 
 class Router
 {
