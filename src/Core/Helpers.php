@@ -10,48 +10,30 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use AnexusPHP\Core\Router;
 use AnexusPHP\Core\Session;
 use AnexusPHP\Core\Template;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
-use AnexusPHP\Core\Tools\Request as ToolsRequest;
+use AnexusPHP\Core\Tools\Request;
 use AnexusPHP\Core\Tools\Strings;
 use AnexusPHP\Core\Translate;
-use Pecee\SimpleRouter\SimpleRouter as Router;
 
-/**
- * @param string|null $name
- * @param string|array|null $parameters
- * @param array|null $getParams
- * @return \Pecee\Http\Url
- * @throws \InvalidArgument\Exception
- */
-function url($name = null, $parameters = null, ?array $getParams = null)
+function url($name, array $parameters = null, array $getParams = null)
 {
     return Router::getUrl($name, $parameters, $getParams);
 }
 
-function url_absolute($name = null, $parameters = null, ?array $getParams = null)
+function url_absolute($name, array $parameters = null, array $getParams = null)
 {
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
     $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '/');
     return rtrim($protocol . $domainName . url($name, $parameters, $getParams), '/');
 }
 
-/**
- * @return \Pecee\Http\Response
- */
-function response()
-{
-    return Router::response();
-}
-
-/**
- * @return \Pecee\Http\Request
- */
 function request()
 {
-    return Router::request();
+    return Router::getRequest();
 }
 
 /**
@@ -66,16 +48,16 @@ function input($index = null, $defaultValue = null, $method)
     if ($index !== null) {
         switch ($method) {
             case 'get':
-                $value = ToolsRequest::get($index);
+                $value = Request::get($index);
                 break;
             case 'post':
-                $value = ToolsRequest::post($index);
+                $value = Request::post($index);
                 break;
             case 'json':
-                $value = ToolsRequest::json($index);
+                $value = Request::json($index);
                 break;
             default:
-                $value = ToolsRequest::get($index);
+                $value = Request::get($index);
                 break;
         }
         if (!$value) {
@@ -119,13 +101,13 @@ function input_validation($method, $index, $description = null, $validations = [
     if ($index !== null) {
         switch ($method) {
             case 'json':
-                $value = ToolsRequest::json($index, $description, $validations, $options);
+                $value = Request::json($index, $description, $validations, $options);
                 break;
             case 'get':
-                $value = ToolsRequest::get($index, $description, $validations, $options);
+                $value = Request::get($index, $description, $validations, $options);
                 break;
             case 'post':
-                $value = ToolsRequest::post($index, $description, $validations, $options);
+                $value = Request::post($index, $description, $validations, $options);
                 break;
         }
     }
@@ -136,7 +118,7 @@ function input_json($index, $defaultValue = null)
 {
     $value = $defaultValue;
     if ($index !== null) {
-        $value = ToolsRequest::json($index);
+        $value = Request::json($index);
     }
     if (!$value) {
         $value = $defaultValue;
