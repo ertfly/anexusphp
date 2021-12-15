@@ -2,12 +2,12 @@
 
 namespace AnexusPHP\Business\Api\Entity;
 
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class ApiEntity extends DatabaseEntity
+class ApiEntity extends MongoEntity
 {
     const TABLE = 'api';
-    protected $id;
+    protected $_id;
     protected $name;
     protected $created_at;
     protected $updated_at;
@@ -15,12 +15,12 @@ class ApiEntity extends DatabaseEntity
     protected $trash;
     public function setId($id)
     {
-        $this->id = $id;
+        $this->_id = $id;
         return $this;
     }
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     public function setName($name)
     {
@@ -38,6 +38,11 @@ class ApiEntity extends DatabaseEntity
     }
     public function getCreatedAt()
     {
+        if (!is_null($this->created_at)) {
+            if (is_string($this->created_at)) {
+                $this->created_at = strtotime($this->created_at);
+            }
+        }
         return $this->created_at;
     }
     public function setUpdatedAt($updated_at)
@@ -47,6 +52,11 @@ class ApiEntity extends DatabaseEntity
     }
     public function getUpdatedAt()
     {
+        if (!is_null($this->updated_at)) {
+            if (is_string($this->updated_at)) {
+                $this->updated_at = strtotime($this->updated_at);
+            }
+        }
         return $this->updated_at;
     }
     public function setExpiredAt($expired_at)
@@ -56,8 +66,13 @@ class ApiEntity extends DatabaseEntity
     }
     public function getExpiredAt($format = false, $f = 'd/m/Y H:i:s')
     {
+        if (!is_null($this->expired_at)) {
+            if (is_string($this->expired_at)) {
+                $this->expired_at = strtotime($this->expired_at);
+            }
+        }
         if ($format && $this->expired_at) {
-            return date($f, strtotime($this->expired_at));
+            return date($f, $this->expired_at);
         }
         return $this->expired_at;
     }
@@ -74,6 +89,7 @@ class ApiEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            '_id' => $this->getId(),
             'name' => $this->getName(),
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
