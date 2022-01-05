@@ -33,31 +33,18 @@ class Database
         }
 
         if (!isset(self::$settings[$instanceName])) {
-            throw new Exception('Instance name not exist.');
+            throw new Exception('Database instance name not exist.');
         }
 
         if (!isset(self::$instance[$instanceName])) {
             if (self::$settings[$instanceName]['driver'] != 'mongo') {
-                self::$instance[$instanceName] = new Medoo([
-                    'database_type' => self::$settings[$instanceName]['driver'],
-                    'database_name' => self::$settings[$instanceName]['dbname'],
-                    'server' => self::$settings[$instanceName]['host'],
-                    'username' => self::$settings[$instanceName]['user'],
-                    'password' => self::$settings[$instanceName]['pass'],
-                    'port' => self::$settings[$instanceName]['port'],
-                    'charset' => self::$settings[$instanceName]['charset'],
-                    'option' => [
-                        PDO::ATTR_CASE => PDO::CASE_NATURAL,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    ]
-                ]);
-            } else {
-                $dbname = self::$settings[$instanceName]['dbname'];
-                self::$instance[$instanceName] = (new Client(
-                    'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . ':' . self::$settings[$instanceName]['port'] . '/' . self::$settings[$instanceName]['dbname'] . '?authSource=' . self::$settings[$instanceName]['dbname']
-                ))->$dbname;
+                throw new Exception('This core only database use mongo');
             }
+
+            $dbname = self::$settings[$instanceName]['dbname'];
+            self::$instance[$instanceName] = (new Client(
+                'mongodb://' . self::$settings[$instanceName]['user'] . ':' . self::$settings[$instanceName]['pass'] . '@' . self::$settings[$instanceName]['host'] . ':' . self::$settings[$instanceName]['port'] . '/' . self::$settings[$instanceName]['dbname'] . '?authSource=' . self::$settings[$instanceName]['dbname']
+            ))->$dbname;
         }
 
         return self::$instance[$instanceName];

@@ -19,12 +19,15 @@ class RegionCityRepository
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCityEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(RegionCityEntity::class);
-        if ($reg === false) {
-            return new RegionCityEntity();
+        $cursor = $db->{RegionCityEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => RegionCityEntity::class,
+            'document' => RegionCityEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        return new RegionCityEntity();
     }
 
     /**

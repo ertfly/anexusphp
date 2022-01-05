@@ -18,64 +18,96 @@ class ApiRepository
     public static function byId($id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => intval($id)])->fetchObject($className);
-        if ($row === false) {
-            return new $className();
+        $cursor = $db->{ApiEntity::TABLE}->find(['_id' => $id], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        $className = '\\' . $className;
+        return new $className();
     }
 
     /**
      * Undocumented function
      *
+     * @param string $className
      * @return ApiEntity[]
      */
     public static function all($className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiEntity::TABLE . ' where trash = false')->fetchAll(PDO::FETCH_CLASS, $className);
+
+        $filters['trash'] = false;
+
+        $cursor = $db->{ApiEntity::TABLE}->find(
+            $filters,
+        );
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
 
         return $rows;
     }
 
-
     /**
-     * Undocumented function
-     *
+     * Retorna os registro do banco com paginacao
+     * 
      * @param string $url
      * @param array $filters
-     * @param int $page
-     * @param string $varPage
-     * @param int $perPage
-     * @param string $className
-     * @return Pagination
+     * @param int $currentPg
+     * @param string $varPg
+     * @param integer $perPg
+     * @return Pagination[]
      */
-    public static function allWithPagination($url, $filters = array(), $page, $varPage = 'pg', $perPage = 12, $className = ApiEntity::class)
+    public static function allWithPagination($url, $filters = [], $currentPg, $varPg = 'pg', $perPg = 12, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = ' trash = false ';
+        $where = [
+            'trash' => false
+        ];
 
         if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
-            $where .= " and authfast_id = :authfast_id ";
-            $bind['authfast_id'] = $filters['authfast_id'];
+            $where['authfast_id'] = intval($filters['authfast_id']);
         }
 
         if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
-            $bind['name'] = $filters['search'];
+            $where['name'] = [
+                '$regex' => $filters['search'],
+            ];
         }
 
-        $total = $db->query('select count(1) as total from ' . ApiEntity::TABLE . ' a where ' . $where, $bind)->fetch();
+        $total = $db->{ApiEntity::TABLE}->count($filters);
 
-        $pagination = new Pagination($total['total'], $perPage, $varPage, $page, $url);
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 
-        $rows = $db->query('select a.* from ' . ApiEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPage . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $className);
+        $cursor = $db->{ApiEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    '_id' => -1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
 
-        if (!$rows) {
-            return $pagination;
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
         $pagination->setRows($rows);

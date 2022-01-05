@@ -14,7 +14,7 @@ class AppAuthfastRule
         if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->save($db);
+        $record->insert($db);
     }
     public static function update(AppAuthfastEntity &$record)
     {
@@ -22,15 +22,7 @@ class AppAuthfastRule
         if (!$record->getId()) {
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
-    }
-    public static function delete(AppAuthfastEntity &$record)
-    {
-        $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new Exception('Esse método deve conter um ID');
-        }
-        $record->delete($db);
+        $record->update($db);
     }
     public static function destroy(AppAuthfastEntity &$record)
     {

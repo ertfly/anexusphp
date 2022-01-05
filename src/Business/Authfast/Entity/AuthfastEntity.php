@@ -2,17 +2,14 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
-use AnexusPHP\Business\Authfast\Rule\AuthfastRule;
-use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
-use AnexusPHP\Core\DatabaseEntity;
-use Exception;
+use AnexusPHP\Core\MongoEntity;
 
-class AuthfastEntity extends DatabaseEntity
+class AuthfastEntity extends MongoEntity
 {
 	const TABLE = 'authfast';
-	protected $id;
+	protected $_id;
 	protected $type;
 	protected $code;
 	protected $firstname;
@@ -28,12 +25,12 @@ class AuthfastEntity extends DatabaseEntity
 	protected $region_country_id;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function getType($format = false)
 	{
@@ -137,6 +134,12 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getCreatedAt()
 	{
+        if (!is_null($this->created_at)) {
+            if (is_string($this->created_at)) {
+                $this->created_at = strtotime($this->created_at);
+            }
+        }
+		
 		return $this->created_at;
 	}
 	public function setUpdatedAt($updatedAt)
@@ -146,6 +149,12 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getUpdatedAt()
 	{
+        if (!is_null($this->updated_at)) {
+            if (is_string($this->updated_at)) {
+                $this->updated_at = strtotime($this->updated_at);
+            }
+        }
+
 		return $this->updated_at;
 	}
 	public function setExpiredAt($expiredAt)
@@ -155,6 +164,12 @@ class AuthfastEntity extends DatabaseEntity
 	}
 	public function getExpiredAt()
 	{
+        if (!is_null($this->expired_at)) {
+            if (is_string($this->expired_at)) {
+                $this->expired_at = strtotime($this->expired_at);
+            }
+        }
+
 		return $this->expired_at;
 	}
 	public function getRegionCountryId()
@@ -169,6 +184,7 @@ class AuthfastEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'type' => $this->getType(),
 			'code' => $this->getCode(),
 			'firstname' => $this->getFirstname(),

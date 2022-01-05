@@ -16,7 +16,7 @@ class ApiRule
         $record
             ->setCreatedAt(date('Y-m-d H:i:s'))
             ->setTrash(false)
-            ->save($db);
+            ->insert($db);
     }
     public static function update(ApiEntity &$record)
     {
@@ -26,7 +26,7 @@ class ApiRule
         }
         $record
             ->setUpdatedAt(date('Y-m-d H:i:s'))
-            ->save($db);
+            ->update($db);
     }
     public static function delete(ApiEntity &$record)
     {

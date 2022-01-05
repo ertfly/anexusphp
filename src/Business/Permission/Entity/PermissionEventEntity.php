@@ -2,9 +2,9 @@
 
 namespace AnexusPHP\Business\Permission\Entity;
 
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class PermissionEventEntity extends DatabaseEntity
+class PermissionEventEntity extends MongoEntity
 {
 	const TABLE = 'permission_event';
 	protected $id;
@@ -13,12 +13,12 @@ class PermissionEventEntity extends DatabaseEntity
 	protected $app;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setDescription($description)
 	{
@@ -50,6 +50,7 @@ class PermissionEventEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
 			'trash' => $this->getTrash(),
 			'app' => $this->getApp()

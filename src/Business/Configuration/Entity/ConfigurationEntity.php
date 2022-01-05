@@ -2,22 +2,22 @@
 
 namespace AnexusPHP\Business\Configuration\Entity;
 
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class ConfigurationEntity extends DatabaseEntity
+class ConfigurationEntity extends MongoEntity
 {
     const TABLE = 'configuration';
-    protected $id;
+    protected $_id;
     protected $value;
     protected $description;
     public function setId($id)
     {
-        $this->id = $id;
+        $this->_id = $id;
         return $this;
     }
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     public function setValue($value)
     {
@@ -40,6 +40,7 @@ class ConfigurationEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            '_id' => $this->getId(),
             'value' => $this->getValue(),
             'description' => $this->getDescription()
         ];

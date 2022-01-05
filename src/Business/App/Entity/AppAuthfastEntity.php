@@ -4,22 +4,22 @@ namespace AnexusPHP\Business\App\Entity;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class AppAuthfastEntity extends DatabaseEntity
+class AppAuthfastEntity extends MongoEntity
 {
 	const TABLE = 'app_authfast';
-	protected $id;
+	protected $_id;
 	protected $app_id;
 	protected $authfast_id;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setAppId($appId)
 	{
@@ -42,6 +42,7 @@ class AppAuthfastEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'app_id' => $this->getAppId(),
 			'authfast_id' => $this->getAuthfastId()
 		);

@@ -16,7 +16,7 @@ class PermissionEventRule
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
         $record->setTrash(false)
-            ->save($db);
+            ->insert($db);
     }
     public static function update(PermissionEventEntity &$record)
     {
@@ -24,7 +24,7 @@ class PermissionEventRule
         if (!$record->getId()) {
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
+        $record->update($db);
     }
     public static function delete(PermissionEventEntity &$record)
     {
@@ -33,13 +33,5 @@ class PermissionEventRule
             throw new Exception('Esse método deve conter um ID');
         }
         $record->delete($db);
-    }
-    public static function destroy(PermissionEventEntity &$record)
-    {
-        $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new Exception('Esse método deve conter um ID');
-        }
-        $record->destroy($db);
     }
 }

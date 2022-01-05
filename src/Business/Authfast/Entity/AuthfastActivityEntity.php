@@ -3,12 +3,12 @@
 namespace AnexusPHP\Business\Authfast\Entity;
 
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class AuthfastActivityEntity extends DatabaseEntity
+class AuthfastActivityEntity extends MongoEntity
 {
 	const TABLE = 'authfast_activity';
-	protected $id;
+	protected $_id;
 	protected $activity;
 	protected $authfast_id;
 	protected $module;
@@ -17,12 +17,12 @@ class AuthfastActivityEntity extends DatabaseEntity
 	protected $created_at;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setActivity($activity)
 	{
@@ -76,11 +76,18 @@ class AuthfastActivityEntity extends DatabaseEntity
 	}
 	public function getCreatedAt()
 	{
+        if (!is_null($this->created_at)) {
+            if (is_string($this->created_at)) {
+                $this->created_at = strtotime($this->created_at);
+            }
+        }
+
 		return $this->created_at;
 	}
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'activity' => $this->getActivity(),
 			'authfast_id' => $this->getAuthfastId(),
 			'module' => $this->getModule(),

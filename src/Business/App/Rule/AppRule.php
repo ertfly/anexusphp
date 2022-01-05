@@ -13,7 +13,7 @@ class AppRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->save($db);
+        $record->insert($db);
     }
     public static function update(AppEntity &$record)
     {
@@ -21,6 +21,6 @@ class AppRule
         if (!$record->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
+        $record->update($db);
     }
 }

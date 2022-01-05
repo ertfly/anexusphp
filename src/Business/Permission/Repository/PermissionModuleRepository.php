@@ -21,12 +21,16 @@ class PermissionModuleRepository
     public static function byId($id, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{PermissionModuleEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -37,9 +41,30 @@ class PermissionModuleRepository
     public static function all($cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false order by name asc')->fetchAll(PDO::FETCH_CLASS, $cls);
 
-        return $regs;
+        $where = [];
+
+        $options = [
+            'sort' => [
+                'name' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionModuleEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -47,12 +72,37 @@ class PermissionModuleRepository
      * 
      * @return PermissionModuleEntity[]
      */
-    public static function byLevelEqualOrHigher(int $level, $cls = PermissionModuleEntity::class)
+    public static function byLevelEqualOrHigher($level, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false and level >= :level order by name asc', ['level' => $level])->fetchAll(PDO::FETCH_CLASS, $cls);
 
-        return $regs;
+        $where = [
+            'level' => [
+                '$gte' => intval($level),
+            ],
+        ];
+
+        $options = [
+            'sort' => [
+                'name' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionModuleEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -69,21 +119,33 @@ class PermissionModuleRepository
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = " a.trash = false ";
+        $where = [];
 
-        if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(a.name) like upper('%'||:name||'%') ";
-            $bind['name'] = $filters['search'];
+        $total = $db->{PermissionModuleEntity::TABLE}->count($filters);
+
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
+
+        $cursor = $db->{PermissionModuleEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    'position' => 1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
-        $total = $db->query('select count(1) as total from ' . $cls::TABLE . ' a where ' . $where, $bind)->fetch();
-
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
-
-        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a where ' . $where . ' order by a.position asc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
-
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }
@@ -92,22 +154,30 @@ class PermissionModuleRepository
      * @param AuthfastEntity $authfast
      * @return string
      */
-    public static function byAuthfast(AuthfastEntity $authfast)
+    public static function byAuthfast(AuthfastEntity $authfast, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
 
-        $regs = $db->query(
-            'select module_id from 
-        ' . AuthfastPermissionEntity::TABLE . ' 
-        where authfast_id = :authfast_id',
-            ['authfast_id' => $authfast->getId()]
-        )->fetchAll(PDO::FETCH_UNIQUE);
+        $where = [
+            'authfast_id' => $authfast->getId(),
+        ];
 
-        if ($regs === false) {
-            $regs = [];
+        $options = [];
+
+        $cursor = $db->{PermissionModuleEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[$r->getId()] = $r;
         }
 
-        $regs = implode(',', array_keys($regs));
-        return $regs;
+        return $rows;
     }
 }

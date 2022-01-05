@@ -17,7 +17,7 @@ class ApiKeyRule
             ->setWebhook(false)
             ->setCreatedAt(date('Y-m-d H:i:s'))
             ->setTrash(false)
-            ->save($db);
+            ->insert($db);
     }
     public static function update(ApiKeyEntity &$record)
     {
@@ -25,7 +25,7 @@ class ApiKeyRule
         if (!$record->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
+        $record->update($db);
     }
     public static function delete(ApiKeyEntity &$record)
     {

@@ -14,15 +14,19 @@ class AppSessionRepository
      * @param mixed $className
      * @return AppSessionEntity
      */
-    public static function byId($id, $className)
+    public static function byId($id, $className = AppSessionEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
+        $cursor = $db->{AppSessionEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $className = '\\' . $className;
+        return new $className();
     }
 
     /**
@@ -32,15 +36,18 @@ class AppSessionRepository
      * @param mixed $className
      * @return AppSessionEntity
      */
-    public static function byToken($token, $className)
+    public static function byToken($token, $className = AppSessionEntity::class)
     {
         $db = Database::getInstance();
-
-        $reg = $db->query('select * from ' . AppSessionEntity::TABLE . ' where token = :token limit 1', ['token' => $token])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
+        $cursor = $db->{AppSessionEntity::TABLE}->find(['token' => $token], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $className = '\\' . $className;
+        return new $className();
     }
 }

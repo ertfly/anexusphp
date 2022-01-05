@@ -5,23 +5,23 @@ namespace AnexusPHP\Business\Authfast\Entity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class AuthfastPermissionEntity extends DatabaseEntity
+class AuthfastPermissionEntity extends MongoEntity
 {
 	const TABLE = 'authfast_permission';
-	private $id;
+	private $_id;
 	private $authfast_id;
 	private $module_id;
 	private $events;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
@@ -53,6 +53,7 @@ class AuthfastPermissionEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'authfast_id' => $this->getAuthfastId(),
 			'module_id' => $this->getModuleId(),
 			'events' => $this->getEvents()

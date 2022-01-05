@@ -18,29 +18,37 @@ class ApiKeyRepository
     public static function byId($id, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where id = :id and trash = false limit 1', ['id' => $id])->fetchObject($className);
-        if ($row === false) {
-            return new $className();
+        $cursor = $db->{ApiKeyEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        $className = '\\' . $className;
+        return new $className();
     }
 
     /**
      * Retorna um registro do banco pela appKey
      *
      * @param string $appKey
-     * @return instanceof ApiKeyEntity
+     * @return ApiKeyEntity
      */
     public static function byAppKey($appKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where app_key = :app_key limit 1', ['app_key' => $appKey])->fetchObject($className);
-        if ($row === false) {
-            return new $className();
+        $cursor = $db->{ApiKeyEntity::TABLE}->find(['app_key' => $appKey], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        $className = '\\' . $className;
+        return new $className();
     }
 
     /**
@@ -52,32 +60,54 @@ class ApiKeyRepository
     public static function bySecretKey($secretKey, $className = ApiKeyEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where secret_key = :secret_key and trash = false limit 1', ['secret_key' => $secretKey])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
+        $cursor = $db->{ApiKeyEntity::TABLE}->find(['secret_key' => $secretKey], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $className = '\\' . $className;
+        return new $className();
     }
 
     /**
-     * Retorna todos os registros do banco
+     * Undocumented function
      *
+     * @param string $className
+     * @param array $filter
+     * @param array $sort
      * @return ApiKeyEntity[]
      */
-    public static function all($className = ApiKeyEntity::class, array $filter = [], $orderBy = ' a.id asc ')
+    public static function all($className = ApiKeyEntity::class, array $filter = [], $sort = ['_id' => 1])
     {
+
         $db = Database::getInstance();
 
-        $where = ' where a.trash = false ';
-        $bind = [];
+        $where = [
+            'trash' => false
+        ];
 
-        $rows = $db->query('
-        select a.* 
-        from ' . ApiKeyEntity::TABLE . ' a 
-        join ' . ApiEntity::TABLE . ' b on b.id = a.api_id and b.trash = false
-        ' . $where . '
-        order by ' . $orderBy, $bind)->fetchAll(PDO::FETCH_CLASS, $className);
+        if (isset($filter['api_id']) && trim($filter['api_id']) != '') {
+            $where['api_id'] = intval($filter['api_id']);
+        }
+
+        $cursor = $db->{ApiEntity::TABLE}->find(
+            $where,
+            [
+                'sort' => $sort,
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
 
         return $rows;
     }
@@ -91,9 +121,6 @@ class ApiKeyRepository
      */
     public static function allByApi(ApiEntity $api, $className = ApiKeyEntity::class)
     {
-        $db = Database::getInstance();
-        $rows = $db->query('select * from ' . ApiKeyEntity::TABLE . ' where api_id = :api_id and trash = false order by id asc', ['api_id' => (int)$api->getId()])->fetchAll(PDO::FETCH_CLASS, $className);
-
-        return $rows;
+        return self::all($className, ['api_id' => $api->getId()]);
     }
 }

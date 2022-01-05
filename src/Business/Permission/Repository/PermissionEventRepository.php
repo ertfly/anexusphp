@@ -19,12 +19,16 @@ class PermissionEventRepository
     public static function byId($id, $cls = PermissionEventEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{PermissionEventEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -35,9 +39,32 @@ class PermissionEventRepository
     public static function all($cls = PermissionEventEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . $cls::TABLE . ' where trash is false order by description asc')->fetchAll(PDO::FETCH_CLASS, $cls);
 
-        return $regs;
+        $where = [
+            'trash' => false,
+        ];
+
+        $options = [
+            'sort' => [
+                'description' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionEventEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -54,21 +81,40 @@ class PermissionEventRepository
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = " a.trash = false ";
+        $where = [
+            'trash' => false,
+        ];
 
-        if (isset($filters['search']) && trim($filters['search']) != '') {
+        /* if (isset($filters['search']) && trim($filters['search']) != '') {
             $where .= " and upper(a.description) like upper('%'||:description||'%') ";
             $bind['description'] = $filters['search'];
+        } */
+
+        $total = $db->{PermissionEventEntity::TABLE}->count($filters);
+
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
+
+        $cursor = $db->{PermissionEventEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    '_id' => -1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
-        $total = $db->query('select count(1) as total from ' . $cls::TABLE . ' a where ' . $where, $bind)->fetch();
-
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
-
-        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
-
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }

@@ -3,12 +3,12 @@
 namespace AnexusPHP\Business\Permission\Entity;
 
 use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class PermissionModuleEntity extends DatabaseEntity
+class PermissionModuleEntity extends MongoEntity
 {
 	const TABLE = 'permission_module';
-	protected $id;
+	protected $_id;
 	protected $name;
 	protected $events;
 	protected $position;
@@ -16,12 +16,12 @@ class PermissionModuleEntity extends DatabaseEntity
 	protected $app;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setName($name)
 	{

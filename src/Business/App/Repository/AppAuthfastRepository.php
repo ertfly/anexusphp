@@ -5,6 +5,7 @@ namespace AnexusPHP\Business\App\Repository;
 use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
 use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
@@ -20,12 +21,15 @@ class AppAuthfastRepository
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(AppAuthfastEntity::class);
-        if ($row === false) {
-            return new AppAuthfastEntity();
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        return new AppAuthfastEntity();
     }
 
     /**
@@ -37,12 +41,15 @@ class AppAuthfastRepository
     public static function byAuthfastId($authfastId)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id limit 1', ['authfast_id' => $authfastId])->fetchObject(AppAuthfastEntity::class);
-        if ($row === false) {
-            return new AppAuthfastEntity();
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(['authfast_id' => intval($authfastId)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        return new AppAuthfastEntity();
     }
 
     /**
@@ -55,12 +62,15 @@ class AppAuthfastRepository
     public static function byAppAuthfast(AppEntity $app, AuthfastEntity $authfast)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where app_id = :app_id and authfast_id = :authfast_id limit 1', ['app_id' => $app->getId(), 'authfast_id' => $authfast->getId()])->fetchObject(AppAuthfastEntity::class);
-        if ($row === false) {
-            return new AppAuthfastEntity();
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(['app_id' => $app->getId(), 'authfast_id' => $authfast->getId()], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        return new AppAuthfastEntity();
     }
 
     /**
@@ -70,15 +80,18 @@ class AppAuthfastRepository
      * @param int $id
      * @return AppAuthfastEntity
      */
-    public static function byAuthfastIdAndAppId($authfastId, int $app)
+    public static function byAuthfastIdAndAppId($authfastId, $app)
     {
         $db = Database::getInstance();
-        $row = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where authfast_id = :authfast_id and app_id = :app_id limit 1', ['authfast_id' => $authfastId, 'app_id' => $app])->fetchObject(AppAuthfastEntity::class);
-        if ($row === false) {
-            return new AppAuthfastEntity();
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(['app_id' => intval($app), 'authfast_id' => intval($authfastId)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $row;
+        return new AppAuthfastEntity();
     }
 
     /**
@@ -89,7 +102,28 @@ class AppAuthfastRepository
     public static function all()
     {
         $db = Database::getInstance();
-        $rows = $db->query('select * from ' . AppAuthfastEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
+
+        $where = [];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
 
         return $rows;
     }
@@ -108,24 +142,39 @@ class AppAuthfastRepository
     {
         $db = Database::getInstance();
 
-        $bind = [];
-        $where = "1 = 1 ";
-
+        $where = [];
         if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and a.authfast_id = (select b.id from authfast b where b.code like '%'||:code||'%' limit 1) ";
-            $bind['code'] = $filters['search'];
+            $authfast = AuthfastRepository::byCode($filters['search']);
+            $where['authfast_id'] = $authfast->getId();
         }
 
         if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
-            $where .= " and a.app_id = :app_id ";
-            $bind['app_id'] = $filters['app_id'];
+            $where['app_id'] = intval($filters['app_id']);
         }
 
-        $total = $db->query('select count(1) as total from ' . AppAuthfastEntity::TABLE . ' a where ' . $where, $bind)->fetch();
+        $total = $db->{AppAuthfastEntity::TABLE}->count($filters);
 
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 
-        $rows = $db->query('select a.* from ' . AppAuthfastEntity::TABLE . ' a where ' . $where . ' order by a.authfast_id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, AppAuthfastEntity::class);
+        $cursor = $db->{AppAuthfastEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    '_id' => 1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => AppAuthfastEntity::class,
+            'document' => AppAuthfastEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
 
         $pagination->setRows($rows);
 

@@ -19,12 +19,15 @@ class PermissionCategoryMenuRepository
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . PermissionCategoryMenuEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(PermissionCategoryMenuEntity::class);
-        if ($reg === false) {
-            return new PermissionCategoryMenuEntity();
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        return new PermissionCategoryMenuEntity();
     }
 
     /**
@@ -35,9 +38,32 @@ class PermissionCategoryMenuRepository
     public static function all()
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . PermissionCategoryMenuEntity::TABLE . ' where trash is false')->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
 
-        return $regs;
+        $where = [
+            'trash' => false,
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -48,9 +74,33 @@ class PermissionCategoryMenuRepository
     public static function byApp($app)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . PermissionCategoryMenuEntity::TABLE . ' where trash is false and app = :app', ['app' => (int)$app])->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
 
-        return $regs;
+        $where = [
+            'trash' => false,
+            'app' => intval($app),
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -67,21 +117,38 @@ class PermissionCategoryMenuRepository
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = " a.trash = false ";
+        $where = [];
 
-        if (isset($filters['search']) && trim($filters['search']) != '') {
+        /* if (isset($filters['search']) && trim($filters['search']) != '') {
             $where .= " and upper(a.description) like upper('%'||:description||'%') ";
             $bind['description'] = $filters['search'];
+        } */
+
+        $total = $db->{PermissionCategoryMenuEntity::TABLE}->count($filters);
+
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
+
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    '_id' => -1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
-        $total = $db->query('select count(1) as total from ' . PermissionCategoryMenuEntity::TABLE . ' a where ' . $where, $bind)->fetch();
-
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
-
-        $regs = $db->query('select a.* from ' . PermissionCategoryMenuEntity::TABLE . ' a where ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
-
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }
@@ -94,18 +161,33 @@ class PermissionCategoryMenuRepository
     {
         $db = Database::getInstance();
 
-        if (trim($list) == '') {
-            return [];
+        $where = [
+            'trash' => false,
+            '_id' => [
+                '$in' => explode(',', $list),
+            ],
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
-        $regs = $db->query(
-            'select 
-            * from 
-            ' . PermissionCategoryMenuEntity::TABLE . ' 
-            where trash is false and 
-            id in(' . $list . ')'
-        )->fetchAll(PDO::FETCH_CLASS, PermissionCategoryMenuEntity::class);
-
-        return $regs;
+        return $rows;
     }
 }

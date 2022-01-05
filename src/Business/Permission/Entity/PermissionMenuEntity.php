@@ -5,12 +5,12 @@ namespace AnexusPHP\Business\Permission\Entity;
 use AnexusPHP\Business\Permission\Constant\PermissionMenuTargetConstant;
 use AnexusPHP\Business\Permission\Repository\PermissionCategoryMenuRepository;
 use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class PermissionMenuEntity extends DatabaseEntity
+class PermissionMenuEntity extends MongoEntity
 {
 	const TABLE = 'permission_menu';
-	private $id;
+	private $_id;
 	private $category_id;
 	private $module_id;
 	private $description;
@@ -21,12 +21,12 @@ class PermissionMenuEntity extends DatabaseEntity
 	private $app;
 	public function setId($id)
 	{
-		$this->id = $id;
+		$this->_id = $id;
 		return $this;
 	}
 	public function getId()
 	{
-		return $this->id;
+		return $this->_id;
 	}
 	public function setCategoryId($categoryId)
 	{
@@ -106,6 +106,7 @@ class PermissionMenuEntity extends DatabaseEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'category_id' => $this->getCategoryId(),
 			'module_id' => $this->getModuleId(),
 			'description' => $this->getDescription(),

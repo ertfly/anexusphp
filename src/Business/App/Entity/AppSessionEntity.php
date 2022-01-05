@@ -2,17 +2,15 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
-use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
-use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\DatabaseEntity;
-use AnexusPHP\Core\Session;
+use AnexusPHP\Core\MongoEntity;
 
-class AppSessionEntity extends DatabaseEntity
+class AppSessionEntity extends MongoEntity
 {
     const TABLE = 'app_session';
-    protected $id;
+    protected $_id;
     protected $token;
     protected $app_id;
     protected $authfast_id;
@@ -26,12 +24,12 @@ class AppSessionEntity extends DatabaseEntity
     protected $manager;
     public function setId($id)
     {
-        $this->id = $id;
+        $this->_id = $id;
         return $this;
     }
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     public function setToken($token)
     {
@@ -105,6 +103,12 @@ class AppSessionEntity extends DatabaseEntity
     }
     public function getCreatedAt($format = false)
     {
+        if (!is_null($this->created_at)) {
+            if (is_string($this->created_at)) {
+                $this->created_at = strtotime($this->created_at);
+            }
+        }
+
         if ($format && $this->created_at) {
             return timeConverter($this->created_at, request()->country);
         }
@@ -118,6 +122,12 @@ class AppSessionEntity extends DatabaseEntity
     }
     public function getUpdatedAt($format = false)
     {
+        if (!is_null($this->updated_at)) {
+            if (is_string($this->updated_at)) {
+                $this->updated_at = strtotime($this->updated_at);
+            }
+        }
+
         if ($format && $this->updated_at) {
             return timeConverter($this->updated_at, request()->country);
         }
@@ -150,6 +160,7 @@ class AppSessionEntity extends DatabaseEntity
     public function toArray()
     {
         return [
+            '_id' => $this->getId(),
             'token' => $this->getToken(),
             'app_id' => $this->getAppId(),
             'authfast_id' => $this->getAuthfastId(),
@@ -199,7 +210,7 @@ class AppSessionEntity extends DatabaseEntity
         }
 
         if ($authfast->getExpiredAt()) {
-            if (strtotime(date('Y-m-d H:i:s')) > strtotime($authfast->getExpiredAt())) {
+            if (strtotime(date('Y-m-d H:i:s')) > $authfast->getExpiredAt()) {
                 return false;
             }
         }

@@ -21,7 +21,7 @@ class AppSessionRule
 
         $record->setCreatedAt(date('Y-m-d H:i:s'));
         $record->setUpdatedAt(date('Y-m-d H:i:s'));
-        $record->save($db);
+        $record->insert($db);
     }
     public static function update(AppSessionEntity &$record)
     {
@@ -31,15 +31,15 @@ class AppSessionRule
         }
 
         $record->setUpdatedAt(date('Y-m-d H:i:s'));
-        $record->save($db);
+        $record->update($db);
     }
-    public static function delete(AppSessionEntity &$record)
+    public static function destroy(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
         if (!$record->getId()) {
             throw new \Exception('Esse método deve conter um ID');
         }
-        $record->delete($db);
+        $record->destroy($db);
     }
     public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $appId = null)
     {

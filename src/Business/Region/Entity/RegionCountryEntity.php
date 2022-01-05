@@ -2,12 +2,12 @@
 
 namespace AnexusPHP\Business\Region\Entity;
 
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class RegionCountryEntity extends DatabaseEntity
+class RegionCountryEntity extends MongoEntity
 {
     const TABLE = 'region_country';
-    protected $id;
+    protected $_id;
     protected $name;
     protected $code;
     protected $initials;
@@ -26,12 +26,12 @@ class RegionCountryEntity extends DatabaseEntity
     protected $separator_thousands;
     public function setId($id)
     {
-        $this->id = $id;
+        $this->_id = $id;
         return $this;
     }
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     public function setName($name)
     {
@@ -198,7 +198,7 @@ class RegionCountryEntity extends DatabaseEntity
     public function toArray()
     {
         return [
-            'id' => $this->getId(),
+            '_id' => $this->getId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'initials' => $this->getInitials(),

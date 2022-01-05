@@ -19,7 +19,7 @@ class AuthfastRule
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
         $record->setCreatedAt(date('Y-m-d H:i:s'))
-            ->save($db);
+            ->insert($db);
     }
     public static function update(AuthfastEntity &$record)
     {
@@ -28,7 +28,7 @@ class AuthfastRule
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
         $record->setUpdatedAt(date('Y-m-d H:i:s'))
-            ->save($db);
+            ->update($db);
     }
     public static function delete(AuthfastEntity &$record)
     {

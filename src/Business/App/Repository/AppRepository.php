@@ -16,11 +16,15 @@ class AppRepository
     public static function byId($id, $className = AppEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $className::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
+        $cursor = $db->{AppEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $className = '\\' . $className;
+        return new $className();
     }
 }

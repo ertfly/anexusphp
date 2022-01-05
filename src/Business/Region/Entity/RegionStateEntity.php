@@ -3,23 +3,23 @@
 namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
-use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\MongoEntity;
 
-class RegionStateEntity extends DatabaseEntity
+class RegionStateEntity extends MongoEntity
 {
     const TABLE = 'region_state';
-    protected $id;
+    protected $_id;
     protected $country_id;
     protected $name;
     protected $initials;
     public function setId($id)
     {
-        $this->id = $id;
+        $this->_id = $id;
         return $this;
     }
     public function getId()
     {
-        return $this->id;
+        return $this->_id;
     }
     public function setCountryId($countryId)
     {
@@ -51,7 +51,7 @@ class RegionStateEntity extends DatabaseEntity
     public function toArray()
     {
         return [
-            'id' => $this->getId(),
+            '_id' => $this->getId(),
             'country_id' => $this->getCountryId(),
             'name' => $this->getName(),
             'initials' => $this->getInitials()

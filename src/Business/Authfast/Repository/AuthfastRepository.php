@@ -18,12 +18,16 @@ class AuthfastRepository
     public static function byId($id, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{AuthfastEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -35,12 +39,16 @@ class AuthfastRepository
     public static function byCode($code, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{AuthfastEntity::TABLE}->find(['code' => $code], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -52,12 +60,16 @@ class AuthfastRepository
     public static function byUsername($username, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where username = :username limit 1', ['username' => $username])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{AuthfastEntity::TABLE}->find(['username' => $username], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -69,12 +81,16 @@ class AuthfastRepository
     public static function byEmail($email, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where email = :email limit 1', ['email' => $email])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{AuthfastEntity::TABLE}->find(['email' => $email], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -86,12 +102,16 @@ class AuthfastRepository
     public static function byDocument($document, $cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . $cls::TABLE . ' where document = :document limit 1', ['document' => $document])->fetchObject($cls);
-        if ($reg === false) {
-            return new $cls();
+        $cursor = $db->{AuthfastEntity::TABLE}->find(['document' => $document], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        $cls = '\\' . $cls;
+        return new $cls();
     }
 
     /**
@@ -102,9 +122,30 @@ class AuthfastRepository
     public static function all($cls = AuthfastEntity::class)
     {
         $db = Database::getInstance();
-        $regs = $db->query('select * from ' . $cls::TABLE . ' ')->fetchAll(PDO::FETCH_CLASS, $cls);
 
-        return $regs;
+        $where = [];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AuthfastEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 
     /**
@@ -121,21 +162,46 @@ class AuthfastRepository
     {
         $db = Database::getInstance();
 
-        $bind = array();
-        $where = "";
+        $where = [];
 
         if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(concat(a.firstname, ' ', a.lastname)) like upper('%'||:name||'%') ";
-            $bind['name'] = $filters['search'];
+            $where['$and'] = [
+                '$or' => [
+                    '$regex' => [
+                        'firstname' => $filters['search'],
+                    ],
+                    '$regex' => [
+                        'lastname' => $filters['search'],
+                    ],
+                ],
+            ];
+        }
+        
+        $total = $db->{AuthfastEntity::TABLE}->count($filters);
+
+        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
+
+        $cursor = $db->{AuthfastEntity::TABLE}->find(
+            $where,
+            [
+                'limit' => intval($perPg),
+                'sort' => [
+                    '_id' => -1
+                ],
+                'skip' => $pagination->getOffset(),
+            ]
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
         }
 
-        $total = $db->query('select count(1) as total from ' . $cls::TABLE . ' a ' . $where, $bind)->fetch();
-
-        $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
-
-        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
-
-        $pagination->setRows($regs);
+        $pagination->setRows($rows);
 
         return $pagination;
     }

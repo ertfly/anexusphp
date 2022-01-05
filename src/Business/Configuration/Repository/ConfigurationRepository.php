@@ -17,12 +17,15 @@ class ConfigurationRepository
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchObject(ConfigurationEntity::class);
-        if ($reg === false) {
-            return new ConfigurationEntity();
+        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => ConfigurationEntity::class,
+            'document' => ConfigurationEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        return new ConfigurationEntity();
     }
 
     /**
@@ -34,22 +37,14 @@ class ConfigurationRepository
     public static function getValue($id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select value from ' . ConfigurationEntity::TABLE . ' where id = :id limit 1', ['id' => $id])->fetchColumn();
-
-        return $reg;
-    }
-
-    /**
-     * Retorna um array com todas as configurações que tiverem a string fornecida
-     *
-     * @param string $match
-     * @return ConfigurationEntity[]
-     */
-    public static function byMatch($match)
-    {
-        $db = Database::getInstance();
-        $regs = $db->query('select * from ' . ConfigurationEntity::TABLE . " where lower(id) like concat('%', lower(:match), '%') order by id asc", ['match' => $match])->fetchAll(PDO::FETCH_CLASS, ConfigurationEntity::class);
-
-        return $regs;
+        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => ConfigurationEntity::class,
+            'document' => ConfigurationEntity::class,
+        ]);
+        foreach ($cursor as $r) {
+            return $r->getValue();
+        }
+        return null;
     }
 }
