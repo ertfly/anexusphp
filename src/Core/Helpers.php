@@ -16,6 +16,7 @@ use AnexusPHP\Core\Template;
 use AnexusPHP\Core\Tools\Date;
 use AnexusPHP\Core\Tools\Form;
 use AnexusPHP\Core\Tools\Request;
+use AnexusPHP\Core\Tools\Response;
 use AnexusPHP\Core\Tools\Strings;
 use AnexusPHP\Core\Translate;
 
@@ -133,10 +134,10 @@ function input_json($index, $defaultValue = null)
 function redirect($url, $code = null): void
 {
     if ($code !== null) {
-        response()->httpCode($code);
+        Response::code($code);
     }
 
-    response()->redirect($url);
+    Response::redirect($url);
 }
 
 /**
@@ -149,7 +150,7 @@ function redirect($url, $code = null): void
  */
 function responseApi(array $data, $code = 0, $msg = 'Success')
 {
-    return response()->json([
+    Response::json([
         'response' => [
             'code' => $code,
             'msg' => $msg,
@@ -170,7 +171,7 @@ function responseApiError(\Exception $e)
     if ($e->getCode() > 0) {
         $code = $e->getCode();
     }
-    return response()->json([
+    Response::json([
         'response' => [
             'code' => $code,
             'msg' => $e->getMessage(),
