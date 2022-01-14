@@ -105,7 +105,7 @@ class Router
             if (!method_exists('\\' . self::$setting['middleware'], 'handler')) {
                 throw new Exception('Method handler is missing');
             }
-            if(is_null(self::$request)){
+            if (is_null(self::$request)) {
                 self::$request = new stdClass;
             }
             $middleware = '\\' . self::$setting['middleware'];
@@ -166,6 +166,6 @@ class Router
             $url = str_replace('{' . $var . '}', '', $url);
             $url = str_replace('{' . $var . '?}', '', $url);
         }
-        return rtrim($url, '/') . (!is_null($getParams) ? '?' . http_build_query($getParams) : '');
+        return '/' . trim($url, '/') . (!is_null($getParams) ? '?' . http_build_query($getParams) : '');
     }
 }
