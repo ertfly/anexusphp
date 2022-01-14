@@ -50,10 +50,17 @@ class Router
                     $paths = explode('/', self::$uri);
                     foreach (self::$settings as $uri => $setting) {
                         $uri = str_replace(['get:', 'post:', 'put:', 'delete:', 'options:', 'all:'], '', $uri);
-                        $arrUri = explode('/', $uri);
-                        if (count($paths) != count($arrUri)) {
+                        if (strpos($uri, '{') === false) {
                             continue;
                         }
+                        $checkUri = preg_replace("/(\{.+\})/", "(.+)", $uri);
+                        $checkUri = str_replace('/','\\/',$checkUri);
+
+                        if(!preg_match("/^{$checkUri}$/", self::$uri)){
+                            continue;
+                        }
+
+                        $arrUri = explode('/', $uri);
                         $parameters = [];
                         for ($i = 0; $i < count($arrUri); $i++) {
                             if ($arrUri[$i] == $paths[$i]) {
