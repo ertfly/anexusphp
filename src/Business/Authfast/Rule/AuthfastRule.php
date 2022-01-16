@@ -12,6 +12,33 @@ use Exception;
 
 class AuthfastRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->authfast->createIndex([
+            'type' => 1,
+        ], ['name' => 'authfast_idx_type']);
+        $db->authfast->createIndex([
+            'code' => 1,
+        ], ['name' => 'authfast_idx_code']);
+        $db->authfast->createIndex([
+            'firstname' => 1,
+            'lastname' => 1,
+        ], ['name' => 'authfast_idx_firstname']);
+        $db->authfast->createIndex([
+            'document' => 1,
+        ], ['name' => 'authfast_idx_document']);
+        $db->authfast->createIndex([
+            'username' => 1,
+        ], ['name' => 'authfast_idx_username']);
+        $db->authfast->createIndex([
+            'email' => 1,
+        ], ['name' => 'authfast_idx_email']);
+        $db->authfast->createIndex([
+            'region_country_id' => 1,
+        ], ['name' => 'authfast_idx_region_country_id']);
+        Database::closeInstance();
+    }
     public static function insert(AuthfastEntity &$record)
     {
         $db = Database::getInstance();

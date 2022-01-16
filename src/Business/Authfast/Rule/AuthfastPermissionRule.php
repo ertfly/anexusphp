@@ -9,6 +9,17 @@ use Exception;
 
 class AuthfastPermissionRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->authfast_permission->createIndex([
+            'authfast_id' => 1,
+        ], ['name' => 'authfast_permission_idx_authfast_id']);
+        $db->authfast_permission->createIndex([
+            'module_id' => 1,
+        ], ['name' => 'authfast_permission_idx_module_id']);
+        Database::closeInstance();
+    }
     public static function insert(AuthfastPermissionEntity &$record)
     {
         $db = Database::getInstance();
