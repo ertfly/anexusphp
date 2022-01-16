@@ -18,9 +18,6 @@ class AppSessionRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-
-        $record->setCreatedAt(date('Y-m-d H:i:s'));
-        $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->insert($db);
         Database::closeInstance();
     }
@@ -30,9 +27,9 @@ class AppSessionRule
         if (!$record->getId()) {
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
-
-        $record->setUpdatedAt(date('Y-m-d H:i:s'));
-        $record->update($db);
+        $record
+            ->setUpdatedAt(strtotime(date('Y-m-d H:i:s')))
+            ->update($db);
         Database::closeInstance();
     }
     public static function destroy(AppSessionEntity &$record)

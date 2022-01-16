@@ -123,10 +123,12 @@ class AppSessionEntity extends MongoEntity
     }
     public function getUpdatedAt($format = false)
     {
-        if (!is_null($this->updated_at)) {
-            if (is_string($this->updated_at)) {
-                $this->updated_at = strtotime($this->updated_at);
-            }
+        if (is_null($this->updated_at)) {
+            $this->updated_at = $this->getCreatedAt();
+        }
+
+        if (is_string($this->updated_at)) {
+            $this->updated_at = strtotime($this->updated_at);
         }
 
         if ($format && $this->updated_at) {
