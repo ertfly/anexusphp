@@ -7,6 +7,17 @@ use AnexusPHP\Core\Database;
 
 class AppRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->app->createIndex([
+            'name' => 1,
+        ], ['name' => 'app_idx_name']);
+        $db->app->createIndex([
+            'key' => 1,
+        ], ['name' => 'app_idx_key']);
+        Database::closeInstance();
+    }
     public static function insert(AppEntity &$record)
     {
         $db = Database::getInstance();

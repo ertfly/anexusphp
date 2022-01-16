@@ -7,6 +7,18 @@ use AnexusPHP\Core\Database;
 
 class ApiRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->api->createIndex([
+            'name' => 1,
+            'trash' => -1,
+        ], ['name' => 'api_idx_name']);
+        $db->api->createIndex([
+            'trash' => -1,
+        ], ['name' => 'api_idx_trash']);
+        Database::closeInstance();
+    }
     public static function insert(ApiEntity &$record)
     {
         $db = Database::getInstance();

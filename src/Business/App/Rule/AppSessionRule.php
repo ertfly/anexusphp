@@ -12,6 +12,26 @@ use Exception;
 
 class AppSessionRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->app_session->createIndex([
+            'token' => 1,
+        ], ['name' => 'app_session_idx_token']);
+        $db->app_session->createIndex([
+            'app_id' => 1,
+        ], ['name' => 'app_session_idx_app_id']);
+        $db->app_session->createIndex([
+            'authfast_id' => 1,
+        ], ['name' => 'app_session_idx_authfast_id']);
+        $db->app_session->createIndex([
+            'authfast_token' => 1,
+        ], ['name' => 'app_session_idx_authfast_token']);
+        $db->app_session->createIndex([
+            'created_at' => 1,
+        ], ['name' => 'app_session_idx_created_at']);
+        Database::closeInstance();
+    }
     public static function insert(AppSessionEntity &$record)
     {
         $db = Database::getInstance();
