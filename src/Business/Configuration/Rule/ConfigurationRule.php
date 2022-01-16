@@ -19,5 +19,6 @@ class ConfigurationRule
         $config->setValue($value);
         $db = Database::getInstance();
         $config->update($db);
+        Database::closeInstance();
     }
 }

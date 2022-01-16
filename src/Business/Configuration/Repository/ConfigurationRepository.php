@@ -22,6 +22,7 @@ class ConfigurationRepository
             'root' => ConfigurationEntity::class,
             'document' => ConfigurationEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -42,6 +43,7 @@ class ConfigurationRepository
             'root' => ConfigurationEntity::class,
             'document' => ConfigurationEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r->getValue();
         }
