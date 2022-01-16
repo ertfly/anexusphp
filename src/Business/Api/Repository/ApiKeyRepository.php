@@ -23,6 +23,7 @@ class ApiKeyRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -44,6 +45,7 @@ class ApiKeyRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -65,6 +67,7 @@ class ApiKeyRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -103,6 +106,8 @@ class ApiKeyRepository
             'root' => $className,
             'document' => $className,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

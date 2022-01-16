@@ -23,6 +23,7 @@ class ApiRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -49,6 +50,8 @@ class ApiRepository
             'root' => $className,
             'document' => $className,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -104,6 +107,8 @@ class ApiRepository
             'root' => $className,
             'document' => $className,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

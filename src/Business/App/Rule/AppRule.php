@@ -14,6 +14,7 @@ class AppRule
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
         $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(AppEntity &$record)
     {
@@ -22,5 +23,6 @@ class AppRule
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
         $record->update($db);
+        Database::closeInstance();
     }
 }

@@ -76,10 +76,12 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getCreatedAt()
 	{
-        if (!is_null($this->created_at)) {
-            if (is_string($this->created_at)) {
-                $this->created_at = strtotime($this->created_at);
-            }
+        if (is_null($this->created_at)) {
+            $this->created_at = strtotime(date('Y-m-d H:i:s'));
+        }
+
+        if (is_string($this->created_at)) {
+            $this->created_at = strtotime($this->created_at);
         }
 
 		return $this->created_at;

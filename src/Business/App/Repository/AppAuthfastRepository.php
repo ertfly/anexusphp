@@ -8,7 +8,6 @@ use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
-use PDO;
 
 class AppAuthfastRepository
 {
@@ -26,6 +25,7 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -46,6 +46,7 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -67,6 +68,7 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -88,6 +90,7 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -119,6 +122,8 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -170,6 +175,8 @@ class AppAuthfastRepository
             'root' => AppAuthfastEntity::class,
             'document' => AppAuthfastEntity::class,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

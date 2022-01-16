@@ -4,7 +4,6 @@ namespace AnexusPHP\Business\App\Entity;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
-use AnexusPHP\Core\DatabaseEntity;
 use AnexusPHP\Core\MongoEntity;
 
 class AppSessionEntity extends MongoEntity
@@ -103,14 +102,16 @@ class AppSessionEntity extends MongoEntity
     }
     public function getCreatedAt($format = false)
     {
-        if (!is_null($this->created_at)) {
-            if (is_string($this->created_at)) {
-                $this->created_at = strtotime($this->created_at);
-            }
+        if (is_null($this->created_at)) {
+            $this->created_at = strtotime(date('Y-m-d H:i:s'));
+        }
+
+        if (is_string($this->created_at)) {
+            $this->created_at = strtotime($this->created_at);
         }
 
         if ($format && $this->created_at) {
-            return timeConverter($this->created_at, request()->country);
+            return date('d/m/Y H:i:s', $this->created_at);
         }
 
         return $this->created_at;
@@ -129,7 +130,7 @@ class AppSessionEntity extends MongoEntity
         }
 
         if ($format && $this->updated_at) {
-            return timeConverter($this->updated_at, request()->country);
+            return date('d/m/Y H:i:s', $this->updated_at);
         }
 
         return $this->updated_at;

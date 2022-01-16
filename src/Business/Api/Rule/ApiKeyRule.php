@@ -13,11 +13,9 @@ class ApiKeyRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-        $record
-            ->setWebhook(false)
-            ->setCreatedAt(date('Y-m-d H:i:s'))
-            ->setTrash(false)
-            ->insert($db);
+        $record->insert($db);
+        
+        Database::closeInstance();
     }
     public static function update(ApiKeyEntity &$record)
     {
@@ -26,6 +24,8 @@ class ApiKeyRule
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
         $record->update($db);
+        
+        Database::closeInstance();
     }
     public static function delete(ApiKeyEntity &$record)
     {
@@ -34,5 +34,7 @@ class ApiKeyRule
             throw new \Exception('Esse método deve conter um ID');
         }
         $record->delete($db);
+
+        Database::closeInstance();
     }
 }

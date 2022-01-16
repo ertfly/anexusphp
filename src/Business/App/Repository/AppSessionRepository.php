@@ -22,6 +22,7 @@ class AppSessionRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -44,6 +45,7 @@ class AppSessionRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }

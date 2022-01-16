@@ -21,6 +21,7 @@ class AppRepository
             'root' => $className,
             'document' => $className,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }

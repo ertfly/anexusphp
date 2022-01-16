@@ -22,6 +22,7 @@ class AppSessionRule
         $record->setCreatedAt(date('Y-m-d H:i:s'));
         $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(AppSessionEntity &$record)
     {
@@ -32,6 +33,7 @@ class AppSessionRule
 
         $record->setUpdatedAt(date('Y-m-d H:i:s'));
         $record->update($db);
+        Database::closeInstance();
     }
     public static function destroy(AppSessionEntity &$record)
     {
@@ -40,6 +42,7 @@ class AppSessionRule
             throw new \Exception('Esse método deve conter um ID');
         }
         $record->destroy($db);
+        Database::closeInstance();
     }
     public static function createAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $appId = null)
     {
@@ -63,6 +66,7 @@ class AppSessionRule
         }
         $record->setAuthfastToken($response['data']['token']);
         self::update($record);
+        Database::closeInstance();
     }
     public static function checkAuthfastToken(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $authfastToken, $countryCode, $forceAuthfastCode = null)
     {
@@ -110,6 +114,7 @@ class AppSessionRule
             $record->setManager(false);
         }
         self::update($record);
+        Database::closeInstance();
     }
 
     public static function logoutAuthfast(AppSessionEntity &$record, $appKey, $secretKey, $baseUrl, $authfastToken, $countryCode)
@@ -132,5 +137,6 @@ class AppSessionRule
 
         $record->setAuthfastId(null);
         self::update($record);
+        Database::closeInstance();
     }
 }

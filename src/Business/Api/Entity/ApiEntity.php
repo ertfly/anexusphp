@@ -38,11 +38,14 @@ class ApiEntity extends MongoEntity
     }
     public function getCreatedAt()
     {
-        if (!is_null($this->created_at)) {
-            if (is_string($this->created_at)) {
-                $this->created_at = strtotime($this->created_at);
-            }
+        if (is_null($this->created_at)) {
+            $this->created_at = strtotime(date('Y-m-d H:i:s'));
         }
+
+        if (is_string($this->created_at)) {
+            $this->created_at = strtotime($this->created_at);
+        }
+
         return $this->created_at;
     }
     public function setUpdatedAt($updated_at)
@@ -78,6 +81,9 @@ class ApiEntity extends MongoEntity
     }
     public function getTrash()
     {
+        if (is_null($this->trash)) {
+            $this->trash = false;
+        }
         return $this->trash;
     }
     public function setTrash($trash)

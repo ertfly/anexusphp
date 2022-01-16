@@ -13,10 +13,8 @@ class ApiRule
         if ($record->getId()) {
             throw new \Exception('Esse método serve inserir registros e não alterar');
         }
-        $record
-            ->setCreatedAt(date('Y-m-d H:i:s'))
-            ->setTrash(false)
-            ->insert($db);
+        $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(ApiEntity &$record)
     {
@@ -25,8 +23,9 @@ class ApiRule
             throw new \Exception('Esse método serve alterar registros e não inserir');
         }
         $record
-            ->setUpdatedAt(date('Y-m-d H:i:s'))
+            ->setUpdatedAt(strtotime(date('Y-m-d H:i:s')))
             ->update($db);
+        Database::closeInstance();
     }
     public static function delete(ApiEntity &$record)
     {
@@ -34,6 +33,9 @@ class ApiRule
         if (!$record->getId()) {
             throw new \Exception('Esse método deve conter um ID');
         }
-        $record->delete($db);
+        $record
+            ->setUpdatedAt(strtotime(date('Y-m-d H:i:s')))
+            ->delete($db);
+        Database::closeInstance();
     }
 }
