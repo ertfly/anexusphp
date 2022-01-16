@@ -23,6 +23,7 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -44,6 +45,7 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -65,6 +67,7 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -86,6 +89,7 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -107,6 +111,7 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -139,6 +144,8 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -195,6 +202,8 @@ class AuthfastRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

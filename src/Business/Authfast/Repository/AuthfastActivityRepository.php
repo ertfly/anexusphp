@@ -24,6 +24,7 @@ class AuthfastActivityRepository
             'root' => AuthfastActivityEntity::class,
             'document' => AuthfastActivityEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -55,6 +56,8 @@ class AuthfastActivityRepository
             'root' => AuthfastActivityEntity::class,
             'document' => AuthfastActivityEntity::class,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -94,6 +97,8 @@ class AuthfastActivityRepository
             'document' => AuthfastActivityEntity::class,
         ]);
 
+        Database::closeInstance();
+        
         $rows = [];
         foreach ($cursor as $r) {
             $rows[] = $r;

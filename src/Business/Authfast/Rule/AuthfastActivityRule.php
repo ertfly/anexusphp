@@ -15,8 +15,8 @@ class AuthfastActivityRule
         if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->setCreatedAt(date('Y-m-d H:i:s'))
-            ->insert($db);
+        $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(AuthfastActivityEntity &$record)
     {
@@ -25,6 +25,7 @@ class AuthfastActivityRule
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
         $record->update($db);
+        Database::closeInstance();
     }
     public static function destroy(AuthfastActivityEntity &$record)
     {
@@ -33,5 +34,6 @@ class AuthfastActivityRule
             throw new Exception('Esse método deve conter um ID');
         }
         $record->destroy($db);
+        Database::closeInstance();
     }
 }

@@ -134,12 +134,14 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getCreatedAt()
 	{
-        if (!is_null($this->created_at)) {
-            if (is_string($this->created_at)) {
-                $this->created_at = strtotime($this->created_at);
-            }
-        }
-		
+		if (is_null($this->created_at)) {
+			$this->created_at = strtotime(date('Y-m-d H:i:s'));
+		}
+
+		if (is_string($this->created_at)) {
+			$this->created_at = strtotime($this->created_at);
+		}
+
 		return $this->created_at;
 	}
 	public function setUpdatedAt($updatedAt)
@@ -149,11 +151,11 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getUpdatedAt()
 	{
-        if (!is_null($this->updated_at)) {
-            if (is_string($this->updated_at)) {
-                $this->updated_at = strtotime($this->updated_at);
-            }
-        }
+		if (!is_null($this->updated_at)) {
+			if (is_string($this->updated_at)) {
+				$this->updated_at = strtotime($this->updated_at);
+			}
+		}
 
 		return $this->updated_at;
 	}
@@ -164,11 +166,11 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getExpiredAt()
 	{
-        if (!is_null($this->expired_at)) {
-            if (is_string($this->expired_at)) {
-                $this->expired_at = strtotime($this->expired_at);
-            }
-        }
+		if (!is_null($this->expired_at)) {
+			if (is_string($this->expired_at)) {
+				$this->expired_at = strtotime($this->expired_at);
+			}
+		}
 
 		return $this->expired_at;
 	}

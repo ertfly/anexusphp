@@ -25,6 +25,7 @@ class AuthfastPermissionRepository
             'root' => AuthfastPermissionEntity::class,
             'document' => AuthfastPermissionEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -60,6 +61,8 @@ class AuthfastPermissionRepository
             'document' => AuthfastPermissionEntity::class,
         ]);
 
+        Database::closeInstance();
+
         $rows = [];
         foreach ($cursor as $r) {
             $rows[] = $r;
@@ -81,6 +84,7 @@ class AuthfastPermissionRepository
             'root' => AuthfastPermissionEntity::class,
             'document' => AuthfastPermissionEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
