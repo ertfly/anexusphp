@@ -14,6 +14,7 @@ class RegionCountryRule
         if (!$record->getId()) {
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->save($db);
+        $record->update($db);
+        Database::closeInstance();
     }
 }
