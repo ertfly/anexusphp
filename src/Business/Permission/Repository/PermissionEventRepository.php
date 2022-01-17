@@ -24,6 +24,7 @@ class PermissionEventRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -58,6 +59,8 @@ class PermissionEventRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -108,6 +111,8 @@ class PermissionEventRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

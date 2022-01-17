@@ -26,7 +26,7 @@ class RegionCountryEntity extends MongoEntity
     protected $separator_thousands;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = intval($id);
         return $this;
     }
     public function getId()
@@ -77,21 +77,27 @@ class RegionCountryEntity extends MongoEntity
     }
     public function setPrincipal($principal)
     {
-        $this->principal = $principal;
+        $this->principal = boolval($principal);
         return $this;
     }
     public function getPrincipal()
     {
-        return $this->principal;
+        if (is_null($this->principal)) {
+            $this->principal = false;
+        }
+        return boolval($this->principal);
     }
     public function setVisible($visible)
     {
-        $this->visible = $visible;
+        $this->visible = boolval($visible);
         return $this;
     }
     public function getVisible()
     {
-        return $this->visible;
+        if (is_null($this->visible)) {
+            $this->visible = false;
+        }
+        return boolval($this->visible);
     }
     public function setDateFormat($dateFormat)
     {

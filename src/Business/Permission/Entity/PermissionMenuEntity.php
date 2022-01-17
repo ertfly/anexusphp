@@ -17,8 +17,8 @@ class PermissionMenuEntity extends MongoEntity
 	private $icon;
 	private $link;
 	private $target;
-	private $trash;
 	private $app;
+	private $trash;
 	public function setId($id)
 	{
 		$this->_id = $id;
@@ -85,15 +85,6 @@ class PermissionMenuEntity extends MongoEntity
 		}
 		return $this->target;
 	}
-	public function setTrash($trash)
-	{
-		$this->trash = $trash;
-		return $this;
-	}
-	public function getTrash()
-	{
-		return $this->trash;
-	}
 	public function setApp($app)
 	{
 		$this->app = $app;
@@ -102,6 +93,18 @@ class PermissionMenuEntity extends MongoEntity
 	public function getApp()
 	{
 		return $this->app;
+	}
+	public function setTrash($trash)
+	{
+		$this->trash = $trash;
+		return $this;
+	}
+	public function getTrash()
+	{
+		if (is_null($this->trash)) {
+			$this->trash = false;
+		}
+		return $this->trash;
 	}
 	public function toArray()
 	{
@@ -113,11 +116,16 @@ class PermissionMenuEntity extends MongoEntity
 			'icon' => $this->getIcon(),
 			'link' => $this->getLink(),
 			'target' => $this->getTarget(),
+			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
-			'app' => $this->getApp()
 		);
 	}
 
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionModuleEntity
+	 */
 	private $module;
 
 	/**
@@ -132,6 +140,11 @@ class PermissionMenuEntity extends MongoEntity
 		return $this->module;
 	}
 
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionCategoryMenuEntity
+	 */
 	private $category;
 
 	/**

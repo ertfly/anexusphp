@@ -9,14 +9,30 @@ use Exception;
 
 class PermissionModuleRule
 {
+    public static function install()
+    {
+        $db = Database::getInstance();
+        $db->permission_module->createIndex([
+            'position' => 1,
+            'trash' => -1,
+        ], ['name' => 'permission_module_idx_position']);
+        $db->permission_module->createIndex([
+            'app' => 1,
+            'trash' => -1,
+        ], ['name' => 'permission_module_idx_app']);
+        $db->permission_module->createIndex([
+            'trash' => -1,
+        ], ['name' => 'permission_module_idx_trash']);
+        Database::closeInstance();
+    }
     public static function insert(PermissionModuleEntity &$record)
     {
         $db = Database::getInstance();
         if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->setTrash(false)
-            ->insert($db);
+        $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(PermissionModuleEntity &$record)
     {
@@ -25,6 +41,7 @@ class PermissionModuleRule
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
         $record->update($db);
+        Database::closeInstance();
     }
     public static function delete(PermissionModuleEntity &$record)
     {
@@ -33,5 +50,6 @@ class PermissionModuleRule
             throw new Exception('Esse método deve conter um ID');
         }
         $record->delete($db);
+        Database::closeInstance();
     }
 }

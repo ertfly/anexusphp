@@ -12,8 +12,8 @@ class PermissionModuleEntity extends MongoEntity
 	protected $name;
 	protected $events;
 	protected $position;
-	protected $trash;
 	protected $app;
+	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = $id;
@@ -39,10 +39,10 @@ class PermissionModuleEntity extends MongoEntity
 	}
 	public function getEvents($arrayFormat = false)
 	{
-		if($arrayFormat) {
+		if ($arrayFormat) {
 			$idArr = strlen($this->events > 0) ? explode(',', $this->events) : [];
 			$arr = [];
-			foreach($idArr as $value) {
+			foreach ($idArr as $value) {
 				$arr[$value] = PermissionEventRepository::byId($value)->getDescription();
 			}
 			return $arr;
@@ -58,15 +58,6 @@ class PermissionModuleEntity extends MongoEntity
 	{
 		return $this->position;
 	}
-	public function setTrash($trash)
-	{
-		$this->trash = $trash;
-		return $this;
-	}
-	public function getTrash()
-	{
-		return $this->trash;
-	}
 	public function setApp($app)
 	{
 		$this->app = $app;
@@ -76,14 +67,26 @@ class PermissionModuleEntity extends MongoEntity
 	{
 		return $this->app;
 	}
+	public function setTrash($trash)
+	{
+		$this->trash = $trash;
+		return $this;
+	}
+	public function getTrash()
+	{
+		if (is_null($this->trash)) {
+			$this->trash = false;
+		}
+		return $this->trash;
+	}
 	public function toArray()
 	{
 		return array(
 			'name' => $this->getName(),
 			'events' => $this->getEvents(),
 			'position' => $this->getPosition(),
+			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
-			'app' => $this->getApp()
 		);
 	}
 }

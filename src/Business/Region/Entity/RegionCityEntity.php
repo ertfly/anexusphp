@@ -23,7 +23,7 @@ class RegionCityEntity extends MongoEntity
     }
     public function setStateId($stateId)
     {
-        $this->state_id = $stateId;
+        $this->state_id = intval($stateId);
         return $this;
     }
     public function getStateId()

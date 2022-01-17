@@ -26,6 +26,7 @@ class PermissionModuleRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -58,6 +59,8 @@ class PermissionModuleRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -96,6 +99,8 @@ class PermissionModuleRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+        
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -140,6 +145,8 @@ class PermissionModuleRepository
             'document' => $cls,
         ]);
 
+        Database::closeInstance();
+
         $rows = [];
         foreach ($cursor as $r) {
             $rows[] = $r;
@@ -172,6 +179,8 @@ class PermissionModuleRepository
             'root' => $cls,
             'document' => $cls,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

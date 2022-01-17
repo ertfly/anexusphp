@@ -24,6 +24,7 @@ class PermissionMenuRepository
             'root' => PermissionMenuEntity::class,
             'document' => PermissionMenuEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -53,6 +54,8 @@ class PermissionMenuRepository
             'root' => PermissionMenuEntity::class,
             'document' => PermissionMenuEntity::class,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -85,6 +88,8 @@ class PermissionMenuRepository
             'root' => PermissionMenuEntity::class,
             'document' => PermissionMenuEntity::class,
         ]);
+
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {
@@ -136,6 +141,8 @@ class PermissionMenuRepository
             'document' => PermissionMenuEntity::class,
         ]);
 
+        Database::closeInstance();
+
         $rows = [];
         foreach ($cursor as $r) {
             $rows[] = $r;
@@ -173,6 +180,8 @@ class PermissionMenuRepository
             'root' => PermissionMenuEntity::class,
             'document' => PermissionMenuEntity::class,
         ]);
+        
+        Database::closeInstance();
 
         $rows = [];
         foreach ($cursor as $r) {

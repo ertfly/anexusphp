@@ -11,19 +11,23 @@ class RegionCountryRepository
     /**
      * Retorna um registro pelo id
      *
-     * @param integer|null $id
-     * @param mixed $className
+     * @param int $id
+     * @param string $cls
      * @return RegionCountryEntity
      */
-    public static function byId($id, $className): RegionCountryEntity
+    public static function byId($id, $cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        return new RegionCountryEntity();
     }
 
     /**
@@ -33,15 +37,20 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byLocale($locale, $className = RegionCountryEntity::class)
+    public static function byLocale($locale, $cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where "locale" = :locale limit 1', ['locale' => $locale])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
-        }
 
-        return $reg;
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(['locale' => $locale], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        return new RegionCountryEntity();
     }
 
     /**
@@ -50,12 +59,34 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function all($className = RegionCountryEntity::class)
+    public static function all($cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
-        return $reg;
+        $where = [];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+        return $rows;
     }
 
     /**
@@ -64,12 +95,36 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function allVisible($className = RegionCountryEntity::class)
+    public static function allVisible($cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where visible is true order by id asc')->fetchAll(PDO::FETCH_CLASS, $className);
 
-        return $reg;
+        $where = [
+            'visible' => true,
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+        return $rows;
     }
 
     /**
@@ -79,15 +134,20 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function byInitials(RegionCountryEntity $country, $className = RegionCountryEntity::class)
+    public static function byInitials(RegionCountryEntity $country, $cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where initials = :initials limit 1', ['initials' => $country->getInitials()])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
-        }
 
-        return $reg;
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(['initials' => $country->getInitials()], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        return new RegionCountryEntity();
     }
 
     /**
@@ -97,15 +157,20 @@ class RegionCountryRepository
      * @param string $className
      * @return RegionCountryEntity
      */
-    public static function byCode($code, $className = RegionCountryEntity::class)
+    public static function byCode($code, $cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where code = :code limit 1', ['code' => $code])->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
-        }
 
-        return $reg;
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(['code' => $code], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        return new RegionCountryEntity();
     }
 
     /**
@@ -114,14 +179,19 @@ class RegionCountryRepository
      * @param mixed $className
      * @return RegionCountryEntity
      */
-    public static function main($className): RegionCountryEntity
+    public static function main($cls = RegionCountryEntity::class)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where principal is true limit 1')->fetchObject($className);
-        if ($reg === false) {
-            return new $className();
-        }
 
-        return $reg;
+        $cursor = $db->{RegionCountryEntity::TABLE}->find(['principal' => true], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => $cls,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        return new RegionCountryEntity();
     }
 }

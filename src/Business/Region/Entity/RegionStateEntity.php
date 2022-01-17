@@ -14,20 +14,26 @@ class RegionStateEntity extends MongoEntity
     protected $initials;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = intval($id);
         return $this;
     }
     public function getId()
     {
+        if (!is_null($this->_id)) {
+            $this->_id = intval($this->_id);
+        }
         return $this->_id;
     }
     public function setCountryId($countryId)
     {
-        $this->country_id = $countryId;
+        $this->country_id = intval($countryId);
         return $this;
     }
     public function getCountryId()
     {
+        if (!is_null($this->country_id)) {
+            $this->country_id = intval($this->country_id);
+        }
         return $this->country_id;
     }
     public function setName($name)

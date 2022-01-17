@@ -10,8 +10,8 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	const TABLE = 'permission_category_menu';
 	private $_id;
 	private $description;
-	private $trash;
 	private $app;
+	private $trash;
 	public function setId($id)
 	{
 		$this->_id = $id;
@@ -30,15 +30,6 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	{
 		return $this->description;
 	}
-	public function setTrash($trash)
-	{
-		$this->trash = $trash;
-		return $this;
-	}
-	public function getTrash()
-	{
-		return $this->trash;
-	}
 	public function setApp($app)
 	{
 		$this->app = $app;
@@ -48,19 +39,32 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	{
 		return $this->app;
 	}
+	public function setTrash($trash)
+	{
+		$this->trash = $trash;
+		return $this;
+	}
+	public function getTrash()
+	{
+		if (is_null($this->trash)) {
+			$this->trash = false;
+		}
+		return $this->trash;
+	}
 	public function toArray()
 	{
 		return array(
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
+			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
-			'app' => $this->getApp()
 		);
 	}
 
 	private $menu;
-	
-	public function getMenu(?array $menu = null) {
+
+	public function getMenu(?array $menu = null)
+	{
 		if (!is_null($menu)) {
 			$this->menu = [];
 			foreach ($menu as $value) {

@@ -18,25 +18,16 @@ class RegionStateRepository
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where id = :id limit 1', ['id' => (int)$id])->fetchObject(RegionStateEntity::class);
-        if ($reg === false) {
-            return new RegionStateEntity();
+        $cursor = $db->{RegionStateEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => RegionStateEntity::class,
+            'document' => RegionStateEntity::class,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
-    }
-
-    /** 
-     * Retorna todos os registros da tabela
-     * 
-     * @return RegionStateEntity[]
-     */
-    public static function searchAll()
-    {
-        $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where trash = 0')->fetchAll(PDO::FETCH_CLASS, RegionStateEntity::class);
-
-        return $reg;
+        return new RegionStateEntity();
     }
 
     /**
@@ -48,14 +39,32 @@ class RegionStateRepository
     public static function byCountry(RegionCountryEntity $country)
     {
         $db = Database::getInstance();
-        $rows = $db->query('
-        select a.* 
-        from ' . RegionStateEntity::TABLE . ' a 
-        where a.country_id = :country_id
-        order by a.name asc', [
-            'country_id' => $country->getId(),
-        ])->fetchAll(PDO::FETCH_CLASS, RegionStateEntity::class);
 
+        $where = [
+            'country_id' => intval($country->getId()),
+        ];
+
+        $options = [
+            'sort' => [
+                'name' => 1
+            ],
+        ];
+
+        $cursor = $db->{RegionStateEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => RegionStateEntity::class,
+            'document' => RegionStateEntity::class,
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
         return $rows;
     }
 
@@ -68,11 +77,15 @@ class RegionStateRepository
     public static function byInitials($initials)
     {
         $db = Database::getInstance();
-        $reg = $db->query('select * from ' . RegionStateEntity::TABLE . ' where initials = :initials limit 1', ['initials' => $initials])->fetchObject(RegionStateEntity::class);
-        if ($reg === false) {
-            return new RegionStateEntity();
+        $cursor = $db->{RegionStateEntity::TABLE}->find(['initials' => $initials], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => RegionStateEntity::class,
+            'document' => RegionStateEntity::class,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
         }
-
-        return $reg;
+        return new RegionStateEntity();
     }
 }

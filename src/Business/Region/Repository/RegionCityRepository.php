@@ -24,6 +24,7 @@ class RegionCityRepository
             'root' => RegionCityEntity::class,
             'document' => RegionCityEntity::class,
         ]);
+        Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
@@ -45,36 +46,37 @@ class RegionCityRepository
             throw new Exception('Estado inválido');
         }
 
-        $regs = $db->query('
-            select 
-                a.id as id,
-                a.state_id as state_id,
-                a.name as name
-            from ' . RegionCityEntity::TABLE . ' a
-            where a.state_id = :region_state_id
-            order by a.name asc
-        ', [
-            'region_state_id' => $state->getId(),
-        ])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+        $where = [
+            'state_id' => intval($state->getId()),
+        ];
 
-        foreach ($regs as $key => $reg) {
+        $options = [
+            'sort' => [
+                'name' => 1
+            ],
+        ];
+
+        $cursor = $db->{RegionCityEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => RegionCityEntity::class,
+            'document' => RegionCityEntity::class,
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
             if (isset($options['array']) && $options['array']) {
-                $regs[$key] = $regs[$key] = $reg->toArray();
+                $rows[] = $r->toArray();
+                continue;
             }
+            $rows[] = $r;
         }
 
-        return $regs;
-    }
-
-    /**
-     * Retorna todos os registros da tabela
-     *
-     * @return RegionCityEntity[]
-     */
-    public static function searchAll()
-    {
-        $db = Database::getInstance();
-        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where trash = 0')->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+        return $rows;
     }
 
     /**
@@ -86,6 +88,32 @@ class RegionCityRepository
     public static function byState(RegionStateEntity $state)
     {
         $db = Database::getInstance();
-        return $db->query('select * from ' . RegionCityEntity::TABLE . ' where state_id = :state_id order by "name" asc', ['state_id' => $state->getId()])->fetchAll(PDO::FETCH_CLASS, RegionCityEntity::class);
+
+        $where = [
+            'state_id' => intval($state->getId()),
+        ];
+
+        $options = [
+            'sort' => [
+                'name' => 1
+            ],
+        ];
+
+        $cursor = $db->{RegionCityEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => RegionCityEntity::class,
+            'document' => RegionCityEntity::class,
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+        return $rows;
     }
 }
