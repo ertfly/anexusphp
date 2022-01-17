@@ -12,17 +12,17 @@ class PermissionModuleRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->permission_module->createIndex([
+        $db->{PermissionModuleEntity::TABLE}->createIndex([
             'position' => 1,
             'trash' => -1,
-        ], ['name' => 'permission_module_idx_position']);
-        $db->permission_module->createIndex([
+        ], ['name' => PermissionModuleEntity::TABLE . '_idx_position']);
+        $db->{PermissionModuleEntity::TABLE}->createIndex([
             'app' => 1,
             'trash' => -1,
-        ], ['name' => 'permission_module_idx_app']);
-        $db->permission_module->createIndex([
+        ], ['name' => PermissionModuleEntity::TABLE . '_idx_app']);
+        $db->{PermissionModuleEntity::TABLE}->createIndex([
             'trash' => -1,
-        ], ['name' => 'permission_module_idx_trash']);
+        ], ['name' => PermissionModuleEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }
     public static function insert(PermissionModuleEntity &$record)

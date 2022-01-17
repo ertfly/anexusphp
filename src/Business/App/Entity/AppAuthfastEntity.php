@@ -19,24 +19,33 @@ class AppAuthfastEntity extends MongoEntity
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function setAppId($appId)
 	{
-		$this->app_id = $appId;
+		$this->app_id = intval($appId);
 		return $this;
 	}
 	public function getAppId()
 	{
+		if (!is_null($this->app_id)) {
+			$this->app_id = intval($this->app_id);
+		}
 		return $this->app_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = $authfastId;
+		$this->authfast_id = intval($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
+		if (!is_null($this->authfast_id)) {
+			$this->authfast_id = intval($this->authfast_id);
+		}
 		return $this->authfast_id;
 	}
 	public function toArray()

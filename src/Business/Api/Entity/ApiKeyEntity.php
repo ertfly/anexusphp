@@ -23,20 +23,26 @@ class ApiKeyEntity extends MongoEntity
     protected $webhook_log;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = intval($id);
         return $this;
     }
     public function getId()
     {
+        if (!is_null($this->_id)) {
+            $this->_id = intval($this->_id);
+        }
         return $this->_id;
     }
-    public function setApiId($api_id)
+    public function setApiId($apiId)
     {
-        $this->api_id = $api_id;
+        $this->api_id = intval($apiId);
         return $this;
     }
     public function getApiId()
     {
+        if (!is_null($this->api_id)) {
+            $this->api_id = intval($this->api_id);
+        }
         return $this->api_id;
     }
     public function setName($name)
@@ -75,7 +81,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function setWebhook($webhook)
     {
-        $this->webhook = $webhook;
+        $this->webhook = boolval($webhook);
 
         return $this;
     }
@@ -97,9 +103,12 @@ class ApiKeyEntity extends MongoEntity
     {
         return $this->uri_hook;
     }
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        if (is_string($createdAt)) {
+            $createdAt = strtotime($createdAt);
+        }
+        $this->created_at = intval($createdAt);
         return $this;
     }
     public function getCreatedAt()
@@ -114,9 +123,12 @@ class ApiKeyEntity extends MongoEntity
 
         return $this->created_at;
     }
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updated_at;
+        if (is_string($updatedAt)) {
+            $updatedAt = strtotime($updatedAt);
+        }
+        $this->updated_at = $updatedAt;
         return $this;
     }
     public function getUpdatedAt()
@@ -128,9 +140,12 @@ class ApiKeyEntity extends MongoEntity
         }
         return $this->updated_at;
     }
-    public function setExpiredAt($expired_at)
+    public function setExpiredAt($expiredAt)
     {
-        $this->expired_at = $expired_at;
+        if (is_string($expiredAt)) {
+            $expiredAt = strtotime($expiredAt);
+        }
+        $this->expired_at = intval($expiredAt);
         return $this;
     }
     public function getExpiredAt($format = false)
@@ -156,7 +171,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function setTrash($trash)
     {
-        $this->trash = $trash;
+        $this->trash = boolval($trash);
 
         return $this;
     }

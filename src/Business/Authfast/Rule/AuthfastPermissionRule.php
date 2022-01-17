@@ -12,12 +12,12 @@ class AuthfastPermissionRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->authfast_permission->createIndex([
+        $db->{AuthfastPermissionEntity::TABLE}->createIndex([
             'authfast_id' => 1,
-        ], ['name' => 'authfast_permission_idx_authfast_id']);
-        $db->authfast_permission->createIndex([
+        ], ['name' => AuthfastPermissionEntity::TABLE . '_idx_authfast_id']);
+        $db->{AuthfastPermissionEntity::TABLE}->createIndex([
             'module_id' => 1,
-        ], ['name' => 'authfast_permission_idx_module_id']);
+        ], ['name' => AuthfastPermissionEntity::TABLE . '_idx_module_id']);
         Database::closeInstance();
     }
     public static function insert(AuthfastPermissionEntity &$record)

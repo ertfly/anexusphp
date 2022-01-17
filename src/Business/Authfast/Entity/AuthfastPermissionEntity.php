@@ -16,29 +16,38 @@ class AuthfastPermissionEntity extends MongoEntity
 	private $events;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = intval($id);
 		return $this;
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = $authfastId;
+		$this->authfast_id = intval($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
+		if (!is_null($this->authfast_id)) {
+			$this->authfast_id = intval($this->authfast_id);
+		}
 		return $this->authfast_id;
 	}
 	public function setModuleId($moduleId)
 	{
-		$this->module_id = $moduleId;
+		$this->module_id = intval($moduleId);
 		return $this;
 	}
 	public function getModuleId()
 	{
+		if (!is_null($this->module_id)) {
+			$this->module_id = intval($this->module_id);
+		}
 		return $this->module_id;
 	}
 	public function setEvents($events)

@@ -10,12 +10,12 @@ class AppRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->app->createIndex([
+        $db->{AppEntity::TABLE}->createIndex([
             'name' => 1,
-        ], ['name' => 'app_idx_name']);
-        $db->app->createIndex([
+        ], ['name' => AppEntity::TABLE . '_idx_name']);
+        $db->{AppEntity::TABLE}->createIndex([
             'key' => 1,
-        ], ['name' => 'app_idx_key']);
+        ], ['name' => AppEntity::TABLE . '_idx_key']);
         Database::closeInstance();
     }
     public static function insert(AppEntity &$record)

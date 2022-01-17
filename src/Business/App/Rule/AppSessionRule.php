@@ -15,21 +15,21 @@ class AppSessionRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->app_session->createIndex([
+        $db->{AppSessionEntity::TABLE}->createIndex([
             'token' => 1,
-        ], ['name' => 'app_session_idx_token']);
-        $db->app_session->createIndex([
+        ], ['name' => AppSessionEntity::TABLE . '_idx_token']);
+        $db->{AppSessionEntity::TABLE}->createIndex([
             'app_id' => 1,
-        ], ['name' => 'app_session_idx_app_id']);
-        $db->app_session->createIndex([
+        ], ['name' => AppSessionEntity::TABLE . '_idx_app_id']);
+        $db->{AppSessionEntity::TABLE}->createIndex([
             'authfast_id' => 1,
-        ], ['name' => 'app_session_idx_authfast_id']);
-        $db->app_session->createIndex([
+        ], ['name' => AppSessionEntity::TABLE . '_idx_authfast_id']);
+        $db->{AppSessionEntity::TABLE}->createIndex([
             'authfast_token' => 1,
-        ], ['name' => 'app_session_idx_authfast_token']);
-        $db->app_session->createIndex([
+        ], ['name' => AppSessionEntity::TABLE . '_idx_authfast_token']);
+        $db->{AppSessionEntity::TABLE}->createIndex([
             'created_at' => 1,
-        ], ['name' => 'app_session_idx_created_at']);
+        ], ['name' => AppSessionEntity::TABLE . '_idx_created_at']);
         Database::closeInstance();
     }
     public static function insert(AppSessionEntity &$record)

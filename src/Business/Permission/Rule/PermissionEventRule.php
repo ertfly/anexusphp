@@ -12,13 +12,13 @@ class PermissionEventRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->permission_event->createIndex([
+        $db->{PermissionEventEntity::TABLE}->createIndex([
             'app' => 1,
             'trash' => -1,
-        ], ['name' => 'permission_event_idx_app']);
-        $db->permission_event->createIndex([
+        ], ['name' => PermissionEventEntity::TABLE . '_idx_app']);
+        $db->{PermissionEventEntity::TABLE}->createIndex([
             'trash' => -1,
-        ], ['name' => 'permission_event_idx_trash']);
+        ], ['name' => PermissionEventEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }
     public static function insert(PermissionEventEntity &$record)

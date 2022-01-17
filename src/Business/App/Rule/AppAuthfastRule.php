@@ -11,16 +11,16 @@ class AppAuthfastRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->app_authfast->createIndex([
+        $db->{AppAuthfastEntity::TABLE}->createIndex([
             'app_id' => 1,
             'authfast_id' => 1,
-        ], ['name' => 'app_authfast_idx_app_id_authfast_id']);
-        $db->app_authfast->createIndex([
+        ], ['name' => AppAuthfastEntity::TABLE . '_idx_app_id_authfast_id']);
+        $db->{AppAuthfastEntity::TABLE}->createIndex([
             'app_id' => 1,
-        ], ['name' => 'app_authfast_idx_app_id']);
-        $db->app_authfast->createIndex([
+        ], ['name' => AppAuthfastEntity::TABLE . '_idx_app_id']);
+        $db->{AppAuthfastEntity::TABLE}->createIndex([
             'authfast_id' => 1,
-        ], ['name' => 'app_authfast_idx_authfast_id']);
+        ], ['name' => AppAuthfastEntity::TABLE . '_idx_authfast_id']);
         Database::closeInstance();
     }
     public static function insert(AppAuthfastEntity &$record)

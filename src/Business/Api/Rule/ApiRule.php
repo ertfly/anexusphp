@@ -10,13 +10,13 @@ class ApiRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->api->createIndex([
+        $db->{ApiEntity::TABLE}->createIndex([
             'name' => 1,
             'trash' => -1,
-        ], ['name' => 'api_idx_name']);
-        $db->api->createIndex([
+        ], ['name' => ApiEntity::TABLE . '_idx_name']);
+        $db->{ApiEntity::TABLE}->createIndex([
             'trash' => -1,
-        ], ['name' => 'api_idx_trash']);
+        ], ['name' => ApiEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }
     public static function insert(ApiEntity &$record)

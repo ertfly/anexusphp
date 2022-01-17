@@ -17,11 +17,14 @@ class AuthfastActivityEntity extends MongoEntity
 	protected $created_at;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = intval($id);
 		return $this;
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function setActivity($activity)
@@ -35,11 +38,14 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = $authfastId;
+		$this->authfast_id = intval($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
+		if (!is_null($this->authfast_id)) {
+			$this->authfast_id = intval($this->authfast_id);
+		}
 		return $this->authfast_id;
 	}
 	public function setModule($module)
@@ -71,20 +77,23 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function setCreatedAt($createdAt)
 	{
-		$this->created_at = $createdAt;
+		if (is_string($createdAt)) {
+			$createdAt = strtotime($createdAt);
+		}
+		$this->created_at = intval($createdAt);
 		return $this;
 	}
 	public function getCreatedAt()
 	{
-        if (is_null($this->created_at)) {
-            $this->created_at = strtotime(date('Y-m-d H:i:s'));
-        }
+		if (is_null($this->created_at)) {
+			$this->created_at = strtotime(date('Y-m-d H:i:s'));
+		}
 
-        if (is_string($this->created_at)) {
-            $this->created_at = strtotime($this->created_at);
-        }
+		if (is_string($this->created_at)) {
+			$this->created_at = strtotime($this->created_at);
+		}
 
-		return $this->created_at;
+		return intval($this->created_at);
 	}
 	public function toArray()
 	{

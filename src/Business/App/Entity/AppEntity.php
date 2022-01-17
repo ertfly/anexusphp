@@ -12,11 +12,14 @@ class AppEntity extends MongoEntity
     protected $key;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = intval($id);
         return $this;
     }
     public function getId()
     {
+        if (!is_null($this->_id)) {
+            $this->_id = intval($this->_id);
+        }
         return $this->_id;
     }
     public function setName($name)

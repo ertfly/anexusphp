@@ -25,11 +25,14 @@ class AuthfastEntity extends MongoEntity
 	protected $region_country_id;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = intval($id);
 		return $this;
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function getType($format = false)
@@ -129,7 +132,10 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function setCreatedAt($createdAt)
 	{
-		$this->created_at = $createdAt;
+		if (is_string($createdAt)) {
+			$createdAt = strtotime($createdAt);
+		}
+		$this->created_at = intval($createdAt);
 		return $this;
 	}
 	public function getCreatedAt()
@@ -142,11 +148,14 @@ class AuthfastEntity extends MongoEntity
 			$this->created_at = strtotime($this->created_at);
 		}
 
-		return $this->created_at;
+		return intval($this->created_at);
 	}
 	public function setUpdatedAt($updatedAt)
 	{
-		$this->updated_at = $updatedAt;
+		if (is_string($updatedAt)) {
+			$updatedAt = strtotime($updatedAt);
+		}
+		$this->updated_at = intval($updatedAt);
 		return $this;
 	}
 	public function getUpdatedAt()
@@ -155,13 +164,17 @@ class AuthfastEntity extends MongoEntity
 			if (is_string($this->updated_at)) {
 				$this->updated_at = strtotime($this->updated_at);
 			}
+			$this->updated_at = intval($this->updated_at);
 		}
 
 		return $this->updated_at;
 	}
 	public function setExpiredAt($expiredAt)
 	{
-		$this->expired_at = $expiredAt;
+		if (is_string($expiredAt)) {
+			$expiredAt = strtotime($expiredAt);
+		}
+		$this->expired_at = intval($expiredAt);
 		return $this;
 	}
 	public function getExpiredAt()
@@ -170,17 +183,21 @@ class AuthfastEntity extends MongoEntity
 			if (is_string($this->expired_at)) {
 				$this->expired_at = strtotime($this->expired_at);
 			}
+			$this->expired_at = intval($this->expired_at);
 		}
 
 		return $this->expired_at;
 	}
 	public function getRegionCountryId()
 	{
+		if (!is_null($this->region_country_id)) {
+			$this->region_country_id = intval($this->region_country_id);
+		}
 		return $this->region_country_id;
 	}
 	public function setRegionCountryId($regionCountryId)
 	{
-		$this->region_country_id = $regionCountryId;
+		$this->region_country_id = intval($regionCountryId);
 		return $this;
 	}
 	public function toArray()

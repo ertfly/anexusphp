@@ -12,12 +12,12 @@ class ConfigurationEntity extends MongoEntity
     protected $description;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = strval($id);
         return $this;
     }
     public function getId()
     {
-        return $this->_id;
+        return strval($this->_id);
     }
     public function setValue($value)
     {

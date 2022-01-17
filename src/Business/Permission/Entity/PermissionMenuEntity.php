@@ -21,29 +21,38 @@ class PermissionMenuEntity extends MongoEntity
 	private $trash;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = intval($id);
 		return $this;
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function setCategoryId($categoryId)
 	{
-		$this->category_id = $categoryId;
+		$this->category_id = intval($categoryId);
 		return $this;
 	}
 	public function getCategoryId()
 	{
+		if (!is_null($this->category_id)) {
+			$this->category_id = intval($this->category_id);
+		}
 		return $this->category_id;
 	}
 	public function setModuleId($moduleId)
 	{
-		$this->module_id = $moduleId;
+		$this->module_id = intval($moduleId);
 		return $this;
 	}
 	public function getModuleId()
 	{
+		if (!is_null($this->module_id)) {
+			$this->module_id = intval($this->module_id);
+		}
 		return $this->module_id;
 	}
 	public function setDescription($description)
@@ -87,16 +96,19 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function setApp($app)
 	{
-		$this->app = $app;
+		$this->app = intval($app);
 		return $this;
 	}
 	public function getApp()
 	{
+		if (!is_null($this->app)) {
+			$this->app = intval($this->app);
+		}
 		return $this->app;
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = $trash;
+		$this->trash = boolval($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -104,7 +116,7 @@ class PermissionMenuEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return $this->trash;
+		return boolval($this->trash);
 	}
 	public function toArray()
 	{

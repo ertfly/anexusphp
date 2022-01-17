@@ -12,12 +12,12 @@ class AuthfastActivityRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->authfast_activity->createIndex([
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
             'authfast_id' => 1,
-        ], ['name' => 'authfast_activity_idx_authfast_id']);
-        $db->authfast_activity->createIndex([
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_authfast_id']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
             'created_at' => 1,
-        ], ['name' => 'authfast_activity_idx_created_at']);
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_created_at']);
         Database::closeInstance();
     }
     public static function insert(AuthfastActivityEntity &$record)

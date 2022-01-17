@@ -15,28 +15,28 @@ class AuthfastRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->authfast->createIndex([
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'type' => 1,
-        ], ['name' => 'authfast_idx_type']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_type']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'code' => 1,
-        ], ['name' => 'authfast_idx_code']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_code']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'firstname' => 1,
             'lastname' => 1,
-        ], ['name' => 'authfast_idx_firstname']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_firstname']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'document' => 1,
-        ], ['name' => 'authfast_idx_document']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_document']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'username' => 1,
-        ], ['name' => 'authfast_idx_username']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_username']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'email' => 1,
-        ], ['name' => 'authfast_idx_email']);
-        $db->authfast->createIndex([
+        ], ['name' => AuthfastEntity::TABLE . '_idx_email']);
+        $db->{AuthfastEntity::TABLE}->createIndex([
             'region_country_id' => 1,
-        ], ['name' => 'authfast_idx_region_country_id']);
+        ], ['name' => AuthfastEntity::TABLE . '_idx_region_country_id']);
         Database::closeInstance();
     }
     public static function insert(AuthfastEntity &$record)

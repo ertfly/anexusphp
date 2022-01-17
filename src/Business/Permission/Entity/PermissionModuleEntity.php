@@ -16,11 +16,14 @@ class PermissionModuleEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = intval($id);
 		return $this;
 	}
 	public function getId()
 	{
+		if (!is_null($this->_id)) {
+			$this->_id = intval($this->_id);
+		}
 		return $this->_id;
 	}
 	public function setName($name)
@@ -51,25 +54,31 @@ class PermissionModuleEntity extends MongoEntity
 	}
 	public function setPosition($position)
 	{
-		$this->position = $position;
+		$this->position = intval($position);
 		return $this;
 	}
 	public function getPosition()
 	{
+		if (!is_null($this->position)) {
+			$this->position = intval($this->position);
+		}
 		return $this->position;
 	}
 	public function setApp($app)
 	{
-		$this->app = $app;
+		$this->app = intval($app);
 		return $this;
 	}
 	public function getApp()
 	{
+		if (!is_null($this->app)) {
+			$this->app = intval($this->app);
+		}
 		return $this->app;
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = $trash;
+		$this->trash = boolval($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -77,7 +86,7 @@ class PermissionModuleEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return $this->trash;
+		return boolval($this->trash);
 	}
 	public function toArray()
 	{

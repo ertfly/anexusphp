@@ -12,13 +12,13 @@ class PermissionCategoryMenuRule
     public static function install()
     {
         $db = Database::getInstance();
-        $db->permission_category_menu->createIndex([
+        $db->{PermissionCategoryMenuEntity::TABLE}->createIndex([
             'app' => 1,
             'trash' => -1,
-        ], ['name' => 'permission_category_menu_idx_app']);
-        $db->permission_category_menu->createIndex([
+        ], ['name' => PermissionCategoryMenuEntity::TABLE . '_idx_app']);
+        $db->{PermissionCategoryMenuEntity::TABLE}->createIndex([
             'trash' => -1,
-        ], ['name' => 'permission_category_menu_idx_trash']);
+        ], ['name' => PermissionCategoryMenuEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }
     public static function insert(PermissionCategoryMenuEntity &$record)
