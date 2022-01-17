@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core;
+namespace PequiPHP\Core;
 
 use Exception;
 use PDO;

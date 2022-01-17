@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
+namespace PequiPHP\Core\Libraries\FormValidation\Validations;
 
-use AnexusPHP\Core\Tools\Strings;
-use AnexusPHP\Core\Translate;
+use PequiPHP\Core\Tools\Strings;
+use PequiPHP\Core\Translate;
 
 class CPFValidation extends AbstractValidation
 {

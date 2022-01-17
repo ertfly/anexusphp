@@ -1,13 +1,13 @@
 <?php
 
-namespace AnexusPHP\Business\Permission\Repository;
+namespace PequiPHP\Business\Permission\Repository;
 
-use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
-use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
-use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
+use PequiPHP\Business\Authfast\Entity\AuthfastEntity;
+use PequiPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
+use PequiPHP\Business\Permission\Entity\PermissionModuleEntity;
 
-use AnexusPHP\Core\Database;
-use AnexusPHP\Core\Libraries\Pagination\Pagination;
+use PequiPHP\Core\Database;
+use PequiPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class PermissionModuleRepository

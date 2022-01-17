@@ -1,24 +1,24 @@
 <?php
 
-use AnexusPHP\Business\App\Constant\AppTypeConstant;
-use AnexusPHP\Business\App\Entity\AppEntity;
-use AnexusPHP\Business\App\Entity\AppSessionEntity;
-use AnexusPHP\Business\App\Repository\AppSessionRepository;
-use AnexusPHP\Business\App\Rule\AppSessionRule;
-use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
-use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
-use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
-use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
-use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
-use AnexusPHP\Core\Router;
-use AnexusPHP\Core\Session;
-use AnexusPHP\Core\Template;
-use AnexusPHP\Core\Tools\Date;
-use AnexusPHP\Core\Tools\Form;
-use AnexusPHP\Core\Tools\Request;
-use AnexusPHP\Core\Tools\Response;
-use AnexusPHP\Core\Tools\Strings;
-use AnexusPHP\Core\Translate;
+use PequiPHP\Business\App\Constant\AppTypeConstant;
+use PequiPHP\Business\App\Entity\AppEntity;
+use PequiPHP\Business\App\Entity\AppSessionEntity;
+use PequiPHP\Business\App\Repository\AppSessionRepository;
+use PequiPHP\Business\App\Rule\AppSessionRule;
+use PequiPHP\Business\Authfast\Entity\AuthfastActivityEntity;
+use PequiPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
+use PequiPHP\Business\Authfast\Rule\AuthfastActivityRule;
+use PequiPHP\Business\Configuration\Repository\ConfigurationRepository;
+use PequiPHP\Business\Region\Entity\RegionCountryEntity;
+use PequiPHP\Core\Router;
+use PequiPHP\Core\Session;
+use PequiPHP\Core\Template;
+use PequiPHP\Core\Tools\Date;
+use PequiPHP\Core\Tools\Form;
+use PequiPHP\Core\Tools\Request;
+use PequiPHP\Core\Tools\Response;
+use PequiPHP\Core\Tools\Strings;
+use PequiPHP\Core\Translate;
 
 function url($name, array $parameters = null, array $getParams = null)
 {

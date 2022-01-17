@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
-use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use PequiPHP\Business\Region\Entity\RegionCountryEntity;
 use DateTime;
 use DateTimeZone;
 use IntlDateFormatter;

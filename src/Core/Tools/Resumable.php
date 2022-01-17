@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
-use AnexusPHP\Core\Session;
+use PequiPHP\Core\Session;
 
 class Resumable
 {

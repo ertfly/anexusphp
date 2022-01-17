@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
+namespace PequiPHP\Core\Libraries\FormValidation\Validations;
 
-use AnexusPHP\Core\Tools\Number;
-use AnexusPHP\Core\Translate;
+use PequiPHP\Core\Tools\Number;
+use PequiPHP\Core\Translate;
 
 class DecimalValidation extends AbstractValidation
 {

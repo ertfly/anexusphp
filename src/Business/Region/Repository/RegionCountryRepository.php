@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Business\Region\Repository;
+namespace PequiPHP\Business\Region\Repository;
 
-use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
-use AnexusPHP\Core\Database;
+use PequiPHP\Business\Region\Entity\RegionCountryEntity;
+use PequiPHP\Core\Database;
 use PDO;
 
 class RegionCountryRepository

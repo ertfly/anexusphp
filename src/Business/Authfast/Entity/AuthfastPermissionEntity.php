@@ -1,11 +1,11 @@
 <?php
 
-namespace AnexusPHP\Business\Authfast\Entity;
+namespace PequiPHP\Business\Authfast\Entity;
 
-use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
-use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
-use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
-use AnexusPHP\Core\MongoEntity;
+use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
+use PequiPHP\Business\Permission\Entity\PermissionModuleEntity;
+use PequiPHP\Business\Permission\Repository\PermissionModuleRepository;
+use PequiPHP\Core\MongoEntity;
 
 class AuthfastPermissionEntity extends MongoEntity
 {

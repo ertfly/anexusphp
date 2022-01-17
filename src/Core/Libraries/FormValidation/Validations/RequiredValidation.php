@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
+namespace PequiPHP\Core\Libraries\FormValidation\Validations;
 
-use AnexusPHP\Core\Translate;
+use PequiPHP\Core\Translate;
 
 class RequiredValidation extends AbstractValidation
 {

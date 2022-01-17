@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\Pagination;
+namespace PequiPHP\Core\Libraries\Pagination;
 
 use League\Plates\Engine;
 

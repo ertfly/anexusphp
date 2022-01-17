@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
 class VideoStream
 {

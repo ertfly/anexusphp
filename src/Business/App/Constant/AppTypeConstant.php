@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Business\App\Constant;
+namespace PequiPHP\Business\App\Constant;
 
 use Exception;
 

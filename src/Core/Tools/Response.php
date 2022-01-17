@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
-use AnexusPHP\Core\Constants\ResponseCharset;
-use AnexusPHP\Core\Constants\ResponseMime;
+use PequiPHP\Core\Constants\ResponseCharset;
+use PequiPHP\Core\Constants\ResponseMime;
 use Exception;
 
 /**

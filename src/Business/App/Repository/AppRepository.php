@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Business\App\Repository;
+namespace PequiPHP\Business\App\Repository;
 
-use AnexusPHP\Business\App\Entity\AppEntity;
-use AnexusPHP\Core\Database;
+use PequiPHP\Business\App\Entity\AppEntity;
+use PequiPHP\Core\Database;
 
 class AppRepository
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace AnexusPHP\Business\Permission\Repository;
+namespace PequiPHP\Business\Permission\Repository;
 
-use AnexusPHP\Business\Permission\Entity\PermissionEventEntity;
+use PequiPHP\Business\Permission\Entity\PermissionEventEntity;
 
-use AnexusPHP\Core\Database;
-use AnexusPHP\Core\Libraries\Pagination\Pagination;
+use PequiPHP\Core\Database;
+use PequiPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class PermissionEventRepository

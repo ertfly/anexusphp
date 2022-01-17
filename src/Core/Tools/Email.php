@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
-use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use PequiPHP\Business\Configuration\Repository\ConfigurationRepository;
 use Exception;
 use Swift_Mailer;
 use Swift_Message;

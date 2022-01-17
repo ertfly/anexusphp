@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
+namespace PequiPHP\Core\Libraries\FormValidation\Validations;
 
-use AnexusPHP\Core\Tools\Date;
-use AnexusPHP\Core\Translate;
+use PequiPHP\Core\Tools\Date;
+use PequiPHP\Core\Translate;
 use Exception;
 
 class DateValidation extends AbstractValidation

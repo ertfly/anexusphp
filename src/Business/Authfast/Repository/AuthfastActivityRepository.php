@@ -1,11 +1,11 @@
 <?php
 
-namespace AnexusPHP\Business\Authfast\Repository;
+namespace PequiPHP\Business\Authfast\Repository;
 
-use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
-use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
-use AnexusPHP\Core\Database;
-use AnexusPHP\Core\Libraries\Pagination\Pagination;
+use PequiPHP\Business\Authfast\Entity\AuthfastActivityEntity;
+use PequiPHP\Business\Authfast\Entity\AuthfastEntity;
+use PequiPHP\Core\Database;
+use PequiPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class AuthfastActivityRepository

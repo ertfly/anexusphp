@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Business\Api\Rule;
+namespace PequiPHP\Business\Api\Rule;
 
-use AnexusPHP\Business\Api\Entity\ApiEntity;
-use AnexusPHP\Core\Database;
+use PequiPHP\Business\Api\Entity\ApiEntity;
+use PequiPHP\Core\Database;
 
 class ApiRule
 {

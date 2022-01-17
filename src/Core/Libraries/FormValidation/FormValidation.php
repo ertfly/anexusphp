@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation;
+namespace PequiPHP\Core\Libraries\FormValidation;
 
-use AnexusPHP\Core\Libraries\FormValidation\Validations\AbstractValidation;
-use AnexusPHP\Core\Tools\Strings;
+use PequiPHP\Core\Libraries\FormValidation\Validations\AbstractValidation;
+use PequiPHP\Core\Tools\Strings;
 
 class FormValidation
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace AnexusPHP\Core;
+namespace PequiPHP\Core;
 
-use AnexusPHP\Core\Tools\Request;
-use AnexusPHP\Core\Tools\Response;
-use AnexusPHP\Core\Tools\Strings;
+use PequiPHP\Core\Tools\Request;
+use PequiPHP\Core\Tools\Response;
+use PequiPHP\Core\Tools\Strings;
 use Exception;
 use stdClass;
 

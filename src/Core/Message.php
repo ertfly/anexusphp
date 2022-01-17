@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core;
+namespace PequiPHP\Core;
 
 class Message
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
+namespace PequiPHP\Core\Libraries\FormValidation\Validations;
 
 abstract class AbstractValidation
 {

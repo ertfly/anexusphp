@@ -6,7 +6,7 @@
  * Time: 21:50
  */
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
 class XLSXWriter
 {

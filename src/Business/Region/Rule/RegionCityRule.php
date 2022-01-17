@@ -2,8 +2,8 @@
 
 namespace Business\Region\Rule;
 
-use AnexusPHP\Business\Region\Entity\RegionCityEntity;
-use AnexusPHP\Core\Database;
+use PequiPHP\Business\Region\Entity\RegionCityEntity;
+use PequiPHP\Core\Database;
 
 class RegionCityRule
 {

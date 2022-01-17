@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Core;
+namespace PequiPHP\Core;
 
-use AnexusPHP\Core\Constants\ResponseMime;
-use AnexusPHP\Core\Tools\Response;
+use PequiPHP\Core\Constants\ResponseMime;
+use PequiPHP\Core\Tools\Response;
 use Exception;
 
 class View

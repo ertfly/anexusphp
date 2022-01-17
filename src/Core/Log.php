@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Core;
+namespace PequiPHP\Core;
 
-use AnexusPHP\Core\Tools\Strings;
+use PequiPHP\Core\Tools\Strings;
 
 class Log
 {

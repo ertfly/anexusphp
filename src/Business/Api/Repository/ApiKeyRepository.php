@@ -1,10 +1,10 @@
 <?php
 
-namespace AnexusPHP\Business\Api\Repository;
+namespace PequiPHP\Business\Api\Repository;
 
-use AnexusPHP\Business\Api\Entity\ApiEntity;
-use AnexusPHP\Business\Api\Entity\ApiKeyEntity;
-use AnexusPHP\Core\Database;
+use PequiPHP\Business\Api\Entity\ApiEntity;
+use PequiPHP\Business\Api\Entity\ApiKeyEntity;
+use PequiPHP\Core\Database;
 use PDO;
 
 class ApiKeyRepository

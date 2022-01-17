@@ -1,10 +1,10 @@
 <?php
 
-namespace AnexusPHP\Core\Tools;
+namespace PequiPHP\Core\Tools;
 
-use AnexusPHP\Core\Libraries\FormValidation\FormValidation;
-use AnexusPHP\Core\Session;
-use AnexusPHP\Core\Tools\Strings;
+use PequiPHP\Core\Libraries\FormValidation\FormValidation;
+use PequiPHP\Core\Session;
+use PequiPHP\Core\Tools\Strings;
 use Exception;
 
 /**

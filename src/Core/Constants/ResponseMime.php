@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Core\Constants;
+namespace PequiPHP\Core\Constants;
 
 /**
  * Description of ResponseMime
