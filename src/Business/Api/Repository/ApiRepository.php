@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\Api\Repository;
+namespace AnexusPHP\Business\Api\Repository;
 
-use PequiPHP\Business\Api\Entity\ApiEntity;
-use PequiPHP\Core\Database;
-use PequiPHP\Core\Libraries\Pagination\Pagination;
+use AnexusPHP\Business\Api\Entity\ApiEntity;
+use AnexusPHP\Core\Database;
+use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class ApiRepository

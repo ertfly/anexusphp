@@ -1,13 +1,13 @@
 <?php
 
-namespace PequiPHP\Business\App\Rule;
+namespace AnexusPHP\Business\App\Rule;
 
-use PequiPHP\Business\App\Entity\AppSessionEntity;
-use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
-use PequiPHP\Business\Authfast\Rule\AuthfastRule;
-use PequiPHP\Business\Region\Repository\RegionCountryRepository;
-use PequiPHP\Core\Database;
-use PequiPHP\Core\Tools\Request;
+use AnexusPHP\Business\App\Entity\AppSessionEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Business\Authfast\Rule\AuthfastRule;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
+use AnexusPHP\Core\Database;
+use AnexusPHP\Core\Tools\Request;
 use Exception;
 
 class AppSessionRule

@@ -1,8 +1,8 @@
 <?php
 
-namespace PequiPHP\Business\Configuration\Entity;
+namespace AnexusPHP\Business\Configuration\Entity;
 
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Core\MongoEntity;
 
 class ConfigurationEntity extends MongoEntity
 {

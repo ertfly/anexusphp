@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\Region\Rule;
+namespace AnexusPHP\Business\Region\Rule;
 
-use PequiPHP\Business\Region\Entity\RegionCountryEntity;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
+use AnexusPHP\Core\Database;
 use Exception;
 
 class RegionCountryRule

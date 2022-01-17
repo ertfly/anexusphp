@@ -1,8 +1,8 @@
 <?php
 
-namespace PequiPHP\Core\Libraries\FormValidation\Validations;
+namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
-use PequiPHP\Core\Translate;
+use AnexusPHP\Core\Translate;
 
 class NumericValidation extends AbstractValidation
 {

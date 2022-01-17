@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\App\Rule;
+namespace AnexusPHP\Business\App\Rule;
 
-use PequiPHP\Business\App\Entity\AppAuthfastEntity;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
+use AnexusPHP\Core\Database;
 use Exception;
 
 class AppAuthfastRule

@@ -1,6 +1,6 @@
 <?php
 
-namespace PequiPHP\Core;
+namespace AnexusPHP\Core;
 
 class Session
 {

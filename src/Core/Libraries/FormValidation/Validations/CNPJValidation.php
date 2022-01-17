@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Core\Libraries\FormValidation\Validations;
+namespace AnexusPHP\Core\Libraries\FormValidation\Validations;
 
-use PequiPHP\Core\Tools\Strings;
-use PequiPHP\Core\Translate;
+use AnexusPHP\Core\Tools\Strings;
+use AnexusPHP\Core\Translate;
 
 class CNPJValidation extends AbstractValidation
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace PequiPHP\Business\Authfast\Rule;
+namespace AnexusPHP\Business\Authfast\Rule;
 
-use PequiPHP\Business\Authfast\Entity\AuthfastEntity;
-use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
-use PequiPHP\Business\Region\Repository\RegionCountryRepository;
-use PequiPHP\Core\Database;
-use PequiPHP\Core\Tools\Request;
-use PequiPHP\Core\Translate;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
+use AnexusPHP\Core\Database;
+use AnexusPHP\Core\Tools\Request;
+use AnexusPHP\Core\Translate;
 use Exception;
 
 class AuthfastRule

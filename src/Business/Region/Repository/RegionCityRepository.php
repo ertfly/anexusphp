@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\Region\Repository;
+namespace AnexusPHP\Business\Region\Repository;
 
-use PequiPHP\Business\Region\Entity\RegionCityEntity;
-use PequiPHP\Business\Region\Entity\RegionStateEntity;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\Region\Entity\RegionCityEntity;
+use AnexusPHP\Business\Region\Entity\RegionStateEntity;
+use AnexusPHP\Core\Database;
 use Exception;
 use PDO;
 

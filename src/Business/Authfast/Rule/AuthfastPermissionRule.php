@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\Authfast\Rule;
+namespace AnexusPHP\Business\Authfast\Rule;
 
-use PequiPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
 
-use PequiPHP\Core\Database;
+use AnexusPHP\Core\Database;
 use Exception;
 
 class AuthfastPermissionRule

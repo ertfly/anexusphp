@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\Authfast\Entity;
+namespace AnexusPHP\Business\Authfast\Entity;
 
-use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Core\MongoEntity;
 
 class AuthfastActivityEntity extends MongoEntity
 {

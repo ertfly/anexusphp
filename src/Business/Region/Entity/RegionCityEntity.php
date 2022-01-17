@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\Region\Entity;
+namespace AnexusPHP\Business\Region\Entity;
 
-use PequiPHP\Business\Region\Repository\RegionStateRepository;
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Business\Region\Repository\RegionStateRepository;
+use AnexusPHP\Core\MongoEntity;
 
 class RegionCityEntity extends MongoEntity
 {

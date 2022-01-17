@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\Configuration\Repository;
+namespace AnexusPHP\Business\Configuration\Repository;
 
-use PequiPHP\Business\Configuration\Entity\ConfigurationEntity;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\Configuration\Entity\ConfigurationEntity;
+use AnexusPHP\Core\Database;
 use PDO;
 
 class ConfigurationRepository

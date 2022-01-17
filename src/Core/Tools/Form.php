@@ -1,8 +1,8 @@
 <?php
 
-namespace PequiPHP\Core\Tools;
+namespace AnexusPHP\Core\Tools;
 
-use PequiPHP\Core\Session;
+use AnexusPHP\Core\Session;
 
 class Form
 {

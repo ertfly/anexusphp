@@ -1,11 +1,11 @@
 <?php
 
-namespace PequiPHP\Business\Permission\Entity;
+namespace AnexusPHP\Business\Permission\Entity;
 
-use PequiPHP\Business\Permission\Constant\PermissionMenuTargetConstant;
-use PequiPHP\Business\Permission\Repository\PermissionCategoryMenuRepository;
-use PequiPHP\Business\Permission\Repository\PermissionModuleRepository;
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Business\Permission\Constant\PermissionMenuTargetConstant;
+use AnexusPHP\Business\Permission\Repository\PermissionCategoryMenuRepository;
+use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
+use AnexusPHP\Core\MongoEntity;
 
 class PermissionMenuEntity extends MongoEntity
 {

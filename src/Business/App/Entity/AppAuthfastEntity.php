@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\App\Entity;
+namespace AnexusPHP\Business\App\Entity;
 
-use PequiPHP\Business\Authfast\Entity\AuthfastEntity;
-use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Core\MongoEntity;
 
 class AppAuthfastEntity extends MongoEntity
 {

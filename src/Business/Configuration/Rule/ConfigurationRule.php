@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\Configuration\Rule;
+namespace AnexusPHP\Business\Configuration\Rule;
 
-use PequiPHP\Business\Configuration\Entity\ConfigurationEntity;
-use PequiPHP\Business\Configuration\Repository\ConfigurationRepository;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\Configuration\Entity\ConfigurationEntity;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Core\Database;
 use Exception;
 
 class ConfigurationRule

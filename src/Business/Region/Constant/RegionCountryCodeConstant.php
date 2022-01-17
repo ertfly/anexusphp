@@ -1,6 +1,6 @@
 <?php
 
-namespace PequiPHP\Business\Region\Constant;
+namespace AnexusPHP\Business\Region\Constant;
 
 class RegionCountryCodeConstant
 {

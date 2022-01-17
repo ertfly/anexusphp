@@ -1,6 +1,6 @@
 <?php
 
-namespace PequiPHP\Core\Constants;
+namespace AnexusPHP\Core\Constants;
 
 /**
  * Description of ResponseCharset

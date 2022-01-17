@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\App\Rule;
+namespace AnexusPHP\Business\App\Rule;
 
-use PequiPHP\Business\App\Entity\AppEntity;
-use PequiPHP\Core\Database;
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Core\Database;
 
 class AppRule
 {

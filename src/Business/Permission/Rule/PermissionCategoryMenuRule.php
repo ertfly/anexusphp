@@ -1,10 +1,10 @@
 <?php
 
-namespace PequiPHP\Business\Permission\Rule;
+namespace AnexusPHP\Business\Permission\Rule;
 
-use PequiPHP\Business\Permission\Entity\PermissionCategoryMenuEntity;
+use AnexusPHP\Business\Permission\Entity\PermissionCategoryMenuEntity;
 
-use PequiPHP\Core\Database;
+use AnexusPHP\Core\Database;
 use Exception;
 
 class PermissionCategoryMenuRule

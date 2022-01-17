@@ -1,13 +1,13 @@
 <?php
 
-namespace PequiPHP\Business\App\Repository;
+namespace AnexusPHP\Business\App\Repository;
 
-use PequiPHP\Business\App\Entity\AppAuthfastEntity;
-use PequiPHP\Business\App\Entity\AppEntity;
-use PequiPHP\Business\Authfast\Entity\AuthfastEntity;
-use PequiPHP\Business\Authfast\Repository\AuthfastRepository;
-use PequiPHP\Core\Database;
-use PequiPHP\Core\Libraries\Pagination\Pagination;
+use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Core\Database;
+use AnexusPHP\Core\Libraries\Pagination\Pagination;
 
 class AppAuthfastRepository
 {

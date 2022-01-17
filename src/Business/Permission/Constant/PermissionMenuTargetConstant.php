@@ -1,6 +1,6 @@
 <?php
 
-namespace PequiPHP\Business\Permission\Constant;
+namespace AnexusPHP\Business\Permission\Constant;
 
 use Exception;
 

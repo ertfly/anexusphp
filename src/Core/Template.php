@@ -1,8 +1,8 @@
 <?php
 
-namespace PequiPHP\Core;
+namespace AnexusPHP\Core;
 
-use PequiPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
 use League\Plates\Engine;
 
 class Template

@@ -1,9 +1,9 @@
 <?php
 
-namespace PequiPHP\Business\Permission\Entity;
+namespace AnexusPHP\Business\Permission\Entity;
 
-use PequiPHP\Business\Permission\Repository\PermissionEventRepository;
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
+use AnexusPHP\Core\MongoEntity;
 
 class PermissionModuleEntity extends MongoEntity
 {

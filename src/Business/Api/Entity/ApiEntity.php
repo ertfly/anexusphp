@@ -1,8 +1,8 @@
 <?php
 
-namespace PequiPHP\Business\Api\Entity;
+namespace AnexusPHP\Business\Api\Entity;
 
-use PequiPHP\Core\MongoEntity;
+use AnexusPHP\Core\MongoEntity;
 
 class ApiEntity extends MongoEntity
 {
