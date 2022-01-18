@@ -11,6 +11,7 @@ class PermissionModuleEntity extends MongoEntity
 	protected $_id;
 	protected $name;
 	protected $events;
+	protected $level;
 	protected $position;
 	protected $app;
 	protected $trash;
@@ -40,17 +41,40 @@ class PermissionModuleEntity extends MongoEntity
 		$this->events = $events;
 		return $this;
 	}
-	public function getEvents($arrayFormat = false)
+
+	public function getEvents($arrayFormat = false, $level = 1)
 	{
 		if ($arrayFormat) {
 			$idArr = strlen($this->events > 0) ? explode(',', $this->events) : [];
 			$arr = [];
 			foreach ($idArr as $value) {
-				$arr[$value] = PermissionEventRepository::byId($value)->getDescription();
+				/**
+				 * @var PermissionEventEntity
+				 */
+				$event = PermissionEventRepository::byId($value, PermissionEventEntity::class);
+				if (!$event->getId()) {
+					continue;
+				}
+				if ($event->getLevel() >= $level) {
+					$arr[$value] = $event->getDescription();
+				}
 			}
 			return $arr;
 		}
 		return $this->events;
+	}
+	public function getLevel()
+	{
+		if (!is_null($this->level)) {
+			$this->level = intval($this->level);
+		}
+		return $this->level;
+	}
+	public function setLevel($level)
+	{
+		$this->level = intval($level);
+
+		return $this;
 	}
 	public function setPosition($position)
 	{

@@ -9,6 +9,7 @@ class PermissionEventEntity extends MongoEntity
 	const TABLE = 'permission_event';
 	protected $_id;
 	protected $description;
+	protected $level;
 	protected $app;
 	protected $trash;
 	public function setId($id)
@@ -31,6 +32,18 @@ class PermissionEventEntity extends MongoEntity
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function getLevel()
+	{
+		if (!is_null($this->level)) {
+			$this->level = intval($this->level);
+		}
+		return $this->level;
+	}
+	public function setLevel($level)
+	{
+		$this->level = intval($level);
+		return $this;
 	}
 	public function setApp($app)
 	{
