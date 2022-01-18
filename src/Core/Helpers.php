@@ -207,7 +207,14 @@ function upload($path, $time = false)
     return $fileUrl;
 }
 
-function sid(AppEntity $app, $className)
+/**
+ * Undocumented function
+ *
+ * @param AppEntity $app
+ * @param string $className
+ * @return AppSessionEntity
+ */
+function sid(AppEntity $app, $className = AppSessionEntity::class)
 {
     if (!$app->getId()) {
         throw new \Exception('App inválido');
