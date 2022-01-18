@@ -11,20 +11,23 @@ class ConfigurationRule
 {
     public static function setValue($id, $value)
     {
-        $config = ConfigurationRepository::byId($id);
-        if (!$config->getId()) {
+        $record = ConfigurationRepository::byId($id);
+        if (!$record->getId()) {
             throw new Exception('Configuração inválida!');
         }
 
-        $config->setValue($value);
-        self::update($config);
+        $record->setValue($value);
+        self::update($record);
+    }
+    public static function insert(ConfigurationEntity &$record)
+    {
+        $db = Database::getInstance();
+        $record->insert($db);
+        Database::closeInstance();
     }
     public static function update(ConfigurationEntity &$record)
     {
         $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new Exception('Esse método serve alterar registros e não inserir');
-        }
         $record->update($db);
         Database::closeInstance();
     }
