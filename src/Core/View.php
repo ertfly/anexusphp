@@ -8,6 +8,7 @@ use Exception;
 
 class View
 {
+    private $data = [];
     private $directory;
     private $fileExtension;
     public function __construct($directory, $fileExtension = 'phtml')
@@ -19,8 +20,9 @@ class View
         $this->fileExtension = $fileExtension;
     }
 
-    public function render($file, $data = array(), $return = false, $mime = ResponseMime::HTML, $gzip = false)
+    public function render($file, $data = [], $return = false, $mime = ResponseMime::HTML, $gzip = false)
     {
+        $data = array_merge(self::$data, $data);
         foreach ($data as $varName => $varValue) {
             ${$varName} = $varValue;
         }
@@ -47,5 +49,10 @@ class View
         } else {
             throw new Exception('Mimetype inválido');
         }
+    }
+
+    public static function addData($key, $value)
+    {
+        self::$data[$key] = $value;
     }
 }
