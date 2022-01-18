@@ -51,7 +51,7 @@ class View
         }
     }
 
-    public static function addData($key, $value)
+    public function addData($key, $value)
     {
         self::$data[$key] = $value;
     }
