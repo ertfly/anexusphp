@@ -13,6 +13,9 @@ class PermissionShortcutRule
     {
         $db = Database::getInstance();
         $db->{PermissionShortcutEntity::TABLE}->createIndex([
+            'level' => 1,
+        ], ['name' => PermissionShortcutEntity::TABLE . '_idx_level']);
+        $db->{PermissionShortcutEntity::TABLE}->createIndex([
             'position' => 1,
         ], ['name' => PermissionShortcutEntity::TABLE . '_idx_position']);
         $db->{PermissionShortcutEntity::TABLE}->createIndex([

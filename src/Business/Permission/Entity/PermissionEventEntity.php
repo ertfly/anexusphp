@@ -74,6 +74,7 @@ class PermissionEventEntity extends MongoEntity
 		return array(
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
+			'level' => $this->getLevel(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
 		);

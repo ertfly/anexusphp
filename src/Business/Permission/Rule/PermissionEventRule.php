@@ -13,6 +13,10 @@ class PermissionEventRule
     {
         $db = Database::getInstance();
         $db->{PermissionEventEntity::TABLE}->createIndex([
+            'level' => 1,
+            'trash' => 1,
+        ], ['name' => PermissionEventEntity::TABLE . '_idx_level']);
+        $db->{PermissionEventEntity::TABLE}->createIndex([
             'app' => 1,
             'trash' => 1,
         ], ['name' => PermissionEventEntity::TABLE . '_idx_app']);

@@ -117,6 +117,7 @@ class PermissionModuleEntity extends MongoEntity
 		return array(
 			'name' => $this->getName(),
 			'events' => $this->getEvents(),
+			'level' => $this->getLevel(),
 			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
