@@ -18,27 +18,18 @@ class ApiModuleRule
     public static function insert(ApiModuleEntity &$record)
     {
         $db = Database::getInstance();
-        if ($record->getId()) {
-            throw new \Exception('Esse método serve inserir registros e não alterar');
-        }
         $record->insert($db);
         Database::closeInstance();
     }
     public static function update(ApiModuleEntity &$record)
     {
         $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new \Exception('Esse método serve alterar registros e não inserir');
-        }
         $record->update($db);
         Database::closeInstance();
     }
     public static function delete(ApiModuleEntity &$record)
     {
         $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new \Exception('Esse método deve conter um ID');
-        }
         $record->delete($db);
         Database::closeInstance();
     }
