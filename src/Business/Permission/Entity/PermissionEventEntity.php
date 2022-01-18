@@ -35,10 +35,10 @@ class PermissionEventEntity extends MongoEntity
 	}
 	public function getLevel()
 	{
-		if (!is_null($this->level)) {
-			$this->level = intval($this->level);
+		if (is_null($this->level)) {
+			$this->level = 1;
 		}
-		return $this->level;
+		return intval($this->level);
 	}
 	public function setLevel($level)
 	{
