@@ -54,5 +54,6 @@ class View
     public function addData($key, $value)
     {
         self::$data[$key] = $value;
+        return $this;
     }
 }
