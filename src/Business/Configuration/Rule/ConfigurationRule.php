@@ -17,8 +17,15 @@ class ConfigurationRule
         }
 
         $config->setValue($value);
+        self::update($config);
+    }
+    public static function update(ConfigurationEntity &$record)
+    {
         $db = Database::getInstance();
-        $config->update($db);
+        if (!$record->getId()) {
+            throw new Exception('Esse método serve alterar registros e não inserir');
+        }
+        $record->update($db);
         Database::closeInstance();
     }
 }
