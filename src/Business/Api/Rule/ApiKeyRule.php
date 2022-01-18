@@ -12,22 +12,22 @@ class ApiKeyRule
         $db = Database::getInstance();
         $db->{ApiKeyEntity::TABLE}->createIndex([
             'expired_at' => -1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiKeyEntity::TABLE . '_idx_expired_at']);
         $db->{ApiKeyEntity::TABLE}->createIndex([
             'secret_key' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiKeyEntity::TABLE . '_idx_secret_key']);
         $db->{ApiKeyEntity::TABLE}->createIndex([
             'app_key' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiKeyEntity::TABLE . '_idx_app_key']);
         $db->{ApiKeyEntity::TABLE}->createIndex([
             'api_id' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiKeyEntity::TABLE . '_idx_api_id']);
         $db->{ApiKeyEntity::TABLE}->createIndex([
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiKeyEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }

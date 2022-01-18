@@ -12,10 +12,10 @@ class ApiRule
         $db = Database::getInstance();
         $db->{ApiEntity::TABLE}->createIndex([
             'name' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiEntity::TABLE . '_idx_name']);
         $db->{ApiEntity::TABLE}->createIndex([
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => ApiEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }

@@ -14,14 +14,14 @@ class PermissionModuleRule
         $db = Database::getInstance();
         $db->{PermissionModuleEntity::TABLE}->createIndex([
             'position' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => PermissionModuleEntity::TABLE . '_idx_position']);
         $db->{PermissionModuleEntity::TABLE}->createIndex([
             'app' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => PermissionModuleEntity::TABLE . '_idx_app']);
         $db->{PermissionModuleEntity::TABLE}->createIndex([
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => PermissionModuleEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }

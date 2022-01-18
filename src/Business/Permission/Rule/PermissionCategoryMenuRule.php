@@ -14,10 +14,10 @@ class PermissionCategoryMenuRule
         $db = Database::getInstance();
         $db->{PermissionCategoryMenuEntity::TABLE}->createIndex([
             'app' => 1,
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => PermissionCategoryMenuEntity::TABLE . '_idx_app']);
         $db->{PermissionCategoryMenuEntity::TABLE}->createIndex([
-            'trash' => -1,
+            'trash' => 1,
         ], ['name' => PermissionCategoryMenuEntity::TABLE . '_idx_trash']);
         Database::closeInstance();
     }
