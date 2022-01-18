@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Api\Entity;
 
+use AnexusPHP\Business\Api\Repository\ApiModuleRepository;
 use AnexusPHP\Core\MongoEntity;
 
 class ApiModuleConfigEntity extends MongoEntity
@@ -107,5 +108,25 @@ class ApiModuleConfigEntity extends MongoEntity
 			return $defaultValue;
 		}
 		return $this->definitions[$key];
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ApiModuleEntity
+	 */
+	private $apiModule;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  ApiModuleEntity
+	 */
+	public function getApiModule()
+	{
+		if (is_null($this->apiModule)) {
+			$this->apiModule = ApiModuleRepository::byId($this->api_module_id);
+		}
+		return $this->apiModule;
 	}
 }
