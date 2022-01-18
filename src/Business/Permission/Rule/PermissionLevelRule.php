@@ -27,27 +27,18 @@ class PermissionLevelRule
     public static function insert(PermissionLevelEntity &$record)
     {
         $db = Database::getInstance();
-        if ($record->getId()) {
-            throw new Exception('Esse método serve inserir registros e não alterar');
-        }
         $record->insert($db);
         Database::closeInstance();
     }
     public static function update(PermissionLevelEntity &$record)
     {
         $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new Exception('Esse método serve alterar registros e não inserir');
-        }
         $record->update($db);
         Database::closeInstance();
     }
     public static function delete(PermissionLevelEntity &$record)
     {
         $db = Database::getInstance();
-        if (!$record->getId()) {
-            throw new Exception('Esse método deve conter um ID');
-        }
         $record->delete($db);
         Database::closeInstance();
     }
