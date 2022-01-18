@@ -28,6 +28,15 @@ class RegionCountryRule
         ], ['name' => RegionCountryEntity::TABLE . '_idx_locale']);
         Database::closeInstance();
     }
+    public static function insert(RegionCountryEntity &$record)
+    {
+        $db = Database::getInstance();
+        if ($record->getId()) {
+            throw new Exception('Esse método serve inserir registros e não alterar');
+        }
+        $record->insert($db);
+        Database::closeInstance();
+    }
     public static function update(RegionCountryEntity &$record)
     {
         $db = Database::getInstance();
@@ -35,6 +44,15 @@ class RegionCountryRule
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
         $record->update($db);
+        Database::closeInstance();
+    }
+    public static function destroy(RegionCountryEntity &$record)
+    {
+        $db = Database::getInstance();
+        if (!$record->getId()) {
+            throw new Exception('Esse método deve conter um ID');
+        }
+        $record->destroy($db);
         Database::closeInstance();
     }
 }
