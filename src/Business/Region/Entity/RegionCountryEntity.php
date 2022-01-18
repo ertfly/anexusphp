@@ -31,6 +31,9 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getId()
     {
+        if (!is_null($this->_id)) {
+            $this->_id = intval($this->_id);
+        }
         return $this->_id;
     }
     public function setName($name)
@@ -157,11 +160,14 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getMoneyDecimalPlace()
     {
+        if (!is_null($this->money_decimal_place)) {
+            $this->money_decimal_place = intval($this->money_decimal_place);
+        }
         return $this->money_decimal_place;
     }
     public function setMoneyDecimalPlace($moneyDecimalPlace)
     {
-        $this->money_decimal_place = $moneyDecimalPlace;
+        $this->money_decimal_place = intval($moneyDecimalPlace);
 
         return $this;
     }
