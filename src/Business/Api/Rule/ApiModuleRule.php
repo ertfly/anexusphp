@@ -33,4 +33,13 @@ class ApiModuleRule
         $record->update($db);
         Database::closeInstance();
     }
+    public static function delete(ApiModuleEntity &$record)
+    {
+        $db = Database::getInstance();
+        if (!$record->getId()) {
+            throw new \Exception('Esse método deve conter um ID');
+        }
+        $record->delete($db);
+        Database::closeInstance();
+    }
 }
