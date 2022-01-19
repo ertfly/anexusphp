@@ -17,6 +17,7 @@ class PermissionMenuEntity extends MongoEntity
 	protected $icon;
 	protected $link;
 	protected $target;
+	protected $position;
 	protected $app;
 	protected $trash;
 	public function setId($id)
@@ -94,6 +95,19 @@ class PermissionMenuEntity extends MongoEntity
 		}
 		return $this->target;
 	}
+	public function getPosition()
+	{
+		if (!is_null($this->position)) {
+			$this->position = intval($this->position);
+		}
+		return $this->position;
+	}
+	public function setPosition($position)
+	{
+		$this->position = intval($position);
+
+		return $this;
+	}
 	public function setApp($app)
 	{
 		$this->app = intval($app);
@@ -128,6 +142,7 @@ class PermissionMenuEntity extends MongoEntity
 			'icon' => $this->getIcon(),
 			'link' => $this->getLink(),
 			'target' => $this->getTarget(),
+			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
 		);
