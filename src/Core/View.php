@@ -22,7 +22,7 @@ class View
 
     public function render($file, $data = [], $return = false, $mime = ResponseMime::HTML, $gzip = false)
     {
-        $data = array_merge(self::$data, $data);
+        $data = array_merge($this->data, $data);
         foreach ($data as $varName => $varValue) {
             ${$varName} = $varValue;
         }
