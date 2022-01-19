@@ -6,7 +6,7 @@ use Exception;
 
 class ConfigurationConstant
 {
-    const MIGRATION_VERSION = 1;
+    const MIGRATION_VERSION = 'migration';
 
     private static $options = [
         self::MIGRATION_VERSION => 'Versão do Migration',
