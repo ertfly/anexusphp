@@ -71,9 +71,6 @@ class RegionCountryEntity extends MongoEntity
     public function getFlag(bool $withUrl = false)
     {
         if ($withUrl) {
-            if (trim($this->flag) == '' || !is_file(PATH_UPLOADS . 'flags' . DS . $this->flag)) {
-                return CDN . '/img/no-image1.jpg';
-            }
             return CDN . $this->flag;
         }
         return $this->flag;
