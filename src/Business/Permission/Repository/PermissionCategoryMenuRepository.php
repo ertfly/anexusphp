@@ -46,7 +46,7 @@ class PermissionCategoryMenuRepository
 
         $options = [
             'sort' => [
-                '_id' => 1
+                'position' => 1,
             ],
         ];
 
@@ -85,7 +85,7 @@ class PermissionCategoryMenuRepository
 
         $options = [
             'sort' => [
-                '_id' => 1
+                'position' => 1
             ],
         ];
 
@@ -106,58 +106,6 @@ class PermissionCategoryMenuRepository
         }
 
         return $rows;
-    }
-
-    /**
-     * Retorna os registro do banco com paginacao
-     * 
-     * @param string $url
-     * @param array $filters
-     * @param int $currentPg
-     * @param string $varPg
-     * @param integer $perPg
-     * @return Pagination[]
-     */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12)
-    {
-        $db = Database::getInstance();
-
-        $where = [];
-
-        /* if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(a.description) like upper('%'||:description||'%') ";
-            $bind['description'] = $filters['search'];
-        } */
-
-        $total = $db->{PermissionCategoryMenuEntity::TABLE}->count($filters);
-
-        $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
-
-        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
-            $where,
-            [
-                'limit' => intval($perPg),
-                'sort' => [
-                    '_id' => -1
-                ],
-                'skip' => $pagination->getOffset(),
-            ]
-        );
-        $cursor->setTypeMap([
-            'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
-        ]);
-
-        Database::closeInstance();
-
-        $rows = [];
-        foreach ($cursor as $r) {
-            $rows[] = $r;
-        }
-
-        $pagination->setRows($rows);
-
-        return $pagination;
     }
 
     /**

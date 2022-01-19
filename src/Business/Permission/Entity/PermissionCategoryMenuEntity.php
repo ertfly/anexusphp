@@ -10,6 +10,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	const TABLE = 'permission_category_menu';
 	protected $_id;
 	protected $description;
+	protected $position;
 	protected $app;
 	protected $trash;
 	public function setId($id)
@@ -32,6 +33,19 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function getPosition()
+	{
+		if (!is_null($this->position)) {
+			$this->position = intval($this->position);
+		}
+		return $this->position;
+	}
+	public function setPosition($position)
+	{
+		$this->position = intval($position);
+
+		return $this;
 	}
 	public function setApp($app)
 	{
@@ -62,6 +76,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		return array(
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
+			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
 		);
