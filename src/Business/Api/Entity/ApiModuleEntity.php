@@ -7,10 +7,10 @@ use AnexusPHP\Core\MongoEntity;
 class ApiModuleEntity extends MongoEntity
 {
 	const TABLE = 'api_module';
-	private $_id;
-	private $description;
-	private $quantity;
-	private $trash;
+	protected $_id;
+	protected $description;
+	protected $quantity;
+	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

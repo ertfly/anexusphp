@@ -9,12 +9,12 @@ use AnexusPHP\Core\MongoEntity;
 class PermissionShortcutEntity extends MongoEntity
 {
 	const TABLE = 'permission_shortcut';
-	private $_id;
-	private $description;
-	private $icon;
-	private $link;
-	private $position;
-	private $principal;
+	protected $_id;
+	protected $description;
+	protected $icon;
+	protected $link;
+	protected $position;
+	protected $principal;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

@@ -8,10 +8,10 @@ use AnexusPHP\Core\MongoEntity;
 class PermissionCategoryMenuEntity extends MongoEntity
 {
 	const TABLE = 'permission_category_menu';
-	private $_id;
-	private $description;
-	private $app;
-	private $trash;
+	protected $_id;
+	protected $description;
+	protected $app;
+	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

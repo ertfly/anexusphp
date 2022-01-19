@@ -10,10 +10,10 @@ use AnexusPHP\Core\MongoEntity;
 class AuthfastPermissionEntity extends MongoEntity
 {
 	const TABLE = 'authfast_permission';
-	private $_id;
-	private $authfast_id;
-	private $module_id;
-	private $events;
+	protected $_id;
+	protected $authfast_id;
+	protected $module_id;
+	protected $events;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

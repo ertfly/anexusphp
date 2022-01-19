@@ -7,12 +7,12 @@ use AnexusPHP\Core\MongoEntity;
 class PermissionLevelEntity extends MongoEntity
 {
 	const TABLE = 'permission_level';
-	private $_id;
-	private $name;
-	private $level;
-	private $created_at;
-	private $updated_at;
-	private $trash;
+	protected $_id;
+	protected $name;
+	protected $level;
+	protected $created_at;
+	protected $updated_at;
+	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

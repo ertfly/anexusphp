@@ -7,9 +7,9 @@ use AnexusPHP\Core\MongoEntity;
 class AuthfastShortcutEntity extends MongoEntity
 {
 	const TABLE = 'authfast_shortcut';
-	private $_id;
-	private $authfast_id;
-	private $shortcut;
+	protected $_id;
+	protected $authfast_id;
+	protected $shortcut;
 	public function setId($id)
 	{
 		$this->_id = intval($id);

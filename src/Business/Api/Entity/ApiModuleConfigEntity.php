@@ -8,11 +8,11 @@ use AnexusPHP\Core\MongoEntity;
 class ApiModuleConfigEntity extends MongoEntity
 {
 	const TABLE = 'api_module_config';
-	private $_id;
-	private $api_module_id;
-	private $description;
-	private $definition;
-	private $trash;
+	protected $_id;
+	protected $api_module_id;
+	protected $description;
+	protected $definition;
+	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = intval($id);
