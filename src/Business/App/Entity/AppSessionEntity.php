@@ -222,7 +222,7 @@ class AppSessionEntity extends MongoEntity
             return true;
         }
 
-        $authfast = $this->getAuthfast();
+        $authfast = $this->getAuthfast(true);
         if (is_null($authfast->getId())) {
             return false;
         }
