@@ -38,7 +38,7 @@ class ConfigurationRepository
     public static function getValue($id)
     {
         $db = Database::getInstance();
-        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => strval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => ConfigurationEntity::class,
             'document' => ConfigurationEntity::class,
