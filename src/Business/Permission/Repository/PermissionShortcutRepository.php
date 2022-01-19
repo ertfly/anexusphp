@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Permission\Repository;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
+use AnexusPHP\Business\Authfast\Repository\AuthfastShortcutRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionShortcutEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
