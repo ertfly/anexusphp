@@ -10,6 +10,7 @@ class PermissionEventEntity extends MongoEntity
 	protected $_id;
 	protected $description;
 	protected $level;
+	protected $position;
 	protected $app;
 	protected $trash;
 	public function setId($id)
@@ -45,6 +46,19 @@ class PermissionEventEntity extends MongoEntity
 		$this->level = intval($level);
 		return $this;
 	}
+	public function getPosition()
+	{
+		if (!is_null($this->position)) {
+			$this->position = intval($this->position);
+		}
+		return $this->position;
+	}
+	public function setPosition($position)
+	{
+		$this->position = intval($position);
+
+		return $this;
+	}
 	public function setApp($app)
 	{
 		$this->app = intval($app);
@@ -75,6 +89,7 @@ class PermissionEventEntity extends MongoEntity
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
 			'level' => $this->getLevel(),
+			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
 		);
