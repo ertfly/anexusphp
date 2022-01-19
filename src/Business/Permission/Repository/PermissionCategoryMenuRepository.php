@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Permission\Repository;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionCategoryMenuEntity;
 
 use AnexusPHP\Core\Database;
@@ -146,5 +147,26 @@ class PermissionCategoryMenuRepository
         }
 
         return $rows;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AppEntity $app
+     * @return int
+     */
+    public static function lastPositionByApp(AppEntity $app)
+    {
+        $db = Database::getInstance();
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(['trash' => false, 'app' => $app->getId()], ['limit' => 1, 'sort' => ['position' => -1]]);
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => PermissionCategoryMenuEntity::class,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r->getPosition();
+        }
+        return 0;
     }
 }
