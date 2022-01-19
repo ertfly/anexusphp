@@ -47,7 +47,7 @@ class PermissionEventRepository
 
         $options = [
             'sort' => [
-                'description' => 1
+                'position' => 1
             ],
         ];
 
@@ -102,7 +102,7 @@ class PermissionEventRepository
             [
                 'limit' => intval($perPg),
                 'sort' => [
-                    '_id' => -1
+                    'position' => 1
                 ],
                 'skip' => $pagination->getOffset(),
             ]
