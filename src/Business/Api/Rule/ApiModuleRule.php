@@ -1,6 +1,6 @@
 <?php
 
-namespace Business\Api\Rule;
+namespace AnexusPHP\Business\Api\Rule;
 
 use AnexusPHP\Business\Api\Entity\ApiModuleEntity;
 use AnexusPHP\Core\Database;
