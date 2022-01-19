@@ -11,13 +11,13 @@ class ConfigurationRepository
     /**
      * Retorna um registro do banco pelo id
      *
-     * @param string|null $id
+     * @param string $id
      * @return ConfigurationEntity
      */
     public static function byId($id)
     {
         $db = Database::getInstance();
-        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
+        $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => strval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => ConfigurationEntity::class,
             'document' => ConfigurationEntity::class,
