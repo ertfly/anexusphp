@@ -1,9 +1,9 @@
 <?php
 
-namespace AnexusPHP\Business\Permission\Repository;
+namespace AnexusPHP\Business\Authfast\Repository;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
-use AnexusPHP\Business\Permission\Entity\AuthfastShortcutEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastShortcutEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionShortcutEntity;
 use AnexusPHP\Core\Database;
 
