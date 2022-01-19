@@ -16,8 +16,10 @@ define('PATH_CRON', PATH_ROOT . 'cron' . DS);
 define('PATH_UPLOADS', PATH_PUBLIC . 'uploads' . DS);
 define('PATH_MIGRATIONS', PATH_ROOT . 'migrations' . DS);
 define('PATH_ROUTES', PATH_ROOT . 'routes' . DS);
+define('CDN','https://cdn.webcrud.com.br');
 
 define('SESSION_LIFETIME', (60 * 30));
-define('SESSION_NAME', 'eloss');
+define('SESSION_NAME', 'marketplace');
+define('GZIP',false);
 
 require PATH_ROOT . 'vendor/autoload.php';
