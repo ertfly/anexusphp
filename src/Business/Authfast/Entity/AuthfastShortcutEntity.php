@@ -1,6 +1,6 @@
 <?php
 
-namespace AnexusPHP\Business\Permission\Entity;
+namespace AnexusPHP\Business\Authfast\Entity;
 
 use AnexusPHP\Core\MongoEntity;
 

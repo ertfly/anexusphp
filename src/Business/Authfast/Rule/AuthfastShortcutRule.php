@@ -1,8 +1,8 @@
 <?php
 
-namespace AnexusPHP\Business\Permission\Rule;
+namespace AnexusPHP\Business\Authfast\Rule;
 
-use AnexusPHP\Business\Permission\Entity\AuthfastShortcutEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastShortcutEntity;
 use AnexusPHP\Core\Database;
 use Exception;
 
