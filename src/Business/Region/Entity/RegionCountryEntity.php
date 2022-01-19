@@ -72,9 +72,9 @@ class RegionCountryEntity extends MongoEntity
     {
         if ($withUrl) {
             if (trim($this->flag) == '' || !is_file(PATH_UPLOADS . 'flags' . DS . $this->flag)) {
-                return asset('app/img/no-image.jpg');
+                return CDN . '/img/no-image1.jpg';
             }
-            return upload('flags/' . $this->flag);
+            return CDN . $this->flag;
         }
         return $this->flag;
     }
