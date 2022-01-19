@@ -117,11 +117,8 @@ class AuthfastEntity extends MongoEntity
 		$this->photo = $photo;
 		return $this;
 	}
-	public function getPhoto($placeholder = false)
+	public function getPhoto()
 	{
-		if ($placeholder && is_null($this->photo)) {
-			return CDN . '/img/no-user.png';
-		}
 		return $this->photo;
 	}
 	public function setBanner($banner)
