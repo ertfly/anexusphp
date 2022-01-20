@@ -53,10 +53,10 @@ class Router
                         if (strpos($uri, '{') === false) {
                             continue;
                         }
-                        $checkUri = preg_replace("/(\{.+\})/", "(.+){0,}", $uri);
-                        $checkUri = str_replace('/','\\/',$checkUri);
+                        $checkUri = preg_replace("/(\{.+\})/", "(.)+", $uri);
+                        $checkUri = str_replace('/', '\\/', $checkUri);
 
-                        if(!preg_match("/^{$checkUri}$/", self::$uri)){
+                        if (!preg_match("/^{$checkUri}$/", self::$uri . '/1')) {
                             continue;
                         }
 
@@ -71,10 +71,10 @@ class Router
                                     continue;
                                 }
                             }
-                            $parameters[$arrUri[$i]] = $paths[$i];
+                            $parameters[$arrUri[$i]] = isset($paths[$i]) ? $paths[$i] : null;
                         }
 
-                        if (self::$uri != str_replace(array_keys($parameters), array_values($parameters), $uri)) {
+                        if (self::$uri != rtrim(str_replace(array_keys($parameters), array_values($parameters), $uri), '/')) {
                             continue;
                         }
 
