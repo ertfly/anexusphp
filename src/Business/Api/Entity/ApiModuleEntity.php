@@ -10,7 +10,7 @@ class ApiModuleEntity extends MongoEntity
 	protected $_id;
 	protected $description;
 	protected $quantity;
-	protected $register;
+	protected $sdk;
 	protected $trash;
 	public function setId($id)
 	{
@@ -45,16 +45,16 @@ class ApiModuleEntity extends MongoEntity
 		}
 		return $this->quantity;
 	}
-	public function getRegister()
+	public function getSdk()
 	{
-		if (is_null($this->register)) {
-			$this->register = false;
+		if (is_null($this->sdk)) {
+			$this->sdk = false;
 		}
-		return boolval($this->register);
+		return boolval($this->sdk);
 	}
-	public function setRegister($register)
+	public function setSdk($sdk)
 	{
-		$this->register = boolval($register);
+		$this->sdk = boolval($sdk);
 
 		return $this;
 	}
@@ -77,7 +77,6 @@ class ApiModuleEntity extends MongoEntity
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
 			'quantity' => $this->getQuantity(),
-			'register' => $this->getRegister(),
 			'trash' => $this->getTrash(),
 		);
 	}
