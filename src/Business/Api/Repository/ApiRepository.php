@@ -18,7 +18,7 @@ class ApiRepository
     public static function byId($id, $className = ApiEntity::class)
     {
         $db = Database::getInstance();
-        $cursor = $db->{ApiEntity::TABLE}->find(['_id' => $id], ['limit' => 1]);
+        $cursor = $db->{ApiEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
             'document' => $className,
