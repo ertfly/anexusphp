@@ -77,6 +77,7 @@ class ApiModuleEntity extends MongoEntity
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
 			'quantity' => $this->getQuantity(),
+			'sdk' => $this->getSdk(),
 			'trash' => $this->getTrash(),
 		);
 	}
