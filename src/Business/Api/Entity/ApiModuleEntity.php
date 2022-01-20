@@ -45,6 +45,19 @@ class ApiModuleEntity extends MongoEntity
 		}
 		return $this->quantity;
 	}
+	public function getRegister()
+	{
+		if (is_null($this->register)) {
+			$this->register = false;
+		}
+		return boolval($this->register);
+	}
+	public function setRegister($register)
+	{
+		$this->register = boolval($register);
+
+		return $this;
+	}
 	public function setTrash($trash)
 	{
 		$this->trash = boolval($trash);
@@ -64,20 +77,8 @@ class ApiModuleEntity extends MongoEntity
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
 			'quantity' => $this->getQuantity(),
+			'register' => $this->getRegister(),
 			'trash' => $this->getTrash(),
 		);
-	}
-	public function getRegister()
-	{
-		if (is_null($this->register)) {
-			$this->register = false;
-		}
-		return boolval($this->register);
-	}
-	public function setRegister($register)
-	{
-		$this->register = boolval($register);
-
-		return $this;
 	}
 }
