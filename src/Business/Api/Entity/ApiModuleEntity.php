@@ -10,6 +10,7 @@ class ApiModuleEntity extends MongoEntity
 	protected $_id;
 	protected $description;
 	protected $quantity;
+	protected $register;
 	protected $trash;
 	public function setId($id)
 	{
@@ -65,5 +66,18 @@ class ApiModuleEntity extends MongoEntity
 			'quantity' => $this->getQuantity(),
 			'trash' => $this->getTrash(),
 		);
+	}
+	public function getRegister()
+	{
+		if (is_null($this->register)) {
+			$this->register = false;
+		}
+		return boolval($this->register);
+	}
+	public function setRegister($register)
+	{
+		$this->register = boolval($register);
+
+		return $this;
 	}
 }
