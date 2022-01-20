@@ -128,4 +128,26 @@ class ApiKeyRepository
     {
         return self::all($className, ['api_id' => $api->getId()]);
     }
+
+    /**
+     * Retorna um registro pelo aplicativo
+     *
+     * @param ApiEntity $api
+     * @return ApiKeyEntity
+     */
+    public static function byApi(ApiEntity $api, $className = ApiKeyEntity::class)
+    {
+        $db = Database::getInstance();
+        $cursor = $db->{ApiKeyEntity::TABLE}->find(['api_id' => $api->getId()], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => $className,
+            'document' => $className,
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        $className = '\\' . $className;
+        return new $className();
+    }
 }
