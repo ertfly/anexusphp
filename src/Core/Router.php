@@ -53,10 +53,11 @@ class Router
                         if (strpos($uri, '{') === false) {
                             continue;
                         }
-                        $checkUri = preg_replace("/(\{.+\})/", "(.)+", $uri);
+                        
+                        $checkUri = preg_replace("/(\/\{.+\})/", "(/[a-zA-Z\-\.\_0-9]+|/)", $uri);
                         $checkUri = str_replace('/', '\\/', $checkUri);
-
-                        if (!preg_match("/^{$checkUri}$/", self::$uri . '/1')) {
+                        
+                        if (!preg_match("/^{$checkUri}$/", self::$uri . '/')) {
                             continue;
                         }
 
