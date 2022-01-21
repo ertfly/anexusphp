@@ -7,6 +7,7 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionLevelRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
 
 class AppAuthfastEntity extends MongoEntity
 {
@@ -17,50 +18,38 @@ class AppAuthfastEntity extends MongoEntity
 	protected $permission_level_id;
 	public function setId($id)
 	{
-		$this->_id = $id;
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setAppId($appId)
 	{
-		$this->app_id = intval($appId);
+		$this->app_id = Number::intNull($appId);
 		return $this;
 	}
 	public function getAppId()
 	{
-		if (!is_null($this->app_id)) {
-			$this->app_id = intval($this->app_id);
-		}
-		return $this->app_id;
+		return Number::intNull($this->app_id);
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = intval($authfastId);
+		$this->authfast_id = Number::intNull($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
-		if (!is_null($this->authfast_id)) {
-			$this->authfast_id = intval($this->authfast_id);
-		}
-		return $this->authfast_id;
+		return Number::intNull($this->authfast_id);
 	}
 	public function getPermissionLevelId()
 	{
-		if (!is_null($this->permission_level_id)) {
-			$this->permission_level_id = intval($this->permission_level_id);
-		}
-		return $this->permission_level_id;
+		return Number::intNull($this->permission_level_id);
 	}
 	public function setPermissionLevelId($permissionLevelId)
 	{
-		$this->permission_level_id = intval($permissionLevelId);
+		$this->permission_level_id = Number::intNull($permissionLevelId);
 
 		return $this;
 	}
@@ -105,10 +94,10 @@ class AppAuthfastEntity extends MongoEntity
 	 * Get undocumented variable
 	 *
 	 * @return  PermissionLevelEntity
-	 */ 
+	 */
 	public function getPermissionLevel()
 	{
-		if(is_null($this->permissionLevel)){
+		if (is_null($this->permissionLevel)) {
 			$this->permissionLevel = PermissionLevelRepository::byId($this->permission_level_id);
 		}
 		return $this->permissionLevel;
