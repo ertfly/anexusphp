@@ -4,86 +4,97 @@ namespace AnexusPHP\Business\Authfast\Entity;
 
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class AuthfastActivityEntity extends MongoEntity
 {
 	const TABLE = 'authfast_activity';
 	protected $_id;
-	protected $activity;
 	protected $authfast_id;
-	protected $module;
+	protected $permission_event_id;
+	protected $permission_module_id;
 	protected $bind_id;
+	protected $bind_table;
 	protected $description;
 	protected $created_at;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
-	}
-	public function setActivity($activity)
-	{
-		$this->activity = $activity;
-		return $this;
-	}
-	public function getActivity()
-	{
-		return $this->activity;
-	}
-	public function setAuthfastId($authfastId)
-	{
-		$this->authfast_id = intval($authfastId);
-		return $this;
+		return Number::intNull($this->_id);
 	}
 	public function getAuthfastId()
 	{
-		if (!is_null($this->authfast_id)) {
-			$this->authfast_id = intval($this->authfast_id);
-		}
-		return $this->authfast_id;
+		return Number::intNull($this->authfast_id);
 	}
-	public function setModule($module)
+	public function setAuthfastId($authfastId)
 	{
-		$this->module = $module;
+		$this->authfast_id = Number::intNull($authfastId);
+
 		return $this;
 	}
-	public function getModule()
+	public function getPermissionEventId()
 	{
-		return $this->module;
+		return Number::intNull($this->permission_event_id);
+	}
+	public function setPermissionEventId($permissionEventId)
+	{
+		$this->permission_event_id = Number::intNull($permissionEventId);
+
+		return $this;
+	}
+	public function getPermissionModuleId()
+	{
+		return Number::intNull($this->permission_module_id);
+	}
+	public function setPermissionModuleId($permissionModuleId)
+	{
+		$this->permission_module_id = Number::intNull($permissionModuleId);
+
+		return $this;
 	}
 	public function setBindId($bindId)
 	{
-		$this->bind_id = $bindId;
+		$this->bind_id = Strings::null($bindId);
 		return $this;
 	}
 	public function getBindId()
 	{
-		return $this->bind_id;
+		return Strings::null($this->bind_id);
 	}
-	public function setDescription($description)
+	public function getBindTable()
 	{
-		$this->description = $description;
+		return Strings::null($this->bind_table);
+	}
+	public function setBindTable($bindTable)
+	{
+		$this->bind_table = Strings::null($bindTable);
+
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
+	}
+	public function setDescription($description)
+	{
+		$this->description = Strings::null($description);
+
+		return $this;
 	}
 	public function setCreatedAt($createdAt)
 	{
 		if (is_string($createdAt)) {
 			$createdAt = strtotime($createdAt);
 		}
-		$this->created_at = intval($createdAt);
+		$this->created_at = Number::intNull($createdAt);
 		return $this;
 	}
-	public function getCreatedAt()
+	public function getCreatedAt($format = false)
 	{
 		if (is_null($this->created_at)) {
 			$this->created_at = strtotime(date('Y-m-d H:i:s'));
@@ -93,18 +104,23 @@ class AuthfastActivityEntity extends MongoEntity
 			$this->created_at = strtotime($this->created_at);
 		}
 
-		return intval($this->created_at);
+		if ($format) {
+			return date('d/m/Y H:i:s', $this->created_at);
+		}
+
+		return Number::intNull($this->created_at);
 	}
 	public function toArray()
 	{
 		return array(
 			'_id' => $this->getId(),
-			'activity' => $this->getActivity(),
 			'authfast_id' => $this->getAuthfastId(),
-			'module' => $this->getModule(),
+			'permission_event_id' => $this->getPermissionEventId(),
+			'permission_module_id' => $this->getPermissionModuleId(),
 			'bind_id' => $this->getBindId(),
+			'bind_table' => $this->getBindTable(),
 			'description' => $this->getDescription(),
-			'created_at' => $this->getCreatedAt()
+			'created_at' => $this->getCreatedAt(),
 		);
 	}
 
