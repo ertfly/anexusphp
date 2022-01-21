@@ -2,7 +2,7 @@
 
 namespace AnexusPHP\Core\Libraries\Pagination;
 
-use League\Plates\Engine;
+use AnexusPHP\Core\View;
 
 class Pagination
 {
@@ -66,7 +66,7 @@ class Pagination
         $data['page'] = $this->page;
         $data['url'] = preg_match("/\?/", $this->url) ? $this->url . '&' : $this->url . '?';
         $data['pageVar'] = $this->pageVar;
-        return (new Engine(dirname(__DIR__) . DS . 'Pagination' . DS . 'Views', 'phtml'))->render('Pagination', $data);
+        return (new View(dirname(__DIR__) . DS . 'Pagination' . DS . 'Views', 'phtml'))->render('Pagination', $data);
     }
 
     public function getJson()
