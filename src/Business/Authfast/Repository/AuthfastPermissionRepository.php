@@ -202,7 +202,7 @@ class AuthfastPermissionRepository
 
         $rows = [];
         foreach ($cursor as $r) {
-            $menu = PermissionMenuRepository::byModule($r);
+            $menu = PermissionMenuRepository::byModule($r->getModule());
             $rows[] = $menu->getCategoryId();
         }
 
