@@ -2,6 +2,9 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Repository\AppAuthfastRepository;
+use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\MongoEntity;
@@ -247,5 +250,25 @@ class AuthfastEntity extends MongoEntity
 			$this->regionCountry = RegionCountryRepository::byId($this->region_country_id, $cls);
 		}
 		return $this->regionCountry;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionLevelEntity
+	 */
+	private $permissionLevel;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  PermissionLevelEntity
+	 */
+	public function getPermissionLevel(AppEntity $app)
+	{
+		if (is_null($this->permissionLevel)) {
+			$this->permissionLevel = AppAuthfastRepository::byAppAuthfast($app, $this);
+		}
+		return $this->permissionLevel;
 	}
 }
