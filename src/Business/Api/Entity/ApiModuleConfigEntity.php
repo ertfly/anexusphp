@@ -53,6 +53,9 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function getDefinition()
 	{
+		if (is_null($this->definition)) {
+			$this->definition = [];
+		}
 		return $this->definition;
 	}
 	public function setTrash($trash)
@@ -92,8 +95,8 @@ class ApiModuleConfigEntity extends MongoEntity
 	 */
 	public function getDefinitionByKey($key, $defaultValue = null)
 	{
-		if (!$this->definitions) {
-			$this->definitions = [];
+		if (is_null($this->definitions)) {
+			$this->definitions = $this->getDefinition();
 		}
 		if (!isset($this->definitions[$key])) {
 			return $defaultValue;
