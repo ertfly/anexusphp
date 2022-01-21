@@ -50,7 +50,7 @@ class AuthfastPermissionEntity extends MongoEntity
 		}
 		return $this->module_id;
 	}
-	public function setEvents($events)
+	public function setEvents(array $events)
 	{
 		$this->events = $events;
 		return $this;
