@@ -56,7 +56,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function setAuthfastId($authfastId)
     {
-        $this->authfast_id = intval($authfastId);
+        $this->authfast_id = trim($authfastId) != '' ? intval($authfastId) : null;
 
         return $this;
     }
