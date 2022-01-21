@@ -6,6 +6,7 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
 
 class AuthfastPermissionEntity extends MongoEntity
 {
@@ -16,39 +17,30 @@ class AuthfastPermissionEntity extends MongoEntity
 	protected $events;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = intval($authfastId);
+		$this->authfast_id = Number::intNull($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
-		if (!is_null($this->authfast_id)) {
-			$this->authfast_id = intval($this->authfast_id);
-		}
-		return $this->authfast_id;
+		return Number::intNull($this->authfast_id);
 	}
 	public function setModuleId($moduleId)
 	{
-		$this->module_id = intval($moduleId);
+		$this->module_id = Number::intNull($moduleId);
 		return $this;
 	}
 	public function getModuleId()
 	{
-		if (!is_null($this->module_id)) {
-			$this->module_id = intval($this->module_id);
-		}
-		return $this->module_id;
+		return Number::intNull($this->module_id);
 	}
 	public function setEvents(array $events)
 	{
@@ -57,6 +49,9 @@ class AuthfastPermissionEntity extends MongoEntity
 	}
 	public function getEvents()
 	{
+		if (is_null($this->events)) {
+			$this->events = [];
+		}
 		return $this->events;
 	}
 	public function toArray()
