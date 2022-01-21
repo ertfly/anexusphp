@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Tools;
+namespace AnexusPHP\Core\Tools;
 
 class Boolean
 {

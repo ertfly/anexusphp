@@ -7,7 +7,7 @@ use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
-use Core\Tools\Boolean;
+use AnexusPHP\Core\Tools\Boolean;
 
 class AppSessionEntity extends MongoEntity
 {

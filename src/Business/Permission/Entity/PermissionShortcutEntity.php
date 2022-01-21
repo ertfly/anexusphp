@@ -7,7 +7,7 @@ use AnexusPHP\Business\Permission\Rule\PermissionShortcutRule;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
-use Core\Tools\Boolean;
+use AnexusPHP\Core\Tools\Boolean;
 
 class PermissionShortcutEntity extends MongoEntity
 {

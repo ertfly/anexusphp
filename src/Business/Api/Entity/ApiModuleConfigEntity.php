@@ -6,7 +6,7 @@ use AnexusPHP\Business\Api\Repository\ApiModuleRepository;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
-use Core\Tools\Boolean;
+use AnexusPHP\Core\Tools\Boolean;
 
 class ApiModuleConfigEntity extends MongoEntity
 {
