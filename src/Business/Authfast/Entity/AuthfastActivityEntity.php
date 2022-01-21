@@ -3,6 +3,10 @@
 namespace AnexusPHP\Business\Authfast\Entity;
 
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Business\Permission\Entity\PermissionEventEntity;
+use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
+use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
+use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
@@ -142,5 +146,45 @@ class AuthfastActivityEntity extends MongoEntity
 			$this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
 		}
 		return $this->authfast;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionEventEntity
+	 */
+	private $permissionEvent;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  PermissionEventEntity
+	 */
+	public function getPermissionEvent()
+	{
+		if (is_null($this->permissionEvent)) {
+			$this->permissionEvent = PermissionEventRepository::byId($this->permission_event_id);
+		}
+		return $this->permissionEvent;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionModuleEntity
+	 */
+	private $permissionModule;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  PermissionModuleEntity
+	 */
+	public function getPermissionModule()
+	{
+		if (is_null($this->permissionModule)) {
+			$this->permissionModule = PermissionModuleRepository::byId($this->permission_module_id);
+		}
+		return $this->permissionModule;
 	}
 }
