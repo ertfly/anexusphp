@@ -23,7 +23,7 @@ class PermissionCategoryMenuRepository
         $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -57,7 +57,7 @@ class PermissionCategoryMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -96,7 +96,7 @@ class PermissionCategoryMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -136,7 +136,7 @@ class PermissionCategoryMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -161,7 +161,7 @@ class PermissionCategoryMenuRepository
         $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(['trash' => false, 'app' => $app->getId()], ['limit' => 1, 'sort' => ['position' => -1]]);
         $cursor->setTypeMap([
             'root' => PermissionCategoryMenuEntity::class,
-            'document' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

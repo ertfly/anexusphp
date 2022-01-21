@@ -21,7 +21,7 @@ class ApiRepository
         $cursor = $db->{ApiEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -48,7 +48,7 @@ class ApiRepository
         );
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -105,7 +105,7 @@ class ApiRepository
         );
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

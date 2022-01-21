@@ -20,7 +20,7 @@ class ApiModuleConfigRepository
         $cursor = $db->{ApiModuleConfigEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -59,7 +59,7 @@ class ApiModuleConfigRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -97,7 +97,7 @@ class ApiModuleConfigRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -122,7 +122,7 @@ class ApiModuleConfigRepository
         $cursor = $db->{ApiModuleConfigEntity::TABLE}->find(['api_module_id' => intval($module), 'trash' => false], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -172,7 +172,7 @@ class ApiModuleConfigRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

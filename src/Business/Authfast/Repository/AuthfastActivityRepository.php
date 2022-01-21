@@ -22,7 +22,7 @@ class AuthfastActivityRepository
         $cursor = $db->{AuthfastActivityEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AuthfastActivityEntity::class,
-            'document' => AuthfastActivityEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -54,7 +54,7 @@ class AuthfastActivityRepository
         );
         $cursor->setTypeMap([
             'root' => AuthfastActivityEntity::class,
-            'document' => AuthfastActivityEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -94,7 +94,7 @@ class AuthfastActivityRepository
         );
         $cursor->setTypeMap([
             'root' => AuthfastActivityEntity::class,
-            'document' => AuthfastActivityEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

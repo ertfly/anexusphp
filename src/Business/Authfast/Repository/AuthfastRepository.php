@@ -21,7 +21,7 @@ class AuthfastRepository
         $cursor = $db->{AuthfastEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -43,7 +43,7 @@ class AuthfastRepository
         $cursor = $db->{AuthfastEntity::TABLE}->find(['code' => $code], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -65,7 +65,7 @@ class AuthfastRepository
         $cursor = $db->{AuthfastEntity::TABLE}->find(['username' => $username], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -87,7 +87,7 @@ class AuthfastRepository
         $cursor = $db->{AuthfastEntity::TABLE}->find(['email' => $email], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -109,7 +109,7 @@ class AuthfastRepository
         $cursor = $db->{AuthfastEntity::TABLE}->find(['document' => $document], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -142,7 +142,7 @@ class AuthfastRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -200,7 +200,7 @@ class AuthfastRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         
         Database::closeInstance();

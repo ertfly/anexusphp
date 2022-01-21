@@ -21,7 +21,7 @@ class RegionCountryRepository
         $cursor = $db->{RegionCountryEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -44,7 +44,7 @@ class RegionCountryRepository
         $cursor = $db->{RegionCountryEntity::TABLE}->find(['locale' => $locale], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -77,7 +77,7 @@ class RegionCountryRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -115,7 +115,7 @@ class RegionCountryRepository
         );
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -141,7 +141,7 @@ class RegionCountryRepository
         $cursor = $db->{RegionCountryEntity::TABLE}->find(['initials' => $country->getInitials()], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -164,7 +164,7 @@ class RegionCountryRepository
         $cursor = $db->{RegionCountryEntity::TABLE}->find(['code' => $code], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -186,7 +186,7 @@ class RegionCountryRepository
         $cursor = $db->{RegionCountryEntity::TABLE}->find(['principal' => true], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $cls,
-            'document' => $cls,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

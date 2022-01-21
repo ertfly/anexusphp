@@ -22,7 +22,7 @@ class RegionCityRepository
         $cursor = $db->{RegionCityEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => RegionCityEntity::class,
-            'document' => RegionCityEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -62,7 +62,7 @@ class RegionCityRepository
         );
         $cursor->setTypeMap([
             'root' => RegionCityEntity::class,
-            'document' => RegionCityEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -105,7 +105,7 @@ class RegionCityRepository
         );
         $cursor->setTypeMap([
             'root' => RegionCityEntity::class,
-            'document' => RegionCityEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

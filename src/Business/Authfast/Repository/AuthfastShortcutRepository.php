@@ -21,7 +21,7 @@ class AuthfastShortcutRepository
         $cursor = $db->{AuthfastShortcutEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AuthfastShortcutEntity::class,
-            'document' => AuthfastShortcutEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -53,7 +53,7 @@ class AuthfastShortcutRepository
         );
         $cursor->setTypeMap([
             'root' => AuthfastShortcutEntity::class,
-            'document' => AuthfastShortcutEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -78,7 +78,7 @@ class AuthfastShortcutRepository
         $cursor = $db->{AuthfastShortcutEntity::TABLE}->find(['authfast_id' => $authfast->getId(), 'shortcut' => $shortcut->getId()], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AuthfastShortcutEntity::class,
-            'document' => AuthfastShortcutEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

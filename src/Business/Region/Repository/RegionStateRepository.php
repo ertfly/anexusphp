@@ -21,7 +21,7 @@ class RegionStateRepository
         $cursor = $db->{RegionStateEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => RegionStateEntity::class,
-            'document' => RegionStateEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -56,7 +56,7 @@ class RegionStateRepository
         );
         $cursor->setTypeMap([
             'root' => RegionStateEntity::class,
-            'document' => RegionStateEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -80,7 +80,7 @@ class RegionStateRepository
         $cursor = $db->{RegionStateEntity::TABLE}->find(['initials' => $initials], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => RegionStateEntity::class,
-            'document' => RegionStateEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

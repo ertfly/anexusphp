@@ -24,7 +24,7 @@ class PermissionMenuRepository
         $cursor = $db->{PermissionMenuEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -54,7 +54,7 @@ class PermissionMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -88,7 +88,7 @@ class PermissionMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -140,7 +140,7 @@ class PermissionMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -180,7 +180,7 @@ class PermissionMenuRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -206,7 +206,7 @@ class PermissionMenuRepository
         $cursor = $db->{PermissionMenuEntity::TABLE}->find(['trash' => false, 'app' => $app->getId(), 'category_id' => $category->getId()], ['limit' => 1, 'sort' => ['position' => -1]]);
         $cursor->setTypeMap([
             'root' => PermissionMenuEntity::class,
-            'document' => PermissionMenuEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

@@ -23,7 +23,7 @@ class AppAuthfastRepository
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -44,7 +44,7 @@ class AppAuthfastRepository
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['authfast_id' => intval($authfastId)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -66,7 +66,7 @@ class AppAuthfastRepository
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['app_id' => $app->getId(), 'authfast_id' => $authfast->getId()], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -88,7 +88,7 @@ class AppAuthfastRepository
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['app_id' => intval($app), 'authfast_id' => intval($authfastId)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -120,7 +120,7 @@ class AppAuthfastRepository
         );
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -173,7 +173,7 @@ class AppAuthfastRepository
         );
         $cursor->setTypeMap([
             'root' => AppAuthfastEntity::class,
-            'document' => AppAuthfastEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

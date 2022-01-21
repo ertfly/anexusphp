@@ -19,7 +19,7 @@ class AppRepository
         $cursor = $db->{AppEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

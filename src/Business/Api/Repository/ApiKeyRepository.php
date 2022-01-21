@@ -21,7 +21,7 @@ class ApiKeyRepository
         $cursor = $db->{ApiKeyEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -43,7 +43,7 @@ class ApiKeyRepository
         $cursor = $db->{ApiKeyEntity::TABLE}->find(['app_key' => $appKey], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -65,7 +65,7 @@ class ApiKeyRepository
         $cursor = $db->{ApiKeyEntity::TABLE}->find(['secret_key' => $secretKey], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -104,7 +104,7 @@ class ApiKeyRepository
         );
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -141,7 +141,7 @@ class ApiKeyRepository
         $cursor = $db->{ApiKeyEntity::TABLE}->find(['api_id' => $api->getId()], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => $className,
-            'document' => $className,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

@@ -23,7 +23,7 @@ class AuthfastPermissionRepository
         $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AuthfastPermissionEntity::class,
-            'document' => AuthfastPermissionEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -58,7 +58,7 @@ class AuthfastPermissionRepository
         );
         $cursor->setTypeMap([
             'root' => AuthfastPermissionEntity::class,
-            'document' => AuthfastPermissionEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -82,7 +82,7 @@ class AuthfastPermissionRepository
         $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(['authfast_id' => $authfast->getId(), 'module_id' => intval($moduleId)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => AuthfastPermissionEntity::class,
-            'document' => AuthfastPermissionEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {

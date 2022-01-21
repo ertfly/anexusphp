@@ -20,7 +20,7 @@ class PermissionLevelRepository
         $cursor = $db->{PermissionLevelEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
-            'document' => PermissionLevelEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -54,7 +54,7 @@ class PermissionLevelRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
-            'document' => PermissionLevelEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -95,7 +95,7 @@ class PermissionLevelRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
-            'document' => PermissionLevelEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -120,7 +120,7 @@ class PermissionLevelRepository
         $cursor = $db->{PermissionLevelEntity::TABLE}->find(['trash' => false, 'level' => intval($level)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
-            'document' => PermissionLevelEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -169,7 +169,7 @@ class PermissionLevelRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
-            'document' => PermissionLevelEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

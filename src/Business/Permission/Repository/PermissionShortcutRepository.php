@@ -24,7 +24,7 @@ class PermissionShortcutRepository
         $cursor = $db->{PermissionShortcutEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionShortcutEntity::class,
-            'document' => PermissionShortcutEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -39,7 +39,7 @@ class PermissionShortcutRepository
         $cursor = $db->{PermissionShortcutEntity::TABLE}->find([], ['sort' => ['position' => -1], 'limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionShortcutEntity::class,
-            'document' => PermissionShortcutEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -83,7 +83,7 @@ class PermissionShortcutRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionShortcutEntity::class,
-            'document' => PermissionShortcutEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -128,7 +128,7 @@ class PermissionShortcutRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionShortcutEntity::class,
-            'document' => PermissionShortcutEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();
@@ -179,7 +179,7 @@ class PermissionShortcutRepository
         );
         $cursor->setTypeMap([
             'root' => PermissionShortcutEntity::class,
-            'document' => PermissionShortcutEntity::class,
+            'document' => 'array',
         ]);
 
         Database::closeInstance();

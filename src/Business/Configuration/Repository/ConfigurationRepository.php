@@ -20,7 +20,7 @@ class ConfigurationRepository
         $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => strval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => ConfigurationEntity::class,
-            'document' => ConfigurationEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
@@ -41,7 +41,7 @@ class ConfigurationRepository
         $cursor = $db->{ConfigurationEntity::TABLE}->find(['_id' => strval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => ConfigurationEntity::class,
-            'document' => ConfigurationEntity::class,
+            'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
