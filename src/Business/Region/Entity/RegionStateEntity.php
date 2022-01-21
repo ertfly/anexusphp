@@ -4,6 +4,8 @@ namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class RegionStateEntity extends MongoEntity
 {
@@ -14,45 +16,39 @@ class RegionStateEntity extends MongoEntity
     protected $initials;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setCountryId($countryId)
     {
-        $this->country_id = intval($countryId);
+        $this->country_id = Number::intNull($countryId);
         return $this;
     }
     public function getCountryId()
     {
-        if (!is_null($this->country_id)) {
-            $this->country_id = intval($this->country_id);
-        }
-        return $this->country_id;
+        return Number::intNull($this->country_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setInitials($initials)
     {
-        $this->initials = $initials;
+        $this->initials = Strings::null($initials);
         return $this;
     }
     public function getInitials()
     {
-        return $this->initials;
+        return Strings::null($this->initials);
     }
     public function toArray()
     {
