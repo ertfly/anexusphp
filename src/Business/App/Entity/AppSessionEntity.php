@@ -44,7 +44,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function setAppId($appId)
     {
-        $this->app_id = intval($appId);
+        $this->app_id = trim($appId) != '' ? intval($appId) : null;
         return $this;
     }
     public function getAppId()
