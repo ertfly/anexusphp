@@ -263,7 +263,7 @@ class Strings
 
     public static function null($var)
     {
-        if (trim($var) == '') {
+        if (!is_string($var) && trim($var) == '') {
             return null;
         }
 

@@ -7,7 +7,7 @@ class Boolean
 
     public static function null($var)
     {
-        if (trim($var) == '') {
+        if (!is_bool($var) && trim($var) == '') {
             return null;
         }
 

@@ -5,6 +5,9 @@ namespace AnexusPHP\Business\Permission\Entity;
 use AnexusPHP\Business\Permission\Repository\PermissionShortcutRepository;
 use AnexusPHP\Business\Permission\Rule\PermissionShortcutRule;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class PermissionShortcutEntity extends MongoEntity
 {
@@ -17,55 +20,52 @@ class PermissionShortcutEntity extends MongoEntity
 	protected $principal;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->description = Strings::null($description);
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
 	}
 	public function setIcon($icon)
 	{
-		$this->icon = $icon;
+		$this->icon = Strings::null($icon);
 		return $this;
 	}
 	public function getIcon()
 	{
-		return $this->icon;
+		return Strings::null($this->icon);
 	}
 	public function setLink($link)
 	{
-		$this->link = $link;
+		$this->link = Strings::null($link);
 		return $this;
 	}
 	public function getLink()
 	{
-		return $this->link;
+		return Strings::null($this->link);
 	}
 	public function setTarget($target)
 	{
-		$this->target = $target;
+		$this->target = Strings::null($target);
 		return $this;
 	}
 	public function getTarget()
 	{
-		return $this->target;
+		return Strings::null($this->target);
 	}
 	public function setPosition($position)
 	{
-		$this->position = intval($position);
+		$this->position = Number::intNull($position);
 		return $this;
 	}
 	public function getPosition()
@@ -74,11 +74,11 @@ class PermissionShortcutEntity extends MongoEntity
 			$this->position = (PermissionShortcutRepository::getLastPosition()) + 1;
 			PermissionShortcutRule::update($this);
 		}
-		return intval($this->position);
+		return Number::intNull($this->position);
 	}
 	public function setPrincipal($principal)
 	{
-		$this->principal = boolval($principal);
+		$this->principal = Boolean::null($principal);
 		return $this;
 	}
 	public function getPrincipal()
@@ -86,7 +86,7 @@ class PermissionShortcutEntity extends MongoEntity
 		if (is_null($this->principal)) {
 			$this->principal = false;
 		}
-		return boolval($this->principal);
+		return Boolean::null($this->principal);
 	}
 	public function toArray()
 	{
