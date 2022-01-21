@@ -105,6 +105,7 @@ class PermissionModuleEntity extends MongoEntity
 	public function toArray()
 	{
 		return array(
+			'_id' => $this->getId(),
 			'name' => $this->getName(),
 			'events' => $this->getEvents(),
 			'level' => $this->getLevel(),
