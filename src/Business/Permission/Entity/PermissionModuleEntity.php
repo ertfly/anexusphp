@@ -113,4 +113,13 @@ class PermissionModuleEntity extends MongoEntity
 			'trash' => $this->getTrash(),
 		);
 	}
+
+	public function isEvents(PermissionEventEntity $event, $level = 1)
+	{
+		if (in_array($event->getId(), $this->getEvents(false, $level))) {
+			return true;
+		}
+
+		return false;
+	}
 }
