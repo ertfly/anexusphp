@@ -46,7 +46,11 @@ class PermissionMenuRepository
             'category_id' => intval($id),
         ];
 
-        $options = [];
+        $options = [
+            'sort' => [
+                'position' => 1,
+            ],
+        ];
 
         $cursor = $db->{PermissionMenuEntity::TABLE}->find(
             $where,
@@ -80,7 +84,11 @@ class PermissionMenuRepository
             'trash' => false,
         ];
 
-        $options = [];
+        $options = [
+            'sort' => [
+                'position' => 1,
+            ],
+        ];
 
         $cursor = $db->{PermissionMenuEntity::TABLE}->find(
             $where,
@@ -133,7 +141,7 @@ class PermissionMenuRepository
             [
                 'limit' => intval($perPg),
                 'sort' => [
-                    '_id' => 1
+                    'position' => 1,
                 ],
                 'skip' => $pagination->getOffset(),
             ]
@@ -172,7 +180,11 @@ class PermissionMenuRepository
             'app' => intval($app),
         ];
 
-        $options = [];
+        $options = [
+            'sort' => [
+                'position' => 1,
+            ],
+        ];
 
         $cursor = $db->{PermissionMenuEntity::TABLE}->find(
             $where,
