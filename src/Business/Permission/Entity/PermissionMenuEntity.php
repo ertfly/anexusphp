@@ -6,6 +6,9 @@ use AnexusPHP\Business\Permission\Constant\PermissionMenuTargetConstant;
 use AnexusPHP\Business\Permission\Repository\PermissionCategoryMenuRepository;
 use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class PermissionMenuEntity extends MongoEntity
 {
@@ -22,70 +25,61 @@ class PermissionMenuEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setCategoryId($categoryId)
 	{
-		$this->category_id = intval($categoryId);
+		$this->category_id = Number::intNull($categoryId);
 		return $this;
 	}
 	public function getCategoryId()
 	{
-		if (!is_null($this->category_id)) {
-			$this->category_id = intval($this->category_id);
-		}
-		return $this->category_id;
+		return Number::intNull($this->category_id);
 	}
 	public function setModuleId($moduleId)
 	{
-		$this->module_id = intval($moduleId);
+		$this->module_id = Number::intNull($moduleId);
 		return $this;
 	}
 	public function getModuleId()
 	{
-		if (!is_null($this->module_id)) {
-			$this->module_id = intval($this->module_id);
-		}
-		return $this->module_id;
+		return Number::intNull($this->module_id);
 	}
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->description = Strings::null($description);
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
 	}
 	public function setIcon($icon)
 	{
-		$this->icon = $icon;
+		$this->icon = Strings::null($icon);
 		return $this;
 	}
 	public function getIcon()
 	{
-		return $this->icon;
+		return Strings::null($this->icon);
 	}
 	public function setLink($link)
 	{
-		$this->link = $link;
+		$this->link = Strings::null($link);
 		return $this;
 	}
 	public function getLink()
 	{
-		return $this->link;
+		return Strings::null($this->link);
 	}
 	public function setTarget($target)
 	{
-		$this->target = $target;
+		$this->target = Strings::null($target);
 		return $this;
 	}
 	public function getTarget(bool $format = false)
@@ -93,36 +87,30 @@ class PermissionMenuEntity extends MongoEntity
 		if ($format) {
 			return PermissionMenuTargetConstant::getOption($this->target);
 		}
-		return $this->target;
+		return Strings::null($this->target);
 	}
 	public function getPosition()
 	{
-		if (!is_null($this->position)) {
-			$this->position = intval($this->position);
-		}
-		return $this->position;
+		return Number::intNull($this->position);
 	}
 	public function setPosition($position)
 	{
-		$this->position = intval($position);
+		$this->position = Number::intNull($position);
 
 		return $this;
 	}
 	public function setApp($app)
 	{
-		$this->app = intval($app);
+		$this->app = Number::intNull($app);
 		return $this;
 	}
 	public function getApp()
 	{
-		if (!is_null($this->app)) {
-			$this->app = intval($this->app);
-		}
-		return $this->app;
+		return Number::intNull($this->app);
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = boolval($trash);
+		$this->trash = Boolean::null($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -130,7 +118,7 @@ class PermissionMenuEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return boolval($this->trash);
+		return Boolean::null($this->trash);
 	}
 	public function toArray()
 	{
