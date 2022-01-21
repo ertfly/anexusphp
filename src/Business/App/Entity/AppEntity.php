@@ -3,6 +3,8 @@
 namespace AnexusPHP\Business\App\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class AppEntity extends MongoEntity
 {
@@ -12,33 +14,30 @@ class AppEntity extends MongoEntity
     protected $key;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setKey($key)
     {
-        $this->key = $key;
+        $this->key = Strings::null($key);
         return $this;
     }
     public function getKey()
     {
-        return $this->key;
+        return Strings::null($this->key);
     }
     public function toArray()
     {
