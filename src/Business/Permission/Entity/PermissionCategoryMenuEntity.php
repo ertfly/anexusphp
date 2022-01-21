@@ -78,21 +78,15 @@ class PermissionCategoryMenuEntity extends MongoEntity
 
 	private $menu;
 
-	public function getMenu(?array $menu = null)
+	public function getMenu(array $allows = null)
 	{
-		if (!is_null($menu)) {
-			$this->menu = [];
-			foreach ($menu as $value) {
-				if ($value->getCategoryId() == $this->getId()) {
-					$this->menu[] = $value;
-				}
+		if (is_null($this->menu)) {
+			if (!is_null($allows)) {
+				$this->menu = PermissionMenuRepository::all(['category_id' => $this->getId(), 'menu_in' => $allows]);
+			} else {
+				$this->menu = PermissionMenuRepository::byCategoryId($this->getId());
 			}
 		}
-
-		if (!$this->menu) {
-			$this->menu = PermissionMenuRepository::byCategoryId($this->getId());
-		}
-
 		return $this->menu;
 	}
 }

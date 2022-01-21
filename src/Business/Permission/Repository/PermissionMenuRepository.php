@@ -76,13 +76,23 @@ class PermissionMenuRepository
      * 
      * @return PermissionMenuEntity[]
      */
-    public static function all()
+    public static function all(array $filters = [])
     {
         $db = Database::getInstance();
 
         $where = [
             'trash' => false,
         ];
+
+        if (isset($filters['category_id']) && trim($filters['category_id']) != '') {
+            $where['category_id'] = intval($filters['category_id']);
+        }
+
+        if (isset($filters['menu_in']) && is_array($filters['menu_in']) && count($filters['menu_in']) > 0) {
+            $where['_id'] = [
+                '$in' => $filters['menu_in'],
+            ];
+        }
 
         $options = [
             'sort' => [
