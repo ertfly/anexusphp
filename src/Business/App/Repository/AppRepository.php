@@ -28,4 +28,40 @@ class AppRepository
         $className = '\\' . $className;
         return new $className();
     }
+
+    /**
+     * Undocumented function
+     *
+     * @return AppEntity[]
+     */
+    public static function all()
+    {
+        $db = Database::getInstance();
+
+        $where = [];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AppEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AppEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
+    }
 }
