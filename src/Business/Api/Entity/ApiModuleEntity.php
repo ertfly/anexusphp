@@ -11,7 +11,6 @@ class ApiModuleEntity extends MongoEntity
 	protected $description;
 	protected $quantity;
 	protected $sdk;
-	protected $trash;
 	public function setId($id)
 	{
 		$this->_id = intval($id);
@@ -58,19 +57,6 @@ class ApiModuleEntity extends MongoEntity
 
 		return $this;
 	}
-	public function setTrash($trash)
-	{
-		$this->trash = boolval($trash);
-		return $this;
-	}
-	public function getTrash()
-	{
-		if (is_null($this->trash)) {
-			$this->trash = false;
-		}
-
-		return boolval($this->trash);
-	}
 	public function toArray()
 	{
 		return array(
@@ -78,7 +64,6 @@ class ApiModuleEntity extends MongoEntity
 			'description' => $this->getDescription(),
 			'quantity' => $this->getQuantity(),
 			'sdk' => $this->getSdk(),
-			'trash' => $this->getTrash(),
 		);
 	}
 }
