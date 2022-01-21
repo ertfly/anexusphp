@@ -3,6 +3,9 @@
 namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class ApiModuleEntity extends MongoEntity
 {
@@ -13,47 +16,41 @@ class ApiModuleEntity extends MongoEntity
 	protected $sdk;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->description = Strings::null($description);
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
 	}
 	public function setQuantity($quantity)
 	{
-		$this->quantity = intval($quantity);
+		$this->quantity = Number::intNull($quantity);
 		return $this;
 	}
 	public function getQuantity()
 	{
-		if (!is_null($this->quantity)) {
-			$this->quantity = intval($this->quantity);
-		}
-		return $this->quantity;
+		return Number::intNull($this->quantity);
 	}
 	public function getSdk()
 	{
 		if (is_null($this->sdk)) {
 			$this->sdk = false;
 		}
-		return boolval($this->sdk);
+		return Boolean::null($this->sdk);
 	}
 	public function setSdk($sdk)
 	{
-		$this->sdk = boolval($sdk);
+		$this->sdk = Boolean::null($sdk);
 
 		return $this;
 	}
