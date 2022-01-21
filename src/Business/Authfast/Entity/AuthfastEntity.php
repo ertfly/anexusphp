@@ -8,6 +8,8 @@ use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class AuthfastEntity extends MongoEntity
 {
@@ -28,15 +30,12 @@ class AuthfastEntity extends MongoEntity
 	protected $region_country_id;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function getType($format = false)
 	{
@@ -52,93 +51,93 @@ class AuthfastEntity extends MongoEntity
 					return 'Não informado';
 			}
 		}
-		return $this->type;
+		return Strings::null($this->type);
 	}
 	public function setType($type)
 	{
-		$this->type = $type;
+		$this->type = Strings::null($type);
 
 		return $this;
 	}
 	public function setCode($code)
 	{
-		$this->code = $code;
+		$this->code = Strings::null($code);
 		return $this;
 	}
 	public function getCode()
 	{
-		return $this->code;
+		return Strings::null($this->code);
 	}
 	public function setFirstname($firstname)
 	{
-		$this->firstname = $firstname;
+		$this->firstname = Strings::null($firstname);
 		return $this;
 	}
 	public function getFirstname()
 	{
-		return $this->firstname;
+		return Strings::null($this->firstname);
 	}
 	public function setLastname($lastname)
 	{
-		$this->lastname = $lastname;
+		$this->lastname = Strings::null($lastname);
 		return $this;
 	}
 	public function getLastname()
 	{
-		return $this->lastname;
+		return Strings::null($this->lastname);
 	}
 	public function getDocument()
 	{
-		return $this->document;
+		return Strings::null($this->document);
 	}
 	public function setDocument($document)
 	{
-		$this->document = $document;
+		$this->document = Strings::null($document);
 
 		return $this;
 	}
 	public function setUsername($username)
 	{
-		$this->username = $username;
+		$this->username = Strings::null($username);
 		return $this;
 	}
 	public function getUsername()
 	{
-		return $this->username;
+		return Strings::null($this->username);
 	}
 	public function setEmail($email)
 	{
-		$this->email = $email;
+		$this->email = Strings::null($email);
 		return $this;
 	}
 	public function getEmail()
 	{
-		return $this->email;
+		return Strings::null($this->email);
 	}
 	public function setPhoto($photo)
 	{
-		$this->photo = $photo;
+		$this->photo = Strings::null($photo);
 		return $this;
 	}
 	public function getPhoto()
 	{
-		return $this->photo;
+		return Strings::null($this->photo);
 	}
 	public function setBanner($banner)
 	{
-		$this->banner = $banner;
+		$this->banner = Strings::null($banner);
 		return $this;
 	}
 	public function getBanner()
 	{
-		return $this->banner;
+		return Strings::null($this->banner);
 	}
 	public function setCreatedAt($createdAt)
 	{
 		if (is_string($createdAt)) {
 			$createdAt = strtotime($createdAt);
 		}
-		$this->created_at = intval($createdAt);
+		$this->created_at = Number::intNull($createdAt);
 		return $this;
 	}
 	public function getCreatedAt()
@@ -151,14 +150,14 @@ class AuthfastEntity extends MongoEntity
 			$this->created_at = strtotime($this->created_at);
 		}
 
-		return intval($this->created_at);
+		return Number::intNull($this->created_at);
 	}
 	public function setUpdatedAt($updatedAt)
 	{
 		if (is_string($updatedAt)) {
 			$updatedAt = strtotime($updatedAt);
 		}
-		$this->updated_at = intval($updatedAt);
+		$this->updated_at = Number::intNull($updatedAt);
 		return $this;
 	}
 	public function getUpdatedAt()
@@ -167,17 +166,16 @@ class AuthfastEntity extends MongoEntity
 			if (is_string($this->updated_at)) {
 				$this->updated_at = strtotime($this->updated_at);
 			}
-			$this->updated_at = intval($this->updated_at);
 		}
 
-		return $this->updated_at;
+		return Number::intNull($this->updated_at);
 	}
 	public function setExpiredAt($expiredAt)
 	{
 		if (is_string($expiredAt)) {
 			$expiredAt = strtotime($expiredAt);
 		}
-		$this->expired_at = intval($expiredAt);
+		$this->expired_at = Number::intNull($expiredAt);
 		return $this;
 	}
 	public function getExpiredAt()
@@ -186,21 +184,17 @@ class AuthfastEntity extends MongoEntity
 			if (is_string($this->expired_at)) {
 				$this->expired_at = strtotime($this->expired_at);
 			}
-			$this->expired_at = intval($this->expired_at);
 		}
 
-		return $this->expired_at;
+		return Number::intNull($this->expired_at);
 	}
 	public function getRegionCountryId()
 	{
-		if (!is_null($this->region_country_id)) {
-			$this->region_country_id = intval($this->region_country_id);
-		}
-		return $this->region_country_id;
+		return Number::intNull($this->region_country_id);
 	}
 	public function setRegionCountryId($regionCountryId)
 	{
-		$this->region_country_id = intval($regionCountryId);
+		$this->region_country_id = Number::intNull($regionCountryId);
 		return $this;
 	}
 	public function toArray()
