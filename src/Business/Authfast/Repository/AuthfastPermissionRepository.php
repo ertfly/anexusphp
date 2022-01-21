@@ -6,7 +6,6 @@ use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
 
 use AnexusPHP\Core\Database;
-use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
 
 class AuthfastPermissionRepository
