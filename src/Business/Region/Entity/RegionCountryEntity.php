@@ -3,6 +3,9 @@
 namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class RegionCountryEntity extends MongoEntity
 {
@@ -26,42 +29,39 @@ class RegionCountryEntity extends MongoEntity
     protected $separator_thousands;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setCode($code)
     {
-        $this->code = $code;
+        $this->code = Strings::null($code);
         return $this;
     }
     public function getCode()
     {
-        return $this->code;
+        return Strings::null($this->code);
     }
     public function setInitials($initials)
     {
-        $this->initials = $initials;
+        $this->initials = Strings::null($initials);
         return $this;
     }
     public function getInitials()
     {
-        return $this->initials;
+        return Strings::null($this->initials);
     }
     public function setFlag($flag)
     {
@@ -77,7 +77,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function setPrincipal($principal)
     {
-        $this->principal = boolval($principal);
+        $this->principal = Boolean::null($principal);
         return $this;
     }
     public function getPrincipal()
@@ -85,11 +85,11 @@ class RegionCountryEntity extends MongoEntity
         if (is_null($this->principal)) {
             $this->principal = false;
         }
-        return boolval($this->principal);
+        return Boolean::null($this->principal);
     }
     public function setVisible($visible)
     {
-        $this->visible = boolval($visible);
+        $this->visible = Boolean::null($visible);
         return $this;
     }
     public function getVisible()
@@ -97,74 +97,71 @@ class RegionCountryEntity extends MongoEntity
         if (is_null($this->visible)) {
             $this->visible = false;
         }
-        return boolval($this->visible);
+        return Boolean::null($this->visible);
     }
     public function setDateFormat($dateFormat)
     {
-        $this->date_format = $dateFormat;
+        $this->date_format = Strings::null($dateFormat);
         return $this;
     }
     public function getDateFormat()
     {
-        return $this->date_format;
+        return Strings::null($this->date_format);
     }
     public function setDateHourFormat($dateHourFormat)
     {
-        $this->date_hour_format = $dateHourFormat;
+        $this->date_hour_format = Strings::null($dateHourFormat);
         return $this;
     }
     public function getDateHourFormat()
     {
-        return $this->date_hour_format;
+        return Strings::null($this->date_hour_format);
     }
     public function setLocale($locale)
     {
-        $this->locale = $locale;
+        $this->locale = Strings::null($locale);
         return $this;
     }
     public function getLocale()
     {
-        return $this->locale;
+        return Strings::null($this->locale);
     }
     public function setTimezone($timezone)
     {
-        $this->timezone = $timezone;
+        $this->timezone = Strings::null($timezone);
         return $this;
     }
     public function getTimezone()
     {
-        return $this->timezone;
+        return Strings::null($this->timezone);
     }
     public function getMoneySymbolLeft()
     {
-        return $this->money_symbol_left;
+        return Strings::null($this->money_symbol_left);
     }
     public function setMoneySymbolLeft($moneySymbolLeft)
     {
-        $this->money_symbol_left = $moneySymbolLeft;
+        $this->money_symbol_left = Strings::null($moneySymbolLeft);
 
         return $this;
     }
     public function getMoneySymbolRight()
     {
-        return $this->money_symbol_right;
+        return Strings::null($this->money_symbol_right);
     }
     public function setMoneySymbolRight($moneySymbolRight)
     {
-        $this->money_symbol_right = $moneySymbolRight;
+        $this->money_symbol_right = Strings::null($moneySymbolRight);
 
         return $this;
     }
     public function getMoneyDecimalPlace()
     {
-        if (!is_null($this->money_decimal_place)) {
-            $this->money_decimal_place = intval($this->money_decimal_place);
-        }
-        return $this->money_decimal_place;
+        return Number::intNull($this->money_decimal_place);
     }
     public function setMoneyDecimalPlace($moneyDecimalPlace)
     {
-        $this->money_decimal_place = intval($moneyDecimalPlace);
+        $this->money_decimal_place = Number::intNull($moneyDecimalPlace);
 
         return $this;
     }
@@ -176,31 +173,31 @@ class RegionCountryEntity extends MongoEntity
         if ($format) {
             return number_format($this->money_exchange, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
         }
-        return doubleval($this->money_exchange);
+        return Number::doubleNull($this->money_exchange);
     }
     public function setMoneyExchange($moneyExchange)
     {
-        $this->money_exchange = doubleval($moneyExchange);
+        $this->money_exchange = Number::doubleNull($moneyExchange);
 
         return $this;
     }
     public function getSeparatorDecimal()
     {
-        return $this->separator_decimal;
+        return Strings::null($this->separator_decimal);
     }
     public function setSeparatorDecimal($separatorDecimal)
     {
-        $this->separator_decimal = $separatorDecimal;
+        $this->separator_decimal = Strings::null($separatorDecimal);
 
         return $this;
     }
     public function getSeparatorThousands()
     {
-        return $this->separator_thousands;
+        return Strings::null($this->separator_thousands);
     }
     public function setSeparatorThousands($separatorThousands)
     {
-        $this->separator_thousands = $separatorThousands;
+        $this->separator_thousands = Strings::null($separatorThousands);
 
         return $this;
     }
