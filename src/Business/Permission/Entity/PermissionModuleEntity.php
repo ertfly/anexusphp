@@ -114,7 +114,7 @@ class PermissionModuleEntity extends MongoEntity
 		);
 	}
 
-	public function isEvents(PermissionEventEntity $event, $level = 1)
+	public function haveEvent(PermissionEventEntity $event, $level = 1)
 	{
 		if (in_array($event->getId(), $this->getEvents(false, $level))) {
 			return true;
