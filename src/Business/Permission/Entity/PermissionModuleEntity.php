@@ -4,6 +4,9 @@ namespace AnexusPHP\Business\Permission\Entity;
 
 use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class PermissionModuleEntity extends MongoEntity
 {
@@ -17,46 +20,42 @@ class PermissionModuleEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setName($name)
 	{
-		$this->name = $name;
+		$this->name = Strings::null($name);
 		return $this;
 	}
 	public function getName()
 	{
-		return $this->name;
+		return Strings::null($this->name);
 	}
-	public function setEvents($events)
+	public function setEvents(array $events)
 	{
 		$this->events = $events;
 		return $this;
 	}
 
-	public function getEvents($arrayFormat = false, $level = 1)
+	public function getEvents($objects = false, $level = 1)
 	{
-		if ($arrayFormat) {
-			$idArr = strlen($this->events > 0) ? explode(',', $this->events) : [];
+		if (is_null($this->events)) {
+			$this->events = [];
+		}
+		if ($objects) {
 			$arr = [];
-			foreach ($idArr as $value) {
-				/**
-				 * @var PermissionEventEntity
-				 */
-				$event = PermissionEventRepository::byId($value, PermissionEventEntity::class);
+			foreach ($this->events as $eventId) {
+				$event = PermissionEventRepository::byId($eventId);
 				if (!$event->getId()) {
 					continue;
 				}
 				if ($event->getLevel() >= $level) {
-					$arr[$value] = $event->getDescription();
+					$arr[] = $event;
 				}
 			}
 			return $arr;
@@ -65,44 +64,35 @@ class PermissionModuleEntity extends MongoEntity
 	}
 	public function getLevel()
 	{
-		if (!is_null($this->level)) {
-			$this->level = intval($this->level);
-		}
-		return $this->level;
+		return Number::intNull($this->level);
 	}
 	public function setLevel($level)
 	{
-		$this->level = intval($level);
+		$this->level = Number::intNull($level);
 
 		return $this;
 	}
 	public function setPosition($position)
 	{
-		$this->position = intval($position);
+		$this->position = Number::intNull($position);
 		return $this;
 	}
 	public function getPosition()
 	{
-		if (!is_null($this->position)) {
-			$this->position = intval($this->position);
-		}
-		return $this->position;
+		return Number::intNull($this->position);
 	}
 	public function setApp($app)
 	{
-		$this->app = intval($app);
+		$this->app = Number::intNull($app);
 		return $this;
 	}
 	public function getApp()
 	{
-		if (!is_null($this->app)) {
-			$this->app = intval($this->app);
-		}
-		return $this->app;
+		return Number::intNull($this->app);
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = boolval($trash);
+		$this->trash = Boolean::null($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -110,7 +100,7 @@ class PermissionModuleEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return boolval($this->trash);
+		return Boolean::null($this->trash);
 	}
 	public function toArray()
 	{
