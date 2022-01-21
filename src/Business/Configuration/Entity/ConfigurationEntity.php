@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Configuration\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Strings;
 
 class ConfigurationEntity extends MongoEntity
 {
@@ -12,30 +13,30 @@ class ConfigurationEntity extends MongoEntity
     protected $description;
     public function setId($id)
     {
-        $this->_id = strval($id);
+        $this->_id = Strings::null($id);
         return $this;
     }
     public function getId()
     {
-        return strval($this->_id);
+        return Strings::null($this->_id);
     }
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = Strings::null($value);
         return $this;
     }
     public function getValue()
     {
-        return $this->value;
+        return Strings::null($this->value);
     }
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = Strings::null($description);
         return $this;
     }
     public function getDescription()
     {
-        return $this->description;
+        return Strings::null($this->description);
     }
     public function toArray()
     {
