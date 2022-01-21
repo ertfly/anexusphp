@@ -4,7 +4,7 @@ namespace AnexusPHP\Business\Authfast\Repository;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
-
+use AnexusPHP\Business\Permission\Repository\PermissionMenuRepository;
 use AnexusPHP\Core\Database;
 use PDO;
 
@@ -88,5 +88,124 @@ class AuthfastPermissionRepository
             return $r;
         }
         return new AuthfastPermissionEntity();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AuthfastEntity $authfast
+     * @return int[]
+     */
+    public static function listModuleIdsbyAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+
+        $where = [
+            'authfast_id' => $authfast->getId(),
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AuthfastPermissionEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r->getModuleId();
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AuthfastEntity $authfast
+     * @return int[]
+     */
+    public static function listMenuIdsbyAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+
+        $where = [
+            'authfast_id' => $authfast->getId(),
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AuthfastPermissionEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $menu = PermissionMenuRepository::byModule($r);
+            $rows[] = $menu->getId();
+        }
+
+        return $rows;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AuthfastEntity $authfast
+     * @return int[]
+     */
+    public static function listCategoryIdsbyAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+
+        $where = [
+            'authfast_id' => $authfast->getId(),
+        ];
+
+        $options = [
+            'sort' => [
+                '_id' => 1
+            ],
+        ];
+
+        $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AuthfastPermissionEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $menu = PermissionMenuRepository::byModule($r);
+            $rows[] = $menu->getCategoryId();
+        }
+
+        return $rows;
     }
 }

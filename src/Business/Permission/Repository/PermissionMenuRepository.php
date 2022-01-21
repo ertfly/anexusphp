@@ -5,7 +5,7 @@ namespace AnexusPHP\Business\Permission\Repository;
 use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionCategoryMenuEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionMenuEntity;
-
+use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
 use PDO;
@@ -164,20 +164,20 @@ class PermissionMenuRepository
     }
 
     /**
-     * @param string $modules
-     * @param int $app
+     * @param array $modules
+     * @param AppEntity $app
      * @return PermissionMenuEntity[]
      */
-    public static function byModules($modules, $app)
+    public static function byModules(array $modules, AppEntity $app)
     {
         $db = Database::getInstance();
 
         $where = [
             'trash' => false,
             'module_id' => [
-                '$in' => explode(',', $modules),
+                '$in' => $modules,
             ],
-            'app' => intval($app),
+            'app' => $app->getId(),
         ];
 
         $options = [
@@ -225,5 +225,26 @@ class PermissionMenuRepository
             return $r->getPosition();
         }
         return 0;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param PermissionModuleEntity $module
+     * @return PermissionMenuEntity
+     */
+    public static function byModule(PermissionModuleEntity $module)
+    {
+        $db = Database::getInstance();
+        $cursor = $db->{PermissionMenuEntity::TABLE}->find(['module_id' => $module->getId()], ['limit' => 1]);
+        $cursor->setTypeMap([
+            'root' => PermissionMenuEntity::class,
+            'document' => 'array',
+        ]);
+        Database::closeInstance();
+        foreach ($cursor as $r) {
+            return $r;
+        }
+        return new PermissionMenuEntity();
     }
 }
