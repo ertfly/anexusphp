@@ -3,6 +3,9 @@
 namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class ApiEntity extends MongoEntity
 {
@@ -15,31 +18,28 @@ class ApiEntity extends MongoEntity
     protected $trash;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id) && !is_int($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setCreatedAt($createdAt)
     {
         if (is_string($createdAt)) {
             $createdAt = strtotime($createdAt);
         }
-        $this->created_at = intval($createdAt);
+        $this->created_at = Number::intNull($createdAt);
         return $this;
     }
     public function getCreatedAt()
@@ -52,7 +52,7 @@ class ApiEntity extends MongoEntity
             $this->created_at = strtotime($this->created_at);
         }
 
-        return $this->created_at;
+        return Number::intNull($this->created_at);
     }
     public function setUpdatedAt($updatedAt)
     {
@@ -60,7 +60,7 @@ class ApiEntity extends MongoEntity
             $updatedAt = strtotime($updatedAt);
         }
 
-        $this->updated_at = intval($updatedAt);
+        $this->updated_at = Number::intNull($updatedAt);
         return $this;
     }
     public function getUpdatedAt()
@@ -69,16 +69,15 @@ class ApiEntity extends MongoEntity
             if (is_string($this->updated_at)) {
                 $this->updated_at = strtotime($this->updated_at);
             }
-            $this->updated_at = intval($this->updated_at);
         }
-        return $this->updated_at;
+        return  Number::intNull($this->updated_at);
     }
     public function setExpiredAt($expiredAt)
     {
         if (is_string($expiredAt)) {
             $expiredAt = strtotime($expiredAt);
         }
-        $this->expired_at = intval($expiredAt);
+        $this->expired_at = Number::intNull($expiredAt);
         return $this;
     }
     public function getExpiredAt($format = false, $f = 'd/m/Y H:i:s')
@@ -87,23 +86,22 @@ class ApiEntity extends MongoEntity
             if (is_string($this->expired_at)) {
                 $this->expired_at = strtotime($this->expired_at);
             }
-            $this->expired_at = intval($this->expired_at);
             if ($format) {
-                return date($f, $this->expired_at);
+                return date($f, Number::intNull($this->expired_at));
             }
         }
-        return $this->expired_at;
+        return Number::intNull($this->expired_at);
     }
     public function getTrash()
     {
         if (is_null($this->trash)) {
             $this->trash = false;
         }
-        return $this->trash;
+        return Boolean::null($this->trash);
     }
     public function setTrash($trash)
     {
-        $this->trash = boolval($trash);
+        $this->trash = Boolean::null($trash);
 
         return $this;
     }
