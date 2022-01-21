@@ -4,6 +4,8 @@ namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Business\Region\Repository\RegionStateRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class RegionCityEntity extends MongoEntity
 {
@@ -14,39 +16,39 @@ class RegionCityEntity extends MongoEntity
     protected $code;
     public function setId($id)
     {
-        $this->_id = $id;
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setStateId($stateId)
     {
-        $this->state_id = intval($stateId);
+        $this->state_id = Number::intNull($stateId);
         return $this;
     }
     public function getStateId()
     {
-        return $this->state_id;
+        return Number::intNull($this->state_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setCode($code)
     {
-        $this->code = $code;
+        $this->code = Strings::null($code);
         return $this;
     }
     public function getCode()
     {
-        return $this->code;
+        return Strings::null($this->code);
     }
     public function toArray()
     {
