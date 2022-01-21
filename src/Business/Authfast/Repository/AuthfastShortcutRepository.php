@@ -93,7 +93,7 @@ class AuthfastShortcutRepository
      * @param AuthfastEntity $authfast
      * @return array
      */
-    public static function listIdsByAuthfast(AuthfastEntity $authfast)
+    public static function listShortcutByAuthfast(AuthfastEntity $authfast)
     {
         $db = Database::getInstance();
 
@@ -118,7 +118,7 @@ class AuthfastShortcutRepository
 
         $rows = [];
         foreach ($cursor as $r) {
-            $rows[] = $r->getId();
+            $rows[] = $r->getShortcut();
         }
 
         return $rows;
