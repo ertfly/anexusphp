@@ -4,6 +4,9 @@ namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Business\Api\Repository\ApiModuleRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class ApiModuleConfigEntity extends MongoEntity
 {
@@ -15,36 +18,30 @@ class ApiModuleConfigEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setApiModuleId($apiModuleId)
 	{
-		$this->api_module_id = intval($apiModuleId);
+		$this->api_module_id = Number::intNull($apiModuleId);
 		return $this;
 	}
 	public function getApiModuleId()
 	{
-		if (!is_null($this->api_module_id)) {
-			$this->api_module_id = intval($this->api_module_id);
-		}
-		return $this->api_module_id;
+		return Number::intNull($this->api_module_id);
 	}
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->description = Strings::null($description);
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
 	}
 	public function setDefinition(array $definition)
 	{
@@ -60,7 +57,7 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = boolval($trash);
+		$this->trash = Boolean::null($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -68,7 +65,7 @@ class ApiModuleConfigEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return boolval($this->trash);
+		return Boolean::null($this->trash);
 	}
 	public function toArray()
 	{

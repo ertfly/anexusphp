@@ -4,6 +4,9 @@ namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Business\Api\Repository\ApiRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class ApiKeyEntity extends MongoEntity
 {
@@ -23,92 +26,86 @@ class ApiKeyEntity extends MongoEntity
     protected $webhook_log;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setApiId($apiId)
     {
-        $this->api_id = trim($apiId) != '' ? intval($apiId) : null;
+        $this->api_id = Number::intNull($apiId);
         return $this;
     }
     public function getApiId()
     {
-        if (!is_null($this->api_id)) {
-            $this->api_id = intval($this->api_id);
-        }
-        return $this->api_id;
+        return Number::intNull($this->api_id);
     }
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = Strings::null($name);
         return $this;
     }
     public function getName()
     {
-        return $this->name;
+        return Strings::null($this->name);
     }
     public function setAppKey($app_key)
     {
-        $this->app_key = $app_key;
+        $this->app_key = Strings::null($app_key);
         return $this;
     }
     public function getAppKey()
     {
-        return $this->app_key;
+        return Strings::null($this->app_key);
     }
-    public function setSecretKey($secret_key)
+    public function setSecretKey($secretKey)
     {
-        $this->secret_key = $secret_key;
+        $this->secret_key = Strings::null($secretKey);
         return $this;
     }
     public function getSecretKey()
     {
-        return $this->secret_key;
+        return Strings::null($this->secret_key);
     }
     public function getWebhook()
     {
         if (is_null($this->webhook)) {
             $this->webhook = false;
         }
-        return boolval($this->webhook);
+        return Boolean::null($this->webhook);
     }
     public function setWebhook($webhook)
     {
-        $this->webhook = boolval($webhook);
+        $this->webhook = Boolean::null($webhook);
 
         return $this;
     }
     public function setUriDomain($uri_domain)
     {
-        $this->uri_domain = $uri_domain;
+        $this->uri_domain = Strings::null($uri_domain);
         return $this;
     }
     public function getUriDomain()
     {
-        return $this->uri_domain;
+        return Strings::null($this->uri_domain);
     }
     public function setUriHook($uri_hook)
     {
-        $this->uri_hook = $uri_hook;
+        $this->uri_hook = Strings::null($uri_hook);
         return $this;
     }
     public function getUriHook()
     {
-        return $this->uri_hook;
+        return Strings::null($this->uri_hook);
     }
     public function setCreatedAt($createdAt)
     {
         if (is_string($createdAt)) {
             $createdAt = strtotime($createdAt);
         }
-        $this->created_at = intval($createdAt);
+        $this->created_at = Number::intNull($createdAt);
         return $this;
     }
     public function getCreatedAt()
@@ -121,14 +118,14 @@ class ApiKeyEntity extends MongoEntity
             $this->created_at = strtotime($this->created_at);
         }
 
-        return $this->created_at;
+        return Number::intNull($this->created_at);
     }
     public function setUpdatedAt($updatedAt)
     {
         if (is_string($updatedAt)) {
             $updatedAt = strtotime($updatedAt);
         }
-        $this->updated_at = $updatedAt;
+        $this->updated_at = Number::intNull($updatedAt);
         return $this;
     }
     public function getUpdatedAt()
@@ -138,14 +135,14 @@ class ApiKeyEntity extends MongoEntity
                 $this->updated_at = strtotime($this->updated_at);
             }
         }
-        return $this->updated_at;
+        return Number::intNull($this->updated_at);
     }
     public function setExpiredAt($expiredAt)
     {
         if (is_string($expiredAt)) {
             $expiredAt = strtotime($expiredAt);
         }
-        $this->expired_at = intval($expiredAt);
+        $this->expired_at = Number::intNull($expiredAt);
         return $this;
     }
     public function getExpiredAt($format = false)
@@ -160,28 +157,28 @@ class ApiKeyEntity extends MongoEntity
             return date('d/m/Y', $this->expired_at);
         }
 
-        return $this->expired_at;
+        return Number::intNull($this->expired_at);
     }
     public function getTrash()
     {
         if (is_null($this->trash)) {
             $this->trash = false;
         }
-        return boolval($this->trash);
+        return Boolean::null($this->trash);
     }
     public function setTrash($trash)
     {
-        $this->trash = boolval($trash);
+        $this->trash = Boolean::null($trash);
 
         return $this;
     }
     public function getWebhookLog()
     {
-        return $this->webhook_log;
+        return Strings::null($this->webhook_log);
     }
     public function setWebhookLog($webhookLog)
     {
-        $this->webhook_log = $webhookLog;
+        $this->webhook_log = Strings::null($webhookLog);
 
         return $this;
     }
