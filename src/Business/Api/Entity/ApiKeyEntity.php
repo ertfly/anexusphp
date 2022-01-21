@@ -51,9 +51,9 @@ class ApiKeyEntity extends MongoEntity
     {
         return Strings::null($this->name);
     }
-    public function setAppKey($app_key)
+    public function setAppKey($appKey)
     {
-        $this->app_key = Strings::null($app_key);
+        $this->app_key = Strings::null($appKey);
         return $this;
     }
     public function getAppKey()

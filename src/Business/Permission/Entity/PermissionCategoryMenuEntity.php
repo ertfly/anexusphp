@@ -27,7 +27,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	}
 	public function setDescription($description)
 	{
-		$this->description = Strings::null($this->_id);
+		$this->description = Strings::null($description);
 		return $this;
 	}
 	public function getDescription()
