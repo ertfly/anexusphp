@@ -5,7 +5,9 @@ namespace AnexusPHP\Business\App\Entity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class AppSessionEntity extends MongoEntity
 {
@@ -24,93 +26,84 @@ class AppSessionEntity extends MongoEntity
     protected $manager;
     public function setId($id)
     {
-        $this->_id = intval($id);
+        $this->_id = Number::intNull($id);
         return $this;
     }
     public function getId()
     {
-        if (!is_null($this->_id)) {
-            $this->_id = intval($this->_id);
-        }
-        return $this->_id;
+        return Number::intNull($this->_id);
     }
     public function setToken($token)
     {
-        $this->token = $token;
+        $this->token = Strings::null($token);
         return $this;
     }
     public function getToken()
     {
-        return $this->token;
+        return Strings::null($this->token);
     }
     public function setAppId($appId)
     {
-        $this->app_id = trim($appId) != '' ? intval($appId) : null;
+        $this->app_id = Number::intNull($appId);
         return $this;
     }
     public function getAppId()
     {
-        if (!is_null($this->app_id)) {
-            $this->app_id = intval($this->app_id);
-        }
-        return $this->app_id;
+        return Number::intNull($this->app_id);
     }
     public function setAuthfastId($authfastId)
     {
-        $this->authfast_id = trim($authfastId) != '' ? intval($authfastId) : null;
+        $this->authfast_id = Number::intNull($authfastId);
 
         return $this;
     }
     public function getAuthfastId()
     {
-        if (!is_null($this->authfast_id)) {
-            $this->authfast_id = intval($this->authfast_id);
-        }
-        return $this->authfast_id;
+        return Number::intNull($this->authfast_id);
     }
     public function getSupportCode()
     {
-        return $this->support_code;
+        return Strings::null($this->support_code);
     }
     public function setSupportCode($supportCode)
     {
-        $this->support_code = $supportCode;
+        $this->support_code = Strings::null($supportCode);
 
         return $this;
     }
     public function setType($type)
     {
-        $this->type = $type;
+        $this->type = Strings::null($type);
         return $this;
     }
     public function getType()
     {
-        return $this->type;
+        return Strings::null($this->type);
     }
     public function setAccessIp($accessIp)
     {
-        $this->access_ip = $accessIp;
+        $this->access_ip = Strings::null($accessIp);
         return $this;
     }
     public function getAccessIp()
     {
-        return $this->access_ip;
+        return Strings::null($this->access_ip);
     }
     public function setAccessBrowser($accessBrowser)
     {
-        $this->access_browser = $accessBrowser;
+        $this->access_browser = Strings::null($accessBrowser);
         return $this;
     }
     public function getAccessBrowser()
     {
-        return $this->access_browser;
+        return Strings::null($this->access_browser);
     }
     public function setCreatedAt($createdAt)
     {
         if (is_string($createdAt)) {
             $createdAt = strtotime($createdAt);
         }
-        $this->created_at = intval($createdAt);
+        $this->created_at = Number::intNull($createdAt);
         return $this;
     }
     public function getCreatedAt($format = false)
@@ -127,14 +120,14 @@ class AppSessionEntity extends MongoEntity
             return date('d/m/Y H:i:s', $this->created_at);
         }
 
-        return intval($this->created_at);
+        return Number::intNull($this->created_at);
     }
     public function setUpdatedAt($updateAt)
     {
         if (is_string($updateAt)) {
             $updateAt = strtotime($updateAt);
         }
-        $this->updated_at = intval($updateAt);
+        $this->updated_at = Number::intNull($updateAt);
         return $this;
     }
     public function getUpdatedAt($format = false)
@@ -151,15 +144,15 @@ class AppSessionEntity extends MongoEntity
             return date('d/m/Y H:i:s', $this->updated_at);
         }
 
-        return intval($this->updated_at);
+        return Number::intNull($this->updated_at);
     }
     public function getAuthfastToken()
     {
-        return $this->authfast_token;
+        return Strings::null($this->authfast_token);
     }
     public function setAuthfastToken($authfastToken)
     {
-        $this->authfast_token = $authfastToken;
+        $this->authfast_token = Strings::null($authfastToken);
 
         return $this;
     }
@@ -168,11 +161,11 @@ class AppSessionEntity extends MongoEntity
         if (is_null($this->manager)) {
             $this->manager = false;
         }
-        return boolval($this->manager);
+        return Boolean::null($this->manager);
     }
     public function setManager($manager)
     {
-        $this->manager = boolval($manager);
+        $this->manager = Boolean::null($manager);
 
         return $this;
     }
