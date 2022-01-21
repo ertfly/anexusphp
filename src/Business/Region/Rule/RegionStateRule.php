@@ -1,6 +1,6 @@
 <?php
 
-namespace Business\Region\Rule;
+namespace AnexusPHP\Business\Region\Rule;
 
 use AnexusPHP\Business\Region\Entity\RegionStateEntity;
 use AnexusPHP\Core\Database;
