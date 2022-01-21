@@ -4,6 +4,9 @@ namespace AnexusPHP\Business\Permission\Entity;
 
 use AnexusPHP\Business\Permission\Repository\PermissionMenuRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class PermissionCategoryMenuEntity extends MongoEntity
 {
@@ -15,53 +18,44 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setDescription($description)
 	{
-		$this->description = $description;
+		$this->description = Strings::null($this->_id);
 		return $this;
 	}
 	public function getDescription()
 	{
-		return $this->description;
+		return Strings::null($this->description);
 	}
 	public function getPosition()
 	{
-		if (!is_null($this->position)) {
-			$this->position = intval($this->position);
-		}
-		return $this->position;
+		return Number::intNull($this->position);
 	}
 	public function setPosition($position)
 	{
-		$this->position = intval($position);
+		$this->position = Number::intNull($position);
 
 		return $this;
 	}
 	public function setApp($app)
 	{
-		$this->app = intval($app);
+		$this->app = Number::intNull($app);
 		return $this;
 	}
 	public function getApp()
 	{
-		if (!is_null($this->app)) {
-			$this->app = intval($this->app);
-		}
-		return $this->app;
+		return Number::intNull($this->app);
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = boolval($trash);
+		$this->trash = Boolean::null($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -69,7 +63,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return boolval($this->trash);
+		return Boolean::null($this->trash);
 	}
 	public function toArray()
 	{
