@@ -2,7 +2,9 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
 
 class AuthfastShortcutEntity extends MongoEntity
 {
@@ -12,39 +14,30 @@ class AuthfastShortcutEntity extends MongoEntity
 	protected $shortcut;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setAuthfastId($authfastId)
 	{
-		$this->authfast_id = intval($authfastId);
+		$this->authfast_id = Number::intNull($authfastId);
 		return $this;
 	}
 	public function getAuthfastId()
 	{
-		if (!is_null($this->authfast_id)) {
-			$this->authfast_id = intval($this->authfast_id);
-		}
-		return $this->authfast_id;
+		return Number::intNull($this->authfast_id);
 	}
 	public function setShortcut($shortcut)
 	{
-		$this->shortcut = intval($shortcut);
+		$this->shortcut = Number::intNull($shortcut);
 		return $this;
 	}
 	public function getShortcut()
 	{
-		if (!is_null($this->shortcut)) {
-			$this->shortcut = intval($this->shortcut);
-		}
-		return $this->shortcut;
+		return Number::intNull($this->shortcut);
 	}
 	public function toArray()
 	{
@@ -53,5 +46,25 @@ class AuthfastShortcutEntity extends MongoEntity
 			'authfast_id' => $this->getAuthfastId(),
 			'shortcut' => $this->getShortcut()
 		);
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AuthfastEntity
+	 */
+	private $authfast;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  AuthfastEntity
+	 */
+	public function getAuthfast($cls = AuthfastEntity::class)
+	{
+		if (is_null($this->authfast)) {
+			$this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
+		}
+		return $this->authfast;
 	}
 }
