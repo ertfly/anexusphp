@@ -5,6 +5,7 @@ namespace AnexusPHP\Business\App\Entity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Strings;
 
 class AppSessionEntity extends MongoEntity
 {
