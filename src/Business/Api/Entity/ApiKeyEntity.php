@@ -35,7 +35,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function setApiId($apiId)
     {
-        $this->api_id = intval($apiId);
+        $this->api_id = trim($apiId) != '' ? intval($apiId) : null;
         return $this;
     }
     public function getApiId()
