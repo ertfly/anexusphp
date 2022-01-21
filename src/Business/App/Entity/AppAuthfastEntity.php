@@ -4,6 +4,8 @@ namespace AnexusPHP\Business\App\Entity;
 
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
+use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
+use AnexusPHP\Business\Permission\Repository\PermissionLevelRepository;
 use AnexusPHP\Core\MongoEntity;
 
 class AppAuthfastEntity extends MongoEntity
@@ -12,6 +14,7 @@ class AppAuthfastEntity extends MongoEntity
 	protected $_id;
 	protected $app_id;
 	protected $authfast_id;
+	protected $permission_level_id;
 	public function setId($id)
 	{
 		$this->_id = $id;
@@ -48,36 +51,27 @@ class AppAuthfastEntity extends MongoEntity
 		}
 		return $this->authfast_id;
 	}
+	public function getPermissionLevelId()
+	{
+		if (!is_null($this->permission_level_id)) {
+			$this->permission_level_id = intval($this->permission_level_id);
+		}
+		return $this->permission_level_id;
+	}
+	public function setPermissionLevelId($permissionLevelId)
+	{
+		$this->permission_level_id = intval($permissionLevelId);
+
+		return $this;
+	}
 	public function toArray()
 	{
 		return array(
 			'_id' => $this->getId(),
 			'app_id' => $this->getAppId(),
-			'authfast_id' => $this->getAuthfastId()
+			'authfast_id' => $this->getAuthfastId(),
+			'permission_level_id' => $this->getPermissionLevelId(),
 		);
-	}
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @var AuthfastEntity
-	 */
-	private $person;
-
-	/**
-	 * Undocumented function
-	 *
-	 * @param boolean $refresh
-	 * @param string $cls
-	 * @return AuthfastEntity
-	 */
-	public function getPerson($refresh = false, $cls = AuthfastEntity::class)
-	{
-		if (!$this->person || $refresh) {
-			$this->person = AuthfastRepository::byId($this->authfast_id, $cls);
-		}
-
-		return $this->person;
 	}
 
 	/**
@@ -98,5 +92,25 @@ class AppAuthfastEntity extends MongoEntity
 			$this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
 		}
 		return $this->authfast;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionLevelEntity
+	 */
+	private $permissionLevel;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  PermissionLevelEntity
+	 */ 
+	public function getPermissionLevel()
+	{
+		if(is_null($this->permissionLevel)){
+			$this->permissionLevel = PermissionLevelRepository::byId($this->permission_level_id);
+		}
+		return $this->permissionLevel;
 	}
 }
