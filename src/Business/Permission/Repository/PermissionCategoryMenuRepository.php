@@ -2,7 +2,9 @@
 
 namespace AnexusPHP\Business\Permission\Repository;
 
+use AnexusPHP\Business\App\Entity\AppAuthfastEntity;
 use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionCategoryMenuEntity;
 
 use AnexusPHP\Core\Database;
@@ -168,5 +170,49 @@ class PermissionCategoryMenuRepository
             return $r->getPosition();
         }
         return 0;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param AppEntity $app
+     * @param AuthfastEntity $authfast
+     * @return PermissionCategoryMenuEntity
+     */
+    public static function byAppAuthfast(AppAuthfastEntity $appAuthfast)
+    {
+        $db = Database::getInstance();
+
+        $where = [
+            'trash' => false,
+            'app' => $appAuthfast->getAppId(),
+            '_id' => [
+                // '$in' => $app
+            ]
+        ];
+
+        $options = [
+            'sort' => [
+                'position' => 1
+            ],
+        ];
+
+        $cursor = $db->{PermissionCategoryMenuEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => PermissionCategoryMenuEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r;
+        }
+
+        return $rows;
     }
 }

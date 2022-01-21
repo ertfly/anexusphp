@@ -16,6 +16,7 @@ class AppAuthfastEntity extends MongoEntity
 	protected $app_id;
 	protected $authfast_id;
 	protected $permission_level_id;
+	protected $permission;
 	public function setId($id)
 	{
 		$this->_id = Number::intNull($id);
@@ -53,6 +54,19 @@ class AppAuthfastEntity extends MongoEntity
 
 		return $this;
 	}
+	public function getPermission()
+	{
+		if (is_null($this->permission)) {
+			$this->permission = [];
+		}
+		return $this->permission;
+	}
+	public function setPermission(array $permission)
+	{
+		$this->permission = $permission;
+
+		return $this;
+	}
 	public function toArray()
 	{
 		return array(
@@ -60,6 +74,7 @@ class AppAuthfastEntity extends MongoEntity
 			'app_id' => $this->getAppId(),
 			'authfast_id' => $this->getAuthfastId(),
 			'permission_level_id' => $this->getPermissionLevelId(),
+			'permission' => $this->getPermission(),
 		);
 	}
 
