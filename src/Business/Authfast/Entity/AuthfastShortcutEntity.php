@@ -2,7 +2,6 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
-use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 
@@ -46,25 +45,5 @@ class AuthfastShortcutEntity extends MongoEntity
 			'authfast_id' => $this->getAuthfastId(),
 			'shortcut' => $this->getShortcut()
 		);
-	}
-
-	/**
-	 * Undocumented variable
-	 *
-	 * @var AuthfastEntity
-	 */
-	private $authfast;
-
-	/**
-	 * Get undocumented variable
-	 *
-	 * @return  AuthfastEntity
-	 */
-	public function getAuthfast($cls = AuthfastEntity::class)
-	{
-		if (is_null($this->authfast)) {
-			$this->authfast = AuthfastRepository::byId($this->authfast_id, $cls);
-		}
-		return $this->authfast;
 	}
 }
