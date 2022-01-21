@@ -86,4 +86,41 @@ class AuthfastShortcutRepository
         }
         return new AuthfastShortcutEntity();
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param AuthfastEntity $authfast
+     * @return array
+     */
+    public static function listIdsByAuthfast(AuthfastEntity $authfast)
+    {
+        $db = Database::getInstance();
+
+        $where = [
+            'authfast_id' => $authfast->getId(),
+        ];
+
+        $options = [
+            'sort' => ['_id' => 1],
+        ];
+
+        $cursor = $db->{AuthfastShortcutEntity::TABLE}->find(
+            $where,
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => AuthfastShortcutEntity::class,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $rows[] = $r->getId();
+        }
+
+        return $rows;
+    }
 }
