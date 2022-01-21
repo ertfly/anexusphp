@@ -48,14 +48,11 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function setDefinition(array $definition)
 	{
-		$this->definition = json_encode($definition);
+		$this->definition = $definition;
 		return $this;
 	}
-	public function getDefinition($decode = false)
+	public function getDefinition()
 	{
-		if ($decode) {
-			return json_decode($this->definition, true);
-		}
 		return $this->definition;
 	}
 	public function setTrash($trash)
@@ -96,10 +93,7 @@ class ApiModuleConfigEntity extends MongoEntity
 	public function getDefinitionByKey($key, $defaultValue = null)
 	{
 		if (!$this->definitions) {
-			$this->definitions = @json_decode($this->definition, true);
-			if (!$this->definitions) {
-				$this->definitions = [];
-			}
+			$this->definitions = [];
 		}
 		if (!isset($this->definitions[$key])) {
 			return $defaultValue;
