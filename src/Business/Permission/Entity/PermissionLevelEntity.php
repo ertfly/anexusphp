@@ -3,6 +3,9 @@
 namespace AnexusPHP\Business\Permission\Entity;
 
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
+use Core\Tools\Boolean;
 
 class PermissionLevelEntity extends MongoEntity
 {
@@ -15,43 +18,37 @@ class PermissionLevelEntity extends MongoEntity
 	protected $trash;
 	public function setId($id)
 	{
-		$this->_id = intval($id);
+		$this->_id = Number::intNull($id);
 		return $this;
 	}
 	public function getId()
 	{
-		if (!is_null($this->_id)) {
-			$this->_id = intval($this->_id);
-		}
-		return $this->_id;
+		return Number::intNull($this->_id);
 	}
 	public function setName($name)
 	{
-		$this->name = $name;
+		$this->name = Strings::null($name);
 		return $this;
 	}
 	public function getName()
 	{
-		return $this->name;
+		return Strings::null($this->name);
 	}
 	public function setLevel($level)
 	{
-		$this->level = intval($level);
+		$this->level = Number::intNull($level);
 		return $this;
 	}
 	public function getLevel()
 	{
-		if (!is_null($this->level)) {
-			$this->level = intval($this->level);
-		}
-		return $this->level;
+		return Number::intNull($this->level);
 	}
 	public function setCreatedAt($createdAt)
 	{
 		if (is_string($createdAt)) {
 			$createdAt = strtotime($createdAt);
 		}
-		$this->created_at = intval($createdAt);
+		$this->created_at = Number::intNull($createdAt);
 		return $this;
 	}
 	public function getCreatedAt()
@@ -62,14 +59,14 @@ class PermissionLevelEntity extends MongoEntity
 		if (is_string($this->created_at)) {
 			$this->created_at = strtotime($this->created_at);
 		}
-		return intval($this->created_at);
+		return Number::intNull($this->created_at);
 	}
 	public function setUpdatedAt($updatedAt)
 	{
 		if (is_string($updatedAt)) {
 			$updatedAt = strtotime($updatedAt);
 		}
-		$this->updated_at = intval($updatedAt);
+		$this->updated_at = Number::intNull($updatedAt);
 		return $this;
 	}
 	public function getUpdatedAt()
@@ -78,13 +75,12 @@ class PermissionLevelEntity extends MongoEntity
 			if (is_string($this->updated_at)) {
 				$this->updated_at = strtotime($this->updated_at);
 			}
-			$this->updated_at = intval($this->updated_at);
 		}
-		return $this->updated_at;
+		return Number::intNull($this->updated_at);
 	}
 	public function setTrash($trash)
 	{
-		$this->trash = boolval($trash);
+		$this->trash = Boolean::null($trash);
 		return $this;
 	}
 	public function getTrash()
@@ -92,7 +88,7 @@ class PermissionLevelEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return boolval($this->trash);
+		return Boolean::null($this->trash);
 	}
 	public function toArray()
 	{
