@@ -19,7 +19,7 @@ class AppEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setName($name)
     {
@@ -28,7 +28,7 @@ class AppEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setKey($key)
     {
@@ -37,7 +37,7 @@ class AppEntity extends MongoEntity
     }
     public function getKey()
     {
-        return Strings::null($this->key);
+        return $this->key;
     }
     public function toArray()
     {
