@@ -21,7 +21,7 @@ class RegionStateEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setCountryId($countryId)
     {
@@ -30,7 +30,7 @@ class RegionStateEntity extends MongoEntity
     }
     public function getCountryId()
     {
-        return Number::intNull($this->country_id);
+        return $this->country_id;
     }
     public function setName($name)
     {
@@ -39,7 +39,7 @@ class RegionStateEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setInitials($initials)
     {
@@ -48,7 +48,7 @@ class RegionStateEntity extends MongoEntity
     }
     public function getInitials()
     {
-        return Strings::null($this->initials);
+        return $this->initials;
     }
     public function toArray()
     {
