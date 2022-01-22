@@ -32,11 +32,11 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function getAuthfastId()
 	{
-		return Number::intNull($this->authfast_id);
+		return $this->authfast_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
@@ -46,7 +46,7 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getAppId()
 	{
-		return Number::intNull($this->app_id);
+		return $this->app_id;
 	}
 	public function setAppId($appId)
 	{
@@ -56,7 +56,7 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getPermissionEventId()
 	{
-		return Number::intNull($this->permission_event_id);
+		return $this->permission_event_id;
 	}
 	public function setPermissionEventId($permissionEventId)
 	{
@@ -66,7 +66,7 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getPermissionModuleId()
 	{
-		return Number::intNull($this->permission_module_id);
+		return $this->permission_module_id;
 	}
 	public function setPermissionModuleId($permissionModuleId)
 	{
@@ -81,11 +81,11 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getBindId()
 	{
-		return Strings::null($this->bind_id);
+		return $this->bind_id;
 	}
 	public function getBindTable()
 	{
-		return Strings::null($this->bind_table);
+		return $this->bind_table;
 	}
 	public function setBindTable($bindTable)
 	{
@@ -95,7 +95,7 @@ class AuthfastActivityEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function setDescription($description)
 	{
@@ -111,7 +111,7 @@ class AuthfastActivityEntity extends MongoEntity
 		$this->created_at = Number::intNull($createdAt);
 		return $this;
 	}
-	public function getCreatedAt($format = false)
+	public function getCreatedAt($format = false, $f = 'd/m/Y H:i:s')
 	{
 		if (is_null($this->created_at)) {
 			$this->created_at = strtotime(date('Y-m-d H:i:s'));
@@ -122,10 +122,10 @@ class AuthfastActivityEntity extends MongoEntity
 		}
 
 		if ($format) {
-			return date('d/m/Y H:i:s', $this->created_at);
+			return date($f, $this->created_at);
 		}
 
-		return Number::intNull($this->created_at);
+		return $this->created_at;
 	}
 	public function toArray()
 	{
