@@ -18,7 +18,7 @@ class AuthfastShortcutEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
@@ -27,7 +27,7 @@ class AuthfastShortcutEntity extends MongoEntity
 	}
 	public function getAuthfastId()
 	{
-		return Number::intNull($this->authfast_id);
+		return $this->authfast_id;
 	}
 	public function setShortcut($shortcut)
 	{
@@ -36,7 +36,7 @@ class AuthfastShortcutEntity extends MongoEntity
 	}
 	public function getShortcut()
 	{
-		return Number::intNull($this->shortcut);
+		return $this->shortcut;
 	}
 	public function toArray()
 	{
