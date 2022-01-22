@@ -35,7 +35,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function getType($format = false)
 	{
@@ -51,7 +51,7 @@ class AuthfastEntity extends MongoEntity
 					return 'Não informado';
 			}
 		}
-		return Strings::null($this->type);
+		return $this->type;
 	}
 	public function setType($type)
 	{
@@ -66,7 +66,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getCode()
 	{
-		return Strings::null($this->code);
+		return $this->code;
 	}
 	public function setFirstname($firstname)
 	{
@@ -75,7 +75,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getFirstname()
 	{
-		return Strings::null($this->firstname);
+		return $this->firstname;
 	}
 	public function setLastname($lastname)
 	{
@@ -84,11 +84,11 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getLastname()
 	{
-		return Strings::null($this->lastname);
+		return $this->lastname;
 	}
 	public function getDocument()
 	{
-		return Strings::null($this->document);
+		return $this->document;
 	}
 	public function setDocument($document)
 	{
@@ -103,7 +103,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getUsername()
 	{
-		return Strings::null($this->username);
+		return $this->username;
 	}
 	public function setEmail($email)
 	{
@@ -112,7 +112,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getEmail()
 	{
-		return Strings::null($this->email);
+		return $this->email;
 	}
 	public function setPhoto($photo)
 	{
@@ -121,7 +121,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getPhoto()
 	{
-		return Strings::null($this->photo);
+		return $this->photo;
 	}
 	public function setBanner($banner)
 	{
@@ -130,7 +130,7 @@ class AuthfastEntity extends MongoEntity
 	}
 	public function getBanner()
 	{
-		return Strings::null($this->banner);
+		return $this->banner;
 	}
 	public function setCreatedAt($createdAt)
 	{
@@ -150,7 +150,7 @@ class AuthfastEntity extends MongoEntity
 			$this->created_at = strtotime($this->created_at);
 		}
 
-		return Number::intNull($this->created_at);
+		return $this->created_at;
 	}
 	public function setUpdatedAt($updatedAt)
 	{
@@ -168,7 +168,7 @@ class AuthfastEntity extends MongoEntity
 			}
 		}
 
-		return Number::intNull($this->updated_at);
+		return $this->updated_at;
 	}
 	public function setExpiredAt($expiredAt)
 	{
@@ -186,11 +186,11 @@ class AuthfastEntity extends MongoEntity
 			}
 		}
 
-		return Number::intNull($this->expired_at);
+		return $this->expired_at;
 	}
 	public function getRegionCountryId()
 	{
-		return Number::intNull($this->region_country_id);
+		return $this->region_country_id;
 	}
 	public function setRegionCountryId($regionCountryId)
 	{
