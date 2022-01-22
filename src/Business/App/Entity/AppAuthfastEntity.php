@@ -23,7 +23,7 @@ class AppAuthfastEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setAppId($appId)
 	{
@@ -32,7 +32,7 @@ class AppAuthfastEntity extends MongoEntity
 	}
 	public function getAppId()
 	{
-		return Number::intNull($this->app_id);
+		return $this->app_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
@@ -41,11 +41,11 @@ class AppAuthfastEntity extends MongoEntity
 	}
 	public function getAuthfastId()
 	{
-		return Number::intNull($this->authfast_id);
+		return $this->authfast_id;
 	}
 	public function getPermissionLevelId()
 	{
-		return Number::intNull($this->permission_level_id);
+		return $this->permission_level_id;
 	}
 	public function setPermissionLevelId($permissionLevelId)
 	{
