@@ -25,7 +25,7 @@ class PermissionShortcutEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setDescription($description)
 	{
@@ -34,7 +34,7 @@ class PermissionShortcutEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function setIcon($icon)
 	{
@@ -43,7 +43,7 @@ class PermissionShortcutEntity extends MongoEntity
 	}
 	public function getIcon()
 	{
-		return Strings::null($this->icon);
+		return $this->icon;
 	}
 	public function setLink($link)
 	{
@@ -52,7 +52,7 @@ class PermissionShortcutEntity extends MongoEntity
 	}
 	public function getLink()
 	{
-		return Strings::null($this->link);
+		return $this->link;
 	}
 	public function setTarget($target)
 	{
@@ -61,7 +61,7 @@ class PermissionShortcutEntity extends MongoEntity
 	}
 	public function getTarget()
 	{
-		return Strings::null($this->target);
+		return $this->target;
 	}
 	public function setPosition($position)
 	{
@@ -74,7 +74,7 @@ class PermissionShortcutEntity extends MongoEntity
 			$this->position = (PermissionShortcutRepository::getLastPosition()) + 1;
 			PermissionShortcutRule::update($this);
 		}
-		return Number::intNull($this->position);
+		return $this->position;
 	}
 	public function setPrincipal($principal)
 	{
@@ -86,7 +86,7 @@ class PermissionShortcutEntity extends MongoEntity
 		if (is_null($this->principal)) {
 			$this->principal = false;
 		}
-		return Boolean::null($this->principal);
+		return $this->principal;
 	}
 	public function toArray()
 	{
