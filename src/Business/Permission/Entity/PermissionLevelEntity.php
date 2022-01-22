@@ -23,7 +23,7 @@ class PermissionLevelEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setName($name)
 	{
@@ -32,7 +32,7 @@ class PermissionLevelEntity extends MongoEntity
 	}
 	public function getName()
 	{
-		return Strings::null($this->name);
+		return $this->name;
 	}
 	public function setLevel($level)
 	{
@@ -41,7 +41,7 @@ class PermissionLevelEntity extends MongoEntity
 	}
 	public function getLevel()
 	{
-		return Number::intNull($this->level);
+		return $this->level;
 	}
 	public function setCreatedAt($createdAt)
 	{
@@ -59,7 +59,7 @@ class PermissionLevelEntity extends MongoEntity
 		if (is_string($this->created_at)) {
 			$this->created_at = strtotime($this->created_at);
 		}
-		return Number::intNull($this->created_at);
+		return $this->created_at;
 	}
 	public function setUpdatedAt($updatedAt)
 	{
@@ -76,7 +76,7 @@ class PermissionLevelEntity extends MongoEntity
 				$this->updated_at = strtotime($this->updated_at);
 			}
 		}
-		return Number::intNull($this->updated_at);
+		return $this->updated_at;
 	}
 	public function setTrash($trash)
 	{
@@ -88,7 +88,7 @@ class PermissionLevelEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return Boolean::null($this->trash);
+		return $this->trash;
 	}
 	public function toArray()
 	{
