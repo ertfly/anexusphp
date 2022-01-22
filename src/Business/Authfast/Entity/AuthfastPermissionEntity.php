@@ -22,7 +22,7 @@ class AuthfastPermissionEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setAuthfastId($authfastId)
 	{
@@ -31,7 +31,7 @@ class AuthfastPermissionEntity extends MongoEntity
 	}
 	public function getAuthfastId()
 	{
-		return Number::intNull($this->authfast_id);
+		return $this->authfast_id;
 	}
 	public function setModuleId($moduleId)
 	{
@@ -40,7 +40,7 @@ class AuthfastPermissionEntity extends MongoEntity
 	}
 	public function getModuleId()
 	{
-		return Number::intNull($this->module_id);
+		return $this->module_id;
 	}
 	public function setEvents(array $events)
 	{
