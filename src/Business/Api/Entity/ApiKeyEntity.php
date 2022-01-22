@@ -31,7 +31,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setApiId($apiId)
     {
@@ -40,7 +40,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getApiId()
     {
-        return Number::intNull($this->api_id);
+        return $this->api_id;
     }
     public function setName($name)
     {
@@ -49,7 +49,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setAppKey($appKey)
     {
@@ -58,7 +58,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getAppKey()
     {
-        return Strings::null($this->app_key);
+        return $this->app_key;
     }
     public function setSecretKey($secretKey)
     {
@@ -67,14 +67,14 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getSecretKey()
     {
-        return Strings::null($this->secret_key);
+        return $this->secret_key;
     }
     public function getWebhook()
     {
         if (is_null($this->webhook)) {
             $this->webhook = false;
         }
-        return Boolean::null($this->webhook);
+        return $this->webhook;
     }
     public function setWebhook($webhook)
     {
@@ -89,7 +89,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getUriDomain()
     {
-        return Strings::null($this->uri_domain);
+        return $this->uri_domain;
     }
     public function setUriHook($uri_hook)
     {
@@ -98,7 +98,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getUriHook()
     {
-        return Strings::null($this->uri_hook);
+        return $this->uri_hook;
     }
     public function setCreatedAt($createdAt)
     {
@@ -118,7 +118,7 @@ class ApiKeyEntity extends MongoEntity
             $this->created_at = strtotime($this->created_at);
         }
 
-        return Number::intNull($this->created_at);
+        return $this->created_at;
     }
     public function setUpdatedAt($updatedAt)
     {
@@ -135,7 +135,7 @@ class ApiKeyEntity extends MongoEntity
                 $this->updated_at = strtotime($this->updated_at);
             }
         }
-        return Number::intNull($this->updated_at);
+        return $this->updated_at;
     }
     public function setExpiredAt($expiredAt)
     {
@@ -157,14 +157,14 @@ class ApiKeyEntity extends MongoEntity
             return date('d/m/Y', $this->expired_at);
         }
 
-        return Number::intNull($this->expired_at);
+        return $this->expired_at;
     }
     public function getTrash()
     {
         if (is_null($this->trash)) {
             $this->trash = false;
         }
-        return Boolean::null($this->trash);
+        return $this->trash;
     }
     public function setTrash($trash)
     {
@@ -174,7 +174,7 @@ class ApiKeyEntity extends MongoEntity
     }
     public function getWebhookLog()
     {
-        return Strings::null($this->webhook_log);
+        return $this->webhook_log;
     }
     public function setWebhookLog($webhookLog)
     {
