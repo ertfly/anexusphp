@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Business\Authfast\Entity;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Repository\AppRepository;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionEventEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
@@ -16,6 +18,7 @@ class AuthfastActivityEntity extends MongoEntity
 	const TABLE = 'authfast_activity';
 	protected $_id;
 	protected $authfast_id;
+	protected $app_id;
 	protected $permission_event_id;
 	protected $permission_module_id;
 	protected $bind_id;
@@ -38,6 +41,16 @@ class AuthfastActivityEntity extends MongoEntity
 	public function setAuthfastId($authfastId)
 	{
 		$this->authfast_id = Number::intNull($authfastId);
+
+		return $this;
+	}
+	public function getAppId()
+	{
+		return Number::intNull($this->app_id);
+	}
+	public function setAppId($appId)
+	{
+		$this->app_id = Number::intNull($appId);
 
 		return $this;
 	}
@@ -119,6 +132,7 @@ class AuthfastActivityEntity extends MongoEntity
 		return array(
 			'_id' => $this->getId(),
 			'authfast_id' => $this->getAuthfastId(),
+			'app_id' => $this->getAppId(),
 			'permission_event_id' => $this->getPermissionEventId(),
 			'permission_module_id' => $this->getPermissionModuleId(),
 			'bind_id' => $this->getBindId(),
@@ -186,5 +200,25 @@ class AuthfastActivityEntity extends MongoEntity
 			$this->permissionModule = PermissionModuleRepository::byId($this->permission_module_id);
 		}
 		return $this->permissionModule;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AppEntity
+	 */
+	private $app;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  AppEntity
+	 */
+	public function getApp()
+	{
+		if (is_null($this->app)) {
+			$this->app = AppRepository::byId($this->app_id);
+		}
+		return $this->app;
 	}
 }
