@@ -23,7 +23,7 @@ class PermissionEventEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setDescription($description)
 	{
@@ -32,14 +32,14 @@ class PermissionEventEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function getLevel()
 	{
 		if (is_null($this->level)) {
 			$this->level = 1;
 		}
-		return Number::intNull($this->level);
+		return $this->level;
 	}
 	public function setLevel($level)
 	{
@@ -48,7 +48,7 @@ class PermissionEventEntity extends MongoEntity
 	}
 	public function getPosition()
 	{
-		return Number::intNull($this->position);
+		return $this->position;
 	}
 	public function setPosition($position)
 	{
@@ -63,7 +63,7 @@ class PermissionEventEntity extends MongoEntity
 	}
 	public function getApp()
 	{
-		return Number::intNull($this->app);
+		return $this->app;
 	}
 	public function setTrash($trash)
 	{
@@ -75,7 +75,7 @@ class PermissionEventEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return Boolean::null($this->trash);
+		return $this->trash;
 	}
 	public function toArray()
 	{
