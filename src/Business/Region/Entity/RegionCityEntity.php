@@ -21,7 +21,7 @@ class RegionCityEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setStateId($stateId)
     {
@@ -30,7 +30,7 @@ class RegionCityEntity extends MongoEntity
     }
     public function getStateId()
     {
-        return Number::intNull($this->state_id);
+        return $this->state_id;
     }
     public function setName($name)
     {
@@ -39,7 +39,7 @@ class RegionCityEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setCode($code)
     {
@@ -48,7 +48,7 @@ class RegionCityEntity extends MongoEntity
     }
     public function getCode()
     {
-        return Strings::null($this->code);
+        return $this->code;
     }
     public function toArray()
     {
