@@ -23,7 +23,7 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setApiModuleId($apiModuleId)
 	{
@@ -32,7 +32,7 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function getApiModuleId()
 	{
-		return Number::intNull($this->api_module_id);
+		return $this->api_module_id;
 	}
 	public function setDescription($description)
 	{
@@ -41,7 +41,7 @@ class ApiModuleConfigEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function setDefinition(array $definition)
 	{
@@ -65,7 +65,7 @@ class ApiModuleConfigEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return Boolean::null($this->trash);
+		return $this->trash;
 	}
 	public function toArray()
 	{
