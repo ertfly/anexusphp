@@ -30,7 +30,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setCategoryId($categoryId)
 	{
@@ -39,7 +39,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getCategoryId()
 	{
-		return Number::intNull($this->category_id);
+		return $this->category_id;
 	}
 	public function setModuleId($moduleId)
 	{
@@ -48,7 +48,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getModuleId()
 	{
-		return Number::intNull($this->module_id);
+		return $this->module_id;
 	}
 	public function setDescription($description)
 	{
@@ -57,7 +57,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function setIcon($icon)
 	{
@@ -66,7 +66,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getIcon()
 	{
-		return Strings::null($this->icon);
+		return $this->icon;
 	}
 	public function setLink($link)
 	{
@@ -75,7 +75,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getLink()
 	{
-		return Strings::null($this->link);
+		return $this->link;
 	}
 	public function setTarget($target)
 	{
@@ -87,11 +87,11 @@ class PermissionMenuEntity extends MongoEntity
 		if ($format) {
 			return PermissionMenuTargetConstant::getOption($this->target);
 		}
-		return Strings::null($this->target);
+		return $this->target;
 	}
 	public function getPosition()
 	{
-		return Number::intNull($this->position);
+		return $this->position;
 	}
 	public function setPosition($position)
 	{
@@ -106,7 +106,7 @@ class PermissionMenuEntity extends MongoEntity
 	}
 	public function getApp()
 	{
-		return Number::intNull($this->app);
+		return $this->app;
 	}
 	public function setTrash($trash)
 	{
@@ -118,7 +118,7 @@ class PermissionMenuEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return Boolean::null($this->trash);
+		return $this->trash;
 	}
 	public function toArray()
 	{
