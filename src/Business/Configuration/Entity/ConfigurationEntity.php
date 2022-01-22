@@ -18,7 +18,7 @@ class ConfigurationEntity extends MongoEntity
     }
     public function getId()
     {
-        return Strings::null($this->_id);
+        return $this->_id;
     }
     public function setValue($value)
     {
@@ -27,7 +27,7 @@ class ConfigurationEntity extends MongoEntity
     }
     public function getValue()
     {
-        return Strings::null($this->value);
+        return $this->value;
     }
     public function setDescription($description)
     {
@@ -36,7 +36,7 @@ class ConfigurationEntity extends MongoEntity
     }
     public function getDescription()
     {
-        return Strings::null($this->description);
+        return $this->description;
     }
     public function toArray()
     {
