@@ -31,7 +31,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setToken($token)
     {
@@ -40,7 +40,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getToken()
     {
-        return Strings::null($this->token);
+        return $this->token;
     }
     public function setAppId($appId)
     {
@@ -49,7 +49,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getAppId()
     {
-        return Number::intNull($this->app_id);
+        return $this->app_id;
     }
     public function setAuthfastId($authfastId)
     {
@@ -59,11 +59,11 @@ class AppSessionEntity extends MongoEntity
     }
     public function getAuthfastId()
     {
-        return Number::intNull($this->authfast_id);
+        return $this->authfast_id;
     }
     public function getSupportCode()
     {
-        return Strings::null($this->support_code);
+        return $this->support_code;
     }
     public function setSupportCode($supportCode)
     {
@@ -78,7 +78,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getType()
     {
-        return Strings::null($this->type);
+        return $this->type;
     }
     public function setAccessIp($accessIp)
     {
@@ -87,7 +87,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getAccessIp()
     {
-        return Strings::null($this->access_ip);
+        return $this->access_ip;
     }
     public function setAccessBrowser($accessBrowser)
     {
@@ -96,7 +96,7 @@ class AppSessionEntity extends MongoEntity
     }
     public function getAccessBrowser()
     {
-        return Strings::null($this->access_browser);
+        return $this->access_browser;
     }
     public function setCreatedAt($createdAt)
     {
@@ -106,7 +106,7 @@ class AppSessionEntity extends MongoEntity
         $this->created_at = Number::intNull($createdAt);
         return $this;
     }
-    public function getCreatedAt($format = false)
+    public function getCreatedAt($format = false, $f = 'Y-m-d H:i:s')
     {
         if (is_null($this->created_at)) {
             $this->created_at = strtotime(date('Y-m-d H:i:s'));
@@ -117,10 +117,10 @@ class AppSessionEntity extends MongoEntity
         }
 
         if ($format && !is_null($this->created_at)) {
-            return date('d/m/Y H:i:s', $this->created_at);
+            return date($f, $this->created_at);
         }
 
-        return Number::intNull($this->created_at);
+        return $this->created_at;
     }
     public function setUpdatedAt($updateAt)
     {
@@ -130,7 +130,7 @@ class AppSessionEntity extends MongoEntity
         $this->updated_at = Number::intNull($updateAt);
         return $this;
     }
-    public function getUpdatedAt($format = false)
+    public function getUpdatedAt($format = false, $f = 'd/m/Y H:i:s')
     {
         if (is_null($this->updated_at)) {
             $this->updated_at = $this->getCreatedAt();
@@ -141,14 +141,14 @@ class AppSessionEntity extends MongoEntity
         }
 
         if ($format && !is_null($this->updated_at)) {
-            return date('d/m/Y H:i:s', $this->updated_at);
+            return date($f, $this->updated_at);
         }
 
-        return Number::intNull($this->updated_at);
+        return $this->updated_at;
     }
     public function getAuthfastToken()
     {
-        return Strings::null($this->authfast_token);
+        return $this->authfast_token;
     }
     public function setAuthfastToken($authfastToken)
     {
@@ -161,7 +161,7 @@ class AppSessionEntity extends MongoEntity
         if (is_null($this->manager)) {
             $this->manager = false;
         }
-        return Boolean::null($this->manager);
+        return $this->manager;
     }
     public function setManager($manager)
     {
