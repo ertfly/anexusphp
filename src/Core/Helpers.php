@@ -6,9 +6,11 @@ use AnexusPHP\Business\App\Entity\AppSessionEntity;
 use AnexusPHP\Business\App\Repository\AppSessionRepository;
 use AnexusPHP\Business\App\Rule\AppSessionRule;
 use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
+use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Business\Permission\Entity\PermissionEventEntity;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Router;
 use AnexusPHP\Core\Session;
@@ -293,7 +295,7 @@ function verifyPermission(int $module, int $event)
 {
     $module = AuthfastPermissionRepository::byAuthfastAndModule(request()->sid->getAuthfast(), $module);
 
-    return in_array($event, explode(',', (string)$module->getEvents()));
+    return in_array($event, $module->getEvents());
 }
 
 function GUID()
@@ -322,23 +324,28 @@ function template($name, $defaultValue = null, $isUpload = false)
 }
 
 /**
- * @param int $activity
- * @param int $module
- * @param int $bind_id
- * @param int $description
+ * Undocumented function
+ *
+ * @param AuthfastEntity $authfast
+ * @param int $permissionModuleId
+ * @param int $permissionEventId
+ * @param tring $bindId
+ * @param string $bindTable
+ * @param string $description
+ * @return AuthfastActivityEntity
  */
-function create_log(int $activity, int $module, int $bind_id, $description = null)
+function createLog(AuthfastEntity $authfast, $permissionModuleId, $permissionEventId, $bindId, $bindTable, $description = null)
 {
     $log = new AuthfastActivityEntity;
-    $sid = request()->sid;
-    if (!is_null($sid)) {
-        $log->setAuthfastId(request()->sid->getAuthfastId() ? request()->sid->getAuthfastId() : 0)
-            ->setModule($module)
-            ->setBindId($bind_id)
-            ->setActivity($activity)
-            ->setDescription($description);
-        AuthfastActivityRule::insert($log);
-    }
+    $log->setAuthfastId($authfast->getId())
+        ->setPermissionEventId($permissionEventId)
+        ->setPermissionModuleId($permissionModuleId)
+        ->setBindId($bindId)
+        ->setBindTable($bindTable)
+        ->setDescription($description);
+    AuthfastActivityRule::insert($log);
+
+    return $log;
 }
 
 /**
