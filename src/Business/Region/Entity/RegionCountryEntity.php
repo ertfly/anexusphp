@@ -34,7 +34,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setName($name)
     {
@@ -43,7 +43,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setCode($code)
     {
@@ -52,7 +52,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getCode()
     {
-        return Strings::null($this->code);
+        return $this->code;
     }
     public function setInitials($initials)
     {
@@ -61,7 +61,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getInitials()
     {
-        return Strings::null($this->initials);
+        return $this->initials;
     }
     public function setFlag($flag)
     {
@@ -85,7 +85,7 @@ class RegionCountryEntity extends MongoEntity
         if (is_null($this->principal)) {
             $this->principal = false;
         }
-        return Boolean::null($this->principal);
+        return $this->principal;
     }
     public function setVisible($visible)
     {
@@ -97,7 +97,7 @@ class RegionCountryEntity extends MongoEntity
         if (is_null($this->visible)) {
             $this->visible = false;
         }
-        return Boolean::null($this->visible);
+        return $this->visible;
     }
     public function setDateFormat($dateFormat)
     {
@@ -106,7 +106,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getDateFormat()
     {
-        return Strings::null($this->date_format);
+        return $this->date_format;
     }
     public function setDateHourFormat($dateHourFormat)
     {
@@ -115,7 +115,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getDateHourFormat()
     {
-        return Strings::null($this->date_hour_format);
+        return $this->date_hour_format;
     }
     public function setLocale($locale)
     {
@@ -124,7 +124,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getLocale()
     {
-        return Strings::null($this->locale);
+        return $this->locale;
     }
     public function setTimezone($timezone)
     {
@@ -133,11 +133,11 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getTimezone()
     {
-        return Strings::null($this->timezone);
+        return $this->timezone;
     }
     public function getMoneySymbolLeft()
     {
-        return Strings::null($this->money_symbol_left);
+        return $this->money_symbol_left;
     }
     public function setMoneySymbolLeft($moneySymbolLeft)
     {
@@ -147,7 +147,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getMoneySymbolRight()
     {
-        return Strings::null($this->money_symbol_right);
+        return $this->money_symbol_right;
     }
     public function setMoneySymbolRight($moneySymbolRight)
     {
@@ -157,7 +157,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getMoneyDecimalPlace()
     {
-        return Number::intNull($this->money_decimal_place);
+        return $this->money_decimal_place;
     }
     public function setMoneyDecimalPlace($moneyDecimalPlace)
     {
@@ -168,12 +168,12 @@ class RegionCountryEntity extends MongoEntity
     public function getMoneyExchange($format = false)
     {
         if (is_null($this->money_exchange)) {
-            $this->money_exchange = 1;
+            $this->money_exchange = doubleval(1);
         }
         if ($format) {
             return number_format($this->money_exchange, $this->getMoneyDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands());
         }
-        return Number::doubleNull($this->money_exchange);
+        return $this->money_exchange;
     }
     public function setMoneyExchange($moneyExchange)
     {
@@ -183,7 +183,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getSeparatorDecimal()
     {
-        return Strings::null($this->separator_decimal);
+        return $this->separator_decimal;
     }
     public function setSeparatorDecimal($separatorDecimal)
     {
@@ -193,7 +193,7 @@ class RegionCountryEntity extends MongoEntity
     }
     public function getSeparatorThousands()
     {
-        return Strings::null($this->separator_thousands);
+        return $this->separator_thousands;
     }
     public function setSeparatorThousands($separatorThousands)
     {
