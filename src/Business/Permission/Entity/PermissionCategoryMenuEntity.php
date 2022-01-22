@@ -23,7 +23,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setDescription($description)
 	{
@@ -32,11 +32,11 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function getPosition()
 	{
-		return Number::intNull($this->position);
+		return $this->position;
 	}
 	public function setPosition($position)
 	{
@@ -51,7 +51,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	}
 	public function getApp()
 	{
-		return Number::intNull($this->app);
+		return $this->app;
 	}
 	public function setTrash($trash)
 	{
@@ -63,7 +63,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		if (is_null($this->trash)) {
 			$this->trash = false;
 		}
-		return Boolean::null($this->trash);
+		return $this->trash;
 	}
 	public function toArray()
 	{
