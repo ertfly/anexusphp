@@ -23,7 +23,7 @@ class ApiEntity extends MongoEntity
     }
     public function getId()
     {
-        return Number::intNull($this->_id);
+        return $this->_id;
     }
     public function setName($name)
     {
@@ -32,7 +32,7 @@ class ApiEntity extends MongoEntity
     }
     public function getName()
     {
-        return Strings::null($this->name);
+        return $this->name;
     }
     public function setCreatedAt($createdAt)
     {
@@ -52,7 +52,7 @@ class ApiEntity extends MongoEntity
             $this->created_at = strtotime($this->created_at);
         }
 
-        return Number::intNull($this->created_at);
+        return $this->created_at;
     }
     public function setUpdatedAt($updatedAt)
     {
@@ -70,7 +70,7 @@ class ApiEntity extends MongoEntity
                 $this->updated_at = strtotime($this->updated_at);
             }
         }
-        return  Number::intNull($this->updated_at);
+        return $this->updated_at;
     }
     public function setExpiredAt($expiredAt)
     {
@@ -87,17 +87,17 @@ class ApiEntity extends MongoEntity
                 $this->expired_at = strtotime($this->expired_at);
             }
             if ($format) {
-                return date($f, Number::intNull($this->expired_at));
+                return date($f, $this->expired_at);
             }
         }
-        return Number::intNull($this->expired_at);
+        return $this->expired_at;
     }
     public function getTrash()
     {
         if (is_null($this->trash)) {
             $this->trash = false;
         }
-        return Boolean::null($this->trash);
+        return $this->trash;
     }
     public function setTrash($trash)
     {
