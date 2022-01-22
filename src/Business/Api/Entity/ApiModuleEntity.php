@@ -21,7 +21,7 @@ class ApiModuleEntity extends MongoEntity
 	}
 	public function getId()
 	{
-		return Number::intNull($this->_id);
+		return $this->_id;
 	}
 	public function setDescription($description)
 	{
@@ -30,7 +30,7 @@ class ApiModuleEntity extends MongoEntity
 	}
 	public function getDescription()
 	{
-		return Strings::null($this->description);
+		return $this->description;
 	}
 	public function setQuantity($quantity)
 	{
@@ -39,14 +39,14 @@ class ApiModuleEntity extends MongoEntity
 	}
 	public function getQuantity()
 	{
-		return Number::intNull($this->quantity);
+		return $this->quantity;
 	}
 	public function getSdk()
 	{
 		if (is_null($this->sdk)) {
 			$this->sdk = false;
 		}
-		return Boolean::null($this->sdk);
+		return $this->sdk;
 	}
 	public function setSdk($sdk)
 	{
