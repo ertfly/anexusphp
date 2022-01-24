@@ -159,6 +159,10 @@ class PermissionLevelRepository
             ];
         }
 
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where['app_id'] = intval($filters['app_id']);
+        }
+
         $total = $db->{PermissionLevelEntity::TABLE}->count($filters);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
