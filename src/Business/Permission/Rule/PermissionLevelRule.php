@@ -13,7 +13,7 @@ class PermissionLevelRule
         $db->{PermissionLevelEntity::TABLE}->createIndex([
             'app_id' => 1,
             'trash' => 1,
-        ], ['app_id' => PermissionLevelEntity::TABLE . '_idx_app_id']);
+        ], ['name' => PermissionLevelEntity::TABLE . '_idx_app_id']);
         $db->{PermissionLevelEntity::TABLE}->createIndex([
             'name' => 1,
             'trash' => 1,
