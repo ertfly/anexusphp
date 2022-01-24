@@ -40,11 +40,15 @@ class PermissionModuleRepository
      * 
      * @return PermissionModuleEntity[]
      */
-    public static function all($cls = PermissionModuleEntity::class)
+    public static function all(array $filters = [], $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
 
         $where = [];
+
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where['app'] = intval($filters['app_id']);
+        }
 
         $options = [
             'sort' => [
