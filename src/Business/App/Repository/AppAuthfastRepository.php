@@ -17,19 +17,19 @@ class AppAuthfastRepository
      * @param integer|null $id
      * @return AppAuthfastEntity
      */
-    public static function byId($id)
+    public static function byId($id, $cls = AppAuthfastEntity::class)
     {
         $db = Database::getInstance();
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['_id' => intval($id)], ['limit' => 1]);
         $cursor->setTypeMap([
-            'root' => AppAuthfastEntity::class,
+            'root' => $cls,
             'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
-        return new AppAuthfastEntity();
+        return new $cls();
     }
 
     /**
@@ -38,19 +38,19 @@ class AppAuthfastRepository
      * @param string|null $id
      * @return AppAuthfastEntity
      */
-    public static function byAuthfastId($authfastId)
+    public static function byAuthfastId($authfastId, $cls = AppAuthfastEntity::class)
     {
         $db = Database::getInstance();
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['authfast_id' => intval($authfastId)], ['limit' => 1]);
         $cursor->setTypeMap([
-            'root' => AppAuthfastEntity::class,
+            'root' => $cls,
             'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
-        return new AppAuthfastEntity();
+        return new $cls();
     }
 
     /**
@@ -60,19 +60,19 @@ class AppAuthfastRepository
      * @param AuthfastEntity $authfast
      * @return AppAuthfastEntity
      */
-    public static function byAppAuthfast(AppEntity $app, AuthfastEntity $authfast)
+    public static function byAppAuthfast(AppEntity $app, AuthfastEntity $authfast, $cls = AppAuthfastEntity::class)
     {
         $db = Database::getInstance();
         $cursor = $db->{AppAuthfastEntity::TABLE}->find(['app_id' => $app->getId(), 'authfast_id' => $authfast->getId()], ['limit' => 1]);
         $cursor->setTypeMap([
-            'root' => AppAuthfastEntity::class,
+            'root' => $cls,
             'document' => 'array',
         ]);
         Database::closeInstance();
         foreach ($cursor as $r) {
             return $r;
         }
-        return new AppAuthfastEntity();
+        return new $cls();
     }
 
     /**
@@ -143,7 +143,7 @@ class AppAuthfastRepository
      * @param integer $perPg
      * @return Pagination[]
      */
-    public static function allWithPagination($url, $filters = [], $currentPg, $varPg = 'pg', $perPg = 12)
+    public static function allWithPagination($url, $filters = [], $currentPg, $varPg = 'pg', $perPg = 12, $cls = AppAuthfastEntity::class)
     {
         $db = Database::getInstance();
 
@@ -172,7 +172,7 @@ class AppAuthfastRepository
             ]
         );
         $cursor->setTypeMap([
-            'root' => AppAuthfastEntity::class,
+            'root' => $cls,
             'document' => 'array',
         ]);
 
