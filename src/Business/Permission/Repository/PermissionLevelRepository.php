@@ -120,10 +120,10 @@ class PermissionLevelRepository
      * @param int $level
      * @return PermissionLevelEntity
      */
-    public static function byLevel(int $level)
+    public static function byLevel(int $level, AppEntity $app)
     {
         $db = Database::getInstance();
-        $cursor = $db->{PermissionLevelEntity::TABLE}->find(['trash' => false, 'level' => intval($level)], ['limit' => 1]);
+        $cursor = $db->{PermissionLevelEntity::TABLE}->find(['trash' => false, 'level' => intval($level), 'app_id' => $app->getId()], ['limit' => 1]);
         $cursor->setTypeMap([
             'root' => PermissionLevelEntity::class,
             'document' => 'array',
