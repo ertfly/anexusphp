@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Permission\Repository;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
@@ -75,7 +76,7 @@ class PermissionModuleRepository
      * 
      * @return PermissionModuleEntity[]
      */
-    public static function byLevelEqualOrHigher($level, $cls = PermissionModuleEntity::class)
+    public static function byLevelEqualOrHigher($level, AppEntity $app, $cls = PermissionModuleEntity::class)
     {
         $db = Database::getInstance();
 
@@ -83,6 +84,7 @@ class PermissionModuleRepository
             'level' => [
                 '$gte' => intval($level),
             ],
+            'app_id' => $app->getId(),
         ];
 
         $options = [
@@ -99,7 +101,7 @@ class PermissionModuleRepository
             'root' => $cls,
             'document' => 'array',
         ]);
-        
+
         Database::closeInstance();
 
         $rows = [];

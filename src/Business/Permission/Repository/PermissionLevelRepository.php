@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\Permission\Repository;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
@@ -76,7 +77,7 @@ class PermissionLevelRepository
      * 
      * @return PermissionLevelEntity[]
      */
-    public static function byLevelEqualOrHigher(int $level)
+    public static function byLevelEqualOrHigher(int $level, AppEntity $app)
     {
         $db = Database::getInstance();
 
@@ -85,6 +86,7 @@ class PermissionLevelRepository
             'level' => [
                 '$gte' => intval($level),
             ],
+            'app_id' => $app->getId(),
         ];
 
         $options = [
