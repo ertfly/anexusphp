@@ -58,7 +58,7 @@ class Number
 
     public static function intNull($var)
     {
-        if (!is_int($var) && trim($var) == '') {
+        if (!is_double($var) && !is_int($var) && !is_string($var) && !is_bool($var) && trim($var) == '') {
             return null;
         }
 
@@ -67,7 +67,7 @@ class Number
 
     public static function doubleNull($var)
     {
-        if (!is_double($var) && trim($var) == '') {
+        if (!is_double($var) && !is_int($var) && !is_string($var) && !is_bool($var) && trim($var) == '') {
             return null;
         }
 
