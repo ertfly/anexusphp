@@ -2,6 +2,8 @@
 
 namespace AnexusPHP\Business\Permission\Entity;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
+use AnexusPHP\Business\App\Repository\AppRepository;
 use AnexusPHP\Core\MongoEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
@@ -11,6 +13,7 @@ class PermissionLevelEntity extends MongoEntity
 {
 	const TABLE = 'permission_level';
 	protected $_id;
+	protected $app_id;
 	protected $name;
 	protected $level;
 	protected $created_at;
@@ -24,6 +27,16 @@ class PermissionLevelEntity extends MongoEntity
 	public function getId()
 	{
 		return $this->_id;
+	}
+	public function getAppId()
+	{
+		return $this->app_id;
+	}
+	public function setAppId($appId)
+	{
+		$this->app_id = Number::intNull($appId);
+
+		return $this;
 	}
 	public function setName($name)
 	{
@@ -94,11 +107,32 @@ class PermissionLevelEntity extends MongoEntity
 	{
 		return array(
 			'_id' => $this->getId(),
+			'app_id' => $this->getAppId(),
 			'name' => $this->getName(),
 			'level' => $this->getLevel(),
 			'created_at' => $this->getCreatedAt(),
 			'updated_at' => $this->getUpdatedAt(),
 			'trash' => $this->getTrash()
 		);
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AppEntity
+	 */
+	private $app;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  AppEntity
+	 */
+	public function getApp()
+	{
+		if (is_null($this->app)) {
+			$this->app = AppRepository::byId($this->app_id);
+		}
+		return $this->app;
 	}
 }
