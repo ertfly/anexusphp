@@ -5,7 +5,6 @@ namespace AnexusPHP\Business\Permission\Rule;
 use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 
 use AnexusPHP\Core\Database;
-use Exception;
 
 class PermissionModuleRule
 {

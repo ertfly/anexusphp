@@ -5,7 +5,6 @@ namespace AnexusPHP\Business\Permission\Rule;
 use AnexusPHP\Business\Permission\Entity\PermissionShortcutEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionShortcutRepository;
 use AnexusPHP\Core\Database;
-use Exception;
 
 class PermissionShortcutRule
 {
