@@ -34,13 +34,17 @@ class PermissionLevelRepository
      * 
      * @return PermissionLevelEntity[]
      */
-    public static function all()
+    public static function all(array $filters = [])
     {
         $db = Database::getInstance();
 
         $where = [
             'trash' => false,
         ];
+
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where['app_id'] = intval($filters['app_id']);
+        }
 
         $options = [
             'sort' => [
