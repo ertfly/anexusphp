@@ -2,8 +2,10 @@
 
 namespace AnexusPHP\Business\Authfast\Repository;
 
+use AnexusPHP\Business\App\Entity\AppEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastPermissionEntity;
+use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionMenuRepository;
 use AnexusPHP\Core\Database;
 use PDO;
@@ -135,22 +137,28 @@ class AuthfastPermissionRepository
      * @param AuthfastEntity $authfast
      * @return int[]
      */
-    public static function listMenuIdsbyAuthfast(AuthfastEntity $authfast)
+    public static function listMenuIdsbyAuthfast(AuthfastEntity $authfast, AppEntity $app)
     {
         $db = Database::getInstance();
 
-        $where = [
-            'authfast_id' => $authfast->getId(),
-        ];
-
         $options = [
-            'sort' => [
-                '_id' => 1
+            [
+                '$lookup' => [
+                    'from' => 'permission_module',
+                    'localField' => 'module_id',
+                    'foreignField' => '_id',
+                    'as' => "AuthfastModule",
+                ],
+            ],
+            [
+                '$match' => [
+                    'authfast_id' => $authfast->getId(),
+                    'AuthfastModule.app' => $app->getId(),
+                ],
             ],
         ];
 
-        $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(
-            $where,
+        $cursor = $db->{AuthfastPermissionEntity::TABLE}->aggregate(
             $options,
         );
         $cursor->setTypeMap([
@@ -165,7 +173,7 @@ class AuthfastPermissionRepository
             $menu = PermissionMenuRepository::byModule($r->getModule());
             $rows[] = $menu->getId();
         }
-
+        
         return $rows;
     }
 
@@ -175,22 +183,28 @@ class AuthfastPermissionRepository
      * @param AuthfastEntity $authfast
      * @return int[]
      */
-    public static function listCategoryIdsbyAuthfast(AuthfastEntity $authfast)
+    public static function listCategoryIdsbyAuthfast(AuthfastEntity $authfast, AppEntity $app)
     {
         $db = Database::getInstance();
 
-        $where = [
-            'authfast_id' => $authfast->getId(),
-        ];
-
         $options = [
-            'sort' => [
-                '_id' => 1
+            [
+                '$lookup' => [
+                    'from' => 'permission_module',
+                    'localField' => 'module_id',
+                    'foreignField' => '_id',
+                    'as' => "AuthfastModule",
+                ],
+            ],
+            [
+                '$match' => [
+                    'authfast_id' => $authfast->getId(),
+                    'AuthfastModule.app' => $app->getId(),
+                ],
             ],
         ];
 
-        $cursor = $db->{AuthfastPermissionEntity::TABLE}->find(
-            $where,
+        $cursor = $db->{AuthfastPermissionEntity::TABLE}->aggregate(
             $options,
         );
         $cursor->setTypeMap([
@@ -205,7 +219,7 @@ class AuthfastPermissionRepository
             $menu = PermissionMenuRepository::byModule($r->getModule());
             $rows[] = $menu->getCategoryId();
         }
-
+        
         return $rows;
     }
 }
