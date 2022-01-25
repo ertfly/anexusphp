@@ -45,10 +45,6 @@ class PermissionEventRepository
             'trash' => false,
         ];
 
-        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
-            $where['app'] = intval($filters['app_id']);
-        }
-
         $options = [
             'sort' => [
                 'position' => 1
@@ -91,11 +87,6 @@ class PermissionEventRepository
         $where = [
             'trash' => false,
         ];
-
-        /* if (isset($filters['search']) && trim($filters['search']) != '') {
-            $where .= " and upper(a.description) like upper('%'||:description||'%') ";
-            $bind['description'] = $filters['search'];
-        } */
 
         $total = $db->{PermissionEventEntity::TABLE}->count($filters);
 
