@@ -37,13 +37,17 @@ class PermissionEventRepository
      * 
      * @return PermissionEventEntity[]
      */
-    public static function all($cls = PermissionEventEntity::class)
+    public static function all(array $filters = [], $cls = PermissionEventEntity::class)
     {
         $db = Database::getInstance();
 
         $where = [
             'trash' => false,
         ];
+
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where['app'] = intval($filters['app_id']);
+        }
 
         $options = [
             'sort' => [
