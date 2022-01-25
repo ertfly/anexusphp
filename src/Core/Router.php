@@ -161,9 +161,11 @@ class Router
             $url = explode(':', $uri)[1];
             break;
         }
-        $names = [];
-        preg_match("/\{[A-z0-9\?]+\}/", $url, $names);
+        $names = explode('/', $url);
         for ($i = 0; $i < count($names); $i++) {
+            if (!preg_match("/\{/", $names[$i])) {
+                continue;
+            }
             $var = str_replace(['{', '}', '?'], '', $names[$i]);
             if (!is_null($parameters) && isset($parameters[$var])) {
                 $url = str_replace('{' . $var . '}', $parameters[$var], $url);
@@ -174,6 +176,7 @@ class Router
             $url = str_replace('{' . $var . '}', '', $url);
             $url = str_replace('{' . $var . '?}', '', $url);
         }
+
         return '/' . trim($url, '/') . (!is_null($getParams) ? '?' . http_build_query($getParams) : '');
     }
 }

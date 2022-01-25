@@ -10,7 +10,6 @@ use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastPermissionRepository;
 use AnexusPHP\Business\Authfast\Rule\AuthfastActivityRule;
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
-use AnexusPHP\Business\Permission\Entity\PermissionEventEntity;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Core\Router;
 use AnexusPHP\Core\Session;
