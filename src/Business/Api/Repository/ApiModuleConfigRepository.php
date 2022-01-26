@@ -231,6 +231,9 @@ class ApiModuleConfigRepository
                 continue;
             }
             $url = parse_url($url);
+            if (in_array($url['host'], $rows)) {
+                continue;
+            }
             $rows[] = $url['host'];
         }
 
