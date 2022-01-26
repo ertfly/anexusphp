@@ -64,7 +64,7 @@ class Router
                         $arrUri = explode('/', $uri);
                         $parameters = [];
                         for ($i = 0; $i < count($arrUri); $i++) {
-                            if ($arrUri[$i] == $paths[$i]) {
+                            if (isset($paths[$i]) && $arrUri[$i] == $paths[$i]) {
                                 continue;
                             }
                             if (isset($setting['validate'])) {
