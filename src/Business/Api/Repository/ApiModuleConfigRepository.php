@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Api\Repository;
 
 use AnexusPHP\Business\Api\Entity\ApiModuleConfigEntity;
+use AnexusPHP\Business\Api\Entity\ApiModuleEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
 
@@ -185,5 +186,54 @@ class ApiModuleConfigRepository
         $pagination->setRows($rows);
 
         return $pagination;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $cls
+     * @return string[]
+     */
+    public static function allDomains($cls = ApiModuleConfigEntity::class)
+    {
+        $db = Database::getInstance();
+
+        $options = [
+            [
+                '$lookup' => [
+                    'from' => ApiModuleEntity::TABLE,
+                    'localField' => 'api_module_id',
+                    'foreignField' => '_id',
+                    'as' => "ApiModule",
+                ],
+            ],
+            [
+                '$match' => [
+                    'ApiModule.sdk' => true,
+                ],
+            ],
+        ];
+
+        $cursor = $db->{ApiModuleConfigEntity::TABLE}->aggregate(
+            $options,
+        );
+        $cursor->setTypeMap([
+            'root' => $cls,
+            'document' => 'array',
+        ]);
+
+        Database::closeInstance();
+
+        $rows = [];
+        foreach ($cursor as $r) {
+            $url = $r->getDefinitionByKey('url_sdk');
+            if (!$url) {
+                continue;
+            }
+            $url = parse_url($url);
+            $rows[] = $url['host'];
+        }
+
+        return $rows;
     }
 }
