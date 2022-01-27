@@ -144,7 +144,7 @@ class AuthfastPermissionRepository
         $options = [
             [
                 '$lookup' => [
-                    'from' => 'permission_module',
+                    'from' => PermissionModuleEntity::TABLE,
                     'localField' => 'module_id',
                     'foreignField' => '_id',
                     'as' => "AuthfastModule",
