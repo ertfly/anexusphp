@@ -2,6 +2,7 @@
 
 namespace AnexusPHP\Business\App\Entity;
 
+use AnexusPHP\Business\App\Repository\AppRepository;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Business\Authfast\Repository\AuthfastRepository;
 use AnexusPHP\Business\Permission\Entity\PermissionLevelEntity;
@@ -101,5 +102,25 @@ class AppAuthfastEntity extends MongoEntity
 			$this->permissionLevel = PermissionLevelRepository::byId($this->permission_level_id);
 		}
 		return $this->permissionLevel;
+	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var AppEntity
+	 */
+	private $app;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  AppEntity
+	 */
+	public function getApp()
+	{
+		if (is_null($this->app)) {
+			$this->app = AppRepository::byId($this->app_id);
+		}
+		return $this->app;
 	}
 }
