@@ -6,6 +6,7 @@ use AnexusPHP\Business\Authfast\Entity\AuthfastActivityEntity;
 use AnexusPHP\Business\Authfast\Entity\AuthfastEntity;
 use AnexusPHP\Core\Database;
 use AnexusPHP\Core\Libraries\Pagination\Pagination;
+use AnexusPHP\Core\Tools\Number;
 use PDO;
 
 class AuthfastActivityRepository
@@ -36,15 +37,23 @@ class AuthfastActivityRepository
      * 
      * @return AuthfastActivityEntity[]
      */
-    public static function all()
+    public static function all(array $filters = [])
     {
         $db = Database::getInstance();
 
         $where = [];
 
+        if (isset($filters['app_id']) && trim($filters['app_id']) != '') {
+            $where['app_id'] = Number::intNull($filters['app_id']);
+        }
+
+        if (isset($filters['authfast_id']) && trim($filters['authfast_id']) != '') {
+            $where['authfast_id'] = Number::intNull($filters['authfast_id']);
+        }
+
         $options = [
             'sort' => [
-                'created_at' => -1
+                '_id' => -1
             ],
         ];
 
@@ -98,7 +107,7 @@ class AuthfastActivityRepository
         ]);
 
         Database::closeInstance();
-        
+
         $rows = [];
         foreach ($cursor as $r) {
             $rows[] = $r;
