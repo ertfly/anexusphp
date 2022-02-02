@@ -49,8 +49,11 @@ class PermissionShortcutRepository
     }
 
     /**
-     * Retorna todos os registros do banco
-     * 
+     * Undocumented function
+     *
+     * @param array $filters
+     * @param array $sort
+     * @param int $limit
      * @return PermissionShortcutEntity[]
      */
     public static function all($filters = [], $sort = ['position' => 1], $limit = null)
