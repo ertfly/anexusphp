@@ -16,6 +16,24 @@ class AuthfastActivityRule
             'authfast_id' => 1,
         ], ['name' => AuthfastActivityEntity::TABLE . '_idx_authfast_id']);
         $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'app_id' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_app_id']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'manager' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_manager']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'permission_event_id' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_permission_event_id']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'permission_module_id' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_permission_module_id']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'bind_id' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_bind_id']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
+            'bind_table' => 1,
+        ], ['name' => AuthfastActivityEntity::TABLE . '_idx_bind_table']);
+        $db->{AuthfastActivityEntity::TABLE}->createIndex([
             'created_at' => 1,
         ], ['name' => AuthfastActivityEntity::TABLE . '_idx_created_at']);
         Database::closeInstance();

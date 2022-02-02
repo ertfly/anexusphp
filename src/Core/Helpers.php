@@ -333,15 +333,18 @@ function template($name, $defaultValue = null, $isUpload = false)
  * @param string $description
  * @return AuthfastActivityEntity
  */
-function createLog(AuthfastEntity $authfast, $permissionModuleId, $permissionEventId, $bindId, $bindTable, $description = null)
+function createLog($authfastId, $appId, $manager, $permissionModuleId, $permissionEventId, $bindId, $bindTable, $description, array $lastData = null)
 {
-    $log = new AuthfastActivityEntity;
-    $log->setAuthfastId($authfast->getId())
+    $log = (new AuthfastActivityEntity)
+        ->setAuthfastId($authfastId)
+        ->setAppId($appId)
+        ->setManager($manager)
         ->setPermissionEventId($permissionEventId)
         ->setPermissionModuleId($permissionModuleId)
         ->setBindId($bindId)
         ->setBindTable($bindTable)
-        ->setDescription($description);
+        ->setDescription($description)
+        ->setLastData($lastData);
     AuthfastActivityRule::insert($log);
 
     return $log;
