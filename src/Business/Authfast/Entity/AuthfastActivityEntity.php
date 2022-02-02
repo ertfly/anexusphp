@@ -24,6 +24,7 @@ class AuthfastActivityEntity extends MongoEntity
 	protected $bind_id;
 	protected $bind_table;
 	protected $description;
+	protected $last_data;
 	protected $created_at;
 	public function setId($id)
 	{
@@ -103,6 +104,16 @@ class AuthfastActivityEntity extends MongoEntity
 
 		return $this;
 	}
+	public function getLastData()
+	{
+		return $this->last_data;
+	}
+	public function setLastData(array $last_data)
+	{
+		$this->last_data = $last_data;
+
+		return $this;
+	}
 	public function setCreatedAt($createdAt)
 	{
 		if (is_string($createdAt)) {
@@ -138,6 +149,7 @@ class AuthfastActivityEntity extends MongoEntity
 			'bind_id' => $this->getBindId(),
 			'bind_table' => $this->getBindTable(),
 			'description' => $this->getDescription(),
+			'last_data' => $this->getLastData(),
 			'created_at' => $this->getCreatedAt(),
 		);
 	}
