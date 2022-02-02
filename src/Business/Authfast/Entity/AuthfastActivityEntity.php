@@ -10,6 +10,7 @@ use AnexusPHP\Business\Permission\Entity\PermissionModuleEntity;
 use AnexusPHP\Business\Permission\Repository\PermissionEventRepository;
 use AnexusPHP\Business\Permission\Repository\PermissionModuleRepository;
 use AnexusPHP\Core\MongoEntity;
+use AnexusPHP\Core\Tools\Boolean;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
 
@@ -19,6 +20,7 @@ class AuthfastActivityEntity extends MongoEntity
 	protected $_id;
 	protected $authfast_id;
 	protected $app_id;
+	protected $manager;
 	protected $permission_event_id;
 	protected $permission_module_id;
 	protected $bind_id;
@@ -52,6 +54,16 @@ class AuthfastActivityEntity extends MongoEntity
 	public function setAppId($appId)
 	{
 		$this->app_id = Number::intNull($appId);
+
+		return $this;
+	}
+	public function getManager()
+	{
+		return $this->manager;
+	}
+	public function setManager($manager)
+	{
+		$this->manager = Boolean::null($manager);
 
 		return $this;
 	}
@@ -144,6 +156,7 @@ class AuthfastActivityEntity extends MongoEntity
 			'_id' => $this->getId(),
 			'authfast_id' => $this->getAuthfastId(),
 			'app_id' => $this->getAppId(),
+			'manager' => $this->getManager(),
 			'permission_event_id' => $this->getPermissionEventId(),
 			'permission_module_id' => $this->getPermissionModuleId(),
 			'bind_id' => $this->getBindId(),
