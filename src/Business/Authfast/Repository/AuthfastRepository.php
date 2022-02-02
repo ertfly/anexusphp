@@ -184,7 +184,7 @@ class AuthfastRepository
             ];
         }
         
-        $total = $db->{AuthfastEntity::TABLE}->count($filters);
+        $total = $db->{AuthfastEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

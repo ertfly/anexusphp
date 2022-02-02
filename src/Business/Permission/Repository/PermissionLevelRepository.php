@@ -163,7 +163,7 @@ class PermissionLevelRepository
             $where['app_id'] = intval($filters['app_id']);
         }
 
-        $total = $db->{PermissionLevelEntity::TABLE}->count($filters);
+        $total = $db->{PermissionLevelEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

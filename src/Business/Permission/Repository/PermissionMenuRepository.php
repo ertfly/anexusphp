@@ -142,7 +142,7 @@ class PermissionMenuRepository
             $bind['description'] = $filters['search'];
         } */
 
-        $total = $db->{PermissionMenuEntity::TABLE}->count($filters);
+        $total = $db->{PermissionMenuEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

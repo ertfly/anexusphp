@@ -97,7 +97,7 @@ class PermissionEventRepository
             $bind['description'] = $filters['search'];
         } */
 
-        $total = $db->{PermissionEventEntity::TABLE}->count($filters);
+        $total = $db->{PermissionEventEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

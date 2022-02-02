@@ -166,7 +166,7 @@ class PermissionShortcutRepository
             ];
         }
 
-        $total = $db->{PermissionShortcutEntity::TABLE}->count($filters);
+        $total = $db->{PermissionShortcutEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

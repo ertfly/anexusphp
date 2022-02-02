@@ -132,7 +132,7 @@ class PermissionModuleRepository
 
         $where = [];
 
-        $total = $db->{PermissionModuleEntity::TABLE}->count($filters);
+        $total = $db->{PermissionModuleEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

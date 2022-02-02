@@ -157,7 +157,7 @@ class ApiModuleConfigRepository
             ];
         }
 
-        $total = $db->{ApiModuleConfigEntity::TABLE}->count($filters);
+        $total = $db->{ApiModuleConfigEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

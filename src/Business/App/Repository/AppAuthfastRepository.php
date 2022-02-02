@@ -157,7 +157,7 @@ class AppAuthfastRepository
             $where['app_id'] = intval($filters['app_id']);
         }
 
-        $total = $db->{AppAuthfastEntity::TABLE}->count($filters);
+        $total = $db->{AppAuthfastEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 

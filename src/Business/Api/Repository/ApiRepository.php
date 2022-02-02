@@ -89,7 +89,7 @@ class ApiRepository
             ];
         }
 
-        $total = $db->{ApiEntity::TABLE}->count($filters);
+        $total = $db->{ApiEntity::TABLE}->count($where);
 
         $pagination = new Pagination($total, $perPg, $varPg, $currentPg, $url);
 
