@@ -120,7 +120,7 @@ class AuthfastActivityEntity extends MongoEntity
 	{
 		return $this->last_data;
 	}
-	public function setLastData(array $last_data)
+	public function setLastData(?array $last_data)
 	{
 		$this->last_data = $last_data;
 
