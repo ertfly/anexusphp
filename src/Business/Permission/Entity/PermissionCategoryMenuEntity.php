@@ -13,6 +13,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	const TABLE = 'permission_category_menu';
 	protected $_id;
 	protected $description;
+	protected $icon;
 	protected $position;
 	protected $app;
 	protected $trash;
@@ -33,6 +34,16 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	public function getDescription()
 	{
 		return $this->description;
+	}
+	public function getIcon()
+	{
+		return $this->icon;
+	}
+	public function setIcon($icon)
+	{
+		$this->icon = Strings::null($icon);
+
+		return $this;
 	}
 	public function getPosition()
 	{
@@ -70,6 +81,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		return array(
 			'_id' => $this->getId(),
 			'description' => $this->getDescription(),
+			'icon' => $this->getIcon(),
 			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
 			'trash' => $this->getTrash(),
