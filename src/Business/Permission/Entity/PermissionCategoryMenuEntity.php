@@ -112,4 +112,29 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		}
 		return $this->menu;
 	}
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionMenuEntity
+	 */
+	private $firstMenu;
+
+	/**
+	 * Get undocumented variable
+	 *
+	 * @return  PermissionMenuEntity
+	 */
+	public function getFirstMenu()
+	{
+		if (is_null($this->firstMenu)) {
+			$menus = $this->getMenu();
+			if (count($menus) > 0) {
+				$this->firstMenu = $menus[0];
+			} else {
+				$this->firstMenu = new PermissionMenuEntity;
+			}
+		}
+		return $this->firstMenu;
+	}
 }
