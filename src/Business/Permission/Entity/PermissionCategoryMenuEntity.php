@@ -88,9 +88,20 @@ class PermissionCategoryMenuEntity extends MongoEntity
 		);
 	}
 
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PermissionMenuEntity[]
+	 */
 	private $menu;
 
-	public function getMenu(array $allows = null)
+	/**
+	 * Undocumented function
+	 *
+	 * @param array|null $allows
+	 * @return PermissionMenuEntity[]
+	 */
+	public function getMenu(?array $allows = null)
 	{
 		if (is_null($this->menu)) {
 			if (!is_null($allows)) {
