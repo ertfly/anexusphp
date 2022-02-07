@@ -265,4 +265,17 @@ class AuthfastEntity extends MongoEntity
 		}
 		return $this->permissionLevel;
 	}
+
+	private $fullname;
+
+	/**
+	 * Get the value of fullname
+	 */
+	public function getFullname()
+	{
+		if (is_null($this->fullname)) {
+			$this->fullname = $this->firstname . ' ' . $this->lastname;
+		}
+		return $this->fullname;
+	}
 }
