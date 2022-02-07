@@ -380,3 +380,23 @@ function config($key, $defaultValue = null)
 
     return $value;
 }
+
+/**
+ * Undocumented function
+ *
+ * @param array|null $attr
+ * @return string
+ */
+function htmlAttr(?array $attr)
+{
+    if (!is_array($attr) || count($attr) == 0) {
+        return;
+    }
+
+    $str = '';
+    foreach ($attr as $k => $v) {
+        $str .= ' ' . $k . '="' . $v . '"';
+    }
+
+    return $str;
+}
