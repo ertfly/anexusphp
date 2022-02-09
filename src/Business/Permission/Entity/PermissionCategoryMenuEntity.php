@@ -16,6 +16,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	protected $icon;
 	protected $position;
 	protected $app;
+	protected $visible;
 	protected $trash;
 	public function setId($id)
 	{
@@ -64,6 +65,16 @@ class PermissionCategoryMenuEntity extends MongoEntity
 	{
 		return $this->app;
 	}
+	public function getVisible()
+	{
+		return $this->visible;
+	}
+	public function setVisible($visible)
+	{
+		$this->visible = Boolean::null($visible);
+
+		return $this;
+	}
 	public function setTrash($trash)
 	{
 		$this->trash = Boolean::null($trash);
@@ -84,6 +95,7 @@ class PermissionCategoryMenuEntity extends MongoEntity
 			'icon' => $this->getIcon(),
 			'position' => $this->getPosition(),
 			'app' => $this->getApp(),
+			'visible' => $this->getVisible(),
 			'trash' => $this->getTrash(),
 		);
 	}

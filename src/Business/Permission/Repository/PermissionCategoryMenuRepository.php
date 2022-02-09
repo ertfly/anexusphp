@@ -53,6 +53,10 @@ class PermissionCategoryMenuRepository
             ];
         }
 
+        if (isset($filters['visible']) && is_bool($filters['visible'])) {
+            $where['visible'] = $filters['visible'];
+        }
+
         $options = [
             'sort' => [
                 'position' => 1,
@@ -89,6 +93,7 @@ class PermissionCategoryMenuRepository
 
         $where = [
             'trash' => false,
+            'visible' => false,
             'app' => intval($app),
         ];
 
