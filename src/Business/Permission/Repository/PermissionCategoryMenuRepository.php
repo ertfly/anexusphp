@@ -93,7 +93,7 @@ class PermissionCategoryMenuRepository
 
         $where = [
             'trash' => false,
-            'visible' => false,
+            'visible' => true,
             'app' => intval($app),
         ];
 
