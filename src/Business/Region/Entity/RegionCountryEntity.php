@@ -3,6 +3,8 @@
 namespace AnexusPHP\Business\Region\Entity;
 
 use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\Tools\Number;
+use AnexusPHP\Core\Tools\Strings;
 
 class RegionCountryEntity extends DatabaseEntity
 {
@@ -22,6 +24,9 @@ class RegionCountryEntity extends DatabaseEntity
     protected $money_symbol_right;
     protected $money_decimal_place;
     protected $money_exchange;
+    protected $point_symbol_left;
+    protected $point_symbol_right;
+    protected $point_decimal_place;
     protected $separator_decimal;
     protected $separator_thousands;
     public function setId($id)
@@ -151,6 +156,9 @@ class RegionCountryEntity extends DatabaseEntity
     }
     public function getMoneyDecimalPlace()
     {
+        if (is_null($this->money_decimal_place)) {
+            $this->money_decimal_place = 2;
+        }
         return $this->money_decimal_place;
     }
     public function setMoneyDecimalPlace($moneyDecimalPlace)
@@ -172,6 +180,39 @@ class RegionCountryEntity extends DatabaseEntity
     public function setMoneyExchange($moneyExchange)
     {
         $this->money_exchange = doubleval($moneyExchange);
+
+        return $this;
+    }
+    public function getPointSymbolLeft()
+    {
+        return $this->point_symbol_left;
+    }
+    public function setPointSymbolLeft($pointSymbolLeft)
+    {
+        $this->point_symbol_left = Strings::null($pointSymbolLeft);
+
+        return $this;
+    }
+    public function getPointSymbolRight()
+    {
+        return $this->point_symbol_right;
+    }
+    public function setPointSymbolRight($pointSymbolRight)
+    {
+        $this->point_symbol_right = Strings::null($pointSymbolRight);
+
+        return $this;
+    }
+    public function getPointDecimalPlace()
+    {
+        if (is_null($this->point_decimal_place)) {
+            $this->point_decimal_place = 4;
+        }
+        return $this->point_decimal_place;
+    }
+    public function setPointDecimalPlace($pointDecimalPlace)
+    {
+        $this->point_decimal_place = Number::intNull($pointDecimalPlace);
 
         return $this;
     }
@@ -213,6 +254,9 @@ class RegionCountryEntity extends DatabaseEntity
             'money_symbol_right' => $this->getMoneySymbolRight(),
             'money_decimal_place' => $this->getMoneyDecimalPlace(),
             'money_exchange' => $this->getMoneyExchange(),
+            'point_symbol_left' => $this->getPointSymbolLeft(),
+            'point_symbol_right' => $this->getPointSymbolRight(),
+            'point_decimal_place' => $this->getPointDecimalPlace(),
             'separator_decimal' => $this->getSeparatorDecimal(),
             'separator_thousands' => $this->getSeparatorThousands(),
         ];
@@ -237,5 +281,10 @@ class RegionCountryEntity extends DatabaseEntity
     public function moneyExchange($value)
     {
         return $value * $this->getMoneyExchange();
+    }
+
+    public function pointFormat($value)
+    {
+        return trim($this->getPointSymbolLeft() . ' ' . number_format($value, $this->getPointDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands()) . ' ' . $this->getPointSymbolRight());
     }
 }
