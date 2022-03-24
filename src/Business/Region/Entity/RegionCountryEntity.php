@@ -218,6 +218,9 @@ class RegionCountryEntity extends DatabaseEntity
     }
     public function getSeparatorDecimal()
     {
+        if (is_null($this->separator_decimal)) {
+            $this->separator_decimal = ',';
+        }
         return $this->separator_decimal;
     }
     public function setSeparatorDecimal($separatorDecimal)
@@ -228,6 +231,9 @@ class RegionCountryEntity extends DatabaseEntity
     }
     public function getSeparatorThousands()
     {
+        if (is_null($this->separator_thousands)) {
+            $this->separator_thousands = '.';
+        }
         return $this->separator_thousands;
     }
     public function setSeparatorThousands($separatorThousands)
