@@ -2,10 +2,10 @@
 
 namespace AnexusPHP\Business\Region\Entity;
 
+use AnexusPHP\Business\Region\Constant\RegionFormatConstant;
 use AnexusPHP\Core\DatabaseEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
-use Business\Region\Constant\RegionFormatConstant;
 
 class RegionCountryEntity extends DatabaseEntity
 {
