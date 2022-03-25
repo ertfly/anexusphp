@@ -5,6 +5,7 @@ namespace AnexusPHP\Business\Region\Entity;
 use AnexusPHP\Core\DatabaseEntity;
 use AnexusPHP\Core\Tools\Number;
 use AnexusPHP\Core\Tools\Strings;
+use Business\Region\Constant\RegionFormatConstant;
 
 class RegionCountryEntity extends DatabaseEntity
 {
@@ -292,5 +293,26 @@ class RegionCountryEntity extends DatabaseEntity
     public function pointFormat($value)
     {
         return trim($this->getPointSymbolLeft() . ' ' . number_format($value, $this->getPointDecimalPlace(), $this->getSeparatorDecimal(), $this->getSeparatorThousands()) . ' ' . $this->getPointSymbolRight());
+    }
+
+    public function regionFormat($value, $format)
+    {
+        if (!RegionFormatConstant::has($format)) {
+            $format = RegionFormatConstant::NONE;
+        }
+        switch ($format) {
+            case RegionFormatConstant::NONE:
+                return $value;
+                break;
+            case RegionFormatConstant::MONEY:
+                return $this->moneyFormat($value, false);
+                break;
+            case RegionFormatConstant::MONEY_EXCHANGE:
+                return $this->moneyFormat($value);
+                break;
+            case RegionFormatConstant::POINT:
+                return $this->pointFormat($value);
+                break;
+        }
     }
 }
