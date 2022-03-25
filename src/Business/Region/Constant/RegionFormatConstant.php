@@ -1,6 +1,6 @@
 <?php
 
-namespace Business\Region\Constant;
+namespace AnexusPHP\Business\Region\Constant;
 
 use Exception;
 
