@@ -51,7 +51,7 @@ class Cron
 
     public static function stop($command)
     {
-        $strCommand = 'pkill ' . str_replace('/', '\\/', PATH_CRON . $command) . '\\.php';
+        $strCommand = '/usr/bin/pkill -f "' . PATH_CRON . $command . '.php"';
         $handle = popen($strCommand, 'r');
         pclose($handle);
     }
