@@ -168,4 +168,26 @@ class Date
 
         return doubleval(round($totalHours, 2));
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $strA
+     * @param string $strB
+     * @return double
+     */
+    public static function diffHoursByStr($strA, $strB)
+    {
+        $timeA = self::strTimeToHours($strA);
+        $timeB = self::strTimeToHours($strB);
+
+        $diff = 0;
+        if ($timeB < $timeA) {
+            $diff = (24 - $timeA) + $timeB;
+        } else {
+            $diff = $timeB - $timeA;
+        }
+
+        return $diff;
+    }
 }
