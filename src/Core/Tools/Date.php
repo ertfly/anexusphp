@@ -147,6 +147,12 @@ class Date
         return date('Y-m-d', $time);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $str
+     * @return double
+     */
     public static function strTimeToHours($str)
     {
         $arr = explode(':', $str);
@@ -160,6 +166,6 @@ class Date
 
         $totalHours = doubleval($h) + (doubleval($m) / doubleval(60)) + (doubleval($s) / (doubleval(60) * doubleval(60)));
 
-        return round($totalHours, 2);
+        return doubleval(round($totalHours, 2));
     }
 }
