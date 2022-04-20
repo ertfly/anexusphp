@@ -5,6 +5,7 @@ namespace AnexusPHP\Core\Tools;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use DateTime;
 use DateTimeZone;
+use Exception;
 use IntlDateFormatter;
 
 class Date
@@ -144,5 +145,21 @@ class Date
             throw new \Exception('Data inválida');
         }
         return date('Y-m-d', $time);
+    }
+
+    public static function strTimeToHours($str)
+    {
+        $arr = explode(':', $str);
+        if (count($arr) != 3) {
+            throw new Exception('String do horário é inválido!');
+        }
+
+        $h = intval($arr[0]);
+        $m = intval($arr[1]);
+        $s = intval($arr[2]);
+
+        $totalHours = doubleval($h) + (doubleval($m) / doubleval(60)) + (doubleval($s) / (doubleval(60) * doubleval(60)));
+
+        return round($totalHours, 2);
     }
 }
