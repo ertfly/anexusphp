@@ -60,10 +60,7 @@ class FormValidation
                 throw new \Exception('Utilize a classe abstrata para criar um novo tipo de validação');
             }
 
-            $v = $newValidation->validate();
-            if ($v) {
-                $this->value = $v;
-            }
+            $newValidation->validate();
         }
     }
 }

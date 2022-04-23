@@ -10,7 +10,7 @@ abstract class AbstractValidation
 
     public function __construct(&$value, $description, array $options = null)
     {
-        $this->value = $value;
+        $this->value = &$value;
         $this->description = $description;
         $this->options = $options;
     }
