@@ -22,9 +22,9 @@ class FormValidation
     private $options;
     private $value;
 
-    public function __construct($value = null, $description = null, array $validations = null, $options = null)
+    public function __construct(&$value = null, $description = null, array $validations = null, $options = null)
     {
-        $this->value = $value;
+        $this->value = &$value;
         $this->description = $description;
         $this->validations = $validations;
         $this->options = $options;
@@ -33,9 +33,9 @@ class FormValidation
         }
     }
 
-    public function executeValidation($value, $description, array $validations, $options = null)
+    public function executeValidation(&$value, $description, array $validations, $options = null)
     {
-        $this->value = $value;
+        $this->value = &$value;
         $this->description = $description;
         $this->validations = $validations;
         $this->options = $options;
@@ -60,7 +60,10 @@ class FormValidation
                 throw new \Exception('Utilize a classe abstrata para criar um novo tipo de validação');
             }
 
-            $newValidation->validate();
+            $v = $newValidation->validate();
+            if ($v) {
+                $this->value = $v;
+            }
         }
     }
 }
