@@ -203,7 +203,9 @@ class Date
         $rest = abs($hours - ($d * 24));
         $h = floor($rest);
         $rest = abs($rest - $h);
-        $m = floor($rest / 60);
+        $m = floor($rest * 60);
+        $rest = ($rest - ($m / 60));
+        $s = floor($rest * 3600);
 
         $description = '';
         if ($d > 0) {
@@ -216,6 +218,10 @@ class Date
 
         if ($m > 0 || $h > 0) {
             $description .= ($description != '' ? ', ' : '') . $m . ' ' . $minText;
+        }
+
+        if ($s > 0 || $m > 0 || $h > 0) {
+            $description .= ($description != '' ? ', ' : '') . $s . ' ' . $secText;
         }
 
         return $description;
