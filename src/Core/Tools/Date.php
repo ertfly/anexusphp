@@ -202,6 +202,23 @@ class Date
         $d = floor($hours / 24);
         $rest = abs($hours - ($d * 24));
         $h = floor($rest);
-        return $d . ' ' . $dayText . ' e ' . $h . $hourText;
+        $rest = abs($rest - $h);
+        $m = floor($rest / 60);
+
+        $description = '';
+        if ($d > 0) {
+            $description .= $d . ' ' . $dayText;
+        }
+
+        if ($h > 0) {
+            $description .= ($description != '' ? ', ' : '') . $h . ' ' . $hourText;
+        }
+
+        if ($m > 0) {
+            $description .= ($description != '' ? ', ' : '') . $m . ' ' . $minText;
+        }
+
+
+        return $description;
     }
 }
