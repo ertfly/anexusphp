@@ -190,4 +190,9 @@ class Date
 
         return $diff;
     }
+
+    public static function diffHoursByDateFull($a, $b)
+    {
+        return doubleval(abs(doubleval(strtotime($b)) - doubleval(strtotime($a))) / (doubleval(60) * doubleval(60)));
+    }
 }
