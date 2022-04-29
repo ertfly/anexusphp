@@ -214,10 +214,9 @@ class Date
             $description .= ($description != '' ? ', ' : '') . $h . ' ' . $hourText;
         }
 
-        if ($m > 0) {
+        if ($m > 0 || $h > 0) {
             $description .= ($description != '' ? ', ' : '') . $m . ' ' . $minText;
         }
-
 
         return $description;
     }
