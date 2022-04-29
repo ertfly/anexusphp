@@ -193,6 +193,12 @@ class Date
 
     public static function diffHoursByDateFull($a, $b)
     {
-        return doubleval(abs(doubleval(strtotime($b)) - doubleval(strtotime($a))) / (doubleval(60) * doubleval(60)));
+        $diff = doubleval(strtotime($b)) - doubleval(strtotime($a));
+        return doubleval($diff / (60 * 60));
+    }
+
+    public static function descriptionDiff($hours, $dayText = 'dias(s)', $hourText = 'h', $minText = 'min', $secText = 's')
+    {
+        // $days = 
     }
 }
