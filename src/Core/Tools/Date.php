@@ -197,7 +197,7 @@ class Date
         return abs(doubleval($diff / (60 * 60)));
     }
 
-    public static function descriptionDiff($hours, $dayText = 'dias(s)', $hourText = 'h', $minText = 'min', $secText = 's')
+    public static function descriptionDiff($hours, $dayText = 'dia(s)', $hourText = 'h', $minText = 'min', $secText = 's')
     {
         $d = floor($hours / 24);
         $rest = abs($hours - ($d * 24));
