@@ -25,4 +25,16 @@ class Geolocation
             }
         }
     }
+
+    public static function metersToHuman($meters)
+    {
+        $meters = doubleval($meters);
+        $kilometers = floor(($meters / doubleval(1000)));
+        if ($kilometers < 1) {
+            $kilometers = doubleval(0);
+        }
+        $meters = abs((($kilometers * doubleval(1000)) - $meters));
+        $meters = round($meters, 0);
+        return ($kilometers > 0 ? $kilometers . 'km e ' : '') . $meters . ' metros';
+    }
 }
