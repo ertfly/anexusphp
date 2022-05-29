@@ -279,6 +279,10 @@ class RegionCountryEntity extends DatabaseEntity
 
     public function moneyFormat($value, $exchange = true)
     {
+        if (trim($value) == '') {
+            return '';
+        }
+
         if ($exchange) {
             $value = $this->moneyExchange($value);
         }
