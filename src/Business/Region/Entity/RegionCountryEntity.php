@@ -279,7 +279,7 @@ class RegionCountryEntity extends DatabaseEntity
 
     public function moneyFormat($value, $exchange = true)
     {
-        if (trim($value) == '') {
+        if (trim($value) == '' || !is_numeric($value)) {
             return '';
         }
 
