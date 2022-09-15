@@ -83,7 +83,7 @@ class Request
         if (self::$post) {
             $_POST = self::$post;
         }
-        
+
         if (!isset($_POST[$key]) && !isset($description)) {
             return null;
         }
@@ -170,7 +170,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT));
+            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT) . ' / Response: ' . $response);
         }
 
         curl_close($ch);
@@ -214,7 +214,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT));
+            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT) . ' / Response: ' . $response);
         }
 
         curl_close($ch);
@@ -254,7 +254,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT));
+            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT) . ' / Response: ' . $response);
         }
 
         curl_close($ch);
@@ -289,7 +289,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT));
+            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT) . ' / Response: ' . $response);
         }
 
         curl_close($ch);
@@ -363,7 +363,7 @@ class Request
         $info = curl_getinfo($ch);
 
         if (curl_errno($ch)) {
-            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT));
+            throw new Exception('Ocorreu um erro na sua requisição / Info: ' . json_encode($info, JSON_PRETTY_PRINT) . ' / Response: ' . $response);
         }
 
         curl_close($ch);
