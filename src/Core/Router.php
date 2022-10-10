@@ -149,6 +149,12 @@ class Router
 
     public static function getUrl($name, array $parameters = null, array $getParams = null)
     {
+        if (is_null(self::$settings)) {
+            if (!is_file(PATH_ROOT . 'routes.php')) {
+                throw new Exception('File /routes.php in PATH_ROOT is missing');
+            }
+            self::$settings = require_once(PATH_ROOT . 'routes.php');
+        }
         $url = $name;
         foreach (self::$settings as $uri => $setting) {
             if (!isset($setting['name'])) {

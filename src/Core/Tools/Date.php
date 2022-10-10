@@ -150,23 +150,80 @@ class Date
     /**
      * Undocumented function
      *
-     * @param string $date
-     * @param string $formatDate
-     * @param string $formatWeek
-     * @return string 
+     * @param string $str
+     * @return double
      */
-    public static function getFirstDateWeek($date, $formatDate, $formatWeek = 'N')
+    public static function strTimeToHours($str)
     {
-        if (!is_array($formatWeek, ['w', 'N'])) {
-            throw new Exception('Format inválid, only "N" or "w"');
+        $arr = explode(':', $str);
+        if (count($arr) != 3) {
+            throw new Exception('String do horário é inválido!');
         }
 
-        $init = [
-            'N' => 1,
-            'w' => 0,
-        ];
-        $dayOfWeek = intval(date($formatWeek, strtotime($date)));
-        $days = $dayOfWeek - $init[$formatWeek];
-        return date($formatDate, strtotime($date . ' -' . $days . ' day'));
+        $h = intval($arr[0]);
+        $m = intval($arr[1]);
+        $s = intval($arr[2]);
+
+        $totalHours = doubleval($h) + (doubleval($m) / doubleval(60)) + (doubleval($s) / (doubleval(60) * doubleval(60)));
+
+        return doubleval(round($totalHours, 2));
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $strA
+     * @param string $strB
+     * @return double
+     */
+    public static function diffHoursByStr($strA, $strB)
+    {
+        $timeA = self::strTimeToHours($strA);
+        $timeB = self::strTimeToHours($strB);
+
+        $diff = 0;
+        if ($timeB < $timeA) {
+            $diff = (24 - $timeA) + $timeB;
+        } else {
+            $diff = $timeB - $timeA;
+        }
+
+        return $diff;
+    }
+
+    public static function diffHoursByDateFull($a, $b)
+    {
+        $diff = doubleval(strtotime($b)) - doubleval(strtotime($a));
+        return abs(doubleval($diff / (60 * 60)));
+    }
+
+    public static function descriptionDiff($hours, $dayText = 'dia(s)', $hourText = 'h', $minText = 'min', $secText = 's')
+    {
+        $d = floor($hours / 24);
+        $rest = abs($hours - ($d * 24));
+        $h = floor($rest);
+        $rest = abs($rest - $h);
+        $m = floor($rest * 60);
+        $rest = ($rest - ($m / 60));
+        $s = floor($rest * 3600);
+
+        $description = '';
+        if ($d > 0) {
+            $description .= $d . ' ' . $dayText;
+        }
+
+        if ($h > 0) {
+            $description .= ($description != '' ? ', ' : '') . $h . ' ' . $hourText;
+        }
+
+        if ($m > 0 || $h > 0) {
+            $description .= ($description != '' ? ', ' : '') . $m . ' ' . $minText;
+        }
+
+        if ($s > 0 || $m > 0 || $h > 0) {
+            $description .= ($description != '' ? ', ' : '') . $s . ' ' . $secText;
+        }
+
+        return $description;
     }
 }
