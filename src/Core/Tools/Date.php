@@ -5,6 +5,7 @@ namespace AnexusPHP\Core\Tools;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use DateTime;
 use DateTimeZone;
+use Exception;
 use IntlDateFormatter;
 
 class Date
@@ -144,5 +145,28 @@ class Date
             throw new \Exception('Data inválida');
         }
         return date('Y-m-d', $time);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $date
+     * @param string $formatDate
+     * @param string $formatWeek
+     * @return string 
+     */
+    public static function getFirstDateWeek($date, $formatDate, $formatWeek = 'N')
+    {
+        if (!is_array($formatWeek, ['w', 'N'])) {
+            throw new Exception('Format inválid, only "N" or "w"');
+        }
+
+        $init = [
+            'N' => 1,
+            'w' => 0,
+        ];
+        $dayOfWeek = intval(date($formatWeek, strtotime($date)));
+        $days = $dayOfWeek - $init[$formatWeek];
+        return date($formatDate, strtotime($date . ' -' . $days . ' day'));
     }
 }
