@@ -249,4 +249,27 @@ class Date
         $days = $dayOfWeek - $init[$formatWeek];
         return date($formatDate, strtotime($date . ' -' . $days . ' day'));
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $date
+     * @param string $formatDate
+     * @param string $formatWeek
+     * @return string 
+     */
+    public static function getLastDateWeek($date, $formatDate, $formatWeek = 'N')
+    {
+        if (!is_array($formatWeek, ['w', 'N'])) {
+            throw new Exception('Format inválid, only "N" or "w"');
+        }
+
+        $end = [
+            'N' => 7,
+            'w' => 6,
+        ];
+        $dayOfWeek = intval(date($formatWeek, strtotime($date)));
+        $days = $end[$formatWeek] - $dayOfWeek;
+        return date($formatDate, strtotime($date . ' +' . $days . ' day'));
+    }
 }
