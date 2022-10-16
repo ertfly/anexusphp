@@ -65,6 +65,19 @@ class AuthfastRule
             ->setPhoto(str_replace('http://', 'https://', $response['data']['photo']))
             ->setBanner(str_replace('http://', 'https://', $response['data']['banner']))
             ->setRegionCountryId($country->getId());
+
+        unset($response['data']['type']);
+        unset($response['data']['authfast_id']);
+        unset($response['data']['firstname']);
+        unset($response['data']['lastname']);
+        unset($response['data']['username']);
+        unset($response['data']['email']);
+        unset($response['data']['document']);
+        unset($response['data']['photo']);
+        unset($response['data']['banner']);
+
+        $authfast->setData($response['data']);
+
         if (!$authfast->getId()) {
             AuthfastRule::insert($authfast);
         } else {
