@@ -60,8 +60,8 @@ class AuthfastRule
             ->setUsername($response['data']['username'])
             ->setEmail($response['data']['email'])
             ->setDocument($response['data']['document'])
-            ->setPhoto(str_replace('http://', 'https://', $response['data']['photo']))
-            ->setBanner(str_replace('http://', 'https://', $response['data']['banner']))
+            ->setPhoto($response['data']['photo'])
+            ->setBanner($response['data']['banner'])
             ->setRegionCountryId($country->getId())
             ->setCreatedAt($response['data']['created_at'])
             ->setUpdatedAt($response['data']['updated_at']);
