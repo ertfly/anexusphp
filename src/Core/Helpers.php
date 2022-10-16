@@ -33,14 +33,23 @@ use Pecee\Http\Request;
  */
 function url($name = null, $parameters = null, ?array $getParams = null)
 {
-    return Router::getUrl($name, $parameters, $getParams);
+    $base = '';
+    if (defined('BASE_URL')) {
+        $base = BASE_URL;
+    }
+    return $base . Router::getUrl($name, $parameters, $getParams);
 }
 
 function url_absolute($name = null, $parameters = null, ?array $getParams = null)
 {
+
     $protocol = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? "https://" : "http://";
     $domainName = isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '/');
-    return rtrim($protocol . $domainName . url($name, $parameters, $getParams), '/');
+    $base = $protocol . $domainName;
+    if (defined('BASE_URL')) {
+        $base = BASE_URL;
+    }
+    return rtrim($base . url($name, $parameters, $getParams), '/');
 }
 
 /**
