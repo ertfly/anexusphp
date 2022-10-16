@@ -117,7 +117,7 @@ class AuthfastRepository
      * @param integer $perPg
      * @return Pagination
      */
-    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12, $cls = AuthfastEntity::class)
+    public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12, $cls = AuthfastEntity::class, $orderBy = 'a.id desc')
     {
         $db = Database::getInstance();
 
@@ -133,7 +133,7 @@ class AuthfastRepository
 
         $pagination = new Pagination($total['total'], $perPg, $varPg, $currentPg, $url);
 
-        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a ' . $where . ' order by a.id desc limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
+        $regs = $db->query('select a.* from ' . $cls::TABLE . ' a ' . $where . ' order by ' . $orderBy . ' limit ' . $perPg . ' OFFSET ' . $pagination->getOffset(), $bind)->fetchAll(PDO::FETCH_CLASS, $cls);
 
         $pagination->setRows($regs);
 
