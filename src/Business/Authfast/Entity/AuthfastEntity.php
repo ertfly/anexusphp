@@ -26,6 +26,7 @@ class AuthfastEntity extends DatabaseEntity
 	protected $updated_at;
 	protected $expired_at;
 	protected $region_country_id;
+	protected $data;
 	public function setId($id)
 	{
 		$this->id = $id;
@@ -166,6 +167,22 @@ class AuthfastEntity extends DatabaseEntity
 		$this->region_country_id = $regionCountryId;
 		return $this;
 	}
+	public function getData($arr = false)
+	{
+		if (is_null($this->data)) {
+			$this->data = '{}';
+		}
+		if ($arr) {
+			return json_decode($this->data, true);
+		}
+		return $this->data;
+	}
+	public function setData(array $data)
+	{
+		$this->data = json_encode($data);
+
+		return $this;
+	}
 	public function toArray()
 	{
 		return array(
@@ -182,6 +199,7 @@ class AuthfastEntity extends DatabaseEntity
 			'updated_at' => $this->getUpdatedAt(),
 			'expired_at' => $this->getExpiredAt(),
 			'region_country_id' => $this->getRegionCountryId(),
+			'data' => $this->getData(),
 		);
 	}
 
