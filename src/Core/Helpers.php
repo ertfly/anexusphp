@@ -33,11 +33,7 @@ use Pecee\Http\Request;
  */
 function url($name = null, $parameters = null, ?array $getParams = null)
 {
-    $base = '';
-    if (defined('BASE_URL')) {
-        $base = BASE_URL;
-    }
-    return $base . Router::getUrl($name, $parameters, $getParams);
+    return Router::getUrl($name, $parameters, $getParams);
 }
 
 function url_absolute($name = null, $parameters = null, ?array $getParams = null)
