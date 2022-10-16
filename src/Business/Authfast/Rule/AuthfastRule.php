@@ -18,8 +18,7 @@ class AuthfastRule
         if ($record->getId()) {
             throw new Exception('Esse método serve inserir registros e não alterar');
         }
-        $record->setCreatedAt(date('Y-m-d H:i:s'))
-            ->save($db);
+        $record->save($db);
     }
     public static function update(AuthfastEntity &$record)
     {
@@ -27,8 +26,7 @@ class AuthfastRule
         if (!$record->getId()) {
             throw new Exception('Esse método serve alterar registros e não inserir');
         }
-        $record->setUpdatedAt(date('Y-m-d H:i:s'))
-            ->save($db);
+        $record->save($db);
     }
     public static function delete(AuthfastEntity &$record)
     {
@@ -64,7 +62,9 @@ class AuthfastRule
             ->setDocument($response['data']['document'])
             ->setPhoto(str_replace('http://', 'https://', $response['data']['photo']))
             ->setBanner(str_replace('http://', 'https://', $response['data']['banner']))
-            ->setRegionCountryId($country->getId());
+            ->setRegionCountryId($country->getId())
+            ->setCreatedAt($response['data']['created_at'])
+            ->setUpdatedAt($response['data']['updated_at']);
 
         unset($response['data']['type']);
         unset($response['data']['authfast_id']);
@@ -75,6 +75,8 @@ class AuthfastRule
         unset($response['data']['document']);
         unset($response['data']['photo']);
         unset($response['data']['banner']);
+        unset($response['data']['created_at']);
+        unset($response['data']['updated_at']);
 
         $authfast->setData($response['data']);
 
