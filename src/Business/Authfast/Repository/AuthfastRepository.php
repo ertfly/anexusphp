@@ -115,7 +115,7 @@ class AuthfastRepository
      * @param int $currentPg
      * @param string $varPg
      * @param integer $perPg
-     * @return Pagination[]
+     * @return Pagination
      */
     public static function allWithPagination($url, $filters = array(), $currentPg, $varPg = 'pg', $perPg = 12, $cls = AuthfastEntity::class)
     {
