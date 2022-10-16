@@ -4,6 +4,8 @@ namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Business\Api\Repository\ApiRepository;
 use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\Tools\Boolean;
+use AnexusPHP\Core\Tools\Strings;
 
 class ApiKeyEntity extends DatabaseEntity
 {
@@ -75,7 +77,7 @@ class ApiKeyEntity extends DatabaseEntity
     }
     public function setWebhook($webhook)
     {
-        $this->webhook = $webhook;
+        $this->webhook = Boolean::null($webhook);
 
         return $this;
     }
@@ -130,11 +132,14 @@ class ApiKeyEntity extends DatabaseEntity
     }
     public function getTrash()
     {
+        if (is_null($this->trash)) {
+            $this->trash = false;
+        }
         return $this->trash;
     }
     public function setTrash($trash)
     {
-        $this->trash = $trash;
+        $this->trash = Boolean::null($trash);
 
         return $this;
     }
@@ -144,7 +149,7 @@ class ApiKeyEntity extends DatabaseEntity
     }
     public function setWebhookLog($webhookLog)
     {
-        $this->webhook_log = $webhookLog;
+        $this->webhook_log = Strings::null($webhookLog);
 
         return $this;
     }

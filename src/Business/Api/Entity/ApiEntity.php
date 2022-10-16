@@ -3,6 +3,7 @@
 namespace AnexusPHP\Business\Api\Entity;
 
 use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\Tools\Boolean;
 
 class ApiEntity extends DatabaseEntity
 {
@@ -63,11 +64,14 @@ class ApiEntity extends DatabaseEntity
     }
     public function getTrash()
     {
+        if (is_null($this->trash)) {
+            $this->trash = false;
+        }
         return $this->trash;
     }
     public function setTrash($trash)
     {
-        $this->trash = $trash;
+        $this->trash = Boolean::null($trash);
 
         return $this;
     }
