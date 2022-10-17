@@ -63,7 +63,7 @@ class AuthfastRule
             ->setPhoto($response['data']['photo'])
             ->setBanner($response['data']['banner'])
             ->setRegionCountryId($country->getId())
-            ->setCreatedAt(!empty($response['data']['created_at']) ? $response['data']['created_at'] : date('Y-m-d H:i:s'))
+            ->setCreatedAt($response['data']['created_at'])
             ->setUpdatedAt($response['data']['updated_at']);
 
         unset($response['data']['type']);

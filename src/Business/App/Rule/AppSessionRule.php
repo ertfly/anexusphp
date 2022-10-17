@@ -95,9 +95,12 @@ class AppSessionRule
                     ->setUsername($data['user']['username'])
                     ->setEmail($data['user']['email'])
                     ->setDocument($data['user']['document'])
-                    ->setPhoto(str_replace('http://', 'https://', $data['user']['photo']))
-                    ->setBanner(str_replace('http://', 'https://', $data['user']['banner']))
-                    ->setRegionCountryId($country->getId());
+                    ->setPhoto($data['user']['photo'])
+                    ->setBanner($data['user']['banner'])
+                    ->setRegionCountryId($country->getId())
+                    ->setCreatedAt($response['data']['created_at'])
+                    ->setUpdatedAt($response['data']['updated_at']);
+
                 if (!$authfast->getId()) {
                     AuthfastRule::insert($authfast);
                 } else {
