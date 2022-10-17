@@ -98,8 +98,8 @@ class AppSessionRule
                     ->setPhoto($data['user']['photo'])
                     ->setBanner($data['user']['banner'])
                     ->setRegionCountryId($country->getId())
-                    ->setCreatedAt($response['data']['created_at'])
-                    ->setUpdatedAt($response['data']['updated_at']);
+                    ->setCreatedAt($data['user']['created_at'])
+                    ->setUpdatedAt($data['user']['updated_at']);
 
                 if (!$authfast->getId()) {
                     AuthfastRule::insert($authfast);
