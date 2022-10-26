@@ -156,6 +156,9 @@ class Date
     public static function strTimeToHours($str)
     {
         $arr = explode(':', $str);
+        if(count($arr)==2){
+            $arr[] = '00';
+        }
         if (count($arr) != 3) {
             throw new Exception('String do horário '.$str.' é inválido!');
         }
