@@ -157,7 +157,7 @@ class Date
     {
         $arr = explode(':', $str);
         if (count($arr) != 3) {
-            throw new Exception('String do horário é inválido!');
+            throw new Exception('String do horário '.$str.' é inválido!');
         }
 
         $h = intval($arr[0]);
