@@ -169,7 +169,7 @@ class Date
 
         $totalHours = doubleval($h) + (doubleval($m) / doubleval(60)) + (doubleval($s) / (doubleval(60) * doubleval(60)));
 
-        return doubleval(round($totalHours, 2));
+        return doubleval($totalHours);
     }
 
     /**
