@@ -168,8 +168,6 @@ class Date
         $s = intval($arr[2]);
 
         $totalHours = doubleval($h) + (doubleval($m) / doubleval(60)) + (doubleval($s) / (doubleval(60) * doubleval(60)));
-        echo $totalHours;
-        exit;
 
         return doubleval(round($totalHours, 2));
     }
