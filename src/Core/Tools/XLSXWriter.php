@@ -32,10 +32,6 @@ class XLSXWriter
 
     public function __construct()
     {
-        if (!ini_get('date.timezone')) {
-            //using date functions can kick out warning if this isn't set
-            date_default_timezone_set('UTC');
-        }
         $this->addCellStyle($number_format = 'GENERAL', $style_string = null);
         $this->addCellStyle($number_format = 'GENERAL', $style_string = null);
         $this->addCellStyle($number_format = 'GENERAL', $style_string = null);
