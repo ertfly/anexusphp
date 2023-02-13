@@ -4,10 +4,10 @@ namespace AnexusPHP\Core\Tools;
 
 class Base64
 {
-    private static function command($action, $str)
+    private static function command($action, $str, $tab)
     {
         $output = '';
-        $command = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'base64 "' . $action . '" "' . str_replace('"', '\\"', $str) . '"';
+        $command = dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'base64 "' . $action . '" "' . str_replace('"', '\\"', $str) . '" ' . $tab;
         $handle = popen($command, 'r');
         if ($handle) {
             while ($tmp = fgets($handle)) {
@@ -18,13 +18,13 @@ class Base64
 
         return $output;
     }
-    public static function encode($str)
+    public static function encode($str, $tab)
     {
-        return self::command('encode', $str);
+        return self::command('encode', $str, $tab);
     }
 
-    public static function decode($str)
+    public static function decode($str, $tab)
     {
-        return self::command('decode', $str);
+        return self::command('decode', $str, $tab);
     }
 }
