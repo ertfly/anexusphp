@@ -36,6 +36,7 @@ class AuthfastRule
         }
         $record->delete($db);
     }
+
     /**
      * Undocumented function
      *
@@ -48,6 +49,59 @@ class AuthfastRule
     public static function createOrUpdateAuthfast($authfastCode, $appKey, $secretKey, $baseUrl, $classname = AuthfastEntity::class, $forceAuthorization = false)
     {
         $response = self::requestProfile($authfastCode, $appKey, $secretKey, $baseUrl, $forceAuthorization);
+
+        $authfast = AuthfastRepository::byCode($response['data']['authfast_id'], $classname);
+        $country = RegionCountryRepository::byCode($response['data']['country']);
+
+        $authfast
+            ->setType($response['data']['type'])
+            ->setCode($response['data']['authfast_id'])
+            ->setFirstname($response['data']['firstname'])
+            ->setLastname($response['data']['lastname'])
+            ->setUsername($response['data']['username'])
+            ->setEmail($response['data']['email'])
+            ->setDocument($response['data']['document'])
+            ->setPhoto($response['data']['photo'])
+            ->setBanner($response['data']['banner'])
+            ->setRegionCountryId($country->getId())
+            ->setCreatedAt($response['data']['created_at'])
+            ->setUpdatedAt($response['data']['updated_at']);
+
+        unset($response['data']['type']);
+        unset($response['data']['authfast_id']);
+        unset($response['data']['firstname']);
+        unset($response['data']['lastname']);
+        unset($response['data']['username']);
+        unset($response['data']['email']);
+        unset($response['data']['document']);
+        unset($response['data']['photo']);
+        unset($response['data']['banner']);
+        unset($response['data']['created_at']);
+        unset($response['data']['updated_at']);
+
+        $authfast->setData($response['data']);
+
+        if (!$authfast->getId()) {
+            AuthfastRule::insert($authfast);
+        } else {
+            AuthfastRule::update($authfast);
+        }
+
+        return $authfast;
+    }
+    
+    /**
+     * Undocumented function
+     *
+     * @param string $document
+     * @param string $appKey
+     * @param string $secretKey
+     * @param string $baseUrl
+     * @return AuthfastEntity
+     */
+    public static function createOrUpdateAuthfastByDocument($document, $appKey, $secretKey, $baseUrl, $classname = AuthfastEntity::class, $forceAuthorization = false)
+    {
+        $response = self::requestProfileByDocument($document, $appKey, $secretKey, $baseUrl, $forceAuthorization);
 
         $authfast = AuthfastRepository::byCode($response['data']['authfast_id'], $classname);
         $country = RegionCountryRepository::byCode($response['data']['country']);
@@ -106,6 +160,28 @@ class AuthfastRule
 
         if (!isset($response['data']['authfast_id'])) {
             throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_info', 'Erro ao buscar informações do usuário "%s" no módulo de cadastro!'), $authfastCode));
+        }
+
+        return $response;
+    }
+
+    public static function requestProfileByDocument($document, $appKey, $secretKey, $baseUrl, $forceAuthorization = false)
+    {
+        $headers = [
+            'appKey: ' . $appKey,
+            'secretKey: ' . $secretKey,
+        ];
+        $response = Request::sendGetJson(trim($baseUrl, '/') . '/api/profile/document/' . $document . '?' . ($forceAuthorization ? 'forceAuthorization=1' : ''), $headers, false, false);
+        $response = @json_decode($response['response'], true);
+        if (!isset($response['response']) || !isset($response['response']['code']) || !isset($response['response']['msg']) || !isset($response['data'])) {
+            throw new Exception(Translate::get('authfast', 'error_module_api_response', 'Dados da integração para geração de token inválidos!'));
+        }
+        if ($response['response']['code'] != 0) {
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_return', 'Erro na integração do módulo de cadastro: %s - %s'), $response['response']['code'], $response['response']['msg']));
+        }
+
+        if (!isset($response['data']['authfast_id'])) {
+            throw new Exception(sprintf(Translate::get('authfast', 'error_module_api_info', 'Erro ao buscar informações do usuário "%s" no módulo de cadastro!'), $document));
         }
 
         return $response;
