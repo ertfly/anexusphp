@@ -124,4 +124,21 @@ class RegionCountryRepository
 
         return $reg;
     }
+
+    /**
+     * Retorna o registro do pais principal
+     *
+     * @param mixed $className
+     * @return RegionCountryEntity
+     */
+    public static function mainExchange($className): RegionCountryEntity
+    {
+        $db = Database::getInstance();
+        $reg = $db->query('select * from ' . RegionCountryEntity::TABLE . ' where money_exchange = 1 order by principal desc limit 1')->fetchObject($className);
+        if ($reg === false) {
+            return new $className();
+        }
+
+        return $reg;
+    }
 }
