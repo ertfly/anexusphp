@@ -232,7 +232,7 @@ class AuthfastEntity extends DatabaseEntity
 		return $this->regionCountry;
 	}
 
-	public function getDataByKey($key, $defaultValue = null)
+	public function getDataByKey($key, $defaultValue = null, $formated = false)
 	{
 		$data = $this->getData(true);
 		if (property_exists($this, $key)) {
@@ -240,7 +240,7 @@ class AuthfastEntity extends DatabaseEntity
 		}
 
 		if (isset($data['additional']) && isset($data['additional'][0]) && isset($data['additional'][0]['values']) && isset($data['additional'][0]['values'][$key])) {
-			return $data['additional'][0]['values'][$key]['value'];
+			return !$formated ? $data['additional'][0]['values'][$key]['value'] : $data['additional'][0]['values'][$key]['valueFormatted'];
 		}
 
 		if (isset($data['addressPrincipal']) && isset($data['addressPrincipal'][$key])) {
