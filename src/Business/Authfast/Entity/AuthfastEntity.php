@@ -231,4 +231,22 @@ class AuthfastEntity extends DatabaseEntity
 		}
 		return $this->regionCountry;
 	}
+
+	public function getDataByKey($key, $defaultValue = null)
+	{
+		$data = $this->getData(true);
+		if (property_exists($this, $key)) {
+			return $this->$key;
+		}
+
+		if (isset($data['additional']) && isset($data['additional'][0]) && isset($data['additional'][0]['values']) && isset($data['additional'][0]['values'][$key])) {
+			return $data['additional'][0]['values'][$key];
+		}
+
+		if (isset($data['addressPrincipal']) && isset($data['addressPrincipal'][$key])) {
+			return $data['addressPrincipal'][$key];
+		}
+
+		return $defaultValue;
+	}
 }
