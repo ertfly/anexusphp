@@ -240,7 +240,7 @@ class AuthfastEntity extends DatabaseEntity
 		}
 
 		if (isset($data['additional']) && isset($data['additional'][0]) && isset($data['additional'][0]['values']) && isset($data['additional'][0]['values'][$key])) {
-			return $data['additional'][0]['values'][$key];
+			return $data['additional'][0]['values'][$key]['value'];
 		}
 
 		if (isset($data['addressPrincipal']) && isset($data['addressPrincipal'][$key])) {
