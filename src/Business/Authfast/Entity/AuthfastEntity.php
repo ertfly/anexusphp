@@ -7,6 +7,7 @@ use AnexusPHP\Business\Region\Constant\RegionCountryCodeConstant;
 use AnexusPHP\Business\Region\Entity\RegionCountryEntity;
 use AnexusPHP\Business\Region\Repository\RegionCountryRepository;
 use AnexusPHP\Core\DatabaseEntity;
+use AnexusPHP\Core\Tools\Strings;
 use Exception;
 
 class AuthfastEntity extends DatabaseEntity
@@ -236,7 +237,8 @@ class AuthfastEntity extends DatabaseEntity
 	{
 		$data = $this->getData(true);
 		if (property_exists($this, $key)) {
-			return $this->$key;
+			$method = 'get' . Strings::underscoreToCamelCase($key);
+			return $this->$method(true);
 		}
 
 		if (isset($data['additional']) && isset($data['additional'][0]) && isset($data['additional'][0]['values']) && isset($data['additional'][0]['values'][$key])) {
