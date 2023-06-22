@@ -137,8 +137,11 @@ class AuthfastEntity extends DatabaseEntity
 		$this->created_at = $createdAt;
 		return $this;
 	}
-	public function getCreatedAt()
+	public function getCreatedAt($format = false, $f = 'd/m/Y H:i:s')
 	{
+		if ($format && !is_null($this->created_at)) {
+			return date($f, strtotime($this->created_at));
+		}
 		return $this->created_at;
 	}
 	public function setUpdatedAt($updatedAt)
