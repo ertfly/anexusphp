@@ -67,7 +67,7 @@ function input($index = null, $defaultValue = null, $method)
                 $value = Request::get($index);
                 break;
         }
-        if (!$value) {
+        if (trim($value) == '') {
             return $defaultValue;
         }
     }
