@@ -7,10 +7,14 @@ use Pecee\SimpleRouter\SimpleRouter;
 
 class Router extends SimpleRouter
 {
+    public static function loadHelper()
+    {
+        require_once dirname(__FILE__) . '/Helpers.php';
+    }
     public static function start($migration = true): void
     {
         //Arquivo de Métodos Globais
-        require_once 'Helpers.php';
+        self::loadHelper();
 
         if ($migration) {
             Migration::init();
