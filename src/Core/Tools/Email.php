@@ -3,6 +3,7 @@
 namespace AnexusPHP\Core\Tools;
 
 use AnexusPHP\Business\Configuration\Repository\ConfigurationRepository;
+use AnexusPHP\Core\Log;
 use Exception;
 use Swift_Mailer;
 use Swift_Message;
@@ -63,6 +64,10 @@ class Email
             } else {
                 throw new Exception('Ocorreu um erro ao enviar o email solicitado, favor entrar em contato com o suporte!');
             }
+        }
+
+        if ($debug) {
+            Log::debug($logger->dump());
         }
 
         return $send;
